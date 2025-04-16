@@ -72,7 +72,7 @@
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
     }
-    /* For mobile: header hides its logo when scrolling down */
+    /* On mobile, when scrolling down, hide logo-container */
     header.hidden-logo .logo-container {
       transform: translateY(-150px);
     }
@@ -134,7 +134,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Dropdown menus: now toggle on click */
+    /* Dropdown menus that toggle on click */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -149,10 +149,10 @@
     }
     .dropdown-content a {
       display: block;
-      margin-bottom: 12px; /* increased spacing */
+      margin-bottom: 12px;
       text-decoration: none;
       color: var(--text);
-      font-size: 16px; /* bigger font */
+      font-size: 16px;
       white-space: nowrap;
       transition: transform 0.3s ease;
     }
@@ -162,7 +162,6 @@
     .dropdown-content a:hover {
       transform: rotate(5deg);
     }
-    /* Toggle class for active dropdown */
     .dropdown-open .dropdown-content {
       display: block;
       animation: fadeIn 0.3s ease;
@@ -171,7 +170,7 @@
       from { opacity: 0; transform: translateY(-5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Content Container (below fixed header) */
+    /* Content Container (pushed below fixed header) */
     .content-container {
       padding-top: var(--header-height);
     }
@@ -183,7 +182,7 @@
       height: 300px;
       border: none;
     }
-    /* Section styling */
+    /* Section Styling */
     section {
       padding: 60px 20px;
       max-width: 900px;
@@ -210,7 +209,7 @@
     section ul {
       list-style: inside;
     }
-    /* Flex containers for social links with icons */
+    /* Flex container for social links (with icons) */
     .flex-container {
       display: flex;
       gap: 20px;
@@ -236,6 +235,23 @@
     .social-icon {
       width: 20px;
       height: 20px;
+    }
+    /* Media Queries for Mobile Vertical Layout */
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav ul li button {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      .dropdown-content {
+        position: static;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
@@ -276,23 +292,21 @@
 
   <!-- Main Content Container -->
   <div class="content-container" id="mainContent">
-    <!-- Default feed will be loaded here -->
+    <!-- Default feed ("about") will load here on page load -->
   </div>
 
   <script>
     // Dropdown toggle functions
     function toggleDropdown(button) {
-      // Toggle the dropdown for this button
       const parentLi = button.parentElement;
+      // Toggle the clicked dropdown
+      parentLi.classList.toggle('dropdown-open');
       // Close other dropdowns
-      const dropdowns = document.querySelectorAll('nav ul li.dropdown');
-      dropdowns.forEach((dropdown) => {
+      document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
         if (dropdown !== parentLi) {
           dropdown.classList.remove('dropdown-open');
         }
       });
-      // Toggle current dropdown
-      parentLi.classList.toggle('dropdown-open');
     }
     function closeDropdowns() {
       document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
@@ -300,98 +314,20 @@
       });
     }
 
-    // Extended translations for languages
-    const translations = {
-      en: {
-        about: { title: "About FreQtik", text: "I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life." },
-        ltb: { title: "Learning to Bear", text: "Experience immersive gameplay on Steam – check out publicly visible events and updates coming soon!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Refine your skills with precision – see the Steam events and details coming soon!" },
-        youtube: { title: "YouTube Channel", text: "Check out my latest beats and videos on YouTube." },
-        spotify: { title: "Spotify", text: "Listen to my music on Spotify." },
-        downloads: { title: "Downloads & Tools", text: "Coming soon: Tools to enhance creative workflows for Unreal Engine and Python." },
-        socials: { title: "Connect with FreQtik", text: "" }
-      },
-      da: {
-        about: { title: "Om FreQtik", text: "Jeg er en tværfaglig skaber med passion for spiludvikling, musikproduktion og værktøjer. Velkommen til mit digitale univers." },
-        ltb: { title: "Learning to Bear", text: "Oplev et medrivende spil på Steam – tjek de offentligt synlige events og opdateringer snart!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Forbedr dine færdigheder med præcision – se Steam-begivenheder og detaljer snart!" },
-        youtube: { title: "YouTube-kanal", text: "Se mine seneste beats og videoer på YouTube." },
-        spotify: { title: "Spotify", text: "Lyt til min musik på Spotify." },
-        downloads: { title: "Downloads & Værktøjer", text: "Kommer snart: Værktøjer til at forbedre kreative workflows." },
-        socials: { title: "Kontakt FreQtik", text: "" }
-      },
-      fi: {
-        about: { title: "Tietoja FreQtikistä", text: "Olen monialainen luoja, joka kehittää pelejä, tuottaa musiikkia ja luo työkaluja. Tervetuloa digitaaliseen maailmaani." },
-        ltb: { title: "Learning to Bear", text: "Koe mukaansatempaava pelikokemus Steamissä – tarkista näkyvät tapahtumat ja päivitykset pian!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Hio taitojasi tarkkuudella – katso Steam-tapahtumat ja lisätiedot pian!" },
-        youtube: { title: "YouTube-kanava", text: "Katso uusimmat beatit ja videosi YouTubessa." },
-        spotify: { title: "Spotify", text: "Kuuntele musiikkiani Spotifyssä." },
-        downloads: { title: "Lataukset & Työkalut", text: "Tulossa pian: työkaluja luovien työskentelytapojen tehostamiseen." },
-        socials: { title: "Ota yhteyttä FreQtikiin", text: "" }
-      },
-      no: {
-        about: { title: "Om FreQtik", text: "Jeg er en tverrfaglig skaper med lidenskap for spillutvikling, musikkproduksjon og verktøy. Velkommen til mitt digitale univers." },
-        ltb: { title: "Learning to Bear", text: "Opplev et medrivende spill på Steam – sjekk ut de offentlig synlige hendelsene og oppdateringene snart!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Forbedre ferdighetene dine med presisjon – se Steam-hendelser og detaljer snart!" },
-        youtube: { title: "YouTube-kanal", text: "Sjekk ut de nyeste beatene og videoene mine på YouTube." },
-        spotify: { title: "Spotify", text: "Lytt til musikken min på Spotify." },
-        downloads: { title: "Nedlastinger & Verktøy", text: "Kommer snart: Verktøy for å forbedre kreative arbeidsflyter." },
-        socials: { title: "Kontakt FreQtik", text: "" }
-      },
-      it: {
-        about: { title: "Chi è FreQtik", text: "Sono un creatore multidisciplinare appassionato di sviluppo di giochi, produzione musicale e creazione di strumenti. Benvenuto nel mio spazio digitale." },
-        ltb: { title: "Learning to Bear", text: "Vivi un'esperienza immersiva su Steam – controlla gli eventi pubblici e gli aggiornamenti in arrivo!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Affina le tue abilità con precisione – guarda gli eventi Steam e i dettagli in arrivo!" },
-        youtube: { title: "Canale YouTube", text: "Guarda i miei ultimi beat e video su YouTube." },
-        spotify: { title: "Spotify", text: "Ascolta la mia musica su Spotify." },
-        downloads: { title: "Download & Strumenti", text: "In arrivo: strumenti per migliorare i flussi creativi." },
-        socials: { title: "Contatta FreQtik", text: "" }
-      },
-      es: {
-        about: { title: "Acerca de FreQtik", text: "Soy un creador multidisciplinario con pasión por el desarrollo de juegos, la producción musical y la creación de herramientas. Bienvenido a mi espacio digital." },
-        ltb: { title: "Learning to Bear", text: "Experimenta una jugabilidad inmersiva en Steam – ¡consulta los eventos públicos y actualizaciones próximamente!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Mejora tus habilidades con precisión – ¡pronto verás los eventos y detalles en Steam!" },
-        youtube: { title: "Canal de YouTube", text: "Mira mis últimos beats y videos en YouTube." },
-        spotify: { title: "Spotify", text: "Escucha mi música en Spotify." },
-        downloads: { title: "Descargas & Herramientas", text: "Próximamente: herramientas para mejorar los flujos creativos." },
-        socials: { title: "Conecta con FreQtik", text: "" }
-      },
-      pt: {
-        about: { title: "Sobre o FreQtik", text: "Sou um criador multidisciplinar com paixão por desenvolvimento de jogos, produção musical e criação de ferramentas. Bem-vindo ao meu espaço digital." },
-        ltb: { title: "Learning to Bear", text: "Experimente uma jogabilidade imersiva na Steam – veja os eventos públicos e atualizações em breve!" },
-        aim: { title: "Aim Trainer Bee Pro", text: "Aprimore suas habilidades com precisão – detalhes e eventos da Steam em breve!" },
-        youtube: { title: "Canal no YouTube", text: "Confira meus últimos beats e vídeos no YouTube." },
-        spotify: { title: "Spotify", text: "Ouça minha música no Spotify." },
-        downloads: { title: "Downloads & Ferramentas", text: "Em breve: ferramentas para melhorar fluxos criativos." },
-        socials: { title: "Conecte-se com o FreQtik", text: "" }
-      }
-    };
-
-    // Determine user language; default to English
-    let lang = "en";
-    const userLang = navigator.language || navigator.userLanguage;
-    if(userLang.startsWith("da")) lang = "da";
-    else if(userLang.startsWith("fi")) lang = "fi";
-    else if(userLang.startsWith("no")) lang = "no";
-    else if(userLang.startsWith("it")) lang = "it";
-    else if(userLang.startsWith("es")) lang = "es";
-    else if(userLang.startsWith("pt")) lang = "pt";
-
-    // Function to load feed content dynamically based on selection
+    // Function to load feed content dynamically (English only)
     function loadFeed(feed) {
-      const t = (translations[lang] && translations[lang][feed]) ? translations[lang][feed] : translations["en"][feed];
       let html = "";
       switch(feed) {
         case "about":
           html = `<section id="about">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
+                    <h2>About FreQtik</h2>
+                    <p>I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p>
                   </section>`;
           break;
         case "ltb":
           html = `<section id="ltb" class="depth-effect">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
+                    <h2>Learning to Bear</h2>
+                    <p>Experience immersive gameplay on Steam – check out publicly visible events and updates coming soon!</p>
                     <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
                     <div class="flex-container" style="margin-top:20px;">
                       <span style="font-size:14px;">Public Events Feed: (No updates yet)</span>
@@ -400,8 +336,8 @@
           break;
         case "aim":
           html = `<section id="aim" class="depth-effect">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
+                    <h2>Aim Trainer Bee Pro</h2>
+                    <p>Refine your skills with precision – see the Steam events and details coming soon!</p>
                     <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
                     <div class="flex-container" style="margin-top:20px;">
                       <span style="font-size:14px;">Public Events Feed: (No updates yet)</span>
@@ -410,28 +346,30 @@
           break;
         case "youtube":
           html = `<section id="youtube" class="depth-effect">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
-                    <!-- Replace VIDEO_ID with an actual video ID if available -->
-                    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <h2>YouTube Channel</h2>
+                    <p>Check out the latest videos from my channel below. You can scroll through and click play on any video. <a href="https://www.youtube.com/@FreQtik" target="_blank">Visit my channel</a></p>
+                    <div style="max-height:320px; overflow-y:auto;">
+                      <!-- Replace YOUR_PLAYLIST_ID_HERE with your actual YouTube playlist ID -->
+                      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID_HERE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                   </section>`;
           break;
         case "spotify":
           html = `<section id="spotify" class="depth-effect">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
+                    <h2>Spotify</h2>
+                    <p>Listen to my music on Spotify.</p>
                     <iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                   </section>`;
           break;
         case "downloads":
           html = `<section id="downloads" class="depth-effect">
-                    <h2>${t.title}</h2>
-                    <p>${t.text}</p>
+                    <h2>Downloads & Tools</h2>
+                    <p>Coming soon: Tools to enhance creative workflows for Unreal Engine and Python.</p>
                   </section>`;
           break;
         case "socials":
           html = `<section id="socials" class="depth-effect">
-                    <h2>${t.title}</h2>
+                    <h2>Connect with FreQtik</h2>
                     <div class="flex-container">
                       <a href="https://www.instagram.com/freqtik/" target="_blank">
                         <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
@@ -447,29 +385,29 @@
           break;
         default:
           html = `<section id="about">
-                    <h2>${translations["en"]["about"].title}</h2>
-                    <p>${translations["en"]["about"].text}</p>
+                    <h2>About FreQtik</h2>
+                    <p>I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p>
                   </section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
-      // Scroll content container into view so that the fixed header remains visible
+      // Scroll the content container into view
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
     // Load default feed ("about") on page load
     window.addEventListener("load", function(){
       loadFeed("about");
-      // For mobile devices: if screen width <600px, skip the intro overlay immediately
+      // For mobile: if width <600px, skip the intro immediately
       if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
       }
     });
-    /* Intro Overlay: Hide after sufficient mouse movement on desktop */
+    /* Intro Overlay: Hide after sufficient mouse movement (skip on mobile) */
     let introDone = false;
     const introEl = document.getElementById('intro');
     let movementProgress = 0;
     let lastX = null, lastY = null;
     document.addEventListener('mousemove', (e) => {
-      if(window.innerWidth < 600) return; // skip on mobile
+      if(window.innerWidth < 600) return; // Skip on mobile
       if (!introDone) {
         if (lastX !== null && lastY !== null) {
           let dx = Math.abs(e.clientX - lastX);
@@ -487,7 +425,7 @@
     /* Header Logo: Horizontal oscillation based on scroll */
     const logo = document.getElementById('scrollLogo');
     window.addEventListener('scroll', () => {
-      const maxShift = window.innerWidth - logo.clientWidth - 40; // margin adjustment
+      const maxShift = window.innerWidth - logo.clientWidth - 40;
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
       
