@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
   <link rel="icon" type="image/x-icon" href="QMiniIcon.ico">
-  <!-- Using Manrope for a modern yet slightly rounded look -->
+  <!-- Manrope font for a clean, modern look -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -14,15 +14,15 @@
       --accent: #111111;
       --line: #e0e0e0;
       --shadow: rgba(0, 0, 0, 0.08);
+      --header-height: 200px;
     }
 
-    /* Reset & Basics */
+    /* Reset and basics */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Manrope', sans-serif;
-      /* Custom Q cursor – the numbers (16,16) centers the hotspot */
       cursor: url('QMiniIcon.ico') 16 16, auto;
     }
     html, body {
@@ -32,7 +32,7 @@
       scroll-behavior: smooth;
     }
 
-    /* Intro Overlay (full-screen, initial landing) */
+    /* Intro Overlay (full-screen landing) */
     .intro {
       position: fixed;
       top: 0; left: 0;
@@ -44,7 +44,6 @@
       align-items: center;
       z-index: 9999;
       transition: opacity 1.5s ease, filter 1.5s ease;
-      /* Start fully visible */
       opacity: 1;
       filter: blur(0px);
     }
@@ -64,10 +63,12 @@
       opacity: 0.5;
     }
 
-    /* Sticky Header */
+    /* Fixed Header with Logo & Nav */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       background: var(--bg);
       z-index: 100;
       box-shadow: 0 4px 10px var(--shadow);
@@ -86,8 +87,6 @@
       transition: transform 0.4s ease;
       will-change: transform;
     }
-
-    /* Navigation Bar */
     nav {
       display: flex;
       justify-content: center;
@@ -113,7 +112,6 @@
       padding: 8px 16px;
       cursor: pointer;
       transition: color 0.3s ease;
-      /* Thin underline effect on hover */
       position: relative;
     }
     nav ul li button::after {
@@ -132,7 +130,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Drop-down Menu for Navigation (appears on hover) */
+    /* Dropdown menus */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -165,7 +163,10 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Main Content Sections */
+    /* Main content container: starts below fixed header */
+    .content-container {
+      padding-top: var(--header-height);
+    }
     section {
       padding: 60px 20px;
       max-width: 900px;
@@ -192,8 +193,7 @@
     section ul {
       list-style: inside;
     }
-
-    /* Socials and Downloads - Flex containers for even spacing */
+    /* Flex containers for socials and downloads for even spacing */
     .flex-container {
       display: flex;
       gap: 20px;
@@ -222,27 +222,21 @@
     <p>I love to create experiences and find solutions.</p>
   </div>
 
-  <!-- Sticky Header with Logo & Nav -->
+  <!-- Fixed Header with Logo and Navigation -->
   <header id="mainHeader">
     <div class="logo-container">
       <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
     </div>
     <nav>
       <ul>
-        <!-- "About" Button (simple) -->
-        <li>
-          <button onclick="scrollToSection('about')">About</button>
-        </li>
-        <!-- "Games" Drop-down -->
+        <li><button onclick="scrollToSection('about')">About</button></li>
         <li>
           <button>Games</button>
           <div class="dropdown-content">
             <a href="#ltb" onclick="scrollToSection('ltb')">Learning to Bear</a>
             <a href="#aim" onclick="scrollToSection('aim')">Aim Trainer Bee Pro</a>
-            <!-- Optionally: add a Games feed link or announcement here -->
           </div>
         </li>
-        <!-- "Music" Drop-down -->
         <li>
           <button>Music</button>
           <div class="dropdown-content">
@@ -250,74 +244,78 @@
             <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
           </div>
         </li>
-        <!-- "Downloads" Button -->
-        <li>
-          <button onclick="scrollToSection('downloads')">Downloads</button>
-        </li>
-        <!-- "Connect" Button -->
-        <li>
-          <button onclick="scrollToSection('socials')">Connect</button>
-        </li>
+        <li><button onclick="scrollToSection('downloads')">Downloads</button></li>
+        <li><button onclick="scrollToSection('socials')">Connect</button></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content Sections -->
-  <section id="about">
-    <h2>About FreQtik</h2>
-    <p>
-      I’m a multi-disciplinary creator with passions in game development, music production, and tool creation.
-      My work spans Unreal Engine, Python tools, audio engineering, and beyond. Welcome to my digital space.
-    </p>
-  </section>
+  <!-- Main Content Container (below fixed header) -->
+  <div class="content-container">
+    <section id="about">
+      <h2>About FreQtik</h2>
+      <p>
+        I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more.
+        Welcome to my digital space — where innovative experiences come to life.
+      </p>
+    </section>
 
-  <section id="music" class="depth-effect">
-    <h2>Music</h2>
-    <p>Check out my beats and audio productions.</p>
-    <div class="flex-container">
-      <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
-      <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
-    </div>
-  </section>
+    <!-- Game Sections -->
+    <section id="ltb" class="depth-effect">
+      <h2>Learning to Bear</h2>
+      <p>Experience immersive gameplay – announcements, updates, and feeds coming soon!</p>
+      <!-- Steam widget (adjust height and styling as desired) -->
+      <iframe src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
+      <!-- Placeholder for game feed -->
+      <div class="flex-container" style="margin-top:20px;">
+        <span style="font-size:14px;">Game Feed: No updates yet.</span>
+      </div>
+    </section>
 
-  <section id="ltb" class="depth-effect">
-    <h2>Learning to Bear</h2>
-    <p>Get ready for an immersive experience on Steam – announcement, updates, and games feed coming soon!</p>
-    <!-- You can embed a Steam widget here if desired -->
-    <iframe src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
-  </section>
+    <section id="aim" class="depth-effect">
+      <h2>Aim Trainer Bee Pro</h2>
+      <p>Refine your skills with precision – more details and game feed coming soon!</p>
+      <iframe src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
+      <div class="flex-container" style="margin-top:20px;">
+        <span style="font-size:14px;">Game Feed: No updates yet.</span>
+      </div>
+    </section>
 
-  <section id="aim" class="depth-effect">
-    <h2>Aim Trainer Bee Pro</h2>
-    <p>Refine your aim – more details and updates available soon on Steam!</p>
-    <iframe src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
-  </section>
+    <section id="music" class="depth-effect">
+      <h2>Music</h2>
+      <p>Explore my beats and audio productions.</p>
+      <div class="flex-container">
+        <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
+        <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
+      </div>
+    </section>
 
-  <section id="downloads" class="depth-effect">
-    <h2>Downloads & Tools</h2>
-    <p>Coming soon: Tools to enhance Unreal Engine workflows and creative productivity through Python.</p>
-  </section>
+    <section id="downloads" class="depth-effect">
+      <h2>Downloads & Tools</h2>
+      <p>Coming soon: Tools that enhance creative workflows for Unreal Engine and Python.</p>
+    </section>
 
-  <section id="socials" class="depth-effect">
-    <h2>Connect with FreQtik</h2>
-    <div class="flex-container">
-      <a href="https://www.instagram.com/freqtik/" target="_blank">Instagram</a>
-      <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
-      <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
-    </div>
-  </section>
+    <section id="socials" class="depth-effect">
+      <h2>Connect with FreQtik</h2>
+      <div class="flex-container">
+        <a href="https://www.instagram.com/freqtik/" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
+        <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
+      </div>
+    </section>
+  </div>
 
   <script>
-    /* Smooth horizontal movement for the header logo on scroll */
+    /* Smooth horizontal movement for logo: oscillate based on scroll */
     const logo = document.getElementById('scrollLogo');
     window.addEventListener('scroll', () => {
-      const maxShift = window.innerWidth - logo.clientWidth - 40; // 40 for some margin
-      // Use sin() for a smooth oscillating effect across scroll
+      const maxShift = window.innerWidth - logo.clientWidth - 40; // margin adjustment
+      // Sine-wave oscillation for smooth ease-in ease-out movement
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
     });
 
-    /* Intro Overlay: Remove once user moves the mouse significantly */
+    /* Intro Overlay: Fade out when sufficient mouse movement is detected */
     let introDone = false;
     const intro = document.getElementById('intro');
     let movementProgress = 0;
@@ -338,7 +336,7 @@
       }
     });
 
-    /* Helper function to scroll smoothly to a section */
+    /* Helper function to smooth-scroll to a section */
     function scrollToSection(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
