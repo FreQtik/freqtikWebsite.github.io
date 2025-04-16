@@ -22,7 +22,7 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Manrope', sans-serif;
-      /* Custom Q cursor with centered hotspot (16,16) */
+      /* Custom Q cursor with hotspot centered at (16,16) */
       cursor: url('QMiniIcon.ico') 16 16, auto;
     }
     html, body {
@@ -72,7 +72,7 @@
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
     }
-    /* On mobile, when scrolling down, hide logo-container */
+    /* On mobile, hide logo-container when scrolling down */
     header.hidden-logo .logo-container {
       transform: translateY(-150px);
     }
@@ -107,6 +107,7 @@
     nav ul li {
       position: relative;
     }
+    /* Make buttons rotate on hover as well */
     nav ul li button {
       background: none;
       border: none;
@@ -115,8 +116,11 @@
       color: var(--text);
       padding: 8px 16px;
       cursor: pointer;
-      transition: color 0.3s ease;
+      transition: transform 0.3s ease, color 0.3s ease;
       position: relative;
+    }
+    nav ul li button:hover {
+      transform: rotate(5deg);
     }
     nav ul li button::after {
       content: "";
@@ -134,7 +138,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Dropdown menus that toggle on click */
+    /* Dropdown menus that toggle on click (and also hover works) */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -170,7 +174,7 @@
       from { opacity: 0; transform: translateY(-5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Content Container (pushed below fixed header) */
+    /* Content Container (pushed below the fixed header) */
     .content-container {
       padding-top: var(--header-height);
     }
@@ -181,8 +185,9 @@
       max-width: 600px;
       height: 300px;
       border: none;
+      overflow: hidden;
     }
-    /* Section Styling */
+    /* Section styling */
     section {
       padding: 60px 20px;
       max-width: 900px;
@@ -209,7 +214,7 @@
     section ul {
       list-style: inside;
     }
-    /* Flex container for social links (with icons) */
+    /* Flex container for social links with icons */
     .flex-container {
       display: flex;
       gap: 20px;
@@ -296,10 +301,10 @@
   </div>
 
   <script>
-    // Dropdown toggle functions
+    // Dropdown toggle functions (toggle on click; hover remains)
     function toggleDropdown(button) {
       const parentLi = button.parentElement;
-      // Toggle the clicked dropdown
+      // Toggle current dropdown
       parentLi.classList.toggle('dropdown-open');
       // Close other dropdowns
       document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
@@ -313,7 +318,6 @@
         dropdown.classList.remove('dropdown-open');
       });
     }
-
     // Function to load feed content dynamically (English only)
     function loadFeed(feed) {
       let html = "";
@@ -328,7 +332,9 @@
           html = `<section id="ltb" class="depth-effect">
                     <h2>Learning to Bear</h2>
                     <p>Experience immersive gameplay on Steam – check out publicly visible events and updates coming soon!</p>
-                    <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
+                    <div style="overflow: hidden;">
+                      <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
+                    </div>
                     <div class="flex-container" style="margin-top:20px;">
                       <span style="font-size:14px;">Public Events Feed: (No updates yet)</span>
                     </div>
@@ -338,7 +344,9 @@
           html = `<section id="aim" class="depth-effect">
                     <h2>Aim Trainer Bee Pro</h2>
                     <p>Refine your skills with precision – see the Steam events and details coming soon!</p>
-                    <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
+                    <div style="overflow: hidden;">
+                      <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
+                    </div>
                     <div class="flex-container" style="margin-top:20px;">
                       <span style="font-size:14px;">Public Events Feed: (No updates yet)</span>
                     </div>
@@ -347,10 +355,10 @@
         case "youtube":
           html = `<section id="youtube" class="depth-effect">
                     <h2>YouTube Channel</h2>
-                    <p>Check out the latest videos from my channel below. You can scroll through and click play on any video. <a href="https://www.youtube.com/@FreQtik" target="_blank">Visit my channel</a></p>
+                    <p>Below is a scrollable list of videos from my channel. You can click on any video to play it. For more, <a href="https://www.youtube.com/@FreQtik" target="_blank">visit my channel</a>.</p>
                     <div style="max-height:320px; overflow-y:auto;">
-                      <!-- Replace YOUR_PLAYLIST_ID_HERE with your actual YouTube playlist ID -->
-                      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID_HERE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      <!-- Embed the uploads playlist from your channel. Convert channel id (UC...) to uploads playlist by replacing UC with UU -->
+                      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUG0kPEfnBl4M3OwNPGWES4A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                   </section>`;
           break;
@@ -390,13 +398,13 @@
                   </section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
-      // Scroll the content container into view
+      // Scroll the content container into view so that the fixed header remains visible
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
     // Load default feed ("about") on page load
     window.addEventListener("load", function(){
       loadFeed("about");
-      // For mobile: if width <600px, skip the intro immediately
+      // For mobile devices (width <600px), skip the intro overlay immediately
       if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
       }
