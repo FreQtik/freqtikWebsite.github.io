@@ -90,11 +90,24 @@
     let reactionTimes = [], failCount = 0, spawnInterval = 1500, ufoSpeed = 1;
 
     const ufoImages = [];
-    for (let i = 1; i <= 6; i++) {
-      const img = new Image();
-      img.src = `assets/ufos/ufo${i}.png`;
-      ufoImages.push(img);
+let imagesLoaded = 0;
+const totalImages = 3; // Change this to match the number of UFO images you have
+
+for (let i = 1; i <= totalImages; i++) {
+  const img = new Image();
+  img.src = `ufos/ufo${i}.png`; // ✅ This should match your folder structure
+  img.onload = () => {
+    imagesLoaded++;
+    if (imagesLoaded === totalImages) {
+      startGame(); // Start the game only when all images are loaded
     }
+  };
+  img.onerror = () => {
+    console.error(`Failed to load image: ufos/ufo${i}.png`);
+  };
+  ufoImages.push(img);
+}
+
 
     const clickSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
 
