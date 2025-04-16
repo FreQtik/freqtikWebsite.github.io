@@ -48,7 +48,6 @@
       z-index: 100;
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
-      overflow: visible;
     }
     .logo-container {
       height: 150px;
@@ -65,11 +64,9 @@
     nav {
       display: flex; justify-content: center;
       padding: 20px 0; border-bottom: 1px solid var(--line);
-      overflow: visible;
     }
     nav ul {
       display: flex; gap: 40px; list-style: none; align-items: center;
-      overflow: visible;
     }
     nav ul li { position: relative; }
     nav ul li button {
@@ -78,7 +75,6 @@
       padding: 8px 16px; cursor: pointer;
       transition: transform 0.2s ease;
     }
-    /* hover‐scale on buttons */
     nav ul li button:hover { transform: scale(1.05); }
     nav ul li button::after {
       content: ""; position: absolute; bottom: 0; left: 0;
@@ -102,25 +98,21 @@
       z-index: 999;
       white-space: nowrap;
     }
-    /* adjust rightmost dropdown to stay in view */
     nav ul li.dropdown:last-child .dropdown-content {
       right: 0; left: auto;
     }
-    /* hover open on desktop */
     @media (min-width: 601px) {
       .dropdown:hover .dropdown-content {
         display: block; animation: fadeIn 0.3s ease;
       }
     }
-    /* click toggle for all */
     .dropdown-open .dropdown-content {
       display: block; animation: fadeIn 0.3s ease;
     }
     .dropdown-content a {
       display: block; margin-bottom: 12px;
       text-decoration: none; color: var(--text);
-      font-size: 16px;
-      transition: transform 0.2s ease;
+      font-size: 16px; transition: transform 0.2s ease;
     }
     .dropdown-content a:last-child { margin-bottom: 0; }
     .dropdown-content a:hover { transform: rotate(2.5deg); }
@@ -133,8 +125,7 @@
     /* MAIN CONTENT */
     .content-container { padding-top: var(--header-height); }
     .responsive-iframe {
-      display: block; width: 100%; max-width: 600px;
-      height: 300px; border: none;
+      display: block; width: 100%; max-width: 600px; height: 300px; border: none;
     }
     section {
       padding: 60px 20px; max-width: 900px; margin: auto;
@@ -153,14 +144,13 @@
     section p, section ul { font-size: 16px; line-height: 1.6; }
     section ul { list-style: inside; }
     .flex-container {
-      display: flex; gap: 20px; flex-wrap: wrap;
-      justify-content: center; margin-top: 20px;
+      display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+      margin-top: 20px;
     }
     .flex-container a {
       display: flex; align-items: center; gap: 8px;
-      text-decoration: none; font-size: 16px;
-      color: var(--text); padding: 6px 12px;
-      border-bottom: 1px solid transparent;
+      text-decoration: none; font-size: 16px; color: var(--text);
+      padding: 6px 12px; border-bottom: 1px solid transparent;
       transition: border-color 0.3s ease;
     }
     .flex-container a:hover { border-bottom: 1px solid var(--text); }
@@ -214,26 +204,23 @@
   <div class="content-container" id="mainContent"></div>
 
   <script>
-    // ----- CONFIG: Add your keys & IDs here -----
-    const YT_API_KEY     = 'YOUR_YOUTUBE_API_KEY';
-    const CHANNEL_ID     = 'YOUR_CHANNEL_ID';
-    const STEAM_APP_IDS  = { ltb: 2789890, aim: 3666950 };
-
-    const introEl   = document.getElementById('intro');
-    const headerEl  = document.getElementById('mainHeader');
-    let lastScrollY = window.scrollY;
+    const STEAM_APP_IDS = { ltb: 2789890, aim: 3666950 };
+    const introEl       = document.getElementById('intro');
+    const headerEl      = document.getElementById('mainHeader');
+    let lastScrollY     = window.scrollY;
 
     function toggleDropdown(btn) {
       btn.parentElement.classList.toggle('dropdown-open');
-      document.querySelectorAll('nav .dropdown')
-        .forEach(d => { if (d !== btn.parentElement) d.classList.remove('dropdown-open'); });
+      document.querySelectorAll('nav .dropdown').forEach(d => {
+        if (d !== btn.parentElement) d.classList.remove('dropdown-open');
+      });
     }
     function closeDropdowns() {
       document.querySelectorAll('nav .dropdown').forEach(d => d.classList.remove('dropdown-open'));
     }
 
     function loadFeed(feed) {
-      let html;
+      let html = '';
       switch(feed) {
         case 'about':
           html = `
@@ -248,7 +235,7 @@
           const appId = STEAM_APP_IDS[feed];
           html = `
             <section id="${feed}" class="depth-effect">
-              <h2>${ feed === 'ltb' ? 'Learning to Bear' : 'Aim Trainer Bee Pro' }</h2>
+              <h2>${ feed==='ltb'?'Learning to Bear':'Aim Trainer Bee Pro' }</h2>
               <div id="steam-${feed}"><p>Loading Steam data…</p></div>
             </section>`;
           setTimeout(() => fetchSteamData(feed, appId), 0);
@@ -257,10 +244,15 @@
         case 'youtube':
           html = `
             <section id="youtube" class="depth-effect">
-              <h2>YouTube Channel</h2>
-              <div id="yt-feed"><p>Loading videos…</p></div>
+              <h2>YouTube Videos</h2>
+              <div class="flex-container">
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/E1PGCu4XKLk" allowfullscreen></iframe>
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/HV5yKubQ3pM" allowfullscreen></iframe>
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/V_lLvzivjv8" allowfullscreen></iframe>
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/vibNKj-8V30" allowfullscreen></iframe>
+                <iframe class="responsive-iframe" src="https://www.youtube.com/embed/-BNpVmY_OHI" allowfullscreen></iframe>
+              </div>
             </section>`;
-          setTimeout(fetchYouTubeVideos, 0);
           break;
 
         case 'spotify':
@@ -298,50 +290,29 @@
             </section>`;
           break;
       }
-
       document.getElementById('mainContent').innerHTML = html;
       document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- YouTube Data API: Fetch uploads playlist & list videos ---
-    async function fetchYouTubeVideos() {
-      try {
-        // 1) get your uploads playlist ID
-        let ch = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${YT_API_KEY}`)
-                    .then(r=>r.json());
-        let uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
-
-        // 2) fetch up to 50 recent items
-        let list = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploads}&maxResults=50&key=${YT_API_KEY}`)
-                    .then(r=>r.json());
-
-        const container = document.getElementById('yt-feed');
-        container.innerHTML = '';
-        list.items.forEach(item => {
-          const vid = item.snippet.resourceId.videoId;
-          container.innerHTML += `
-            <div style="margin-bottom:20px;">
-              <iframe class="responsive-iframe" src="https://www.youtube.com/embed/${vid}" frameborder="0" allowfullscreen></iframe>
-              <p>${item.snippet.title}</p>
-            </div>`;
-        });
-      } catch (e) {
-        document.getElementById('yt-feed').innerHTML = `<p>Error loading YouTube: ${e.message}</p>`;
-      }
-    }
-
-    // --- Steam Store API: Fetch full app details ---
     async function fetchSteamData(feed, appId) {
       try {
-        let data = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}&cc=US&l=en`)
-                        .then(r=>r.json());
-        let info = data[appId].data;
-        let c = document.getElementById(`steam-${feed}`);
-        let imgs = info.screenshots.map(s => `<img src="${s.path_full}" style="max-width:100%;margin-bottom:10px;">`).join('');
-        c.innerHTML = `
+        // CORS proxy so browser can fetch Steam JSON
+        const apiURL = `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=US&l=en`;
+        const proxy  = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(apiURL);
+        const resp   = await fetch(proxy);
+        const data   = await resp.json();
+        const info   = data[appId].data;
+        const container = document.getElementById(`steam-${feed}`);
+
+        // build screenshots carousel
+        const shots = info.screenshots.map(s => 
+          `<img src="${s.path_full}" style="max-width:100%;margin-bottom:10px;border-radius:4px;">`
+        ).join('');
+
+        container.innerHTML = `
           <p><strong>${info.name}</strong></p>
           <p>${info.short_description}</p>
-          ${imgs}
+          ${shots}
           <p><a href="https://store.steampowered.com/app/${appId}" target="_blank">View on Steam</a></p>
         `;
       } catch (e) {
@@ -349,25 +320,24 @@
       }
     }
 
-    // --- Scroll & Header behavior ---
+    // header hide/show & logo movement
     window.addEventListener('scroll', () => {
-      // header hide/show on desktop scroll direction
       if (window.innerWidth > 600) {
-        if (window.scrollY > lastScrollY) headerEl.style.transform = 'translateY(-100%)';
-        else headerEl.style.transform = 'translateY(0)';
-        lastScrollY = window.scrollY;
+        // desktop: hide on scroll down, show on up
+        const cur = window.scrollY;
+        headerEl.style.transform = cur > lastScrollY ? 'translateY(-100%)' : 'translateY(0)';
+        lastScrollY = cur;
       } else {
-        // on mobile (any orientation), hide if not at very top
+        // mobile: hide whenever not at top
         headerEl.style.transform = window.scrollY > 0 ? 'translateY(-100%)' : 'translateY(0)';
       }
-      // logo moves & gentle rotate
       const logo = document.getElementById('scrollLogo');
       const maxShift = window.innerWidth - logo.clientWidth - 40;
       const x = Math.sin(window.scrollY * 0.005) * (maxShift/2);
       logo.style.transform = `translateX(${x}px) rotate(${window.scrollY * 0.005}deg)`;
     });
 
-    // --- Persist scroll pos ---
+    // persist scroll pos
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem('scrollPos', window.scrollY);
     });
@@ -378,13 +348,16 @@
       if (window.innerWidth < 600) introEl.classList.add('hidden');
     });
 
-    // --- Intro dismiss by mouse movement ---
-    let moved=0, lx=null, ly=null, done=false;
+    // dismiss intro on mouse movement
+    let moved = 0, lx = null, ly = null, done = false;
     document.addEventListener('mousemove', e => {
       if (done || window.innerWidth < 600) return;
       if (lx !== null) moved += Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly);
-      lx=e.clientX; ly=e.clientY;
-      if (moved > 300) { introEl.classList.add('hidden'); done=true; }
+      lx = e.clientX; ly = e.clientY;
+      if (moved > 300) {
+        introEl.classList.add('hidden');
+        done = true;
+      }
     });
   </script>
 </body>
