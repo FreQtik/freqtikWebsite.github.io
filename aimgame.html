@@ -235,9 +235,11 @@ for (let i = 1; i <= totalImages; i++) {
     canvas.addEventListener('click', handleClick);
     canvas.addEventListener('touchstart', handleClick);
 
-    setInterval(spawnUFO, spawnInterval);
-    setTimeout(gameOver, 90000); // 90 seconds
-    draw();
+    function startGame() {
+  setInterval(spawnUFO, spawnInterval);
+  setTimeout(gameOver, 90000); // 90 seconds
+  draw();
+}
   </script>
 </body>
 </html>
