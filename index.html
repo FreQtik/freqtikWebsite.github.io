@@ -2,238 +2,215 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FreQtik</title>
-  <link rel="icon" type="image/x-icon" href="QMiniIcon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="QMiniIcon.ico" type="image/x-icon"/>
   <style>
-    :root {
-      --main-bg: #ffffff;
-      --text-color: #000000;
-      --accent: #111111;
-      --soft-shadow: rgba(0, 0, 0, 0.05);
-    }
-
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Manrope', sans-serif;
-      cursor: url('QMiniIcon.ico') 16 16, auto;
     }
 
-    body {
-      background: var(--main-bg);
-      color: var(--text-color);
+    html, body {
+      font-family: 'Inter', sans-serif;
+      background-color: white;
+      color: black;
       overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body.custom-cursor {
+      cursor: url('QMiniIcon.ico'), auto;
     }
 
     header {
       width: 100%;
-      height: 150px;
       overflow: hidden;
       position: relative;
-      background: white;
-      box-shadow: 0 4px 10px var(--soft-shadow);
-      z-index: 100;
+      height: 200px;
     }
 
-    .logo img {
-      position: absolute;
-      top: 10px;
-      height: 120px;
-      transition: transform 0.3s ease-out;
-    }
-
-    nav {
+    .logo-container {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      align-items: center;
+      height: 200px;
+      overflow: hidden;
     }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 25px;
-    }
-
-    nav ul li {
-      position: relative;
-    }
-
-    nav ul li button {
-      background: none;
-      border: 1px solid #000;
-      padding: 5px 15px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    nav ul li button:hover {
-      background: #000;
-      color: #fff;
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      background: white;
-      border: 1px solid #000;
-      padding: 10px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      transform: translateY(-10px);
-      z-index: 99;
-    }
-
-    nav ul li:hover .dropdown {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+    .logo-container img {
+      width: 600px;
+      max-width: 100%;
+      transition: transform 0.4s ease;
     }
 
     .intro {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       text-align: center;
-      transition: all 1s ease;
-    }
-
-    .intro.hidden {
-      opacity: 0;
-      pointer-events: none;
-      filter: blur(8px);
-    }
-
-    .intro-logo {
-      width: 300px;
-      max-width: 70%;
-    }
-
-    .intro-text {
-      margin-top: 20px;
-      font-size: 20px;
+      padding: 3rem 1rem;
+      font-size: 1.5rem;
       font-weight: 300;
-    }
-
-    .content {
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 1s ease, filter 1s ease;
+      filter: blur(10px);
     }
 
-    .content.visible {
+    .intro.visible {
       opacity: 1;
+      filter: blur(0);
     }
 
-    .card {
-      background: white;
-      border: 1px solid #000;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 20px var(--soft-shadow);
+    nav {
+      margin: 3rem auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    iframe {
-      width: 100%;
-      height: 300px;
+    .btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
       border: none;
+      background: none;
+      color: black;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      width: 100%;
+      background-color: black;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    section {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .socials, .downloads {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      align-items: center;
+    }
+
+    .downloads a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .depth-effect {
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 2rem;
+      background-color: white;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .logo-container img {
+        width: 90%;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
-<body>
-
-  <div class="intro" id="intro">
-    <img src="FreQtikBlackLogo.png" class="intro-logo" alt="FreQtik Logo">
-    <div class="intro-text">I love to create experiences and find solutions.</div>
-  </div>
+<body class="custom-cursor">
 
   <header>
-    <div class="logo">
-      <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
+    <div class="logo-container">
+      <img id="headerLogo" src="FreQtikBlackLogo.png" alt="FreQtik Logo"/>
     </div>
   </header>
 
-  <nav>
-    <ul>
-      <li>
-        <button>About</button>
-        <div class="dropdown">
-          <p>Versatile Creator in Games, Tools, and Music.</p>
-        </div>
-      </li>
-      <li>
-        <button>Games</button>
-        <div class="dropdown">
-          <a href="https://store.steampowered.com/app/3666950/Aim_Trainer_Bee_Pro" target="_blank">Aim Trainer Bee Pro</a><br>
-          <a href="https://store.steampowered.com/app/2789890/Learning_to_Bear" target="_blank">Learning to Bear</a>
-        </div>
-      </li>
-      <li>
-        <button>Music</button>
-        <div class="dropdown">
-          <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a><br>
-          <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
-        </div>
-      </li>
-      <li>
-        <button>Connect</button>
-        <div class="dropdown">
-          <a href="https://www.instagram.com/freqtik/" target="_blank">Instagram</a>
-        </div>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="content" id="mainContent">
-    <section class="card">
-      <h2>Steam Game Showcase</h2>
-      <iframe src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
-      <iframe src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
-    </section>
-
-    <section class="card">
-      <h2>Tools & Downloads (Coming Soon)</h2>
-      <p>This is where I will publish my tools for Unreal Engine & Python.</p>
-    </section>
+  <div class="intro" id="introText">
+    I love to create experiences and find solutions.
   </div>
 
-  <script>
-    // INTRO ANIMATION
-    let introDone = false;
-    const intro = document.getElementById('intro');
-    const mainContent = document.getElementById('mainContent');
-    let movement = 0;
+  <nav>
+    <button class="btn" onclick="scrollToSection('music')">Music</button>
+    <button class="btn" onclick="scrollToSection('games')">Games</button>
+    <button class="btn" onclick="scrollToSection('downloads')">Downloads</button>
+    <button class="btn" onclick="scrollToSection('socials')">Socials</button>
+  </nav>
 
-    document.addEventListener('mousemove', (e) => {
-      movement += Math.abs(e.movementX) + Math.abs(e.movementY);
-      if (!introDone && movement > 300) {
-        intro.classList.add('hidden');
-        mainContent.classList.add('visible');
-        introDone = true;
+  <section id="music" class="depth-effect">
+    <h2>Music</h2>
+    <p>Check out my beats and audio productions!</p>
+    <div class="socials">
+      <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
+      <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
+    </div>
+  </section>
+
+  <section id="games" class="depth-effect">
+    <h2>Games</h2>
+    <p>Games I’ve developed and released on Steam:</p>
+    <ul>
+      <li><a href="https://store.steampowered.com/app/3666950/Aim_Trainer_Bee_Pro" target="_blank">Aim Trainer Bee Pro</a></li>
+      <li><a href="https://store.steampowered.com/app/2789890/Learning_to_Bear" target="_blank">Learning to Bear</a></li>
+    </ul>
+  </section>
+
+  <section id="downloads" class="depth-effect">
+    <h2>Tools & Downloads</h2>
+    <p>Coming soon — tools for Unreal and content made to speed up creative work!</p>
+  </section>
+
+  <section id="socials" class="depth-effect">
+    <h2>Connect</h2>
+    <div class="socials">
+      <a href="https://www.instagram.com/freqtik/" target="_blank">Instagram</a>
+      <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
+    </div>
+  </section>
+
+  <script>
+    const logo = document.getElementById('headerLogo');
+    const intro = document.getElementById('introText');
+
+    let mouseMoved = false;
+    let logoOffset = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseMoved = true;
+      let moveX = (e.clientX / window.innerWidth - 0.5) * 100;
+      logo.style.transform = `translateX(${moveX}px)`;
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        intro.classList.add('visible');
+        logo.style.transform = `translateX(${(window.scrollY % 500) / 5}px)`;
       }
     });
 
-    // SCROLL LOGO ANIMATION
-    const logo = document.getElementById('scrollLogo');
-    window.addEventListener('scroll', () => {
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const scrollRatio = window.scrollY / maxScroll;
-      const moveRange = window.innerWidth - logo.clientWidth;
-      logo.style.transform = `translateX(${scrollRatio * moveRange}px)`;
-    });
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
-
 </body>
 </html>
