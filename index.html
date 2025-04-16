@@ -75,7 +75,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      transition: transform 0.3s ease;
     }
     .logo-container img {
       height: 120px;
@@ -183,6 +182,10 @@
       transform: translateY(30px);
       animation: slideIn 0.6s ease forwards;
     }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     section h2 {
       margin-bottom: 20px;
       font-size: 28px;
@@ -245,10 +248,6 @@
         margin-top: 10px;
       }
     }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -284,19 +283,17 @@
   </header>
   <div class="content-container" id="mainContent"></div>
   <script>
+    const introEl = document.getElementById('intro');
+
     function toggleDropdown(button) {
       const parentLi = button.parentElement;
       parentLi.classList.toggle('dropdown-open');
-      document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
-        if (dropdown !== parentLi) {
-          dropdown.classList.remove('dropdown-open');
-        }
+      document.querySelectorAll('nav ul li.dropdown').forEach(d => {
+        if (d !== parentLi) d.classList.remove('dropdown-open');
       });
     }
     function closeDropdowns() {
-      document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
-        dropdown.classList.remove('dropdown-open');
-      });
+      document.querySelectorAll('nav ul li.dropdown').forEach(d => d.classList.remove('dropdown-open'));
     }
     function loadFeed(feed) {
       let html = "";
@@ -305,80 +302,69 @@
           html = `<section id="about"><h2>About FreQtik</h2><p>Creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p></section>`;
           break;
         case "ltb":
-          html = `<section id="ltb" class="depth-effect"><h2>Learning to Bear</h2><p>Experience immersive gameplay on Steam – check out publicly visible events and updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe><div class="flex-container" style="margin-top:20px;"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
+          html = `<section id="ltb" class="depth-effect"><h2>Learning to Bear</h2><p>Experience immersive gameplay on Steam – updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe><div class="flex-container"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
           break;
         case "aim":
-          html = `<section id="aim" class="depth-effect"><h2>Aim Trainer Bee Pro</h2><p>Refine your skills with precision – see the Steam events and details coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe><div class="flex-container" style="margin-top:20px;"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
+          html = `<section id="aim" class="depth-effect"><h2>Aim Trainer Bee Pro</h2><p>Refine your skills on Steam – updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe><div class="flex-container"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
           break;
         case "youtube":
-          html = `<section id="youtube" class="depth-effect"><h2>YouTube Channel</h2><p>Below is a vertically scrollable list of videos from my channel. You can tap a video to play it. For more, <a href="https://www.youtube.com/@FreQtik" target="_blank">visit my channel</a>.</p><div style="max-height:320px; overflow-y:auto;"><iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUxxxxxxxxxxxxxxxx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></section>`;
+          html = `<section id="youtube" class="depth-effect"><h2>YouTube Channel</h2><p>Scroll to browse my latest videos. <a href="https://www.youtube.com/@FreQtik" target="_blank">Visit channel</a>.</p><div style="max-height:320px; overflow-y:auto;"><iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUxxxxxxxxxxxxxxxx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></section>`;
           break;
         case "spotify":
-          html = `<section id="spotify" class="depth-effect"><h2>Spotify</h2><p>Listen to my music on Spotify.</p><iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></section>`;
+          html = `<section id="spotify" class="depth-effect"><h2>Spotify</h2><p>Listen on Spotify.</p><iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK" allowtransparency="true" allow="encrypted-media"></iframe></section>`;
           break;
         case "downloads":
           html = `<section id="downloads" class="depth-effect"><h2>Downloads & Tools</h2><p>Coming soon.</p></section>`;
           break;
         case "socials":
-          html = `<section id="socials" class="depth-effect"><h2>Connect with FreQtik</h2><div class="flex-container"><a href="https://www.instagram.com/freqtik/" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram</a><a href="https://www.youtube.com/@FreQtik" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube</a><a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify</a></div></section>`;
+          html = `<section id="socials" class="depth-effect"><h2>Connect</h2><div class="flex-container"><a href="https://www.instagram.com/freqtik/" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram</a><a href="https://www.youtube.com/@FreQtik" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube</a><a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify</a></div></section>`;
           break;
       }
-      document.getElementById("mainContent").innerHTML = html;
-      if(window.innerWidth < 600) {
+      const main = document.getElementById("mainContent");
+      main.innerHTML = html;
+      if (window.innerWidth < 600) {
         document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
       }
-      document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
-      document.querySelectorAll('section').forEach((section) => {
-        section.style.opacity = '1';
-        section.style.transform = 'translateY(0)';
-      });
+      main.scrollIntoView({ behavior: "smooth" });
     }
 
-    window.addEventListener("load", function(){
-      loadFeed("about");
-      if(window.innerWidth < 600) {
-        document.getElementById('intro').classList.add('hidden');
-      }
+    // On load: restore scroll, hide intro on mobile, load About
+    window.addEventListener('load', () => {
+      const saved = sessionStorage.getItem('scrollPos');
+      if (saved) window.scrollTo(0, parseFloat(saved));
+      loadFeed('about');
+      if (window.innerWidth < 600) introEl.classList.add('hidden');
     });
 
-    let introDone = false;
-    const introEl = document.getElementById('intro');
-    let movementProgress = 0;
-    let lastX = null, lastY = null;
-    document.addEventListener('mousemove', (e) => {
-      if(window.innerWidth < 600) return;
-      if (!introDone) {
-        if (lastX !== null && lastY !== null) {
-          let dx = Math.abs(e.clientX - lastX);
-          let dy = Math.abs(e.clientY - lastY);
-          movementProgress += dx + dy;
-          if (movementProgress > 300) {
-            introEl.classList.add('hidden');
-            introDone = true;
-          }
-        }
-        lastX = e.clientX;
-        lastY = e.clientY;
-      }
-    });
-
-    const logo = document.getElementById('scrollLogo');
-    window.addEventListener('scroll', () => {
-      const maxShift = window.innerWidth - logo.clientWidth - 40;
-      const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
-      logo.style.transform = `translateX(${movement}px)`;
-
-      if(window.innerWidth < 600) {
-        const currentScroll = window.scrollY;
-        if(currentScroll < 10) {
-          document.getElementById('mainHeader').style.transform = 'translateY(0)';
-        }
-      }
-    });
-
-    // Persist scroll position
+    // Save scroll position
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem('scrollPos', window.scrollY);
     });
 
-    window.addEventListener('load', ()
+    // Intro dismiss on mouse move
+    let introDone = false, movement = 0, lastX = null, lastY = null;
+    document.addEventListener('mousemove', e => {
+      if (window.innerWidth < 600 || introDone) return;
+      if (lastX !== null) {
+        movement += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
+        if (movement > 300) {
+          introEl.classList.add('hidden');
+          introDone = true;
+        }
+      }
+      lastX = e.clientX; lastY = e.clientY;
+    });
+
+    // Logo follows scroll & rotates slightly
+    const logo = document.getElementById('scrollLogo');
+    window.addEventListener('scroll', () => {
+      const maxShift = window.innerWidth - logo.clientWidth - 40;
+      const shift = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
+      logo.style.transform = `translateX(${shift}px) rotate(${window.scrollY * 0.01}deg)`;
+      if (window.innerWidth < 600 && window.scrollY < 10) {
+        document.getElementById('mainHeader').style.transform = 'translateY(0)';
+      }
+    });
+  </script>
+</body>
+</html>
