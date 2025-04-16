@@ -178,12 +178,13 @@
       <ul>
         <li><button onclick="loadFeed('about')">About</button></li>
         <li class="dropdown">
-          <button onclick="toggleDropdown(this)">Games</button>
-          <div class="dropdown-content">
-            <a href="#" onclick="loadFeed('ltb');closeDropdowns()">Learning to Bear</a>
-            <a href="#" onclick="loadFeed('aim');closeDropdowns()">Aim Trainer Bee Pro</a>
-          </div>
-        </li>
+  <button onclick="toggleDropdown(this)">Games</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="loadFeed('ltb');closeDropdowns()">Learning to Bear</a>
+          <a href="#" onclick="loadFeed('aim');closeDropdowns()">Aim Trainer Bee Pro</a>
+          <a href="aimgame.html" onclick="closeDropdowns()">UFO Clicker</a> <!-- 👈 Add this line -->
+        </div>
+      </li>
         <li class="dropdown">
           <button onclick="toggleDropdown(this)">Music</button>
           <div class="dropdown-content">
