@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FreQtik</title>
   <link rel="icon" href="QMiniIcon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
@@ -15,14 +16,13 @@
 
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Manrope', sans-serif;
       background: var(--bg);
       color: var(--text);
       cursor: url('QMiniIcon.ico') 16 16, auto;
       overflow-x: hidden;
     }
 
-    /* Intro Overlay */
     .intro {
       position: fixed;
       top: 0; left: 0;
@@ -48,7 +48,6 @@
       opacity: 0.5;
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -69,9 +68,9 @@
     .logo-container img {
       height: 100px;
       transition: transform 0.3s ease-out;
+      will-change: transform;
     }
 
-    /* Nav */
     nav {
       display: flex;
       justify-content: center;
@@ -88,15 +87,18 @@
     nav a {
       text-decoration: none;
       color: var(--text);
-      font-weight: bold;
+      font-weight: 600;
       position: relative;
       padding: 4px 6px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-size: 14px;
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 28px;
+      top: 32px;
       left: 0;
       background: white;
       box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -193,11 +195,14 @@
   </section>
 
   <script>
-    // Logo movement
+    // Scroll interpolation for logo movement
     const logo = document.getElementById("scrollLogo");
+
     window.addEventListener("scroll", () => {
-      let offset = window.scrollY * 0.15;
-      logo.style.transform = `translateX(${offset}px)`;
+      let totalScroll = window.scrollY;
+      let maxShift = window.innerWidth / 2 - 150; // Adjust for logo size
+      let movement = Math.sin(totalScroll * 0.002) * maxShift; // smooth wave
+      logo.style.transform = `translateX(${movement}px)`;
     });
 
     // Intro transition logic
@@ -227,6 +232,5 @@
       lastY = e.clientY;
     });
   </script>
-
 </body>
 </html>
