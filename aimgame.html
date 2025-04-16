@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UFO Aim Game</title>
+  <style>
+    html, body {
+      margin: 0;
+      overflow: hidden;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+    }
+    canvas {
+      display: block;
+    }
+    #timer {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">⏱ 15s</div>
+  <canvas id="gameCanvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const ufoEmoji = "🛸";
+    let ufoList = [];
+    let score = 0;
+    let timeLeft = 15;
+    let timer = document.getElementById('timer');
+
+    class UFO {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = 40;
+        this.speedX = (Math.random() - 0.5) * 4;
+        this.speedY = (Math.random() - 0.5) * 4;
+      }
+
+      move() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > width) this.speedX *= -1;
+        if (this.y < 0 || this.y > height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.font = this.size + "px serif";
+        ctx.fillText(ufoEmoji, this.x, this.y);
+      }
+
+      isClicked(mx, my) {
+        return (
+          mx > this.x - this.size &&
+          mx < this.x + this.size &&
+          my > this.y - this.size &&
+          my < this.y + this.size
+        );
+      }
+    }
+
+    function spawnUFOs(count) {
+      for (let i = 0; i < count; i++) {
+        ufoList.push(new UFO());
+      }
+    }
+
+    canvas.addEventListener('click', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      for (let i = ufoList.length - 1; i >= 0; i--) {
+        if (ufoList[i].isClicked(mx, my)) {
+          ufoList.splice(i, 1);
+          score++;
+          timeLeft += 1; // bonus time!
+          spawnUFOs(1); // respawn
+          break;
+        }
+      }
+    });
+
+    function update() {
+      ctx.clearRect(0, 0, width, height);
+
+      ufoList.forEach(ufo => {
+        ufo.move();
+        ufo.draw();
+      });
+
+      timer.innerText = `⏱ ${Math.max(timeLeft, 0)}s`;
+
+      if (timeLeft <= 0) {
+        ctx.fillStyle = "white";
+        ctx.font = "40px sans-serif";
+        ctx.fillText("Game Over! Score: " + score, width / 2 - 150, height / 2);
+        return;
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    function startGame() {
+      spawnUFOs(5);
+      update();
+
+      setInterval(() => {
+        timeLeft--;
+      }, 1000);
+    }
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    startGame();
+  </script>
+</body>
+</html>
