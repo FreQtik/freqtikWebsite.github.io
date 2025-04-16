@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
   <link rel="icon" type="image/x-icon" href="QMiniIcon.ico">
-  <!-- Use Manrope for a modern, clean look -->
+  <!-- Using Manrope for a modern, clean look -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -70,6 +70,11 @@
       background: var(--bg);
       z-index: 100;
       box-shadow: 0 4px 10px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    /* For mobile: header hides its logo when scrolling down */
+    header.hidden-logo .logo-container {
+      transform: translateY(-150px);
     }
     .logo-container {
       position: relative;
@@ -79,6 +84,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      transition: transform 0.3s ease;
     }
     .logo-container img {
       height: 120px;
@@ -128,7 +134,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Dropdown menus with gradient underline on hover */
+    /* Dropdown menus: now toggle on click */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -143,33 +149,21 @@
     }
     .dropdown-content a {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 12px; /* increased spacing */
       text-decoration: none;
       color: var(--text);
-      font-size: 14px;
+      font-size: 16px; /* bigger font */
       white-space: nowrap;
-      position: relative;
+      transition: transform 0.3s ease;
     }
     .dropdown-content a:last-child {
       margin-bottom: 0;
     }
-    .dropdown-content a::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, var(--text), var(--accent));
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
+    .dropdown-content a:hover {
+      transform: rotate(5deg);
     }
-    .dropdown-content a:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    nav ul li:hover .dropdown-content {
+    /* Toggle class for active dropdown */
+    .dropdown-open .dropdown-content {
       display: block;
       animation: fadeIn 0.3s ease;
     }
@@ -177,11 +171,11 @@
       from { opacity: 0; transform: translateY(-5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Content Container (pushed below the fixed header) */
+    /* Content Container (below fixed header) */
     .content-container {
       padding-top: var(--header-height);
     }
-    /* Ensure responsive iframes (Steam widget, YouTube, Spotify) display fully */
+    /* Responsive iframes for media widgets */
     .responsive-iframe {
       display: block;
       width: 100%;
@@ -189,7 +183,7 @@
       height: 300px;
       border: none;
     }
-    /* Dynamically loaded section styling */
+    /* Section styling */
     section {
       padding: 60px 20px;
       max-width: 900px;
@@ -216,7 +210,7 @@
     section ul {
       list-style: inside;
     }
-    /* Flex containers for evenly spaced social links with icons */
+    /* Flex containers for social links with icons */
     .flex-container {
       display: flex;
       gap: 20px;
@@ -246,13 +240,13 @@
   </style>
 </head>
 <body>
-  <!-- Intro Overlay (for desktops; hidden immediately on mobile) -->
+  <!-- Intro Overlay -->
   <div class="intro" id="intro">
     <img src="FreQtikBlackLogo.png" alt="FreQtik Logo">
     <p>I love to create experiences and find solutions.</p>
   </div>
 
-  <!-- Fixed Header (Logo & Navigation) -->
+  <!-- Fixed Header with Logo & Navigation -->
   <header id="mainHeader">
     <div class="logo-container">
       <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
@@ -260,18 +254,18 @@
     <nav>
       <ul>
         <li><button onclick="loadFeed('about')">About</button></li>
-        <li>
-          <button>Games</button>
+        <li class="dropdown">
+          <button onclick="toggleDropdown(this)">Games</button>
           <div class="dropdown-content">
-            <a href="#" onclick="loadFeed('ltb')">Learning to Bear</a>
-            <a href="#" onclick="loadFeed('aim')">Aim Trainer Bee Pro</a>
+            <a href="#" onclick="loadFeed('ltb'); closeDropdowns()">Learning to Bear</a>
+            <a href="#" onclick="loadFeed('aim'); closeDropdowns()">Aim Trainer Bee Pro</a>
           </div>
         </li>
-        <li>
-          <button>Music</button>
+        <li class="dropdown">
+          <button onclick="toggleDropdown(this)">Music</button>
           <div class="dropdown-content">
-            <a href="#" onclick="loadFeed('youtube')">YouTube</a>
-            <a href="#" onclick="loadFeed('spotify')">Spotify</a>
+            <a href="#" onclick="loadFeed('youtube'); closeDropdowns()">YouTube</a>
+            <a href="#" onclick="loadFeed('spotify'); closeDropdowns()">Spotify</a>
           </div>
         </li>
         <li><button onclick="loadFeed('downloads')">Downloads</button></li>
@@ -282,11 +276,31 @@
 
   <!-- Main Content Container -->
   <div class="content-container" id="mainContent">
-    <!-- The default feed ("about") will load here on page load -->
+    <!-- Default feed will be loaded here -->
   </div>
 
   <script>
-    // Extended translations: support additional languages (Italian, Spanish, Portuguese)
+    // Dropdown toggle functions
+    function toggleDropdown(button) {
+      // Toggle the dropdown for this button
+      const parentLi = button.parentElement;
+      // Close other dropdowns
+      const dropdowns = document.querySelectorAll('nav ul li.dropdown');
+      dropdowns.forEach((dropdown) => {
+        if (dropdown !== parentLi) {
+          dropdown.classList.remove('dropdown-open');
+        }
+      });
+      // Toggle current dropdown
+      parentLi.classList.toggle('dropdown-open');
+    }
+    function closeDropdowns() {
+      document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
+        dropdown.classList.remove('dropdown-open');
+      });
+    }
+
+    // Extended translations for languages
     const translations = {
       en: {
         about: { title: "About FreQtik", text: "I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life." },
@@ -438,6 +452,7 @@
                   </section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
+      // Scroll content container into view so that the fixed header remains visible
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
     // Load default feed ("about") on page load
@@ -450,7 +465,7 @@
     });
     /* Intro Overlay: Hide after sufficient mouse movement on desktop */
     let introDone = false;
-    const intro = document.getElementById('intro');
+    const introEl = document.getElementById('intro');
     let movementProgress = 0;
     let lastX = null, lastY = null;
     document.addEventListener('mousemove', (e) => {
@@ -461,7 +476,7 @@
           let dy = Math.abs(e.clientY - lastY);
           movementProgress += dx + dy;
           if (movementProgress > 300) {
-            intro.classList.add('hidden');
+            introEl.classList.add('hidden');
             introDone = true;
           }
         }
@@ -469,12 +484,21 @@
         lastY = e.clientY;
       }
     });
-    /* Header Logo Animation: Horizontal oscillation on scroll */
+    /* Header Logo: Horizontal oscillation based on scroll */
     const logo = document.getElementById('scrollLogo');
     window.addEventListener('scroll', () => {
       const maxShift = window.innerWidth - logo.clientWidth - 40; // margin adjustment
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
+      
+      // For mobile: hide logo-container when scrolling down
+      if(window.innerWidth < 600) {
+        if(window.scrollY > 50) {
+          document.getElementById('mainHeader').classList.add('hidden-logo');
+        } else {
+          document.getElementById('mainHeader').classList.remove('hidden-logo');
+        }
+      }
     });
   </script>
 </body>
