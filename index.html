@@ -1,9 +1,9 @@
-<!-- Paste starts here -->
+<!-- Paste from here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
   <link rel="icon" type="image/png" href="QLogoPNGBlack_17x30.png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@
       color: var(--text);
       overflow-x: hidden;
       scroll-behavior: smooth;
-      height: 100%;
     }
     .intro {
       position: fixed;
@@ -70,16 +69,14 @@
       transition: transform 0.3s ease;
     }
     .logo-container {
+      position: relative;
       height: 150px;
       border-bottom: 1px solid var(--line);
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      transition: height 0.3s ease;
-    }
-    .logo-container.hidden {
-      height: 0;
+      transition: transform 0.3s ease;
     }
     .logo-container img {
       height: 120px;
@@ -92,9 +89,6 @@
       padding: 20px 0;
       border-bottom: 1px solid var(--line);
       background: var(--bg);
-      position: sticky;
-      top: 0;
-      z-index: 200;
     }
     nav ul {
       list-style: none;
@@ -113,11 +107,11 @@
       color: var(--text);
       padding: 8px 16px;
       cursor: pointer;
-      transition: transform 0.2s ease, color 0.3s ease, font-size 0.3s ease;
+      transition: transform 0.3s ease, color 0.3s ease;
       position: relative;
     }
     nav ul li button:hover {
-      transform: scale(1.05);
+      transform: rotate(5deg);
     }
     nav ul li button::after {
       content: "";
@@ -161,10 +155,6 @@
     }
     .dropdown-content a:hover {
       transform: rotate(5deg);
-    }
-    nav ul li.dropdown:hover .dropdown-content {
-      display: block;
-      animation: fadeIn 0.3s ease;
     }
     .dropdown-open .dropdown-content {
       display: block;
@@ -265,10 +255,10 @@
 <body>
   <div class="intro" id="intro">
     <img src="FreQtikBlackLogo.png" alt="FreQtik Logo">
-    <p>create experiences & find solutions</p>
+    <p>I love to create experiences and find solutions.</p>
   </div>
   <header id="mainHeader">
-    <div class="logo-container" id="logoContainer">
+    <div class="logo-container">
       <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
     </div>
     <nav>
@@ -313,30 +303,71 @@
       let html = "";
       switch(feed) {
         case "about":
-          html = `<section id="about"><h2>About FreQtik</h2><p>I’m a creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p></section>`;
+          html = `<section id="about"><h2>About FreQtik</h2><p>I’m a multi-disciplinary creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p></section>`;
           break;
-        // other cases unchanged...
+        case "ltb":
+          html = `<section id="ltb" class="depth-effect"><h2>Learning to Bear</h2><p>Experience immersive gameplay on Steam – check out publicly visible events and updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe><div class="flex-container" style="margin-top:20px;"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
+          break;
+        case "aim":
+          html = `<section id="aim" class="depth-effect"><h2>Aim Trainer Bee Pro</h2><p>Refine your skills with precision – see the Steam events and details coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe><div class="flex-container" style="margin-top:20px;"><span style="font-size:14px;">Public Events Feed: (No updates yet)</span></div></section>`;
+          break;
+        case "youtube":
+          html = `<section id="youtube" class="depth-effect"><h2>YouTube Channel</h2><p>Below is a vertically scrollable list of videos from my channel. You can tap a video to play it. For more, <a href="https://www.youtube.com/@FreQtik" target="_blank">visit my channel</a>.</p><div style="max-height:320px; overflow-y:auto;"><iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUxxxxxxxxxxxxxxxx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></section>`;
+          break;
+        case "spotify":
+          html = `<section id="spotify" class="depth-effect"><h2>Spotify</h2><p>Listen to my music on Spotify.</p><iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></section>`;
+          break;
+        case "downloads":
+          html = `<section id="downloads" class="depth-effect"><h2>Downloads & Tools</h2><p>Coming soon: Tools to enhance creative workflows for Unreal Engine and Python.</p></section>`;
+          break;
+        case "socials":
+          html = `<section id="socials" class="depth-effect"><h2>Connect with FreQtik</h2><div class="flex-container"><a href="https://www.instagram.com/freqtik/" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram</a><a href="https://www.youtube.com/@FreQtik" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube</a><a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify</a></div></section>`;
+          break;
+        default:
+          html = `<section id="about"><h2>About FreQtik</h2><p>I’m a multi-disciplinary creator...</p></section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
+      if(window.innerWidth < 600) {
+        document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
+      }
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
-
-    window.addEventListener("load", function() {
-      setTimeout(() => {
-        loadFeed("about");
+    window.addEventListener("load", function(){
+      loadFeed("about");
+      if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
-      }, 1000);
+      }
     });
-
+    let introDone = false;
+    const introEl = document.getElementById('intro');
+    let movementProgress = 0;
+    let lastX = null, lastY = null;
+    document.addEventListener('mousemove', (e) => {
+      if(window.innerWidth < 600) return;
+      if (!introDone) {
+        if (lastX !== null && lastY !== null) {
+          let dx = Math.abs(e.clientX - lastX);
+          let dy = Math.abs(e.clientY - lastY);
+          movementProgress += dx + dy;
+          if (movementProgress > 300) {
+            introEl.classList.add('hidden');
+            introDone = true;
+          }
+        }
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
+    });
     const logo = document.getElementById('scrollLogo');
-    const logoContainer = document.getElementById('logoContainer');
     window.addEventListener('scroll', () => {
-      const movement = Math.sin(window.scrollY * 0.005) * ((window.innerWidth - logo.clientWidth - 40) / 2);
+      const maxShift = window.innerWidth - logo.clientWidth - 40;
+      const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
-      if (window.scrollY > 80) {
-        logoContainer.classList.add('hidden');
-      } else {
-        logoContainer.classList.remove('hidden');
+      if(window.innerWidth < 600) {
+        let currentScroll = window.scrollY;
+        if(currentScroll < 10) {
+          document.getElementById('mainHeader').style.transform = 'translateY(0)';
+        }
       }
     });
   </script>
