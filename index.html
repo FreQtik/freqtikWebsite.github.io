@@ -8,16 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #000000;
+      --bg: #fff;
+      --text: #000;
       --line: #e0e0e0;
-      --shadow: rgba(0, 0, 0, 0.08);
+      --shadow: rgba(0,0,0,0.08);
       --header-height: 200px;
     }
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Manrope', sans-serif;
       cursor: url('QLogoPNGBlack_17x30.png') 16 16, auto;
     }
@@ -28,35 +26,20 @@
       scroll-behavior: smooth;
       scroll-padding-top: var(--header-height);
     }
-    body {
-      overflow-x: hidden;
-    }
+    body { overflow-x: hidden; }
 
     /* INTRO OVERLAY */
     .intro {
       position: fixed; inset: 0;
       background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
       z-index: 9999;
       transition: opacity 1.5s ease, filter 1.5s ease;
     }
-    .intro.hidden {
-      opacity: 0;
-      filter: blur(8px);
-      pointer-events: none;
-    }
-    .intro img {
-      width: 300px; max-width: 90vw;
-    }
-    .intro p {
-      margin-top: 10px;
-      font-size: 18px;
-      font-style: italic;
-      opacity: 0.5;
-    }
+    .intro.hidden { opacity: 0; filter: blur(8px); pointer-events: none; }
+    .intro img { width: 300px; max-width: 90vw; }
+    .intro p { margin-top: 10px; font-size: 18px; font-style: italic; opacity: 0.5; }
 
     /* HEADER & LOGO */
     header {
@@ -65,13 +48,12 @@
       z-index: 100;
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
+      overflow: visible;
     }
     .logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 150px;
       border-bottom: 1px solid var(--line);
+      display: flex; justify-content: center; align-items: center;
     }
     .logo-container img {
       height: 120px;
@@ -81,181 +63,122 @@
 
     /* NAV */
     nav {
-      display: flex;
-      justify-content: center;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
+      display: flex; justify-content: center;
+      padding: 20px 0; border-bottom: 1px solid var(--line);
+      overflow: visible;
     }
     nav ul {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-      align-items: center;
+      display: flex; gap: 40px; list-style: none; align-items: center;
+      overflow: visible;
     }
-    nav ul li {
-      position: relative;
-    }
+    nav ul li { position: relative; }
     nav ul li button {
-      background: none;
-      border: none;
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--text);
-      padding: 8px 16px;
-      cursor: pointer;
+      background: none; border: none; font-weight: 600;
+      font-size: 16px; color: var(--text);
+      padding: 8px 16px; cursor: pointer;
       transition: transform 0.2s ease;
     }
-    /* desktop: dropdown on hover */
-    @media (min-width: 601px) {
-      .dropdown:hover .dropdown-content {
-        display: block;
-        animation: fadeIn 0.3s ease;
-      }
-    }
-    /* hover scale instead of rotate */
-    nav ul li button:hover {
-      transform: scale(1.05);
-    }
+    /* hover‐scale on buttons */
+    nav ul li button:hover { transform: scale(1.05); }
     nav ul li button::after {
-      content: "";
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 1px;
-      background: var(--text);
-      transform: scaleX(0);
-      transform-origin: right;
+      content: ""; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 1px; background: var(--text);
+      transform: scaleX(0); transform-origin: right;
       transition: transform 0.3s ease;
     }
     nav ul li button:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+      transform: scaleX(1); transform-origin: left;
     }
 
-    /* DROPDOWN CONTENT */
+    /* DROPDOWNS */
     .dropdown-content {
       display: none;
-      position: absolute;
-      top: 100%; left: 0;
+      position: absolute; top: 100%; left: 0;
       background: var(--bg);
       border: 1px solid var(--line);
       padding: 10px 15px;
       min-width: 180px;
       box-shadow: 0 4px 8px var(--shadow);
-      z-index: 99;
+      z-index: 999;
+      white-space: nowrap;
     }
-    /* click toggles for desktop & mobile */
+    /* adjust rightmost dropdown to stay in view */
+    nav ul li.dropdown:last-child .dropdown-content {
+      right: 0; left: auto;
+    }
+    /* hover open on desktop */
+    @media (min-width: 601px) {
+      .dropdown:hover .dropdown-content {
+        display: block; animation: fadeIn 0.3s ease;
+      }
+    }
+    /* click toggle for all */
     .dropdown-open .dropdown-content {
-      display: block;
-      animation: fadeIn 0.3s ease;
+      display: block; animation: fadeIn 0.3s ease;
     }
     .dropdown-content a {
-      display: block;
-      margin-bottom: 12px;
-      text-decoration: none;
-      color: var(--text);
+      display: block; margin-bottom: 12px;
+      text-decoration: none; color: var(--text);
       font-size: 16px;
-      white-space: nowrap;
       transition: transform 0.2s ease;
     }
-    .dropdown-content a:last-child {
-      margin-bottom: 0;
-    }
-    .dropdown-content a:hover {
-      transform: rotate(2.5deg);
-    }
+    .dropdown-content a:last-child { margin-bottom: 0; }
+    .dropdown-content a:hover { transform: rotate(2.5deg); }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px);}
-      to   { opacity: 1; transform: translateY(0);}
+      from { opacity:0; transform: translateY(-5px); }
+      to   { opacity:1; transform: translateY(0);    }
     }
 
     /* MAIN CONTENT */
-    .content-container {
-      padding-top: var(--header-height);
-    }
+    .content-container { padding-top: var(--header-height); }
     .responsive-iframe {
-      display: block;
-      width: 100%;
-      max-width: 600px;
-      height: 300px;
-      border: none;
+      display: block; width: 100%; max-width: 600px;
+      height: 300px; border: none;
     }
     section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
+      padding: 60px 20px; max-width: 900px; margin: auto;
       border-bottom: 1px solid var(--line);
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 0; transform: translateY(30px);
       animation: slideIn 0.6s ease forwards;
     }
     @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px);}
-      to   { opacity: 1; transform: translateY(0);}
+      from { opacity:0; transform: translateY(30px); }
+      to   { opacity:1; transform: translateY(0);     }
     }
     section h2 {
-      margin-bottom: 20px;
-      font-size: 28px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 5px;
+      margin-bottom: 20px; font-size: 28px;
+      border-bottom: 1px solid var(--line); padding-bottom: 5px;
     }
-    section p, section ul {
-      font-size: 16px;
-      line-height: 1.6;
-    }
+    section p, section ul { font-size: 16px; line-height: 1.6; }
     section ul { list-style: inside; }
     .flex-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
+      display: flex; gap: 20px; flex-wrap: wrap;
+      justify-content: center; margin-top: 20px;
     }
     .flex-container a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      font-size: 16px;
-      color: var(--text);
-      padding: 6px 12px;
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; font-size: 16px;
+      color: var(--text); padding: 6px 12px;
       border-bottom: 1px solid transparent;
       transition: border-color 0.3s ease;
     }
-    .flex-container a:hover {
-      border-bottom: 1px solid var(--text);
-    }
-    .social-icon {
-      width: 20px;
-      height: 20px;
-    }
+    .flex-container a:hover { border-bottom: 1px solid var(--text); }
+    .social-icon { width: 20px; height: 20px; }
 
-    /* MOBILE SPECIFIC */
+    /* MOBILE TWEAKS */
     @media (max-width: 600px) {
       :root { --header-height: 150px; }
       html { font-size: 90%; }
-      nav ul {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      nav ul li {
-        flex: 1 1 30%;
-        text-align: center;
-      }
-      nav ul li button {
-        padding: 8px;
-        font-size: 14px;
-      }
-      .dropdown-content {
-        width: auto;
-        margin-top: 10px;
-        text-align: center;
-      }
-      /* disable hide-header-on-click for mobile */
+      nav ul { flex-wrap: wrap; gap: 10px; }
+      nav ul li { flex: 1 1 30%; text-align: center; }
+      nav ul li button { padding: 8px; font-size: 14px; }
+      .dropdown-content { width: auto; margin-top: 10px; text-align: center; }
     }
   </style>
 </head>
 <body>
+
   <div class="intro" id="intro">
     <img src="FreQtikBlackLogo.png" alt="FreQtik Logo">
     <p>create experiences & find solutions.</p>
@@ -291,89 +214,177 @@
   <div class="content-container" id="mainContent"></div>
 
   <script>
-    const introEl = document.getElementById('intro');
-    const headerEl = document.getElementById('mainHeader');
+    // ----- CONFIG: Add your keys & IDs here -----
+    const YT_API_KEY     = 'YOUR_YOUTUBE_API_KEY';
+    const CHANNEL_ID     = 'YOUR_CHANNEL_ID';
+    const STEAM_APP_IDS  = { ltb: 2789890, aim: 3666950 };
+
+    const introEl   = document.getElementById('intro');
+    const headerEl  = document.getElementById('mainHeader');
+    let lastScrollY = window.scrollY;
 
     function toggleDropdown(btn) {
-      // toggle on click
       btn.parentElement.classList.toggle('dropdown-open');
-      // close siblings
-      document.querySelectorAll('nav .dropdown').forEach(d => {
-        if (d !== btn.parentElement) d.classList.remove('dropdown-open');
-      });
+      document.querySelectorAll('nav .dropdown')
+        .forEach(d => { if (d !== btn.parentElement) d.classList.remove('dropdown-open'); });
     }
     function closeDropdowns() {
       document.querySelectorAll('nav .dropdown').forEach(d => d.classList.remove('dropdown-open'));
     }
 
     function loadFeed(feed) {
-      let html = "";
+      let html;
       switch(feed) {
-        case "about":
-          html = `<section id="about"><h2>About FreQtik</h2><p>Creator with passions in game development, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p></section>`;
+        case 'about':
+          html = `
+            <section id="about">
+              <h2>About FreQtik</h2>
+              <p>Creator with passions in game dev, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p>
+            </section>`;
           break;
-        case "ltb":
-          html = `<section id="ltb" class="depth-effect"><h2>Learning to Bear</h2><p>Experience immersive gameplay on Steam – updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe><div class="flex-container"><span style="font-size:14px;">Public Events: none yet</span></div></section>`;
+
+        case 'ltb':
+        case 'aim':
+          const appId = STEAM_APP_IDS[feed];
+          html = `
+            <section id="${feed}" class="depth-effect">
+              <h2>${ feed === 'ltb' ? 'Learning to Bear' : 'Aim Trainer Bee Pro' }</h2>
+              <div id="steam-${feed}"><p>Loading Steam data…</p></div>
+            </section>`;
+          setTimeout(() => fetchSteamData(feed, appId), 0);
           break;
-        case "aim":
-          html = `<section id="aim" class="depth-effect"><h2>Aim Trainer Bee Pro</h2><p>Refine your skills – updates coming soon!</p><iframe class="responsive-iframe" src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe><div class="flex-container"><span style="font-size:14px;">Public Events: none yet</span></div></section>`;
+
+        case 'youtube':
+          html = `
+            <section id="youtube" class="depth-effect">
+              <h2>YouTube Channel</h2>
+              <div id="yt-feed"><p>Loading videos…</p></div>
+            </section>`;
+          setTimeout(fetchYouTubeVideos, 0);
           break;
-        case "youtube":
-          html = `<section id="youtube" class="depth-effect"><h2>YouTube Channel</h2><p>Scroll my latest videos. <a href="https://www.youtube.com/@FreQtik" target="_blank">Visit channel</a>.</p><div style="max-height:320px; overflow-y:auto;"><iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUxxxxxxxxxxxxxxxx" allowfullscreen></iframe></div></section>`;
+
+        case 'spotify':
+          html = `
+            <section id="spotify" class="depth-effect">
+              <h2>Spotify</h2>
+              <p>Listen on Spotify.</p>
+              <iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK" allow="encrypted-media"></iframe>
+            </section>`;
           break;
-        case "spotify":
-          html = `<section id="spotify" class="depth-effect"><h2>Spotify</h2><p>Listen on Spotify.</p><iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK" allowtransparency="true" allow="encrypted-media"></iframe></section>`;
+
+        case 'downloads':
+          html = `
+            <section id="downloads" class="depth-effect">
+              <h2>Downloads & Tools</h2>
+              <p>Coming soon.</p>
+            </section>`;
           break;
-        case "downloads":
-          html = `<section id="downloads" class="depth-effect"><h2>Downloads & Tools</h2><p>Coming soon.</p></section>`;
-          break;
-        case "socials":
-          html = `<section id="socials" class="depth-effect"><h2>Connect</h2><div class="flex-container"><a href="https://www.instagram.com/freqtik/" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram</a><a href="https://www.youtube.com/@FreQtik" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube</a><a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify</a></div></section>`;
+
+        case 'socials':
+          html = `
+            <section id="socials" class="depth-effect">
+              <h2>Connect</h2>
+              <div class="flex-container">
+                <a href="https://www.instagram.com/freqtik/" target="_blank">
+                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram
+                </a>
+                <a href="https://www.youtube.com/@FreQtik" target="_blank">
+                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube
+                </a>
+                <a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">
+                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify
+                </a>
+              </div>
+            </section>`;
           break;
       }
-      const main = document.getElementById('mainContent');
-      main.innerHTML = html;
-      main.scrollIntoView({ behavior: 'smooth' });
+
+      document.getElementById('mainContent').innerHTML = html;
+      document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // on load
-    window.addEventListener('load', () => {
-      // restore scroll
-      const pos = sessionStorage.getItem('scrollPos');
-      if (pos) window.scrollTo(0, parseFloat(pos));
-      // show about
-      loadFeed('about');
-      // hide intro on mobile immediately
-      if (window.innerWidth < 600) introEl.classList.add('hidden');
+    // --- YouTube Data API: Fetch uploads playlist & list videos ---
+    async function fetchYouTubeVideos() {
+      try {
+        // 1) get your uploads playlist ID
+        let ch = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${YT_API_KEY}`)
+                    .then(r=>r.json());
+        let uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+
+        // 2) fetch up to 50 recent items
+        let list = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploads}&maxResults=50&key=${YT_API_KEY}`)
+                    .then(r=>r.json());
+
+        const container = document.getElementById('yt-feed');
+        container.innerHTML = '';
+        list.items.forEach(item => {
+          const vid = item.snippet.resourceId.videoId;
+          container.innerHTML += `
+            <div style="margin-bottom:20px;">
+              <iframe class="responsive-iframe" src="https://www.youtube.com/embed/${vid}" frameborder="0" allowfullscreen></iframe>
+              <p>${item.snippet.title}</p>
+            </div>`;
+        });
+      } catch (e) {
+        document.getElementById('yt-feed').innerHTML = `<p>Error loading YouTube: ${e.message}</p>`;
+      }
+    }
+
+    // --- Steam Store API: Fetch full app details ---
+    async function fetchSteamData(feed, appId) {
+      try {
+        let data = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appId}&cc=US&l=en`)
+                        .then(r=>r.json());
+        let info = data[appId].data;
+        let c = document.getElementById(`steam-${feed}`);
+        let imgs = info.screenshots.map(s => `<img src="${s.path_full}" style="max-width:100%;margin-bottom:10px;">`).join('');
+        c.innerHTML = `
+          <p><strong>${info.name}</strong></p>
+          <p>${info.short_description}</p>
+          ${imgs}
+          <p><a href="https://store.steampowered.com/app/${appId}" target="_blank">View on Steam</a></p>
+        `;
+      } catch (e) {
+        document.getElementById(`steam-${feed}`).innerHTML = `<p>Error loading Steam data: ${e.message}</p>`;
+      }
+    }
+
+    // --- Scroll & Header behavior ---
+    window.addEventListener('scroll', () => {
+      // header hide/show on desktop scroll direction
+      if (window.innerWidth > 600) {
+        if (window.scrollY > lastScrollY) headerEl.style.transform = 'translateY(-100%)';
+        else headerEl.style.transform = 'translateY(0)';
+        lastScrollY = window.scrollY;
+      } else {
+        // on mobile (any orientation), hide if not at very top
+        headerEl.style.transform = window.scrollY > 0 ? 'translateY(-100%)' : 'translateY(0)';
+      }
+      // logo moves & gentle rotate
+      const logo = document.getElementById('scrollLogo');
+      const maxShift = window.innerWidth - logo.clientWidth - 40;
+      const x = Math.sin(window.scrollY * 0.005) * (maxShift/2);
+      logo.style.transform = `translateX(${x}px) rotate(${window.scrollY * 0.005}deg)`;
     });
 
-    // save scroll
+    // --- Persist scroll pos ---
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem('scrollPos', window.scrollY);
     });
-
-    // intro dismiss by mouse
-    let moved = 0, lastX = null, lastY = null, done = false;
-    document.addEventListener('mousemove', e => {
-      if (done || window.innerWidth < 600) return;
-      if (lastX !== null) moved += Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
-      lastX = e.clientX; lastY = e.clientY;
-      if (moved > 300) {
-        introEl.classList.add('hidden');
-        done = true;
-      }
+    window.addEventListener('load', () => {
+      const pos = sessionStorage.getItem('scrollPos');
+      if (pos) window.scrollTo(0, parseFloat(pos));
+      loadFeed('about');
+      if (window.innerWidth < 600) introEl.classList.add('hidden');
     });
 
-    // logo scroll + gentle rotation
-    const logo = document.getElementById('scrollLogo');
-    window.addEventListener('scroll', () => {
-      const maxShift = window.innerWidth - logo.clientWidth - 40;
-      const x = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
-      logo.style.transform = `translateX(${x}px) rotate(${window.scrollY * 0.005}deg)`;
-      // ensure header stays visible on mobile at top
-      if (window.innerWidth < 600 && window.scrollY < 10) {
-        headerEl.style.transform = 'translateY(0)';
-      }
+    // --- Intro dismiss by mouse movement ---
+    let moved=0, lx=null, ly=null, done=false;
+    document.addEventListener('mousemove', e => {
+      if (done || window.innerWidth < 600) return;
+      if (lx !== null) moved += Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly);
+      lx=e.clientX; ly=e.clientY;
+      if (moved > 300) { introEl.classList.add('hidden'); done=true; }
     });
   </script>
 </body>
