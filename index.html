@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
-  <link rel="icon" type="image/x-icon" href="QMiniIcon.ico">
-  <!-- Using Manrope for a modern, clean look -->
+  <!-- Updated favicon and cursor icon -->
+  <link rel="icon" type="image/png" href="QLogoPNGBlack_17x30.png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -22,8 +22,8 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Manrope', sans-serif;
-      /* Custom Q cursor with hotspot centered at (16,16) */
-      cursor: url('QMiniIcon.ico') 16 16, auto;
+      /* Use the new PNG icon as the custom cursor with hotspot centered (set here at 16,16) */
+      cursor: url('QLogoPNGBlack_17x30.png') 16 16, auto;
     }
     html, body {
       background: var(--bg);
@@ -72,10 +72,8 @@
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
     }
-    /* On mobile, hide logo-container when scrolling down */
-    header.hidden-logo .logo-container {
-      transform: translateY(-150px);
-    }
+    /* On mobile, header hides when scrolling down and shows when scrolling up */
+    /* We'll use JavaScript to set header.style.transform accordingly */
     .logo-container {
       position: relative;
       height: 150px;
@@ -107,7 +105,7 @@
     nav ul li {
       position: relative;
     }
-    /* Make buttons rotate on hover as well */
+    /* Navigation buttons that rotate 5° on hover */
     nav ul li button {
       background: none;
       border: none;
@@ -138,7 +136,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Dropdown menus that toggle on click (and also hover works) */
+    /* Dropdown menus: toggle on click; hover effect remains */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -241,21 +239,22 @@
       width: 20px;
       height: 20px;
     }
-    /* Media Queries for Mobile Vertical Layout */
+    /* For mobile, always keep nav horizontal and scale it */
     @media (max-width: 600px) {
       nav ul {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        gap: 20px;
       }
       nav ul li button {
         padding: 8px 12px;
         font-size: 14px;
       }
       .dropdown-content {
-        position: static;
-        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: auto;
         text-align: center;
-        margin-top: 10px;
       }
     }
   </style>
@@ -301,10 +300,9 @@
   </div>
 
   <script>
-    // Dropdown toggle functions (toggle on click; hover remains)
+    // Dropdown toggle functions: click to open/close, hover still works.
     function toggleDropdown(button) {
       const parentLi = button.parentElement;
-      // Toggle current dropdown
       parentLi.classList.toggle('dropdown-open');
       // Close other dropdowns
       document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
@@ -318,6 +316,7 @@
         dropdown.classList.remove('dropdown-open');
       });
     }
+
     // Function to load feed content dynamically (English only)
     function loadFeed(feed) {
       let html = "";
@@ -355,10 +354,10 @@
         case "youtube":
           html = `<section id="youtube" class="depth-effect">
                     <h2>YouTube Channel</h2>
-                    <p>Below is a scrollable list of videos from my channel. You can click on any video to play it. For more, <a href="https://www.youtube.com/@FreQtik" target="_blank">visit my channel</a>.</p>
+                    <p>Below is a vertically scrollable list of videos from my channel. You can tap a video to play it. For more, <a href="https://www.youtube.com/@FreQtik" target="_blank">visit my channel</a>.</p>
                     <div style="max-height:320px; overflow-y:auto;">
-                      <!-- Embed the uploads playlist from your channel. Convert channel id (UC...) to uploads playlist by replacing UC with UU -->
-                      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=UUG0kPEfnBl4M3OwNPGWES4A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      <!-- Replace YOUR_PLAYLIST_ID_HERE with your actual uploads playlist ID -->
+                      <iframe class="responsive-iframe" src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID_HERE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                   </section>`;
           break;
@@ -398,13 +397,13 @@
                   </section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
-      // Scroll the content container into view so that the fixed header remains visible
+      // Scroll the content container into view so the fixed header remains visible
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
     // Load default feed ("about") on page load
     window.addEventListener("load", function(){
       loadFeed("about");
-      // For mobile devices (width <600px), skip the intro overlay immediately
+      // For mobile: if width <600px, skip the intro overlay immediately
       if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
       }
@@ -437,13 +436,17 @@
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
       
-      // For mobile: hide logo-container when scrolling down
+      // For mobile: hide or show entire header based on scroll direction
       if(window.innerWidth < 600) {
-        if(window.scrollY > 50) {
-          document.getElementById('mainHeader').classList.add('hidden-logo');
-        } else {
-          document.getElementById('mainHeader').classList.remove('hidden-logo');
+        // Use scroll direction: hide header on scroll down, show on scroll up
+        let currentScroll = window.scrollY;
+        if (!window.lastScroll) window.lastScroll = currentScroll;
+        if (currentScroll > window.lastScroll + 10) {
+          document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
+        } else if (currentScroll < window.lastScroll - 10) {
+          document.getElementById('mainHeader').style.transform = 'translateY(0)';
         }
+        window.lastScroll = currentScroll;
       }
     });
   </script>
