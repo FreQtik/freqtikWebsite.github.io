@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>UFO Clicker Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UFO Clicker</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      background: #111;
-      color: white;
+      background: black;
       overflow: hidden;
+      color: white;
       font-family: sans-serif;
     }
     canvas {
       display: block;
-      background: black;
     }
-    #ui {
+    #hud, #endScreen, #quitButton {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      color: white;
       z-index: 10;
     }
-    #stats {
-      margin-top: 10px;
+    #hud {
+      top: 10px;
+      left: 10px;
+    }
+    #quitButton {
+      top: 10px;
+      right: 10px;
+      background: red;
+      padding: 6px 12px;
+      border: none;
+      color: white;
+      cursor: pointer;
     }
     #endScreen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.95);
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
       display: none;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
-      color: white;
-      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #chartContainer {
+      width: 90%;
+      max-width: 500px;
     }
     button {
       margin: 5px;
@@ -49,198 +56,175 @@
 </head>
 <body>
   <canvas id="gameCanvas"></canvas>
-  <div id="ui">
-    <div>Time: <span id="timeLeft">15</span>s</div>
-    <div>Score: <span id="score">0</span></div>
-    <div id="stats"></div>
+  <div id="hud">
+    Time: <span id="time">0</span> | UFOs: <span id="ufoCount">0</span> | Clicks: <span id="clicks">0</span>
   </div>
-
+  <button id="quitButton" onclick="window.location.href='index.html'">Quit</button>
   <div id="endScreen">
-    <h1>Game Over</h1>
-    <canvas id="chartCanvas" width="400" height="200"></canvas>
-    <p id="summary"></p>
-    <button onclick="startGame()">Restart</button>
-    <button onclick="location.reload()">Quit</button>
+    <h2>Game Over</h2>
+    <div>UFOs clicked: <span id="finalCount"></span></div>
+    <div>Avg APM: <span id="finalAPM"></span></div>
+    <div>Failures: <span id="failCount"></span></div>
+    <div id="chartContainer"><canvas id="reactionChart"></canvas></div>
+    <button onclick="location.reload()">Restart</button>
+    <button onclick="window.location.href='index.html'">Quit to Home</button>
   </div>
-
-  <audio id="clickSound" src="https://cdn.pixabay.com/audio/2021/08/04/audio_749f59f47f.mp3"></audio>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    let W = canvas.width = window.innerWidth;
-    let H = canvas.height = window.innerHeight;
-
-    let enemies = [];
-    let score = 0;
-    let timeLeft = 15;
-    let clickCount = 0;
-    let failCount = 0;
-    let reactions = [];
-    let gameRunning = false;
-    let gameStart = 0;
-
-    const ufoImages = {
-      basic: new Image(),
-      sine: new Image(),
-      tangent: new Image()
+    const hud = {
+      time: document.getElementById('time'),
+      ufoCount: document.getElementById('ufoCount'),
+      clicks: document.getElementById('clicks'),
     };
-    ufoImages.basic.src = "ufo_basic.png";
-    ufoImages.sine.src = "ufo_sine.png";
-    ufoImages.tangent.src = "ufo_tangent.png";
+    const endScreen = document.getElementById('endScreen');
+    const finalCount = document.getElementById('finalCount');
+    const finalAPM = document.getElementById('finalAPM');
+    const failCountEl = document.getElementById('failCount');
 
-    const clickSound = document.getElementById("clickSound");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    class Enemy {
-      constructor(type) {
-        this.type = type;
-        this.x = Math.random() * (W - 100);
-        this.y = Math.random() * (H - 100);
-        this.radius = 40;
-        this.speed = 1 + Math.random() * 2;
-        this.hitPoints = type === "basic" ? 1 : 2;
-        this.angle = 0;
+    let ufos = [], clicks = 0, totalUFOs = 0, startTime = Date.now();
+    let reactionTimes = [], failCount = 0, spawnInterval = 1500, ufoSpeed = 1;
+
+    const ufoImages = [];
+    for (let i = 1; i <= 6; i++) {
+      const img = new Image();
+      img.src = `assets/ufos/ufo${i}.png`;
+      ufoImages.push(img);
+    }
+
+    const clickSound = new Audio('https://actions.google.com/sounds/v1/cartoon/pop.ogg');
+
+    class UFO {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = 32 + Math.random() * 20;
+        this.hp = 1 + Math.floor(Math.random() * 3);
         this.spawnTime = Date.now();
+        this.speed = ufoSpeed + Math.random();
+        this.movePattern = Math.floor(Math.random() * 4);
+        this.img = ufoImages[Math.floor(Math.random() * ufoImages.length)];
+        this.angle = 0;
+        this.id = performance.now();
       }
 
-      update() {
-        this.angle += 0.03;
-        switch (this.type) {
-          case "sine":
-            this.y += Math.sin(this.angle) * 2 + this.speed;
-            this.x += Math.cos(this.angle * 0.5) * 1.5;
+      move(t) {
+        switch (this.movePattern) {
+          case 0:
+            this.x += this.speed;
             break;
-          case "tangent":
-            this.y += Math.tan(this.angle * 0.1) * 0.5;
-            this.x += Math.cos(this.angle) * 3;
+          case 1:
+            this.y += Math.sin(t / 200) * this.speed;
+            this.x += Math.cos(t / 300) * this.speed;
             break;
-          default:
+          case 2:
+            this.x += Math.tan(t / 1000) * this.speed * 0.5;
             this.y += this.speed;
+            break;
+          case 3:
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed;
+            this.angle += 0.05;
+            break;
         }
-
-        if (this.y > H) {
+        if (this.x < -50 || this.x > canvas.width + 50 || this.y < -50 || this.y > canvas.height + 50) {
+          ufos = ufos.filter(u => u.id !== this.id);
           failCount++;
-          this.respawn();
         }
       }
 
       draw() {
-        const img = ufoImages[this.type];
-        ctx.drawImage(img, this.x, this.y, 80, 80);
+        ctx.drawImage(this.img, this.x - this.r/2, this.y - this.r/2, this.r, this.r);
       }
 
-      isHit(mx, my) {
-        return mx >= this.x && mx <= this.x + 80 && my >= this.y && my <= this.y + 80;
-      }
-
-      respawn() {
-        this.x = Math.random() * (W - 100);
-        this.y = -80;
-        this.hitPoints = this.type === "basic" ? 1 : 2;
-        this.spawnTime = Date.now();
+      isClicked(mx, my) {
+        return Math.hypot(mx - this.x, my - this.y) < this.r;
       }
     }
 
-    function spawnEnemy() {
-      const types = ["basic", "sine", "tangent"];
-      const type = types[Math.floor(Math.random() * types.length)];
-      enemies.push(new Enemy(type));
-    }
-
-    function gameLoop() {
-      if (!gameRunning) return;
-
-      ctx.clearRect(0, 0, W, H);
-      enemies.forEach(e => {
-        e.update();
-        e.draw();
-      });
-
-      requestAnimationFrame(gameLoop);
-    }
-
-    function updateUI() {
-      document.getElementById("timeLeft").innerText = timeLeft;
-      document.getElementById("score").innerText = score;
+    function spawnUFO() {
+      ufos.push(new UFO());
+      totalUFOs++;
     }
 
     function handleClick(e) {
-      if (!gameRunning) return;
+      const mx = e.touches ? e.touches[0].clientX : e.clientX;
+      const my = e.touches ? e.touches[0].clientY : e.clientY;
+      let clicked = false;
 
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
-      let hit = false;
-
-      enemies.forEach(enemy => {
-        if (enemy.isHit(mx, my)) {
-          clickSound.currentTime = 0;
-          clickSound.play();
-          enemy.hitPoints--;
-          hit = true;
-          if (enemy.hitPoints <= 0) {
-            score++;
-            let reaction = Date.now() - enemy.spawnTime;
-            reactions.push(reaction);
-            enemy.respawn();
+      ufos.forEach((ufo, i) => {
+        if (ufo.isClicked(mx, my)) {
+          ufo.hp--;
+          clicked = true;
+          if (ufo.hp <= 0) {
+            reactionTimes.push(Date.now() - ufo.spawnTime);
+            ufos.splice(i, 1);
+            clicks++;
+            clickSound.play();
           }
         }
       });
 
-      if (!hit) failCount++;
-      clickCount++;
-      updateUI();
+      if (!clicked) {
+        failCount++;
+      }
     }
 
-    canvas.addEventListener('click', handleClick);
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const now = Date.now();
+      ufos.forEach(ufo => {
+        ufo.move(now);
+        ufo.draw();
+      });
 
-    function startGame() {
-      score = 0;
-      timeLeft = 15;
-      clickCount = 0;
-      failCount = 0;
-      reactions = [];
-      enemies = [];
-      for (let i = 0; i < 5; i++) spawnEnemy();
-      document.getElementById("endScreen").style.display = "none";
-      gameRunning = true;
-      gameStart = Date.now();
-      updateUI();
-      gameLoop();
+      const elapsed = Math.floor((now - startTime) / 1000);
+      hud.time.textContent = elapsed;
+      hud.ufoCount.textContent = totalUFOs;
+      hud.clicks.textContent = clicks;
 
-      let countdown = setInterval(() => {
-        timeLeft--;
-        updateUI();
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          gameRunning = false;
-          showResults();
-        }
-      }, 1000);
+      if (elapsed % 60 === 0 && elapsed !== 0 && !ufos.some(u => u.hp > 5)) {
+        let boss = new UFO();
+        boss.hp = 10 + Math.floor(elapsed / 10);
+        boss.r = 64;
+        boss.img = ufoImages[0];
+        ufos.push(boss);
+      }
+
+      requestAnimationFrame(draw);
     }
 
-    function showResults() {
-      document.getElementById("endScreen").style.display = "flex";
-      const avg = reactions.reduce((a, b) => a + b, 0) / reactions.length || 0;
-      document.getElementById("summary").innerText =
-        `Final Score: ${score}\nClicks: ${clickCount}\nFails: ${failCount}\nAvg Reaction: ${Math.round(avg)}ms`;
+    function gameOver() {
+      endScreen.style.display = 'flex';
+      finalCount.textContent = clicks;
+      finalAPM.textContent = Math.round((clicks / ((Date.now() - startTime) / 60000)) * 100) / 100;
+      failCountEl.textContent = failCount;
 
-      new Chart(document.getElementById('chartCanvas'), {
+      const ctxChart = document.getElementById('reactionChart').getContext('2d');
+      new Chart(ctxChart, {
         type: 'line',
         data: {
-          labels: reactions.map((_, i) => i + 1),
+          labels: reactionTimes.map((_, i) => i + 1),
           datasets: [{
-            label: "Reaction Time (ms)",
-            data: reactions,
-            borderColor: "lime",
-            fill: false
+            label: 'Reaction Time (ms)',
+            data: reactionTimes,
+            borderColor: 'lime',
+            tension: 0.3
           }]
         }
       });
     }
 
-    startGame(); // auto-start
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchstart', handleClick);
+
+    setInterval(spawnUFO, spawnInterval);
+    setTimeout(gameOver, 90000); // 90 seconds
+    draw();
   </script>
 </body>
 </html>
