@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
-  <!-- Updated favicon and cursor icon -->
+  <!-- Updated favicon and custom cursor icon (PNG) -->
   <link rel="icon" type="image/png" href="QLogoPNGBlack_17x30.png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
@@ -22,7 +22,7 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Manrope', sans-serif;
-      /* Use the new PNG icon as the custom cursor with hotspot centered (set here at 16,16) */
+      /* Use PNG icon as cursor with hotspot at (16,16) */
       cursor: url('QLogoPNGBlack_17x30.png') 16 16, auto;
     }
     html, body {
@@ -72,8 +72,8 @@
       box-shadow: 0 4px 10px var(--shadow);
       transition: transform 0.3s ease;
     }
-    /* On mobile, header hides when scrolling down and shows when scrolling up */
-    /* We'll use JavaScript to set header.style.transform accordingly */
+    /* For mobile, header is hidden on feed selection until scrolled to top */
+    /* We'll set header.style.transform = 'translateY(-100%)' in loadFeed() if on mobile */
     .logo-container {
       position: relative;
       height: 150px;
@@ -105,7 +105,7 @@
     nav ul li {
       position: relative;
     }
-    /* Navigation buttons that rotate 5° on hover */
+    /* Navigation buttons (rotate 5° on hover) */
     nav ul li button {
       background: none;
       border: none;
@@ -136,7 +136,7 @@
       transform: scaleX(1);
       transform-origin: left;
     }
-    /* Dropdown menus: toggle on click; hover effect remains */
+    /* Dropdown menus toggle on click */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -172,7 +172,7 @@
       from { opacity: 0; transform: translateY(-5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Content Container (pushed below the fixed header) */
+    /* Content Container (pushed below header) */
     .content-container {
       padding-top: var(--header-height);
     }
@@ -239,14 +239,19 @@
       width: 20px;
       height: 20px;
     }
-    /* For mobile, always keep nav horizontal and scale it */
+    /* Mobile-specific styles */
     @media (max-width: 600px) {
       nav ul {
-        flex-direction: row;
-        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+      nav ul li {
+        flex: 1 1 30%; /* Try to have two rows of buttons */
+        text-align: center;
       }
       nav ul li button {
-        padding: 8px 12px;
+        padding: 8px 8px;
         font-size: 14px;
       }
       .dropdown-content {
@@ -255,6 +260,7 @@
         left: 0;
         width: auto;
         text-align: center;
+        margin-top: 10px;
       }
     }
   </style>
@@ -300,11 +306,11 @@
   </div>
 
   <script>
-    // Dropdown toggle functions: click to open/close, hover still works.
+    // Dropdown toggle functions: click toggles; hover remains.
     function toggleDropdown(button) {
       const parentLi = button.parentElement;
       parentLi.classList.toggle('dropdown-open');
-      // Close other dropdowns
+      // Close any other open dropdowns
       document.querySelectorAll('nav ul li.dropdown').forEach((dropdown) => {
         if (dropdown !== parentLi) {
           dropdown.classList.remove('dropdown-open');
@@ -317,7 +323,7 @@
       });
     }
 
-    // Function to load feed content dynamically (English only)
+    // Function to load feed content dynamically (English only).
     function loadFeed(feed) {
       let html = "";
       switch(feed) {
@@ -397,13 +403,16 @@
                   </section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
-      // Scroll the content container into view so the fixed header remains visible
+      // For mobile: hide header after selecting a feed.
+      if(window.innerWidth < 600) {
+        document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
+      }
+      // Scroll the content container into view.
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
     }
     // Load default feed ("about") on page load
     window.addEventListener("load", function(){
       loadFeed("about");
-      // For mobile: if width <600px, skip the intro overlay immediately
       if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
       }
@@ -436,17 +445,12 @@
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
       
-      // For mobile: hide or show entire header based on scroll direction
+      // For mobile: when scrolling back to top, show header; it remains hidden otherwise.
       if(window.innerWidth < 600) {
-        // Use scroll direction: hide header on scroll down, show on scroll up
         let currentScroll = window.scrollY;
-        if (!window.lastScroll) window.lastScroll = currentScroll;
-        if (currentScroll > window.lastScroll + 10) {
-          document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
-        } else if (currentScroll < window.lastScroll - 10) {
+        if(currentScroll < 10) {
           document.getElementById('mainHeader').style.transform = 'translateY(0)';
         }
-        window.lastScroll = currentScroll;
       }
     });
   </script>
