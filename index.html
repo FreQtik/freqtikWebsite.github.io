@@ -1,4 +1,3 @@
-<!-- Paste from here -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,13 +179,9 @@
       max-width: 900px;
       margin: auto;
       border-bottom: 1px solid var(--line);
-    }
-    .depth-effect {
-      box-shadow: 0 5px 20px var(--shadow);
-      border-radius: 8px;
-      padding: 30px;
-      background: var(--bg);
-      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideIn 0.6s ease forwards;
     }
     section h2 {
       margin-bottom: 20px;
@@ -249,6 +244,10 @@
         text-align: center;
         margin-top: 10px;
       }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -323,21 +322,25 @@
         case "socials":
           html = `<section id="socials" class="depth-effect"><h2>Connect with FreQtik</h2><div class="flex-container"><a href="https://www.instagram.com/freqtik/" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram</a><a href="https://www.youtube.com/@FreQtik" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">YouTube</a><a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank"><img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify</a></div></section>`;
           break;
-        default:
-          html = `<section id="about"><h2>About FreQtik</h2><p>I’m a multi-disciplinary creator...</p></section>`;
       }
       document.getElementById("mainContent").innerHTML = html;
       if(window.innerWidth < 600) {
         document.getElementById('mainHeader').style.transform = 'translateY(-100%)';
       }
       document.getElementById("mainContent").scrollIntoView({ behavior: "smooth" });
+      document.querySelectorAll('section').forEach((section) => {
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+      });
     }
+
     window.addEventListener("load", function(){
       loadFeed("about");
       if(window.innerWidth < 600) {
         document.getElementById('intro').classList.add('hidden');
       }
     });
+
     let introDone = false;
     const introEl = document.getElementById('intro');
     let movementProgress = 0;
@@ -358,19 +361,24 @@
         lastY = e.clientY;
       }
     });
+
     const logo = document.getElementById('scrollLogo');
     window.addEventListener('scroll', () => {
       const maxShift = window.innerWidth - logo.clientWidth - 40;
       const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
       logo.style.transform = `translateX(${movement}px)`;
+
       if(window.innerWidth < 600) {
-        let currentScroll = window.scrollY;
+        const currentScroll = window.scrollY;
         if(currentScroll < 10) {
           document.getElementById('mainHeader').style.transform = 'translateY(0)';
         }
       }
     });
-  </script>
-</body>
-</html>
-<!-- Paste ends here -->
+
+    // Persist scroll position
+    window.addEventListener('beforeunload', () => {
+      sessionStorage.setItem('scrollPos', window.scrollY);
+    });
+
+    window.addEventListener('load', ()
