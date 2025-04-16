@@ -2,214 +2,345 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreQtik</title>
-  <link rel="icon" href="QMiniIcon.ico" type="image/x-icon"/>
+  <link rel="icon" type="image/x-icon" href="QMiniIcon.ico">
+  <!-- Using Manrope for a modern yet slightly rounded look -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --accent: #111111;
+      --line: #e0e0e0;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    /* Reset & Basics */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Manrope', sans-serif;
+      /* Custom Q cursor – the numbers (16,16) centers the hotspot */
+      cursor: url('QMiniIcon.ico') 16 16, auto;
     }
-
     html, body {
-      font-family: 'Inter', sans-serif;
-      background-color: white;
-      color: black;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
 
-    body.custom-cursor {
-      cursor: url('QMiniIcon.ico'), auto;
+    /* Intro Overlay (full-screen, initial landing) */
+    .intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 1.5s ease, filter 1.5s ease;
+      /* Start fully visible */
+      opacity: 1;
+      filter: blur(0px);
+    }
+    .intro.hidden {
+      opacity: 0;
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .intro img {
+      width: 300px;
+      max-width: 90vw;
+    }
+    .intro p {
+      margin-top: 10px;
+      font-size: 18px;
+      font-style: italic;
+      opacity: 0.5;
     }
 
+    /* Sticky Header */
     header {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      height: 200px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+      box-shadow: 0 4px 10px var(--shadow);
     }
-
     .logo-container {
+      position: relative;
+      height: 150px;
+      border-bottom: 1px solid var(--line);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 200px;
       overflow: hidden;
     }
-
     .logo-container img {
-      width: 600px;
-      max-width: 100%;
+      height: 120px;
       transition: transform 0.4s ease;
+      will-change: transform;
     }
 
-    .intro {
-      text-align: center;
-      padding: 3rem 1rem;
-      font-size: 1.5rem;
-      font-weight: 300;
-      opacity: 0;
-      transition: opacity 1s ease, filter 1s ease;
-      filter: blur(10px);
-    }
-
-    .intro.visible {
-      opacity: 1;
-      filter: blur(0);
-    }
-
+    /* Navigation Bar */
     nav {
-      margin: 3rem auto;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
-
-    .btn {
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      background: none;
-      color: black;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    nav ul li {
       position: relative;
+    }
+    nav ul li button {
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text);
+      padding: 8px 16px;
       cursor: pointer;
       transition: color 0.3s ease;
+      /* Thin underline effect on hover */
+      position: relative;
     }
-
-    .btn::after {
+    nav ul li button::after {
       content: "";
       position: absolute;
-      left: 0;
       bottom: 0;
-      height: 1px;
+      left: 0;
       width: 100%;
-      background-color: black;
+      height: 1px;
+      background: var(--text);
       transform: scaleX(0);
       transform-origin: right;
       transition: transform 0.3s ease;
     }
-
-    .btn:hover::after {
+    nav ul li button:hover::after {
       transform: scaleX(1);
       transform-origin: left;
     }
+    /* Drop-down Menu for Navigation (appears on hover) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 10px 15px;
+      min-width: 180px;
+      box-shadow: 0 4px 8px var(--shadow);
+      z-index: 99;
+    }
+    .dropdown-content a {
+      display: block;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .dropdown-content a:last-child {
+      margin-bottom: 0;
+    }
+    nav ul li:hover .dropdown-content {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
+    /* Main Content Sections */
     section {
-      padding: 2rem 1rem;
+      padding: 60px 20px;
       max-width: 900px;
       margin: auto;
+      border-bottom: 1px solid var(--line);
     }
-
-    .socials, .downloads {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      align-items: center;
-    }
-
-    .downloads a {
-      text-decoration: none;
-      color: black;
-    }
-
     .depth-effect {
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      border-radius: 10px;
-      padding: 2rem;
-      background-color: white;
-      margin-top: 3rem;
+      box-shadow: 0 5px 20px var(--shadow);
+      border-radius: 8px;
+      padding: 30px;
+      background: var(--bg);
+      margin-top: 30px;
+    }
+    section h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 5px;
+    }
+    section p, section ul {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    section ul {
+      list-style: inside;
     }
 
-    @media (max-width: 600px) {
-      .logo-container img {
-        width: 90%;
-      }
-
-      .btn {
-        font-size: 0.9rem;
-      }
+    /* Socials and Downloads - Flex containers for even spacing */
+    .flex-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .flex-container a {
+      text-decoration: none;
+      font-size: 16px;
+      color: var(--text);
+      padding: 6px 12px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+    .flex-container a:hover {
+      border-bottom: 1px solid var(--text);
     }
   </style>
 </head>
-<body class="custom-cursor">
-
-  <header>
-    <div class="logo-container">
-      <img id="headerLogo" src="FreQtikBlackLogo.png" alt="FreQtik Logo"/>
-    </div>
-  </header>
-
-  <div class="intro" id="introText">
-    I love to create experiences and find solutions.
+<body>
+  <!-- Intro Overlay -->
+  <div class="intro" id="intro">
+    <img src="FreQtikBlackLogo.png" alt="FreQtik Logo">
+    <p>I love to create experiences and find solutions.</p>
   </div>
 
-  <nav>
-    <button class="btn" onclick="scrollToSection('music')">Music</button>
-    <button class="btn" onclick="scrollToSection('games')">Games</button>
-    <button class="btn" onclick="scrollToSection('downloads')">Downloads</button>
-    <button class="btn" onclick="scrollToSection('socials')">Socials</button>
-  </nav>
+  <!-- Sticky Header with Logo & Nav -->
+  <header id="mainHeader">
+    <div class="logo-container">
+      <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
+    </div>
+    <nav>
+      <ul>
+        <!-- "About" Button (simple) -->
+        <li>
+          <button onclick="scrollToSection('about')">About</button>
+        </li>
+        <!-- "Games" Drop-down -->
+        <li>
+          <button>Games</button>
+          <div class="dropdown-content">
+            <a href="#ltb" onclick="scrollToSection('ltb')">Learning to Bear</a>
+            <a href="#aim" onclick="scrollToSection('aim')">Aim Trainer Bee Pro</a>
+            <!-- Optionally: add a Games feed link or announcement here -->
+          </div>
+        </li>
+        <!-- "Music" Drop-down -->
+        <li>
+          <button>Music</button>
+          <div class="dropdown-content">
+            <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube Channel</a>
+            <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
+          </div>
+        </li>
+        <!-- "Downloads" Button -->
+        <li>
+          <button onclick="scrollToSection('downloads')">Downloads</button>
+        </li>
+        <!-- "Connect" Button -->
+        <li>
+          <button onclick="scrollToSection('socials')">Connect</button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Sections -->
+  <section id="about">
+    <h2>About FreQtik</h2>
+    <p>
+      I’m a multi-disciplinary creator with passions in game development, music production, and tool creation.
+      My work spans Unreal Engine, Python tools, audio engineering, and beyond. Welcome to my digital space.
+    </p>
+  </section>
 
   <section id="music" class="depth-effect">
     <h2>Music</h2>
-    <p>Check out my beats and audio productions!</p>
-    <div class="socials">
+    <p>Check out my beats and audio productions.</p>
+    <div class="flex-container">
       <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
       <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
     </div>
   </section>
 
-  <section id="games" class="depth-effect">
-    <h2>Games</h2>
-    <p>Games I’ve developed and released on Steam:</p>
-    <ul>
-      <li><a href="https://store.steampowered.com/app/3666950/Aim_Trainer_Bee_Pro" target="_blank">Aim Trainer Bee Pro</a></li>
-      <li><a href="https://store.steampowered.com/app/2789890/Learning_to_Bear" target="_blank">Learning to Bear</a></li>
-    </ul>
+  <section id="ltb" class="depth-effect">
+    <h2>Learning to Bear</h2>
+    <p>Get ready for an immersive experience on Steam – announcement, updates, and games feed coming soon!</p>
+    <!-- You can embed a Steam widget here if desired -->
+    <iframe src="https://store.steampowered.com/widget/2789890/" frameborder="0"></iframe>
+  </section>
+
+  <section id="aim" class="depth-effect">
+    <h2>Aim Trainer Bee Pro</h2>
+    <p>Refine your aim – more details and updates available soon on Steam!</p>
+    <iframe src="https://store.steampowered.com/widget/3666950/" frameborder="0"></iframe>
   </section>
 
   <section id="downloads" class="depth-effect">
-    <h2>Tools & Downloads</h2>
-    <p>Coming soon — tools for Unreal and content made to speed up creative work!</p>
+    <h2>Downloads & Tools</h2>
+    <p>Coming soon: Tools to enhance Unreal Engine workflows and creative productivity through Python.</p>
   </section>
 
   <section id="socials" class="depth-effect">
-    <h2>Connect</h2>
-    <div class="socials">
+    <h2>Connect with FreQtik</h2>
+    <div class="flex-container">
       <a href="https://www.instagram.com/freqtik/" target="_blank">Instagram</a>
       <a href="https://www.youtube.com/@FreQtik" target="_blank">YouTube</a>
+      <a href="https://open.spotify.com/intl-de/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">Spotify</a>
     </div>
   </section>
 
   <script>
-    const logo = document.getElementById('headerLogo');
-    const intro = document.getElementById('introText');
-
-    let mouseMoved = false;
-    let logoOffset = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseMoved = true;
-      let moveX = (e.clientX / window.innerWidth - 0.5) * 100;
-      logo.style.transform = `translateX(${moveX}px)`;
+    /* Smooth horizontal movement for the header logo on scroll */
+    const logo = document.getElementById('scrollLogo');
+    window.addEventListener('scroll', () => {
+      const maxShift = window.innerWidth - logo.clientWidth - 40; // 40 for some margin
+      // Use sin() for a smooth oscillating effect across scroll
+      const movement = Math.sin(window.scrollY * 0.005) * (maxShift / 2);
+      logo.style.transform = `translateX(${movement}px)`;
     });
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        intro.classList.add('visible');
-        logo.style.transform = `translateX(${(window.scrollY % 500) / 5}px)`;
+    /* Intro Overlay: Remove once user moves the mouse significantly */
+    let introDone = false;
+    const intro = document.getElementById('intro');
+    let movementProgress = 0;
+    let lastX = null, lastY = null;
+    document.addEventListener('mousemove', (e) => {
+      if (!introDone) {
+        if (lastX !== null && lastY !== null) {
+          let dx = Math.abs(e.clientX - lastX);
+          let dy = Math.abs(e.clientY - lastY);
+          movementProgress += dx + dy;
+          if (movementProgress > 300) {
+            intro.classList.add('hidden');
+            introDone = true;
+          }
+        }
+        lastX = e.clientX;
+        lastY = e.clientY;
       }
     });
 
+    /* Helper function to scroll smoothly to a section */
     function scrollToSection(id) {
-      const section = document.getElementById(id);
-      section.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
