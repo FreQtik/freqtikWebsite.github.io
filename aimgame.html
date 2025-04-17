@@ -23,16 +23,6 @@
       left: 10px;
       z-index: 10;
     }
-    #muteBtn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      color: white;
-      border: 2px solid white;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
     #overlay {
       position: absolute;
       top: 0; left: 0;
@@ -60,17 +50,12 @@
   <div>Time: <span id="timeLeft">60</span>s</div>
   <div>Score: <span id="score">0</span></div>
 </div>
-<button id="muteBtn">🔊</button>
 
 <div id="overlay">
   <div>🚀 Click the UFOs before they escape!</div>
   <div>👹 A Boss appears every 60 seconds – click fast!</div>
   <button onclick="startGame()">Start Game</button>
 </div>
-
-<audio id="clickSound" src="ufos/click.mp3"></audio>
-<audio id="explodeSound" src="ufos/explode.mp3"></audio>
-<audio id="bgMusic" src="ufos/bgmusic.mp3" loop></audio>
 
 <script>
 const canvas = document.getElementById("gameCanvas");
@@ -83,28 +68,10 @@ let score = 0;
 let timeLeft = 60;
 let ufoSpeed = 1;
 let bossCounter = 0;
-let isMuted = false;
-let gameInterval;
-let spawnInterval;
 let bossSpawned = false;
 
 const ufoImages = ['ufos/ufo1.png', 'ufos/ufo2.png', 'ufos/ufo3.png'];  // Updated image sources
-const bossImage = 'ufos/boss.png'; // You can add a boss image if you want to replace the placeholder!
-
-const clickSound = document.getElementById("clickSound");
-const explodeSound = document.getElementById("explodeSound");
-const bgMusic = document.getElementById("bgMusic");
-
-document.getElementById("muteBtn").onclick = () => {
-  isMuted = !isMuted;
-  if (isMuted) {
-    bgMusic.pause();
-    document.getElementById("muteBtn").innerText = "🔇";
-  } else {
-    bgMusic.play();
-    document.getElementById("muteBtn").innerText = "🔊";
-  }
-};
+const bossImage = 'ufos/boss.png'; // Add your boss image if you have one
 
 function randomPos() {
   return {
@@ -151,11 +118,9 @@ canvas.addEventListener("click", e => {
       x > u.x && x < u.x + u.size &&
       y > u.y && y < u.y + u.size
     ) {
-      if (!isMuted) clickSound.cloneNode().play();
       if (!u.clicked) {
         u.clicked = true;
         score += u.boss ? 10 : 1;
-        if (!isMuted) explodeSound.cloneNode().play();
         ufos.splice(i, 1);
         break;
       }
@@ -172,9 +137,8 @@ function startGame() {
   bossSpawned = false;
   document.getElementById("score").innerText = score;
   document.getElementById("timeLeft").innerText = timeLeft;
-  if (!isMuted) bgMusic.play();
 
-  spawnInterval = setInterval(() => {
+  setInterval(() => {
     if (!bossSpawned && timeLeft % 60 === 0) {
       spawnUFO(true);
       bossSpawned = true;
@@ -184,7 +148,7 @@ function startGame() {
     }
   }, 1000);
 
-  gameInterval = setInterval(() => {
+  setInterval(() => {
     timeLeft--;
     ufoSpeed += 0.1;
     document.getElementById("timeLeft").innerText = timeLeft;
@@ -195,15 +159,12 @@ function startGame() {
 }
 
 function endGame() {
-  clearInterval(spawnInterval);
-  clearInterval(gameInterval);
   document.getElementById("overlay").style.display = "flex";
   document.getElementById("overlay").innerHTML = `
     <div>⏱ Time's up!</div>
     <div>🎯 Final Score: ${score}</div>
     <button onclick="startGame()">Play Again</button>
   `;
-  bgMusic.pause();
 }
 
 function loop() {
