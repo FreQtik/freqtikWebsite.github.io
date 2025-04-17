@@ -42,8 +42,8 @@
 
 <div id="overlay">
   <div>🚀 Click the UFOs before they fly away!</div>
-  <div>👹 Boss (3 clicks) every minute—survive!</div>
-  <button onclick="startGame()">Start Game</button>
+  <div>👹 Boss appears every 60s, needs 3 hits!</div>
+  <button id="startBtn">Start Game</button>
 </div>
 
 <div id="analysisPanel">
@@ -69,6 +69,9 @@
         analysis = document.getElementById("analysisPanel"),
         statsTxt = document.getElementById("statsText");
 
+  const ufoPaths  = ["ufos/ufo1.png","ufos/ufo2.png","ufos/ufo3.png"],
+        bossPath  = "ufos/boss.png";
+
   let ufos     = [],
       effects  = [],
       score    = 0,
@@ -79,29 +82,26 @@
       nextBossAt = 60,
       gameRunning = false;
 
-  const ufoPaths  = ["ufos/ufo1.png","ufos/ufo2.png","ufos/ufo3.png"],
-        bossPath  = "ufos/boss.png";
-
   class UFO {
     constructor(isBoss=false) {
-      // spawn at random edge
       const edge = Math.random();
       if (edge < 0.4) { this.x = Math.random()*canvas.width; this.y = -80; }
       else if (edge < 0.7) { this.x = -80; this.y = Math.random()*canvas.height; }
       else { this.x = canvas.width+80; this.y = Math.random()*canvas.height; }
+
       this.isBoss = isBoss;
       this.size = isBoss ? 120 : 64;
       this.hp   = isBoss ? 3 : 1;
       this.speed = (1 + ufos.length*0.01) * (isBoss?0.8:1);
       this.time  = 0;
-      // random direction vector
+
       let dx = Math.random()*2-1, dy = Math.random()*2-1;
       const mag = Math.hypot(dx,dy)||1; dx/=mag; dy/=mag;
       this.dx = dx; this.dy = dy;
-      // movement type
+
       const types = ["linear","sine","tangent","circle"];
       this.type = types[Math.floor(Math.random()*types.length)];
-      // image
+
       this.img = new Image();
       this.img.src = isBoss?bossPath:ufoPaths[Math.floor(Math.random()*ufoPaths.length)];
       this.id  = performance.now()+Math.random();
@@ -111,17 +111,12 @@
       let vx = this.dx * this.speed;
       let vy = this.dy * this.speed;
       switch(this.type) {
-        case "sine":
-          vx += Math.sin(this.time*5)*10;
-          break;
-        case "tangent":
-          vy += Math.tan(this.time*2)*5;
-          break;
+        case "sine": vx += Math.sin(this.time*5)*10; break;
+        case "tangent": vy += Math.tan(this.time*2)*5; break;
         case "circle":
           vx += Math.cos(this.time*3)*8;
           vy += Math.sin(this.time*3)*8;
           break;
-        // linear uses vx,vy only
       }
       this.x += vx*dt*60;
       this.y += vy*dt*60;
@@ -197,7 +192,6 @@
       Clicks: ${reactionTimes.length}<br>
       Avg Reaction: ${avg} ms
     `;
-    // Chart
     new Chart(document.getElementById("reactionChart"), {
       type: "line",
       data: {
@@ -224,19 +218,18 @@
     if (!gameRunning) return;
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    // spawn
     spawnAcc+=dt;
     if (spawnAcc>1){
       spawnAcc=0;
       ufos.push(new UFO());
     }
-    // boss every minute survived
+
     const survived = 15 - timeLeft;
     if (survived>=nextBossAt){
       ufos.push(new UFO(true));
       nextBossAt+=60;
     }
-    // update/draw
+
     ufos.forEach(u=>{ u.update(dt); u.draw(); });
     ufos = ufos.filter(u=>
       u.x>-u.size && u.x<canvas.width+u.size &&
@@ -246,16 +239,14 @@
       fx.update(); fx.draw();
       if (fx.a<=0) effects.splice(i,1);
     });
-    // timer
+
     timeLeft-=dt;
     hudTime.innerText=timeLeft.toFixed(1);
     if (timeLeft<=0) { endGame(); return; }
     requestAnimationFrame(loop);
   }
 
-  const hudTime = document.getElementById("timeLeft"),
-        hudScore= document.getElementById("score");
-  loop();  // start in overlay
+  document.getElementById("startBtn").addEventListener("click", startGame);
 </script>
 </body>
 </html>
