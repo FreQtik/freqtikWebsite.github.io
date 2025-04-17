@@ -6,174 +6,189 @@
   <title>UFO Clicker</title>
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
-      background: black;
-      color: white;
+      background: black; color: white;
     }
-    #gameCanvas {
-      display: block;
-      background: radial-gradient(ellipse at center, #111 0%, #000 100%);
-    }
+    canvas { display: block; }
     #hud {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
+      position: absolute; top: 10px; left: 10px; z-index: 10;
+    }
+    #muteBtn {
+      position: absolute; top: 10px; right: 10px;
+      background: none; color: white;
+      border: 2px solid white; padding: 5px 10px;
+      cursor: pointer;
     }
     #overlay {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 20px;
-      flex-direction: column;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 20px; flex-direction: column;
       z-index: 20;
     }
     #overlay button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
+      margin-top: 20px; padding: 10px 20px; font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-<canvas id="gameCanvas" width="window.innerWidth" height="window.innerHeight"></canvas>
+<canvas id="gameCanvas"></canvas>
 <div id="hud">
-  <div>Time: <span id="timeLeft">60</span>s</div>
-  <div>Score: <span id="score">0</span></div>
+  Time: <span id="timeLeft">60</span>s  |  Score: <span id="score">0</span>
 </div>
+<button id="muteBtn">🔊</button>
 
 <div id="overlay">
   <div>🚀 Click the UFOs before they escape!</div>
-  <div>👹 A Boss appears every 60 seconds – click fast!</div>
+  <div>👹 A Boss (3 clicks) appears every 60 seconds!</div>
   <button onclick="startGame()">Start Game</button>
 </div>
 
 <script>
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("gameCanvas"),
+      ctx    = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let ufos = [];
-let score = 0;
-let timeLeft = 60;
-let ufoSpeed = 1;
-let bossCounter = 0;
-let bossSpawned = false;
+let ufos = [],
+    effects = [],
+    score = 0,
+    timeLeft = 60,
+    ufoSpeed = 1,
+    bossSpawned = false,
+    gameLoopId;
 
-const ufoImages = ['ufos/ufo1.png', 'ufos/ufo2.png', 'ufos/ufo3.png'];  // Updated image sources
-const bossImage = 'ufos/boss.png'; // Add your boss image if you have one
+const ufoSrc = ['ufos/ufo1.png','ufos/ufo2.png','ufos/ufo3.png'],
+      bossSrc = 'ufos/boss.png';
 
-function randomPos() {
-  return {
-    x: Math.random() * canvas.width * 0.8 + canvas.width * 0.1,
-    y: Math.random() * canvas.height * 0.6 + canvas.height * 0.1
-  };
+let isMuted = false;
+document.getElementById("muteBtn").onclick = () => {
+  isMuted = !isMuted;
+  document.getElementById("muteBtn").innerText = isMuted?"🔇":"🔊";
+};
+
+function randomPosEdge() {
+  // Spawn at top or sides
+  const edge = Math.random();
+  if (edge < 0.4) return { x: Math.random()*canvas.width, y:-80 };
+  if (edge < 0.7) return { x:-80, y: Math.random()*canvas.height };
+  return { x: canvas.width+80, y: Math.random()*canvas.height };
 }
 
-function spawnUFO(isBoss = false) {
-  const img = new Image();
-  img.src = isBoss ? bossImage : ufoImages[Math.floor(Math.random() * ufoImages.length)];
-  const pos = randomPos();
-  ufos.push({
-    x: pos.x,
-    y: pos.y,
-    size: isBoss ? 120 : 64,
-    speed: isBoss ? 0.5 : ufoSpeed,
-    clicked: false,
-    boss: isBoss,
-    img: img
-  });
+class UFO {
+  constructor(isBoss=false) {
+    const pos = randomPosEdge();
+    this.x = pos.x; this.y = pos.y;
+    this.size = isBoss ? 120 : 64;
+    this.speed = ufoSpeed + (isBoss?0:0);
+    this.hp    = isBoss ? 3 : 1;
+    this.src   = isBoss ? bossSrc : ufoSrc[Math.floor(Math.random()*ufoSrc.length)];
+    this.img   = new Image();
+    this.img.src = this.src;
+    this.angle = 0;
+    this.boss  = isBoss;
+    this.id    = performance.now() + Math.random();
+  }
+  update(dt) {
+    this.angle += dt;
+    // directed-ish movement inward
+    const dx = canvas.width/2 - this.x,
+          dy = canvas.height/2 - this.y,
+          dist = Math.hypot(dx,dy);
+    this.x += (dx/dist)*this.speed;
+    this.y += (dy/dist)*this.speed;
+    // slight wave
+    this.x += Math.sin(this.angle*5)*2;
+  }
+  draw() {
+    ctx.drawImage(this.img, this.x - this.size/2, this.y - this.size/2, this.size, this.size);
+  }
+  hit(mx,my) {
+    return Math.hypot(mx-this.x, my-this.y) < this.size/2;
+  }
 }
 
-function drawUFO(ufo) {
-  ctx.drawImage(ufo.img, ufo.x, ufo.y, ufo.size, ufo.size);
+class Effect {
+  constructor(x,y) {
+    this.x=x; this.y=y; this.r=0; this.a=1;
+  }
+  update() { this.r += 2; this.a -= 0.05; }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.a;
+    ctx.strokeStyle = 'yellow';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  }
 }
 
-function updateUFOs() {
-  ufos.forEach(ufo => {
-    ufo.x += Math.sin(ufo.y * 0.01) * ufo.speed;
-    ufo.y += Math.cos(ufo.x * 0.01) * ufo.speed;
-  });
-  ufos = ufos.filter(ufo => ufo.x > -ufo.size && ufo.x < canvas.width + ufo.size && ufo.y > -ufo.size && ufo.y < canvas.height + ufo.size);
-}
-
-canvas.addEventListener("click", e => {
-  const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-
-  for (let i = 0; i < ufos.length; i++) {
-    const u = ufos[i];
-    if (
-      x > u.x && x < u.x + u.size &&
-      y > u.y && y < u.y + u.size
-    ) {
-      if (!u.clicked) {
-        u.clicked = true;
-        score += u.boss ? 10 : 1;
-        ufos.splice(i, 1);
-        break;
+canvas.addEventListener('click',e=>{
+  const rect=canvas.getBoundingClientRect(),
+        mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  for (let i=ufos.length-1;i>=0;i--) {
+    let u=ufos[i];
+    if (u.hit(mx,my)) {
+      u.hp--;
+      effects.push(new Effect(mx,my));
+      if (u.hp<=0) {
+        score += u.boss?10:1;
+        ufos.splice(i,1);
       }
+      break;
     }
   }
 });
 
-function startGame() {
-  document.getElementById("overlay").style.display = "none";
-  ufos = [];
-  score = 0;
-  timeLeft = 60;
-  ufoSpeed = 1;
-  bossSpawned = false;
-  document.getElementById("score").innerText = score;
-  document.getElementById("timeLeft").innerText = timeLeft;
-
-  setInterval(() => {
-    if (!bossSpawned && timeLeft % 60 === 0) {
-      spawnUFO(true);
-      bossSpawned = true;
-    } else {
-      const count = Math.floor(Math.random() * 3) + 1;
-      for (let i = 0; i < count; i++) spawnUFO();
-    }
-  }, 1000);
-
-  setInterval(() => {
-    timeLeft--;
-    ufoSpeed += 0.1;
-    document.getElementById("timeLeft").innerText = timeLeft;
-    if (timeLeft <= 0) endGame();
-  }, 1000);
-
+function startGame(){
+  ufos=[]; effects=[]; score=0; timeLeft=60; ufoSpeed=1; bossSpawned=false;
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('score').innerText=score;
+  document.getElementById('timeLeft').innerText=timeLeft;
+  clearInterval(window.spawnInt); clearInterval(window.timerInt);
+  window.spawnInt = setInterval(()=>{
+    if (!bossSpawned && timeLeft%60===0) {
+      ufos.push(new UFO(true)); bossSpawned=true;
+    } else for(let i=0;i<2;i++) ufos.push(new UFO());
+  },1000);
+  window.timerInt = setInterval(()=>{
+    timeLeft--; ufoSpeed+=0.05;
+    document.getElementById('timeLeft').innerText=timeLeft;
+    if(timeLeft<=0) endGame();
+  },1000);
+  cancelAnimationFrame(gameLoopId);
   loop();
 }
 
-function endGame() {
-  document.getElementById("overlay").style.display = "flex";
-  document.getElementById("overlay").innerHTML = `
+function endGame(){
+  clearInterval(window.spawnInt); clearInterval(window.timerInt);
+  document.getElementById('overlay').style.display='flex';
+  document.getElementById('overlay').innerHTML=`
     <div>⏱ Time's up!</div>
     <div>🎯 Final Score: ${score}</div>
     <button onclick="startGame()">Play Again</button>
   `;
 }
 
-function loop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  updateUFOs();
-  ufos.forEach(drawUFO);
-  requestAnimationFrame(loop);
+function loop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const dt=1/60;
+  ufos.forEach(u=>{ u.update(dt); u.draw(); });
+  effects.forEach((fx,i)=>{
+    fx.update(); fx.draw();
+    if (fx.a<=0) effects.splice(i,1);
+  });
+  document.getElementById('score').innerText=score;
+  gameLoopId = requestAnimationFrame(loop);
 }
-</script>
 
+loop();
+</script>
 </body>
 </html>
