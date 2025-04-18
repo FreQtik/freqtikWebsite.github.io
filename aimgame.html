@@ -1,10 +1,10 @@
-
+<!-- Paste into a file like ufo_clicker_depth5.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UFO Clicker</title>
+  <title>UFO Clicker - Depth 5</title>
   <style>
     html, body {
       margin: 0; padding: 0;
@@ -38,17 +38,17 @@
 <canvas id="gameCanvas"></canvas>
 
 <div id="hud">
-  Time: <span id="timeLeft">0.0</span>s  |  Kills: <span id="score">0</span>
+  Score: <span id="score">0</span>
 </div>
 
 <div id="overlay">
-  <div>👾 Slash the UFOs to destroy them!</div>
-  <div>Each splits into smaller ones. Clear all!</div>
+  <div>🛸 Tap or swipe the UFOs to split them!</div>
+  <div>👾 They split 5 times. Clear them all!</div>
   <button onclick="startGame()">Start Game</button>
 </div>
 
 <div id="analysisPanel">
-  <h2>All UFOs Destroyed</h2>
+  <h2>Game Over</h2>
   <p id="statsText"></p>
   <div id="chartContainer">
     <canvas id="reactionChart"></canvas>
@@ -59,77 +59,142 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const canvas = document.getElementById("gameCanvas"),
-      ctx = canvas.getContext("2d");
+      ctx    = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let ufos = [], effects = [], trails = [], score = 0;
-let timeStart = null, timeEnd = null;
-let reactionTimes = [];
+let score = 0, ufos = [], effects = [], reactionTimes = [], gameOver = false;
+let touchTrail = [], lastSpawnTime = 0;
 
-const MAX_DEPTH = 3;
-
-const overlay = document.getElementById("overlay"),
+const hudScore = document.getElementById("score"),
+      overlay = document.getElementById("overlay"),
       analysis = document.getElementById("analysisPanel"),
-      statsTxt = document.getElementById("statsText"),
-      hudTime = document.getElementById("timeLeft"),
-      hudScore = document.getElementById("score");
+      statsTxt = document.getElementById("statsText");
+
+const maxDepth = 5;
 
 class UFO {
   constructor(x, y, depth=0) {
     this.x = x;
     this.y = y;
-    this.radius = 60 - depth * 12;
+    this.size = 80 - depth * 10;
     this.depth = depth;
     this.spawnTime = performance.now();
-    this.vx = (Math.random() * 2 - 1) * 2;
-    this.vy = (Math.random() * 2 - 1) * 2;
-    this.id = performance.now() + Math.random();
+    const angle = Math.random() * 2 * Math.PI;
+    const speed = 2 + Math.random() * 1.5;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.id = Date.now() + Math.random();
   }
+
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    if (this.x < this.radius || this.x > canvas.width - this.radius) this.vx *= -1;
-    if (this.y < this.radius || this.y > canvas.height - this.radius) this.vy *= -1;
+
+    if (this.x < this.size/2 || this.x > canvas.width - this.size/2) this.vx *= -1;
+    if (this.y < this.size/2 || this.y > canvas.height - this.size/2) this.vy *= -1;
   }
+
   draw() {
+    ctx.fillStyle = `hsl(${this.depth*60}, 100%, 70%)`;
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `hsl(${this.depth * 60}, 100%, 60%)`;
+    ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = "white";
-    ctx.stroke();
   }
-  isHit(x, y) {
-    return Math.hypot(this.x - x, this.y - y) < this.radius;
+
+  isHit(mx, my) {
+    return Math.hypot(this.x - mx, this.y - my) < this.size / 2;
   }
 }
 
-function spawnSplit(x, y, depth) {
-  if (depth >= MAX_DEPTH) return;
-  ufos.push(new UFO(x - 20, y - 20, depth + 1));
-  ufos.push(new UFO(x + 20, y + 20, depth + 1));
+class Trail {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.life = 1.0;
+  }
+  update() {
+    this.life -= 0.03;
+  }
+  draw() {
+    ctx.strokeStyle = `rgba(0,255,255,${this.life})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 10 * this.life, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+}
+
+function spawnInitialUFO() {
+  const x = canvas.width / 2;
+  const y = canvas.height / 2;
+  ufos.push(new UFO(x, y, 0));
+}
+
+function handleInteraction(mx, my) {
+  for (let i = ufos.length - 1; i >= 0; i--) {
+    const u = ufos[i];
+    if (u.isHit(mx, my)) {
+      const now = performance.now();
+      reactionTimes.push(now - u.spawnTime);
+      if (u.depth < maxDepth) {
+        ufos.push(new UFO(u.x - 20, u.y - 20, u.depth + 1));
+        ufos.push(new UFO(u.x + 20, u.y + 20, u.depth + 1));
+      }
+      ufos.splice(i, 1);
+      score++;
+      hudScore.innerText = score;
+    }
+  }
+}
+
+canvas.addEventListener("click", e => handleInteraction(e.clientX, e.clientY));
+canvas.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  touchTrail.push(new Trail(t.clientX, t.clientY));
+  handleInteraction(t.clientX, t.clientY);
+});
+
+function loop(ts) {
+  if (gameOver) return;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // update and draw ufos
+  ufos.forEach(u => { u.update(); u.draw(); });
+
+  // update and draw trail
+  touchTrail.forEach((t, i) => {
+    t.update();
+    t.draw();
+    if (t.life <= 0) touchTrail.splice(i, 1);
+  });
+
+  if (ufos.length === 0) {
+    endGame();
+    return;
+  }
+
+  requestAnimationFrame(loop);
 }
 
 function startGame() {
-  ufos = [new UFO(canvas.width / 2, canvas.height / 2)];
-  effects = []; trails = []; reactionTimes = [];
-  score = 0; timeStart = performance.now(); timeEnd = null;
+  ufos = []; effects = []; score = 0; reactionTimes = [];
   hudScore.innerText = score;
   overlay.style.display = "none";
   analysis.style.display = "none";
-  requestAnimationFrame(gameLoop);
+  gameOver = false;
+  spawnInitialUFO();
+  requestAnimationFrame(loop);
 }
 
 function endGame() {
-  timeEnd = performance.now();
+  gameOver = true;
   analysis.style.display = "flex";
-  let duration = ((timeEnd - timeStart)/1000).toFixed(2);
-  let avg = reactionTimes.length ? (reactionTimes.reduce((a,b)=>a+b)/reactionTimes.length).toFixed(0) : 0;
+  const avg = reactionTimes.length ? (reactionTimes.reduce((a,b)=>a+b)/reactionTimes.length).toFixed(0) : 0;
   statsTxt.innerHTML = `
-    Time Taken: ${duration}s<br>
-    UFOs Destroyed: ${score}<br>
-    Avg Reaction Time: ${avg} ms
+    Final Score: ${score}<br>
+    Clicks/Swipes: ${reactionTimes.length}<br>
+    Avg Reaction: ${avg} ms
   `;
   const ctx2 = document.getElementById("reactionChart").getContext("2d");
   new Chart(ctx2, {
@@ -137,7 +202,7 @@ function endGame() {
     data: {
       labels: reactionTimes.map((_,i)=> i+1),
       datasets: [{
-        label: "Reaction Time (ms)",
+        label: "Reaction (ms)",
         data: reactionTimes,
         borderColor: "lime",
         fill: false
@@ -146,72 +211,6 @@ function endGame() {
     options:{scales:{y:{beginAtZero:true}}}
   });
 }
-
-function gameLoop(ts) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Update/draw UFOs
-  ufos.forEach(u => u.update());
-  ufos.forEach(u => u.draw());
-
-  // Update/draw trails
-  trails.forEach(t => {
-    ctx.beginPath();
-    ctx.arc(t.x, t.y, 10, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${t.a})`;
-    ctx.fill();
-    t.a -= 0.05;
-  });
-  trails = trails.filter(t => t.a > 0);
-
-  // Update timer
-  if (timeStart) {
-    let elapsed = ((performance.now() - timeStart)/1000).toFixed(1);
-    hudTime.innerText = elapsed;
-  }
-
-  if (ufos.length === 0) {
-    endGame();
-    return;
-  }
-
-  requestAnimationFrame(gameLoop);
-}
-
-// Swipe/Touch detection
-let isTouching = false;
-
-function handleHit(x, y) {
-  trails.push({x, y, a: 1});
-  for (let i = ufos.length - 1; i >= 0; i--) {
-    if (ufos[i].isHit(x, y)) {
-      const t = performance.now() - ufos[i].spawnTime;
-      reactionTimes.push(t);
-      const depth = ufos[i].depth;
-      const {x:ux, y:uy} = ufos[i];
-      ufos.splice(i, 1);
-      spawnSplit(ux, uy, depth);
-      score++;
-      hudScore.innerText = score;
-    }
-  }
-}
-
-canvas.addEventListener("mousedown", () => isTouching = true);
-canvas.addEventListener("mouseup", () => isTouching = false);
-canvas.addEventListener("mousemove", e => {
-  if (isTouching) handleHit(e.clientX, e.clientY);
-});
-
-canvas.addEventListener("touchstart", e => {
-  isTouching = true;
-  for (let touch of e.touches) handleHit(touch.clientX, touch.clientY);
-});
-canvas.addEventListener("touchmove", e => {
-  for (let touch of e.touches) handleHit(touch.clientX, touch.clientY);
-});
-canvas.addEventListener("touchend", () => isTouching = false);
-
 </script>
 </body>
 </html>
