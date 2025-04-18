@@ -48,7 +48,7 @@
 <button id="muteBtn">🔊</button>
 
 <div id="overlay">
-  <div>🚀 Click or Swipe UFOs before they escape!</div>
+  <div>🚀 Tap or Swipe UFOs before they escape!</div>
   <div>👹 Boss (3 clicks) every minute—survive!</div>
   <button onclick="startGame()">Start Game</button>
 </div>
@@ -92,27 +92,36 @@ const ufoSrc = ["ufos/ufo1.png","ufos/ufo2.png","ufos/ufo3.png"],
       bossSrc = "ufos/boss.png";
 
 class UFO {
-  constructor(x, y, vx, vy, isBoss = false) {
+  constructor(x, y, vx, vy, isBoss = false, isMini = false) {
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.vy = vy;
-    this.size = isBoss ? 120 : 64;
+    this.size = isBoss ? 120 : isMini ? 40 : 64;
     this.hp = isBoss ? 3 : 1;
     this.isBoss = isBoss;
+    this.isMini = isMini;
+    this.movementType = Math.floor(Math.random() * 3); // 0: straight, 1: wave, 2: zigzag
     this.spawnTime = performance.now();
     this.img = new Image();
     this.img.src = isBoss ? bossSrc : ufoSrc[Math.floor(Math.random() * ufoSrc.length)];
-    this.id = performance.now() + Math.random();
-    this.waveOffset = Math.random() * Math.PI * 2;
+    this.waveOffset = Math.random() * 2 * Math.PI;
   }
 
   update(dt) {
-    this.x += this.vx;
-    this.y += this.vy + Math.sin(performance.now() * 0.002 + this.waveOffset) * 1.5;
+    if (this.movementType === 1) {
+      this.y += this.vy;
+      this.x += Math.sin(performance.now() * 0.003 + this.waveOffset) * 3;
+    } else if (this.movementType === 2) {
+      this.x += this.vx + Math.sin(performance.now() * 0.005 + this.waveOffset) * 2;
+      this.y += this.vy + Math.cos(performance.now() * 0.005 + this.waveOffset) * 2;
+    } else {
+      this.x += this.vx;
+      this.y += this.vy;
+    }
 
-    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    if (this.x < this.size/2 || this.x > canvas.width - this.size/2) this.vx *= -1;
+    if (this.y < this.size/2 || this.y > canvas.height - this.size/2) this.vy *= -1;
   }
 
   draw() {
@@ -141,11 +150,11 @@ class Effect {
 
 function spawnChain(isBoss = false) {
   const count = isBoss ? 1 : Math.floor(5 + Math.random() * 5);
-  const startX = Math.random() * canvas.width;
-  const startY = Math.random() * canvas.height;
+  const spacing = 60;
+  const startX = Math.random() * (canvas.width - spacing * count);
+  const startY = Math.random() * (canvas.height - 100);
   const angle = Math.random() * 2 * Math.PI;
   const speed = 1 + spawnTimer * 0.002;
-  const spacing = 70;
 
   for (let i = 0; i < count; i++) {
     const x = startX + i * Math.cos(angle) * spacing;
@@ -170,6 +179,15 @@ function handleClick(cx, cy) {
         ufos.splice(i, 1);
         score++;
         timeLeft += 0.5;
+
+        // Split into two minis?
+        if (!u.isMini && Math.random() < 0.4) {
+          for (let j = 0; j < 2; j++) {
+            const miniVX = (Math.random() - 0.5) * 4;
+            const miniVY = (Math.random() - 0.5) * 4;
+            ufos.push(new UFO(u.x, u.y, miniVX, miniVY, false, true));
+          }
+        }
       }
       break;
     }
@@ -177,22 +195,15 @@ function handleClick(cx, cy) {
   hudScore.innerText = score;
 }
 
-// Add touch swipe support
-let lastTouchX = 0, lastTouchY = 0;
+canvas.addEventListener("click", e => handleClick(e.clientX, e.clientY));
 canvas.addEventListener("touchstart", e => {
   const t = e.touches[0];
-  lastTouchX = t.clientX;
-  lastTouchY = t.clientY;
-  handleClick(lastTouchX, lastTouchY);
+  handleClick(t.clientX, t.clientY);
 });
 canvas.addEventListener("touchmove", e => {
   const t = e.touches[0];
   handleClick(t.clientX, t.clientY);
-  lastTouchX = t.clientX;
-  lastTouchY = t.clientY;
 });
-
-canvas.addEventListener("click", e => handleClick(e.clientX, e.clientY));
 
 function loop(ts) {
   if (!lastTime) lastTime = ts;
@@ -202,7 +213,7 @@ function loop(ts) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   spawnTimer += dt;
-  if (spawnTimer > 2) {
+  if (spawnTimer > 1.2) { // faster spawns
     spawnTimer = 0;
     spawnChain();
   }
