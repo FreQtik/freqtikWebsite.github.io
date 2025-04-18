@@ -3,193 +3,211 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UFO Split Clicker</title>
+  <title>Sudoku Game</title>
   <style>
-    html, body {
-      margin: 0; padding: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: black; color: white;
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 30px;
     }
-    canvas { display: block; background: #000; touch-action: none; }
-    #hud {
-      position: absolute; top: 10px; left: 10px; z-index: 10;
+    h1 { margin-bottom: 10px; }
+    table {
+      border-collapse: collapse;
+      border: 3px solid #fff;
     }
-    #overlay, #analysisPanel {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 20px; flex-direction: column;
-      z-index: 20;
+    td {
+      width: 40px; height: 40px;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid #555;
     }
-    #overlay button, #analysisPanel button {
-      margin-top: 20px; padding: 10px 20px; font-size: 16px;
+    input {
+      width: 100%;
+      height: 100%;
+      background: #222;
+      color: white;
+      text-align: center;
+      border: none;
+      font-size: 20px;
     }
-    #analysisPanel { display: none; }
+    input:disabled {
+      color: #aaa;
+      background: #000;
+    }
+    td.block-border {
+      border-right: 3px solid #fff;
+      border-bottom: 3px solid #fff;
+    }
+    #btns {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <h1>Sudoku</h1>
+  <table id="sudoku"></table>
+  <div id="btns">
+    <button onclick="checkSolution()">✅ Check</button>
+    <button onclick="generateSudoku()">🔄 New Puzzle</button>
+  </div>
+  <div id="status"></div>
 
-<canvas id="gameCanvas"></canvas>
+  <script>
+    const sudokuTable = document.getElementById('sudoku');
+    const statusDiv = document.getElementById('status');
+    let puzzle = [], solution = [];
 
-<div id="hud">
-  Active UFOs: <span id="score">0</span>
-</div>
-
-<div id="overlay">
-  <div>🛸 Tap or swipe UFOs to split them!</div>
-  <div>⏱️ See how fast you can destroy all!</div>
-  <button onclick="startGame()">Start Game</button>
-</div>
-
-<div id="analysisPanel">
-  <h2>All UFOs Destroyed!</h2>
-  <p id="statsText"></p>
-  <button onclick="startGame()">Play Again</button>
-</div>
-
-<script>
-const canvas = document.getElementById("gameCanvas"),
-      ctx    = canvas.getContext("2d");
-canvas.width  = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const hudScore = document.getElementById("score"),
-      overlay = document.getElementById("overlay"),
-      analysis = document.getElementById("analysisPanel"),
-      statsTxt = document.getElementById("statsText");
-
-let ufos = [], trails = [], score = 0;
-let startTime = 0, endTime = 0;
-
-class UFO {
-  constructor(x, y, size=64, depth=0, vx=0, vy=0) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.depth = depth;
-    this.spawnTime = performance.now();
-    this.vx = vx || (Math.random() * 2 - 1) * 3;
-    this.vy = vy || (Math.random() * 2 - 1) * 3;
-    this.id = Math.random();
-    this.color = `hsl(${Math.random()*360}, 100%, 70%)`;
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    // bounce off walls
-    if (this.x < this.size/2 || this.x > canvas.width - this.size/2) this.vx *= -1;
-    if (this.y < this.size/2 || this.y > canvas.height - this.size/2) this.vy *= -1;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    ctx.strokeStyle = "white";
-    ctx.stroke();
-  }
-
-  hit(mx, my) {
-    return Math.hypot(this.x - mx, this.y - my) < this.size / 2;
-  }
-}
-
-class Trail {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.life = 1.0;
-  }
-  update() { this.life -= 0.03; }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${this.life})`;
-    ctx.fill();
-  }
-}
-
-function spawnInitialUFO() {
-  let x = canvas.width / 2, y = canvas.height / 2;
-  ufos.push(new UFO(x, y, 80, 0));
-}
-
-function splitUFO(ufo) {
-  const nextDepth = ufo.depth + 1;
-  if (nextDepth > 5) return;
-
-  const num = 2;
-  for (let i = 0; i < num; i++) {
-    const angle = (Math.PI * 2 / num) * i + Math.random() * 0.5;
-    const speed = 2 + Math.random() * 1.5;
-    const vx = Math.cos(angle) * speed;
-    const vy = Math.sin(angle) * speed;
-    const size = Math.max(20, ufo.size * 0.7);
-    ufos.push(new UFO(ufo.x, ufo.y, size, nextDepth, vx, vy));
-  }
-}
-
-function handleClick(x, y) {
-  for (let i = ufos.length - 1; i >= 0; i--) {
-    if (ufos[i].hit(x, y)) {
-      const u = ufos.splice(i, 1)[0];
-      splitUFO(u);
-      break;
+    function generateSudoku() {
+      statusDiv.innerText = "";
+      puzzle = generateFullBoard();
+      solution = JSON.parse(JSON.stringify(puzzle));
+      removeCells(puzzle, 40);
+      renderBoard(puzzle);
     }
-  }
-  hudScore.innerText = ufos.length;
-  if (ufos.length === 0) endGame();
-}
 
-function handleTouch(e) {
-  const rect = canvas.getBoundingClientRect();
-  for (let t of e.touches) {
-    const x = t.clientX - rect.left;
-    const y = t.clientY - rect.top;
-    trails.push(new Trail(x, y));
-    handleClick(x, y);
-  }
-}
+    function generateFullBoard() {
+      let board = Array.from({length: 9}, () => Array(9).fill(0));
 
-canvas.addEventListener("click", e => handleClick(e.clientX, e.clientY));
-canvas.addEventListener("touchstart", handleTouch);
-canvas.addEventListener("touchmove", handleTouch);
+      function isValid(row, col, num) {
+        for (let i = 0; i < 9; i++) {
+          if (board[row][i] === num || board[i][col] === num) return false;
+        }
+        const r = Math.floor(row / 3) * 3, c = Math.floor(col / 3) * 3;
+        for (let i = r; i < r+3; i++) {
+          for (let j = c; j < c+3; j++) {
+            if (board[i][j] === num) return false;
+          }
+        }
+        return true;
+      }
 
-function startGame() {
-  ufos = []; trails = [];
-  overlay.style.display = "none";
-  analysis.style.display = "none";
-  score = 0;
-  spawnInitialUFO();
-  hudScore.innerText = ufos.length;
-  startTime = performance.now();
-  requestAnimationFrame(loop);
-}
+      function fill(r = 0, c = 0) {
+        if (r === 9) return true;
+        const nextR = c === 8 ? r + 1 : r;
+        const nextC = c === 8 ? 0 : c + 1;
+        const nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
 
-function endGame() {
-  endTime = performance.now();
-  const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
-  analysis.style.display = "flex";
-  statsTxt.innerHTML = `You destroyed all UFOs in <b>${timeTaken} seconds</b>!`;
-}
+        for (let n of nums) {
+          if (isValid(r, c, n)) {
+            board[r][c] = n;
+            if (fill(nextR, nextC)) return true;
+            board[r][c] = 0;
+          }
+        }
+        return false;
+      }
 
-function loop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fill();
+      return board;
+    }
 
-  ufos.forEach(u => { u.update(); u.draw(); });
-  trails.forEach((t, i) => {
-    t.update(); t.draw();
-    if (t.life <= 0) trails.splice(i, 1);
-  });
+    function removeCells(board, count) {
+      let removed = 0;
+      while (removed < count) {
+        const r = Math.floor(Math.random() * 9);
+        const c = Math.floor(Math.random() * 9);
+        if (board[r][c] !== 0) {
+          board[r][c] = 0;
+          removed++;
+        }
+      }
+    }
 
-  if (ufos.length > 0) requestAnimationFrame(loop);
-}
+    function renderBoard(board) {
+      sudokuTable.innerHTML = '';
+      for (let r = 0; r < 9; r++) {
+        const row = document.createElement('tr');
+        for (let c = 0; c < 9; c++) {
+          const cell = document.createElement('td');
+          if ((c + 1) % 3 === 0 && c !== 8) cell.classList.add('block-border');
+          if ((r + 1) % 3 === 0 && r !== 8) cell.classList.add('block-border');
+          const input = document.createElement('input');
+          input.setAttribute('maxlength', 1);
+          if (board[r][c] !== 0) {
+            input.value = board[r][c];
+            input.disabled = true;
+          } else {
+            input.addEventListener('input', e => {
+              const val = parseInt(e.target.value);
+              if (isNaN(val) || val < 1 || val > 9) {
+                e.target.value = '';
+              }
+            });
+          }
+          cell.appendChild(input);
+          row.appendChild(cell);
+        }
+        sudokuTable.appendChild(row);
+      }
+    }
 
-</script>
+    function checkSolution() {
+      const inputs = sudokuTable.getElementsByTagName('input');
+      const grid = Array.from({length: 9}, () => Array(9).fill(0));
+      let index = 0;
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          grid[r][c] = parseInt(inputs[index].value) || 0;
+          index++;
+        }
+      }
+
+      function isValidGrid(grid) {
+        const isSetValid = set => new Set(set.filter(x => x > 0)).size === 9;
+
+        for (let i = 0; i < 9; i++) {
+          const row = grid[i];
+          const col = grid.map(r => r[i]);
+          if (!isSetValid(row) || !isSetValid(col)) return false;
+        }
+
+        for (let r = 0; r < 9; r += 3) {
+          for (let c = 0; c < 9; c += 3) {
+            const block = [];
+            for (let i = 0; i < 3; i++) {
+              for (let j = 0; j < 3; j++) {
+                block.push(grid[r+i][c+j]);
+              }
+            }
+            if (!isSetValid(block)) return false;
+          }
+        }
+
+        return true;
+      }
+
+      if (isValidGrid(grid)) {
+        statusDiv.innerText = "✅ Correct! Well done.";
+        statusDiv.style.color = "lightgreen";
+      } else {
+        statusDiv.innerText = "❌ Incorrect. Keep trying!";
+        statusDiv.style.color = "orange";
+      }
+    }
+
+    generateSudoku();
+  </script>
 </body>
 </html>
