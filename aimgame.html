@@ -2,254 +2,240 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sudoku for Mom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Game</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 10px;
+      height: 100vh;
+      margin: 0;
     }
     #sudoku-board {
       display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 1px;
-      background: black;
-      width: 90vmin;
-      height: 90vmin;
-      max-width: 500px;
+      grid-template-columns: repeat(9, 40px);
+      grid-template-rows: repeat(9, 40px);
+      gap: 3px;
+      border: 3px solid #000; /* Outer border of the entire grid */
+      background-color: #fff;
     }
     .cell {
-      background: white;
-      font-size: 2.5vmin;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-      outline: none;
-    }
-    .cell.fixed {
-      background: #e0e0e0;
-      font-weight: bold;
-      pointer-events: none;
-    }
-    .cell:nth-child(3n) {
-      border-right: 2px solid black;
-    }
-    .cell:nth-child(n+19):nth-child(-n+27),
-    .cell:nth-child(n+46):nth-child(-n+54),
-    .cell:nth-child(n+73):nth-child(-n+81) {
-      border-bottom: 2px solid black;
-    }
-
-    #controls {
-      margin: 20px;
+      width: 40px;
+      height: 40px;
       text-align: center;
-    }
-    select, button {
-      margin: 5px;
-      font-size: 16px;
-      padding: 6px 10px;
-    }
-
-    #timer, #best-time {
-      margin-top: 10px;
+      line-height: 40px;
       font-size: 18px;
-    }
-
-    #help {
-      margin-top: 10px;
-      cursor: pointer;
-      color: blue;
-      text-decoration: underline;
-    }
-
-    #help-box {
-      display: none;
-      background: #fff;
       border: 1px solid #ccc;
-      padding: 10px;
-      max-width: 500px;
+      background-color: white;
     }
-
-    @media (max-width: 600px) {
-      .cell {
-        font-size: 3.5vmin;
-      }
+    .cell.selected {
+      background-color: #f0f8ff;
+    }
+    .cell.readonly {
+      background-color: #e0e0e0;
+    }
+    .block-3x3 {
+      border-right: 3px solid #000;
+      border-bottom: 3px solid #000;
+    }
+    #controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 20px;
+    }
+    #controls button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #score {
+      margin-top: 20px;
+    }
+    #timer {
+      margin-top: 10px;
+    }
+    #undo {
+      margin-top: 10px;
+    }
+    #error-message {
+      color: red;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <h1>Sudoku for Mom 🧩</h1>
-  <div id="sudoku-board"></div>
 
+  <div id="sudoku-board"></div>
   <div id="controls">
-    <select id="difficulty">
-      <option value="easy">Easy</option>
-      <option value="medium" selected>Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <button onclick="startGame()">New Game</button>
-    <button onclick="checkSudoku()">Check</button>
-    <div id="timer">⏱️ Time: 0s</div>
-    <div id="best-time">🏆 Best: --</div>
-    <div id="help" onclick="toggleHelp()">❓ How to play</div>
-    <div id="help-box">
-      <p><strong>Tips:</strong></p>
-      <ul>
-        <li>Each row, column, and 3x3 square must contain numbers 1-9 without repeating.</li>
-        <li>Use logic! Start with rows/columns that have the most numbers.</li>
-        <li>Use the process of elimination for tricky cells.</li>
-      </ul>
-    </div>
+    <div id="timer">Time: 00:00</div>
+    <div id="score">Score: 0</div>
+    <button id="reset">Reset</button>
+    <button id="check">Check</button>
+    <button id="undo">Undo</button>
+    <button id="hint">?</button>
+    <div id="error-message"></div>
   </div>
 
   <script>
-    const board = document.getElementById("sudoku-board");
-    const timerEl = document.getElementById("timer");
-    const bestEl = document.getElementById("best-time");
-    const difficultyEl = document.getElementById("difficulty");
-
+    const board = document.getElementById('sudoku-board');
+    const resetButton = document.getElementById('reset');
+    const checkButton = document.getElementById('check');
+    const undoButton = document.getElementById('undo');
+    const hintButton = document.getElementById('hint');
+    const timerDisplay = document.getElementById('timer');
+    const scoreDisplay = document.getElementById('score');
+    const errorMessage = document.getElementById('error-message');
+    
+    let boardData;
+    let originalBoard;
+    let currentBoard;
     let selectedCell = null;
-    let startTime, timerInterval;
-    let currentDifficulty = "medium";
+    let gameStarted = false;
+    let timerInterval;
+    let startTime;
+    let elapsedTime = 0;
+    let score = 0;
+    let moveHistory = [];
+    let failedAttempts = 0;
+    let difficulty = 'medium';  // Can be 'easy', 'medium', or 'hard'
 
-    function generateSudoku(difficulty = "medium") {
-      const emptyCount = { easy: 30, medium: 45, hard: 55 }[difficulty];
-      const fullBoard = generateFullBoard();
-      const puzzle = fullBoard.map(row => row.slice());
-      for (let i = 0; i < emptyCount; i++) {
-        const r = Math.floor(Math.random() * 9);
-        const c = Math.floor(Math.random() * 9);
-        puzzle[r][c] = "";
-      }
-      return [puzzle, fullBoard];
-    }
+    const solvedBoard = [
+      [5, 3, 4, 6, 7, 8, 9, 1, 2],
+      [6, 7, 2, 1, 9, 5, 3, 4, 8],
+      [1, 9, 8, 3, 4, 2, 5, 6, 7],
+      [8, 5, 9, 7, 6, 1, 4, 2, 3],
+      [4, 2, 6, 8, 5, 3, 7, 9, 1],
+      [7, 1, 3, 9, 2, 4, 8, 5, 6],
+      [9, 6, 1, 5, 3, 7, 2, 8, 4],
+      [2, 8, 7, 4, 1, 9, 6, 3, 5],
+      [3, 4, 5, 2, 8, 6, 1, 7, 9]
+    ];
 
-    function generateFullBoard() {
-      let board = Array.from({ length: 9 }, () => Array(9).fill(""));
-      solveBoard(board);
-      return board;
-    }
+    // Function to generate a new Sudoku puzzle based on the difficulty
+    function generatePuzzle() {
+      // For simplicity, we'll use a static solved board and create puzzles from it.
+      boardData = JSON.parse(JSON.stringify(solvedBoard));  // Deep copy
+      originalBoard = JSON.parse(JSON.stringify(solvedBoard));
+      currentBoard = JSON.parse(JSON.stringify(solvedBoard));
 
-    function solveBoard(board) {
-      for (let r = 0; r < 9; r++) {
-        for (let c = 0; c < 9; c++) {
-          if (board[r][c] === "") {
-            for (let n = 1; n <= 9; n++) {
-              if (isValid(board, r, c, n)) {
-                board[r][c] = n;
-                if (solveBoard(board)) return true;
-                board[r][c] = "";
-              }
-            }
-            return false;
-          }
+      // Randomly remove numbers to create a puzzle
+      let removeCount = difficulty === 'easy' ? 35 : difficulty === 'medium' ? 45 : 55;
+      while (removeCount > 0) {
+        let row = Math.floor(Math.random() * 9);
+        let col = Math.floor(Math.random() * 9);
+        if (boardData[row][col] !== 0) {
+          boardData[row][col] = 0;
+          removeCount--;
         }
       }
-      return true;
-    }
 
-    function isValid(board, row, col, num) {
-      for (let i = 0; i < 9; i++) {
-        if (board[row][i] == num || board[i][col] == num) return false;
-      }
-      const startRow = row - row % 3;
-      const startCol = col - col % 3;
-      for (let r = 0; r < 3; r++) {
-        for (let c = 0; c < 3; c++) {
-          if (board[startRow + r][startCol + c] == num) return false;
-        }
-      }
-      return true;
-    }
-
-    function startGame() {
-      board.innerHTML = "";
-      currentDifficulty = difficultyEl.value;
-      const [puzzle, solution] = generateSudoku(currentDifficulty);
+      renderBoard();
+      gameStarted = true;
+      failedAttempts = 0;
+      elapsedTime = 0;
+      moveHistory = [];
       startTime = Date.now();
-      updateTimer();
       clearInterval(timerInterval);
       timerInterval = setInterval(updateTimer, 1000);
-      showBestTime();
+    }
 
-      for (let r = 0; r < 9; r++) {
-        for (let c = 0; c < 9; c++) {
-          const input = document.createElement("div");
-          input.classList.add("cell");
-          input.dataset.row = r;
-          input.dataset.col = c;
-          input.contentEditable = puzzle[r][c] === "" ? "true" : "false";
-          if (puzzle[r][c] !== "") {
-            input.textContent = puzzle[r][c];
-            input.classList.add("fixed");
+    // Render the board to the UI
+    function renderBoard() {
+      board.innerHTML = '';
+      for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+          const cell = document.createElement('div');
+          cell.classList.add('cell');
+          if (originalBoard[row][col] !== 0) {
+            cell.classList.add('readonly');
           }
-          input.addEventListener("click", () => {
-            if (selectedCell) selectedCell.classList.remove("selected");
-            selectedCell = input;
-            selectedCell.classList.add("selected");
-          });
-          board.appendChild(input);
+          if ((row % 3 === 2) && (col % 3 === 2)) {
+            cell.classList.add('block-3x3');
+          }
+          cell.textContent = boardData[row][col] === 0 ? '' : boardData[row][col];
+          cell.addEventListener('click', () => selectCell(row, col));
+          board.appendChild(cell);
         }
-      }
-
-      board.dataset.solution = JSON.stringify(solution);
-    }
-
-    function checkSudoku() {
-      const cells = document.querySelectorAll(".cell");
-      let correct = true;
-      const solution = JSON.parse(board.dataset.solution);
-
-      cells.forEach(cell => {
-        const r = parseInt(cell.dataset.row);
-        const c = parseInt(cell.dataset.col);
-        if (!cell.classList.contains("fixed")) {
-          const val = parseInt(cell.textContent);
-          if (val !== solution[r][c]) correct = false;
-        }
-      });
-
-      if (correct) {
-        clearInterval(timerInterval);
-        const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-        alert("🎉 Congratulations! You solved it in " + timeTaken + " seconds!");
-        const bestKey = "best_" + currentDifficulty;
-        const prevBest = localStorage.getItem(bestKey);
-        if (!prevBest || timeTaken < parseInt(prevBest)) {
-          localStorage.setItem(bestKey, timeTaken);
-          showBestTime();
-          alert("🏆 New best time!");
-        }
-      } else {
-        alert("❌ Something’s not quite right.");
       }
     }
 
+    // Select a cell to highlight and allow input
+    function selectCell(row, col) {
+      if (originalBoard[row][col] !== 0) return;
+      if (selectedCell) {
+        selectedCell.classList.remove('selected');
+      }
+      selectedCell = board.children[row * 9 + col];
+      selectedCell.classList.add('selected');
+    }
+
+    // Start the game
+    generatePuzzle();
+
+    // Update the timer
     function updateTimer() {
-      const seconds = Math.floor((Date.now() - startTime) / 1000);
-      timerEl.textContent = `⏱️ Time: ${seconds}s`;
+      elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      let minutes = Math.floor(elapsedTime / 60);
+      let seconds = elapsedTime % 60;
+      timerDisplay.textContent = `Time: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
 
-    function showBestTime() {
-      const best = localStorage.getItem("best_" + currentDifficulty);
-      bestEl.textContent = best ? `🏆 Best: ${best}s` : "🏆 Best: --";
+    // Reset the game
+    resetButton.addEventListener('click', generatePuzzle);
+
+    // Check the current solution
+    checkButton.addEventListener('click', checkSolution);
+
+    // Undo the last move
+    undoButton.addEventListener('click', undoMove);
+
+    // Show a hint
+    hintButton.addEventListener('click', showHint);
+
+    // Check if the current board is solved correctly
+    function checkSolution() {
+      let isValid = true;
+      for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+          if (boardData[row][col] !== originalBoard[row][col] && boardData[row][col] !== solvedBoard[row][col]) {
+            isValid = false;
+            break;
+          }
+        }
+      }
+      if (isValid) {
+        alert('Congratulations! You solved the puzzle!');
+        score += 100;
+        scoreDisplay.textContent = `Score: ${score}`;
+      } else {
+        failedAttempts++;
+        if (failedAttempts >= 3) {
+          alert('Game over! You failed 3 times.');
+          generatePuzzle();
+        } else {
+          errorMessage.textContent = `Incorrect solution. Attempt ${failedAttempts}/3.`;
+        }
+      }
     }
 
-    function toggleHelp() {
-      const box = document.getElementById("help-box");
-      box.style.display = box.style.display === "none" ? "block" : "none";
+    // Undo the last move
+    function undoMove() {
+      if (moveHistory.length > 0) {
+        const lastMove = moveHistory.pop();
+        boardData[lastMove.row][lastMove.col] = lastMove.prevValue;
+        renderBoard();
+      }
     }
 
-    startGame();
+    // Show a hint (explain a technique)
+    function showHint() {
+      alert('Try using the process of elimination to narrow down possible values for each empty cell!');
+    }
   </script>
+
 </body>
 </html>
