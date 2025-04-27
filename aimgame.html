@@ -1,241 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sudoku Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UFO Split Clicker</title>
   <style>
-    body {
+    html, body {
+      margin: 0; padding: 0;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      background: black; color: white;
     }
-    #sudoku-board {
-      display: grid;
-      grid-template-columns: repeat(9, 40px);
-      grid-template-rows: repeat(9, 40px);
-      gap: 3px;
-      border: 3px solid #000; /* Outer border of the entire grid */
-      background-color: #fff;
+    canvas { display: block; background: #000; touch-action: none; }
+    #hud {
+      position: absolute; top: 10px; left: 10px; z-index: 10;
     }
-    .cell {
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      line-height: 40px;
-      font-size: 18px;
-      border: 1px solid #ccc;
-      background-color: white;
+    #overlay, #analysisPanel {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 20px; flex-direction: column;
+      z-index: 20;
     }
-    .cell.selected {
-      background-color: #f0f8ff;
+    #overlay button, #analysisPanel button {
+      margin-top: 20px; padding: 10px 20px; font-size: 16px;
     }
-    .cell.readonly {
-      background-color: #e0e0e0;
-    }
-    .block-3x3 {
-      border-right: 3px solid #000;
-      border-bottom: 3px solid #000;
-    }
-    #controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-left: 20px;
-    }
-    #controls button {
-      margin: 5px;
-      padding: 10px;
-      font-size: 16px;
-    }
-    #score {
-      margin-top: 20px;
-    }
-    #timer {
-      margin-top: 10px;
-    }
-    #undo {
-      margin-top: 10px;
-    }
-    #error-message {
-      color: red;
-      font-size: 14px;
-    }
+    #analysisPanel { display: none; }
   </style>
 </head>
 <body>
 
-  <div id="sudoku-board"></div>
-  <div id="controls">
-    <div id="timer">Time: 00:00</div>
-    <div id="score">Score: 0</div>
-    <button id="reset">Reset</button>
-    <button id="check">Check</button>
-    <button id="undo">Undo</button>
-    <button id="hint">?</button>
-    <div id="error-message"></div>
-  </div>
+<canvas id="gameCanvas"></canvas>
 
-  <script>
-    const board = document.getElementById('sudoku-board');
-    const resetButton = document.getElementById('reset');
-    const checkButton = document.getElementById('check');
-    const undoButton = document.getElementById('undo');
-    const hintButton = document.getElementById('hint');
-    const timerDisplay = document.getElementById('timer');
-    const scoreDisplay = document.getElementById('score');
-    const errorMessage = document.getElementById('error-message');
-    
-    let boardData;
-    let originalBoard;
-    let currentBoard;
-    let selectedCell = null;
-    let gameStarted = false;
-    let timerInterval;
-    let startTime;
-    let elapsedTime = 0;
-    let score = 0;
-    let moveHistory = [];
-    let failedAttempts = 0;
-    let difficulty = 'medium';  // Can be 'easy', 'medium', or 'hard'
+<div id="hud">
+  Active UFOs: <span id="score">0</span>
+</div>
 
-    const solvedBoard = [
-      [5, 3, 4, 6, 7, 8, 9, 1, 2],
-      [6, 7, 2, 1, 9, 5, 3, 4, 8],
-      [1, 9, 8, 3, 4, 2, 5, 6, 7],
-      [8, 5, 9, 7, 6, 1, 4, 2, 3],
-      [4, 2, 6, 8, 5, 3, 7, 9, 1],
-      [7, 1, 3, 9, 2, 4, 8, 5, 6],
-      [9, 6, 1, 5, 3, 7, 2, 8, 4],
-      [2, 8, 7, 4, 1, 9, 6, 3, 5],
-      [3, 4, 5, 2, 8, 6, 1, 7, 9]
-    ];
+<div id="overlay">
+  <div>🛸 Tap or swipe UFOs to split them!</div>
+  <div>⏱️ See how fast you can destroy all!</div>
+  <button onclick="startGame()">Start Game</button>
+</div>
 
-    // Function to generate a new Sudoku puzzle based on the difficulty
-    function generatePuzzle() {
-      // For simplicity, we'll use a static solved board and create puzzles from it.
-      boardData = JSON.parse(JSON.stringify(solvedBoard));  // Deep copy
-      originalBoard = JSON.parse(JSON.stringify(solvedBoard));
-      currentBoard = JSON.parse(JSON.stringify(solvedBoard));
+<div id="analysisPanel">
+  <h2>All UFOs Destroyed!</h2>
+  <p id="statsText"></p>
+  <button onclick="startGame()">Play Again</button>
+</div>
 
-      // Randomly remove numbers to create a puzzle
-      let removeCount = difficulty === 'easy' ? 35 : difficulty === 'medium' ? 45 : 55;
-      while (removeCount > 0) {
-        let row = Math.floor(Math.random() * 9);
-        let col = Math.floor(Math.random() * 9);
-        if (boardData[row][col] !== 0) {
-          boardData[row][col] = 0;
-          removeCount--;
-        }
-      }
+<script>
+const canvas = document.getElementById("gameCanvas"),
+      ctx    = canvas.getContext("2d");
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
 
-      renderBoard();
-      gameStarted = true;
-      failedAttempts = 0;
-      elapsedTime = 0;
-      moveHistory = [];
-      startTime = Date.now();
-      clearInterval(timerInterval);
-      timerInterval = setInterval(updateTimer, 1000);
+const hudScore = document.getElementById("score"),
+      overlay = document.getElementById("overlay"),
+      analysis = document.getElementById("analysisPanel"),
+      statsTxt = document.getElementById("statsText");
+
+let ufos = [], trails = [], score = 0;
+let startTime = 0, endTime = 0;
+
+class UFO {
+  constructor(x, y, size=64, depth=0, vx=0, vy=0) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.depth = depth;
+    this.spawnTime = performance.now();
+    this.vx = vx || (Math.random() * 2 - 1) * 3;
+    this.vy = vy || (Math.random() * 2 - 1) * 3;
+    this.id = Math.random();
+    this.color = `hsl(${Math.random()*360}, 100%, 70%)`;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // bounce off walls
+    if (this.x < this.size/2 || this.x > canvas.width - this.size/2) this.vx *= -1;
+    if (this.y < this.size/2 || this.y > canvas.height - this.size/2) this.vy *= -1;
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size/2, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.strokeStyle = "white";
+    ctx.stroke();
+  }
+
+  hit(mx, my) {
+    return Math.hypot(this.x - mx, this.y - my) < this.size / 2;
+  }
+}
+
+class Trail {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.life = 1.0;
+  }
+  update() { this.life -= 0.03; }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${this.life})`;
+    ctx.fill();
+  }
+}
+
+function spawnInitialUFO() {
+  let x = canvas.width / 2, y = canvas.height / 2;
+  ufos.push(new UFO(x, y, 80, 0));
+}
+
+function splitUFO(ufo) {
+  const nextDepth = ufo.depth + 1;
+  if (nextDepth > 5) return;
+
+  const num = 2;
+  for (let i = 0; i < num; i++) {
+    const angle = (Math.PI * 2 / num) * i + Math.random() * 0.5;
+    const speed = 2 + Math.random() * 1.5;
+    const vx = Math.cos(angle) * speed;
+    const vy = Math.sin(angle) * speed;
+    const size = Math.max(20, ufo.size * 0.7);
+    ufos.push(new UFO(ufo.x, ufo.y, size, nextDepth, vx, vy));
+  }
+}
+
+function handleClick(x, y) {
+  for (let i = ufos.length - 1; i >= 0; i--) {
+    if (ufos[i].hit(x, y)) {
+      const u = ufos.splice(i, 1)[0];
+      splitUFO(u);
+      break;
     }
+  }
+  hudScore.innerText = ufos.length;
+  if (ufos.length === 0) endGame();
+}
 
-    // Render the board to the UI
-    function renderBoard() {
-      board.innerHTML = '';
-      for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
-          const cell = document.createElement('div');
-          cell.classList.add('cell');
-          if (originalBoard[row][col] !== 0) {
-            cell.classList.add('readonly');
-          }
-          if ((row % 3 === 2) && (col % 3 === 2)) {
-            cell.classList.add('block-3x3');
-          }
-          cell.textContent = boardData[row][col] === 0 ? '' : boardData[row][col];
-          cell.addEventListener('click', () => selectCell(row, col));
-          board.appendChild(cell);
-        }
-      }
-    }
+function handleTouch(e) {
+  const rect = canvas.getBoundingClientRect();
+  for (let t of e.touches) {
+    const x = t.clientX - rect.left;
+    const y = t.clientY - rect.top;
+    trails.push(new Trail(x, y));
+    handleClick(x, y);
+  }
+}
 
-    // Select a cell to highlight and allow input
-    function selectCell(row, col) {
-      if (originalBoard[row][col] !== 0) return;
-      if (selectedCell) {
-        selectedCell.classList.remove('selected');
-      }
-      selectedCell = board.children[row * 9 + col];
-      selectedCell.classList.add('selected');
-    }
+canvas.addEventListener("click", e => handleClick(e.clientX, e.clientY));
+canvas.addEventListener("touchstart", handleTouch);
+canvas.addEventListener("touchmove", handleTouch);
 
-    // Start the game
-    generatePuzzle();
+function startGame() {
+  ufos = []; trails = [];
+  overlay.style.display = "none";
+  analysis.style.display = "none";
+  score = 0;
+  spawnInitialUFO();
+  hudScore.innerText = ufos.length;
+  startTime = performance.now();
+  requestAnimationFrame(loop);
+}
 
-    // Update the timer
-    function updateTimer() {
-      elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-      let minutes = Math.floor(elapsedTime / 60);
-      let seconds = elapsedTime % 60;
-      timerDisplay.textContent = `Time: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
+function endGame() {
+  endTime = performance.now();
+  const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+  analysis.style.display = "flex";
+  statsTxt.innerHTML = `You destroyed all UFOs in <b>${timeTaken} seconds</b>!`;
+}
 
-    // Reset the game
-    resetButton.addEventListener('click', generatePuzzle);
+function loop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Check the current solution
-    checkButton.addEventListener('click', checkSolution);
+  ufos.forEach(u => { u.update(); u.draw(); });
+  trails.forEach((t, i) => {
+    t.update(); t.draw();
+    if (t.life <= 0) trails.splice(i, 1);
+  });
 
-    // Undo the last move
-    undoButton.addEventListener('click', undoMove);
+  if (ufos.length > 0) requestAnimationFrame(loop);
+}
 
-    // Show a hint
-    hintButton.addEventListener('click', showHint);
-
-    // Check if the current board is solved correctly
-    function checkSolution() {
-      let isValid = true;
-      for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
-          if (boardData[row][col] !== originalBoard[row][col] && boardData[row][col] !== solvedBoard[row][col]) {
-            isValid = false;
-            break;
-          }
-        }
-      }
-      if (isValid) {
-        alert('Congratulations! You solved the puzzle!');
-        score += 100;
-        scoreDisplay.textContent = `Score: ${score}`;
-      } else {
-        failedAttempts++;
-        if (failedAttempts >= 3) {
-          alert('Game over! You failed 3 times.');
-          generatePuzzle();
-        } else {
-          errorMessage.textContent = `Incorrect solution. Attempt ${failedAttempts}/3.`;
-        }
-      }
-    }
-
-    // Undo the last move
-    function undoMove() {
-      if (moveHistory.length > 0) {
-        const lastMove = moveHistory.pop();
-        boardData[lastMove.row][lastMove.col] = lastMove.prevValue;
-        renderBoard();
-      }
-    }
-
-    // Show a hint (explain a technique)
-    function showHint() {
-      alert('Try using the process of elimination to narrow down possible values for each empty cell!');
-    }
-  </script>
-
+</script>
 </body>
 </html>
