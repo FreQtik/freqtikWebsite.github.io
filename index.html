@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FreQtik · Impulse Smith</title>
+  <title>FreQtik</title>
   <link rel="icon" type="image/png" href="QLogoPNGBlack_17x30.png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
   <style>
@@ -79,7 +79,9 @@
       transform:scaleX(0); transform-origin:right;
       transition:transform 0.3s;
     }
-    nav ul li button:hover::after { transform:scaleX(1); transform-origin:left; }
+    nav ul li button:hover::after {
+      transform:scaleX(1); transform-origin:left;
+    }
 
     /* DROPDOWNS */
     .dropdown-content {
@@ -90,11 +92,17 @@
       white-space:nowrap;
     }
     /* flip rightmost dropdown */
-    nav ul li.dropdown:last-child .dropdown-content { left:auto; right:0; }
-    @media (min-width:601px) {
-      .dropdown:hover .dropdown-content { display:block; animation:fadeIn 0.3s; }
+    nav ul li.dropdown:last-child .dropdown-content {
+      left:auto; right:0;
     }
-    .dropdown-open .dropdown-content { display:block; animation:fadeIn 0.3s; }
+    @media (min-width:601px) {
+      .dropdown:hover .dropdown-content {
+        display:block; animation:fadeIn 0.3s;
+      }
+    }
+    .dropdown-open .dropdown-content {
+      display:block; animation:fadeIn 0.3s;
+    }
     .dropdown-content a {
       display:block; margin-bottom:12px;
       text-decoration:none; color:var(--text);
@@ -109,80 +117,40 @@
 
     /* CONTENT */
     .content-container { padding-top:var(--header-height); }
-    .responsive-iframe { display:block; width:100%; max-width:600px; height:300px; border:none; }
+    .responsive-iframe {
+      display:block; width:100%; max-width:600px;
+      height:300px; border:none;
+    }
     section {
       padding:60px 20px; max-width:900px; margin:auto;
       border-bottom:1px solid var(--line);
       opacity:0; transform:translateY(30px);
       animation:slideIn 0.6s ease forwards;
     }
-    @keyframes slideIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes slideIn {
+      from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);}
+    }
     section h2 {
       margin-bottom:20px; font-size:28px;
       border-bottom:1px solid var(--line); padding-bottom:5px;
     }
     section p, section ul { font-size:16px; line-height:1.6; }
     section ul { list-style:inside; }
-    .flex-container { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; margin-top:20px; }
+    .flex-container {
+      display:flex; gap:20px; flex-wrap:wrap;
+      justify-content:center; margin-top:20px;
+    }
     .flex-container a {
-      display:flex; align-items:center; gap:8px; text-decoration:none; font-size:16px; color:var(--text);
-      padding:6px 12px; border-bottom:1px solid transparent; transition:border-color 0.3s;
+      display:flex; align-items:center; gap:8px;
+      text-decoration:none; font-size:16px;
+      color:var(--text); padding:6px 12px;
+      border-bottom:1px solid transparent;
+      transition:border-color 0.3s;
     }
     .flex-container a:hover { border-bottom:1px solid var(--text); }
     .social-icon { width:20px; height:20px; }
 
-    /* ===== Impulse Smith (Plugins) ===== */
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px; align-items: center;
-      min-height: 520px;
-      border-bottom: 1px solid var(--line);
-      padding: 40px 20px;
-      overflow: hidden;
-    }
-    .hero h1 { font-size: 42px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
-    .sub { font-size: 18px; opacity: 0.8; margin-bottom: 18px; }
-    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 22px; }
-    .badge {
-      border: 1px solid var(--line); padding: 6px 10px; border-radius: 999px;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
-    }
-    .cta-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-    .btn {
-      appearance:none; border:1px solid var(--text); background:var(--text); color:var(--bg);
-      padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; transition:transform .15s;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn.secondary { background: transparent; color: var(--text); border-color: var(--line); }
-
-    .hero-canvas-wrap { position:relative; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 10px 30px var(--shadow); }
-    .hero-canvas { display:block; width:100%; height:380px; background: radial-gradient(1200px 400px at 0% 0%, #f9f9f9, #fff); }
-    .hero-note { position:absolute; bottom:8px; right:12px; font-size:12px; opacity:.6; }
-
-    .grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:18px; }
-    .card { border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:0 10px 20px var(--shadow); background: var(--bg); }
-    .card h3 { font-size:22px; margin-bottom:6px; }
-    .card p { opacity:.9; }
-    .kv { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px; font-size:14px; }
-    .kv div { padding:10px 12px; border:1px dashed var(--line); border-radius:10px; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-
-    .feature-list { columns: 2; column-gap: 22px; }
-    .feature-list li { break-inside: avoid; margin: 8px 0; }
-    .faq details { border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0; background: var(--bg); }
-    .faq summary { cursor:pointer; font-weight:700; }
-    .sysreq { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
-    .sysreq .card { padding:14px; }
-    .notice { font-size:13px; opacity:.7; margin-top:12px; }
-
-    @media (max-width:900px) {
-      .hero { grid-template-columns: 1fr; min-height: 0; }
-      .grid { grid-template-columns: 1fr; }
-      .feature-list { columns: 1; }
-      .sysreq { grid-template-columns: 1fr; }
-    }
+    /* MOBILE */
     @media (max-width:600px) {
       :root { --header-height:150px; }
       html { font-size:90%; }
@@ -191,8 +159,6 @@
       nav ul li button { padding:8px; font-size:14px; }
       .dropdown-content { width:auto; margin-top:10px; text-align:center; }
     }
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) { .hero-canvas { background:#fff; } }
   </style>
 </head>
 <body>
@@ -211,24 +177,14 @@
     <nav>
       <ul>
         <li><button onclick="loadFeed('about')">About</button></li>
-
         <li class="dropdown">
-          <button onclick="toggleDropdown(this)">Games</button>
-          <div class="dropdown-content">
-            <a href="#" onclick="loadFeed('ltb');closeDropdowns()">Learning to Bear</a>
-            <a href="#" onclick="loadFeed('aim');closeDropdowns()">Aim Trainer Bee Pro</a>
-            <a href="aimgame.html" onclick="closeDropdowns()">UFO Clicker</a>
-          </div>
-        </li>
-
-        <!-- NEW: Plugins -->
-        <li class="dropdown">
-          <button onclick="toggleDropdown(this)">Plugins</button>
-          <div class="dropdown-content">
-            <a href="#" onclick="loadFeed('impulse');closeDropdowns()">Impulse Smith Bundle</a>
-          </div>
-        </li>
-
+  <button onclick="toggleDropdown(this)">Games</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="loadFeed('ltb');closeDropdowns()">Learning to Bear</a>
+          <a href="#" onclick="loadFeed('aim');closeDropdowns()">Aim Trainer Bee Pro</a>
+          <a href="aimgame.html" onclick="closeDropdowns()">UFO Clicker</a> <!-- 👈 Add this line -->
+        </div>
+      </li>
         <li class="dropdown">
           <button onclick="toggleDropdown(this)">Music</button>
           <div class="dropdown-content">
@@ -236,7 +192,6 @@
             <a href="#" onclick="loadFeed('spotify');closeDropdowns()">Spotify</a>
           </div>
         </li>
-
         <li><button onclick="loadFeed('downloads')">Downloads</button></li>
         <li><button onclick="loadFeed('socials')">Connect</button></li>
       </ul>
@@ -263,279 +218,6 @@
       document.querySelectorAll('nav .dropdown').forEach(d=>d.classList.remove('dropdown-open'));
     }
 
-    /**
-     * ==========================
-     * Impulse Smith Landing Page
-     * ==========================
-     * Bundle: Impulse Anvil (VST3 IR Convolution Reverb) + Impulse Forge (Standalone 3D acoustic level editor)
-     * - First-view hero with animated canvas (motion-safe, lazy-initialized)
-     * - Product cards, features, FAQ, system requirements
-     * - Strong cleanup/teardown, error handling, and JSDoc type hints
-     */
-
-    /**
-     * @typedef {Object} ImpulseAnim
-     * @property {HTMLCanvasElement} canvas
-     * @property {CanvasRenderingContext2D} ctx
-     * @property {number} rafId
-     * @property {number} t
-     * @property {boolean} running
-     * @property {()=>void} stop
-     */
-
-    /** @type {ImpulseAnim|null} */
-    let IMPULSE_ANIM = null;
-    /** @type {IntersectionObserver|null} */
-    let IMPULSE_OBSERVER = null;
-
-    /**
-     * Start the hero canvas animation if visible and motion is allowed.
-     * Uses a performant, GC-friendly particle “impulse field” with early exits.
-     * @param {HTMLCanvasElement} canvas
-     */
-    function startImpulseAnim(canvas){
-      try{
-        if(!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        /** @type {CanvasRenderingContext2D|null} */
-        const ctx = canvas.getContext('2d', { alpha: true });
-        if(!ctx) return;
-
-        const DPR = Math.min(window.devicePixelRatio || 1, 2);
-        const resize = ()=>{
-          const rect = canvas.getBoundingClientRect();
-          const W = Math.max(300, Math.floor(rect.width*DPR));
-          const H = Math.max(200, Math.floor(rect.height*DPR));
-          canvas.width = W; canvas.height = H;
-        };
-        resize();
-
-        let seed = 7;
-        const rnd = ()=> (seed = (seed*9301+49297)%233280) / 233280;
-
-        let t = 0;
-        let rafId = 0;
-        let running = true;
-
-        const draw = ()=>{
-          if(!running) return;
-          const W = canvas.width, H = canvas.height;
-          ctx.clearRect(0,0,W,H);
-
-          const g = ctx.createLinearGradient(0,0,W,H);
-          g.addColorStop(0,'rgba(0,0,0,0.03)');
-          g.addColorStop(1,'rgba(0,0,0,0.00)');
-          ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
-
-          const N = 110;
-          for(let i=0;i<N;i++){
-            const p = i/N;
-            const x = (0.5 + Math.sin(p*14.0 + t*0.002 + rnd()*0.1)*0.45) * W;
-            const y = (0.5 + Math.cos(p*11.0 + t*0.003 + rnd()*0.1)*0.35) * H;
-            const r = 1.2 + 0.9*Math.sin(t*0.004 + p*18);
-            ctx.beginPath(); ctx.arc(x,y, r*DPR, 0, Math.PI*2);
-            ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fill();
-          }
-
-          ctx.beginPath(); ctx.arc(W*0.5, H*0.5, Math.max(20, Math.abs(Math.sin(t*0.004))*28)*DPR, 0, Math.PI*2);
-          ctx.fillStyle = 'rgba(0,0,0,0.03)'; ctx.fill();
-
-          t+=16.66;
-          rafId = requestAnimationFrame(draw);
-        };
-
-        const onResize = ()=>{ try{ resize(); }catch(_){} };
-        window.addEventListener('resize', onResize, { passive:true });
-
-        IMPULSE_ANIM = { canvas, ctx, rafId: 0, t, running: true, stop: ()=>{} };
-        draw();
-
-        IMPULSE_ANIM.stop = function stop(){
-          running = false;
-          try{ cancelAnimationFrame(rafId); }catch(_){}
-          window.removeEventListener('resize', onResize);
-          IMPULSE_ANIM = null;
-        };
-      }catch(err){
-        console.error('Impulse hero animation error:', err);
-      }
-    }
-
-    /** Stop and cleanup the hero animation (safe to call multiple times). */
-    function stopImpulseAnim(){
-      try{
-        if(IMPULSE_ANIM && typeof IMPULSE_ANIM.stop==='function'){ IMPULSE_ANIM.stop(); }
-        IMPULSE_ANIM = null;
-      }catch(e){ console.warn('Stop animation error', e); }
-    }
-
-    /**
-     * Build the Impulse Smith HTML.
-     * @returns {string}
-     */
-    function buildImpulseHTML(){
-      return `
-      <section id="impulse-hero" class="hero depth-effect" aria-label="Impulse Smith Bundle">
-        <div>
-          <h1>Impulse Smith <span class="badge">Bundle</span></h1>
-          <p class="sub">A coherent toolchain for spaces: <strong>Impulse Anvil</strong> (VST3 convolution reverb) and <strong>Impulse Forge</strong> (standalone 3D acoustic level editor). Design, fly, and hear your worlds.</p>
-          <div class="badges">
-            <span class="badge">VST3</span>
-            <span class="badge">Impulse Response</span>
-            <span class="badge">Convolution</span>
-            <span class="badge">OBJ Import</span>
-            <span class="badge">Real-time 3D Acoustics</span>
-          </div>
-          <div class="cta-row">
-            <a class="btn" href="#impulse-downloads">Download</a>
-            <a class="btn secondary" href="#impulse-products">Explore Products</a>
-          </div>
-          <p class="notice">Made by FreQtik — professional, lightweight, and tuned for creative flow.</p>
-        </div>
-        <div class="hero-canvas-wrap">
-          <canvas id="impulseCanvas" class="hero-canvas" aria-hidden="true"></canvas>
-          <span class="hero-note">motion-safe · GPU-light</span>
-        </div>
-      </section>
-
-      <section id="impulse-products">
-        <h2>Products</h2>
-        <div class="grid">
-          <article class="card" aria-labelledby="anvil-title">
-            <h3 id="anvil-title">Impulse Anvil <span class="badge">VST3</span></h3>
-            <p>A precise impulse-response convolution reverb. Craft ultra-realistic spaces with pristine latency handling, stereo/true-stereo modes, trimming, pre-delay, damping, and IR normalization.</p>
-            <div class="kv">
-              <div><strong>Latency</strong><br><span class="mono">Auto / Fixed</span></div>
-              <div><strong>Modes</strong><br><span class="mono">Mono → Stereo / True-Stereo</span></div>
-              <div><strong>IR Tools</strong><br><span class="mono">Normalize · Trim · Pre-Delay</span></div>
-              <div><strong>Formats</strong><br><span class="mono">WAV/AIFF IRs</span></div>
-            </div>
-          </article>
-          <article class="card" aria-labelledby="forge-title">
-            <h3 id="forge-title">Impulse Forge <span class="badge">Standalone</span></h3>
-            <p>Block-out or import detailed geometry, then <em>fly in first-person</em> and instantly hear the acoustics you’ve built. Supports <strong>.obj</strong> mesh import, room materials, and source/listener probes.</p>
-            <div class="kv">
-              <div><strong>Import</strong><br><span class="mono">OBJ (triangulated)</span></div>
-              <div><strong>Navigation</strong><br><span class="mono">WASD + Mouse</span></div>
-              <div><strong>Acoustics</strong><br><span class="mono">Early/late · Absorption</span></div>
-              <div><strong>Export</strong><br><span class="mono">Impulse responses</span></div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="impulse-features">
-        <h2>Key Capabilities</h2>
-        <ul class="feature-list">
-          <li>Ultra-clean convolution engine with optional zero-latency monitoring.</li>
-          <li>True-stereo support and efficient partitioned FFT for low CPU usage.</li>
-          <li>Material palette in Forge with frequency-aware absorption presets.</li>
-          <li>Spatial preview: set source/listener probes and audition instantly.</li>
-          <li>OBJ mesh import (unit scale aware) with surface grouping and culling.</li>
-          <li>IR capture pipeline: generate IRs from Forge and load in Anvil.</li>
-          <li>Session-safe parameter ranges and deterministic renders.</li>
-          <li>Modern UI with readable typography and keyboard navigation.</li>
-        </ul>
-      </section>
-
-      <section id="impulse-faq" class="faq">
-        <h2>FAQ</h2>
-        <details>
-          <summary>How do Impulse Forge and Impulse Anvil work together?</summary>
-          <p>Use Forge to design or import a space, audition it in real time, then export impulse responses to load inside Anvil. Tweak pre-delay, balance, and damping in Anvil for the mix.</p>
-        </details>
-        <details>
-          <summary>Can I import my own meshes?</summary>
-          <p>Yes — <strong>.obj</strong> meshes are supported. Keep meshes reasonably optimized (triangulated, sensible scale) for best performance.</p>
-        </details>
-        <details>
-          <summary>Does Anvil support true-stereo IRs?</summary>
-          <p>Yes. You can load true-stereo IR sets or convert to your preferred routing inside your DAW.</p>
-        </details>
-        <details>
-          <summary>Any tips for performance in Forge?</summary>
-          <p>Prefer fewer, larger surfaces to many tiny ones, avoid non-manifold geometry, and use baked groups for materials you plan to tweak together.</p>
-        </details>
-      </section>
-
-      <section id="impulse-downloads">
-        <h2>Download & Licensing</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Impulse Smith Bundle</h3>
-            <p>Get both tools together for a streamlined spatial workflow.</p>
-            <div class="kv">
-              <div><strong>Includes</strong><br><span class="mono">Anvil (VST3) + Forge (Standalone)</span></div>
-              <div><strong>License</strong><br><span class="mono">Per-user · Perpetual</span></div>
-            </div>
-            <p class="notice">Installer packages sign/notarized where applicable.</p>
-            <div class="cta-row" style="margin-top:10px;">
-              <!-- Replace with your real download/payment links -->
-              <a class="btn" href="#" onclick="alert('Coming soon');return false;">Download</a>
-              <a class="btn secondary" href="#" onclick="alert('Coming soon');return false;">Buy License</a>
-            </div>
-          </div>
-          <div class="card">
-            <h3>System Requirements</h3>
-            <div class="sysreq">
-              <div class="card">
-                <strong>Windows</strong>
-                <p>10/11 (x64). DAW that supports VST3 for Anvil. GPU recommended for Forge.</p>
-              </div>
-              <div class="card">
-                <strong>macOS</strong>
-                <p>10.15+ (Intel or Apple Silicon). DAW that supports VST3 for Anvil.</p>
-              </div>
-              <div class="card">
-                <strong>General</strong>
-                <p>8 GB RAM (16 GB+ recommended), SSD storage, 1080p display or higher.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      `;
-    }
-
-    /**
-     * Initialize the hero animation only when visible; cleanup on section removal.
-     */
-    function initImpulseHero(){
-      const canvas = /** @type {HTMLCanvasElement|null} */ (document.getElementById('impulseCanvas'));
-      if(!canvas) return;
-
-      const mountAnim = ()=> startImpulseAnim(canvas);
-      const unmountAnim = ()=> stopImpulseAnim();
-
-      const hero = document.getElementById('impulse-hero');
-      if(!hero) { mountAnim(); return; }
-
-      if('IntersectionObserver' in window){
-        IMPULSE_OBSERVER = new IntersectionObserver((entries)=>{
-          for(const e of entries){
-            if(e.isIntersecting){ mountAnim(); }
-            else { unmountAnim(); }
-          }
-        }, { root:null, threshold:0.15 });
-        IMPULSE_OBSERVER.observe(hero);
-      }else{
-        mountAnim();
-      }
-
-      // Cleanup when navigating away to other feeds
-      const main = document.getElementById('mainContent');
-      const mo = new MutationObserver(()=>{
-        const stillThere = document.getElementById('impulse-hero');
-        if(!stillThere){
-          try{
-            if(IMPULSE_OBSERVER){ IMPULSE_OBSERVER.disconnect(); IMPULSE_OBSERVER=null; }
-            unmountAnim();
-            mo.disconnect();
-          }catch(_){}
-        }
-      });
-      mo.observe(main,{ childList:true });
-    }
-
     // load each section
     function loadFeed(feed){
       let html='';
@@ -554,15 +236,11 @@
           setTimeout(()=>fetchSteam(feed,id),0);
           break;
 
-        case 'impulse':
-          html = buildImpulseHTML();
-          break;
-
         case 'youtube':
           html = `<section id="youtube" class="depth-effect">
             <h2>YouTube Channel</h2>
             <div class="flex-container">
-              <a href="https://www.youtube.com/@FreQtik" target="_blank" rel="noopener">
+              <a href="https://www.youtube.com/@FreQtik" target="_blank">
                 <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">Visit Channel
               </a>
             </div>
@@ -584,10 +262,10 @@
           html = `<section id="socials" class="depth-effect">
             <h2>Connect</h2>
             <div class="flex-container">
-              <a href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener">
+              <a href="https://www.instagram.com/freqtik/" target="_blank">
                 <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">Instagram
               </a>
-              <a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank" rel="noopener">
+              <a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank">
                 <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="SP">Spotify
               </a>
             </div>
@@ -597,48 +275,25 @@
       const main = document.getElementById('mainContent');
       main.innerHTML = html;
       main.scrollIntoView({behavior:'smooth'});
-
-      // Lazy-init animation for the Impulse page
-      if(feed==='impulse'){ initImpulseHero(); }
     }
 
-    // fetch steam data via CORS proxy (with timeout + guards)
+    // fetch steam data via CORS proxy
     async function fetchSteam(feed,id){
-      /** @type {number} */ const TIMEOUT_MS = 9000;
-      const ctrl = new AbortController();
-      const to = setTimeout(()=>ctrl.abort('timeout'), TIMEOUT_MS);
-
       try{
         const url = encodeURIComponent(`https://store.steampowered.com/api/appdetails?appids=${id}&cc=US&l=en`);
-        const res = await fetch(`https://api.allorigins.win/raw?url=${url}`, { signal: ctrl.signal });
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        const entry = json && json[id];
-        const info = entry && entry.data;
-        const cont = document.getElementById(`steam-${feed}`);
-        if(!cont) return;
-
-        if(!info || !Array.isArray(info.screenshots)){
-          cont.innerHTML = `<p>Details unavailable right now. <a href="https://store.steampowered.com/app/${id}" target="_blank" rel="noopener">Open on Steam</a></p>`;
-          return;
-        }
-
-        const shots = info.screenshots.slice(0,6).map(s=>{
-          const src = (s && s.path_full) ? String(s.path_full) : '';
-          return src ? `<img loading="lazy" src="${src}" style="max-width:100%;margin:10px 0;border-radius:4px;">` : '';
-        }).join('');
-
-        cont.innerHTML = `
-          <p><strong>${info.name ?? 'Steam App'}</strong></p>
-          <p>${info.short_description ?? ''}</p>
+        const res = await fetch(`https://api.allorigins.win/raw?url=${url}`);
+        const json=await res.json();
+        const info=json[id].data;
+        const cont=document.getElementById(`steam-${feed}`);
+        const shots=info.screenshots.map(s=>`<img src="${s.path_full}" style="max-width:100%;margin:10px 0;border-radius:4px;">`).join('');
+        cont.innerHTML=`
+          <p><strong>${info.name}</strong></p>
+          <p>${info.short_description}</p>
           ${shots}
-          <p><a href="https://store.steampowered.com/app/${id}" target="_blank" rel="noopener">View on Steam</a></p>
+          <p><a href="https://store.steampowered.com/app/${id}" target="_blank">View on Steam</a></p>
         `;
       }catch(e){
-        const cont = document.getElementById(`steam-${feed}`);
-        if(cont) cont.innerHTML=\`<p>Couldn’t load Steam details (\${e && e.message ? e.message : 'error'}). <a href="https://store.steampowered.com/app/${id}" target="_blank" rel="noopener">Open on Steam</a></p>\`;
-      }finally{
-        clearTimeout(to);
+        document.getElementById(`steam-${feed}`).innerHTML=`<p>Error: ${e.message}</p>`;
       }
     }
 
@@ -652,65 +307,34 @@
     window.addEventListener('scroll', ()=>{
       const y=window.scrollY;
       const hidden = (y>0);
+      // if scrolled not at top => hide header
       headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
+      // show toggle when header hidden
       toggleBtn.style.display = hidden ? 'block' : 'none';
+      // move logo
       const logo=document.getElementById('scrollLogo');
       const max=window.innerWidth-logo.clientWidth-40;
       const x=Math.sin(y*0.005)*(max/2);
       logo.style.transform=`translateX(${x}px) rotate(${y*0.005}deg)`;
-    }, { passive:true });
+    });
 
     // persist scroll
     window.addEventListener('beforeunload', ()=> sessionStorage.setItem('scrollPos',window.scrollY));
     window.addEventListener('load', ()=>{
       const pos=sessionStorage.getItem('scrollPos');
       if(pos) window.scrollTo(0,parseFloat(pos));
-      // Default to the Impulse Smith page on first load:
-      loadFeed('impulse');
+      loadFeed('about');
       if(window.innerWidth<600) introEl.classList.add('hidden');
     });
 
-    // dismiss intro (robust: any tiny interaction OR 3s timeout)
-(function attachIntroDismiss(){
-  let dismissed = false;
-  let movement = 0;
-  const passiveOpts = { passive: true };
-
-  const dismissIntro = ()=>{
-    if (dismissed) return;
-    dismissed = true;
-    introEl.classList.add('hidden');
-    // fully remove from flow after fade
-    setTimeout(()=>{ introEl.style.display = 'none'; }, 800);
-
-    window.removeEventListener('mousemove', onMove, passiveOpts);
-    window.removeEventListener('wheel', onWheel, passiveOpts);
-    window.removeEventListener('keydown', onKey);
-    introEl.removeEventListener('click', onClick);
-    introEl.removeEventListener('touchstart', onClick, passiveOpts);
-  };
-
-  const onMove = (e)=>{
-    // small threshold so trackpads work
-    const dx = Math.abs(e.movementX || 0);
-    const dy = Math.abs(e.movementY || 0);
-    movement += dx + dy;
-    if (movement > 24) dismissIntro();
-  };
-  const onWheel = ()=> dismissIntro();
-  const onKey   = ()=> dismissIntro();
-  const onClick = ()=> dismissIntro();
-
-  window.addEventListener('mousemove', onMove, passiveOpts);
-  window.addEventListener('wheel', onWheel, passiveOpts);
-  window.addEventListener('keydown', onKey);
-  introEl.addEventListener('click', onClick);
-  introEl.addEventListener('touchstart', onClick, passiveOpts);
-
-  // Safety fallback in case no input happens
-  setTimeout(dismissIntro, 3000);
-})();
+    // dismiss intro
+    let moved=0,lx=null,ly=null,done=false;
+    document.addEventListener('mousemove',e=>{
+      if(done||window.innerWidth<600) return;
+      if(lx!==null) moved+=Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly);
+      lx=e.clientX; ly=e.clientY;
+      if(moved>300){ introEl.classList.add('hidden'); done=true; }
+    });
   </script>
 </body>
 </html>
-
