@@ -670,14 +670,47 @@
       if(window.innerWidth<600) introEl.classList.add('hidden');
     });
 
-    // dismiss intro
-    let moved=0,lx=null,ly=null,done=false;
-    document.addEventListener('mousemove',e=>{
-      if(done||window.innerWidth<600) return;
-      if(lx!==null) moved+=Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly);
-      lx=e.clientX; ly=e.clientY;
-      if(moved>300){ introEl.classList.add('hidden'); done=true; }
-    });
+    // dismiss intro (robust: any tiny interaction OR 3s timeout)
+(function attachIntroDismiss(){
+  let dismissed = false;
+  let movement = 0;
+  const passiveOpts = { passive: true };
+
+  const dismissIntro = ()=>{
+    if (dismissed) return;
+    dismissed = true;
+    introEl.classList.add('hidden');
+    // fully remove from flow after fade
+    setTimeout(()=>{ introEl.style.display = 'none'; }, 800);
+
+    window.removeEventListener('mousemove', onMove, passiveOpts);
+    window.removeEventListener('wheel', onWheel, passiveOpts);
+    window.removeEventListener('keydown', onKey);
+    introEl.removeEventListener('click', onClick);
+    introEl.removeEventListener('touchstart', onClick, passiveOpts);
+  };
+
+  const onMove = (e)=>{
+    // small threshold so trackpads work
+    const dx = Math.abs(e.movementX || 0);
+    const dy = Math.abs(e.movementY || 0);
+    movement += dx + dy;
+    if (movement > 24) dismissIntro();
+  };
+  const onWheel = ()=> dismissIntro();
+  const onKey   = ()=> dismissIntro();
+  const onClick = ()=> dismissIntro();
+
+  window.addEventListener('mousemove', onMove, passiveOpts);
+  window.addEventListener('wheel', onWheel, passiveOpts);
+  window.addEventListener('keydown', onKey);
+  introEl.addEventListener('click', onClick);
+  introEl.addEventListener('touchstart', onClick, passiveOpts);
+
+  // Safety fallback in case no input happens
+  setTimeout(dismissIntro, 3000);
+})();
   </script>
 </body>
 </html>
+
