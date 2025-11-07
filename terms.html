@@ -8,29 +8,10 @@
   <link rel="alternate" hreflang="de" href="/terms.html">
   <link rel="alternate" hreflang="en" href="/terms.html">
 </head>
-  <script>
-(function(){
-  try {
-    const nodes = document.querySelectorAll('.eml');
-    nodes.forEach(n => {
-      const u = n.getAttribute('data-user');
-      const d = n.getAttribute('data-domain');
-      const t = n.getAttribute('data-tld');
-      if (!u || !d || !t) return;
-      const addr = `${u}@${d}.${t}`;
-      const a = document.createElement('a');
-      a.href = `mailto:${addr}`;
-      a.rel = 'noopener noreferrer';
-      a.textContent = addr;
-      n.replaceWith(a);
-    });
-  } catch {}
-})();
-</script>
 <body>
   <h1>Terms of Service (English)</h1>
 
-  <p><strong>Vendor:</strong> FreQtik – Maximilian Georg Walla, Wilhelm Leuschner Str. 93, 63263 Neu Isenburg, Germany · Email: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+  <p><strong>Vendor:</strong> FreQtik – Maximilian Georg Walla, Wilhelm Leuschner Str. 93, 63263 Neu Isenburg, Germany · Email: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a></p>
 
   <h2>1. Scope</h2>
   <p>These terms apply to digital products/software offered on freqtik.com and sold via Lemon Squeezy.</p>
@@ -65,7 +46,7 @@
 
   <h1>AGB / Nutzungsbedingungen (Deutsch)</h1>
 
-  <p><strong>Anbieter:</strong> FreQtik – Maximilian Georg Walla, Wilhelm Leuschner Str. 93, 63263 Neu Isenburg, Deutschland · E-Mail: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+  <p><strong>Anbieter:</strong> FreQtik – Maximilian Georg Walla, Wilhelm Leuschner Str. 93, 63263 Neu Isenburg, Deutschland · E-Mail: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a></p>
 
   <h2>1. Geltungsbereich</h2>
   <p>Diese Bedingungen gelten für digitale Produkte/Software, die auf freqtik.com angeboten und über Lemon Squeezy verkauft werden.</p>
@@ -97,5 +78,3 @@
   <p style="opacity:.7">Stand: 2025-11-07</p>
 </body>
 </html>
-
-
