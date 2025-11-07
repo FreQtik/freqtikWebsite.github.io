@@ -345,7 +345,7 @@
                 </address>
 
                 <p><strong>Kontakt</strong><br>
-                  E-Mail: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+                  E-Mail: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a>
                 </p>
 
                 <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
@@ -376,7 +376,7 @@
                 </address>
 
                 <p><strong>Contact</strong><br>
-                  Email: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+                  Email: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a>
                 </p>
 
                 <h3>Disclaimer</h3>
@@ -452,7 +452,7 @@
         .replaceAll("'","&#39;");
     }
 
-    // Build clickable emails from data attributes to defeat simple scrapers
+    // (kept) Email obfuscation helper — safe no-op now that emails are hardcoded
     (function(){
       try {
         const nodes = document.querySelectorAll('.eml');
