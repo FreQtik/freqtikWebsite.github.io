@@ -8,25 +8,6 @@
   <link rel="alternate" hreflang="de" href="/privacy.html">
   <link rel="alternate" hreflang="en" href="/privacy.html">
 </head>
-  <script>
-(function(){
-  try {
-    const nodes = document.querySelectorAll('.eml');
-    nodes.forEach(n => {
-      const u = n.getAttribute('data-user');
-      const d = n.getAttribute('data-domain');
-      const t = n.getAttribute('data-tld');
-      if (!u || !d || !t) return;
-      const addr = `${u}@${d}.${t}`;
-      const a = document.createElement('a');
-      a.href = `mailto:${addr}`;
-      a.rel = 'noopener noreferrer';
-      a.textContent = addr;
-      n.replaceWith(a);
-    });
-  } catch {}
-})();
-</script>
 <body>
   <h1>Privacy Policy (English)</h1>
 
@@ -91,4 +72,3 @@
   <p style="opacity:.7">Stand: 2025-11-07</p>
 </body>
 </html>
-
