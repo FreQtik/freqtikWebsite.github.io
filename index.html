@@ -93,18 +93,11 @@
       box-shadow:0 4px 8px var(--shadow); z-index:999;
       white-space:nowrap;
     }
-    /* flip rightmost dropdown */
-    nav ul li.dropdown:last-child .dropdown-content {
-      left:auto; right:0;
-    }
+    nav ul li.dropdown:last-child .dropdown-content { left:auto; right:0; }
     @media (min-width:601px) {
-      .dropdown:hover .dropdown-content {
-        display:block; animation:fadeIn 0.3s;
-      }
+      .dropdown:hover .dropdown-content { display:block; animation:fadeIn 0.3s; }
     }
-    .dropdown-open .dropdown-content {
-      display:block; animation:fadeIn 0.3s;
-    }
+    .dropdown-open .dropdown-content { display:block; animation:fadeIn 0.3s; }
     .dropdown-content a {
       display:block; margin-bottom:12px;
       text-decoration:none; color:var(--text);
@@ -113,50 +106,33 @@
     .dropdown-content a:last-child { margin-bottom:0; }
     .dropdown-content a:hover { transform:rotate(2.5deg); }
 
-    @keyframes fadeIn {
-      from{opacity:0;transform:translateY(-5px);} to{opacity:1;transform:translateY(0);}
-    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-5px);} to{opacity:1;transform:translateY(0);} }
 
     /* CONTENT */
     .content-container { padding-top:var(--header-height); }
-    .responsive-iframe {
-      display:block; width:100%; max-width:600px;
-      height:300px; border:none;
-    }
+    .responsive-iframe { display:block; width:100%; max-width:600px; height:300px; border:none; }
     section {
       padding:60px 20px; max-width:900px; margin:auto;
       border-bottom:1px solid var(--line);
       opacity:0; transform:translateY(30px);
       animation:slideIn 0.6s ease forwards;
     }
-    @keyframes slideIn {
-      from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);}
-    }
-    section h2 {
-      margin-bottom:20px; font-size:28px;
-      border-bottom:1px solid var(--line); padding-bottom:5px;
-    }
+    @keyframes slideIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+    section h2 { margin-bottom:20px; font-size:28px; border-bottom:1px solid var(--line); padding-bottom:5px; }
     section p, section ul { font-size:16px; line-height:1.6; }
     section ul { list-style:inside; }
     .flex-container {
-      display:flex; gap:20px; flex-wrap:wrap;
-      justify-content:center; margin-top:20px;
+      display:flex; gap:20px; flex-wrap:wrap; justify-content:center; margin-top:20px;
     }
     .flex-container a {
-      display:flex; align-items:center; gap:8px;
-      text-decoration:none; font-size:16px;
-      color:var(--text); padding:6px 12px;
-      border-bottom:1px solid transparent;
-      transition:border-color 0.3s;
+      display:flex; align-items:center; gap:8px; text-decoration:none; font-size:16px; color:var(--text);
+      padding:6px 12px; border-bottom:1px solid transparent; transition:border-color 0.3s;
     }
     .flex-container a:hover { border-bottom:1px solid var(--text); }
     .social-icon { width:20px; height:20px; }
 
     /* FOOTER */
-    footer {
-      padding:24px 16px; text-align:center; font-size:14px;
-      color:#555;
-    }
+    footer { padding:24px 16px; text-align:center; font-size:14px; color:#555; }
     footer a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
     footer a:hover { border-bottom-color:#888; }
 
@@ -171,23 +147,22 @@
     }
   </style>
 
-  <!-- Organization JSON-LD (update placeholders) -->
+  <!-- Organization JSON-LD (filled) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "FreQtik",
-    "url": "https://[[YOUR-DOMAIN.TLD]]",
-    "logo": "https://[[YOUR-DOMAIN.TLD]]/FreQtikBlackLogo.png",
-    "email": "mailto:[[YOUR-CONTACT-EMAIL]]",
+    "url": "https://freqtik.com",
+    "logo": "https://freqtik.com/FreQtikBlackLogo.png",
+    "email": "mailto:freqtiksup@gmail.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "[[Your Street and Number]]",
-      "postalCode": "[[ZIP]]",
-      "addressLocality": "[[City]]",
+      "streetAddress": "Wilhelm Leuschner Str. 93",
+      "postalCode": "63263",
+      "addressLocality": "Neu Isenburg",
       "addressCountry": "DE"
     },
-    "vatID": "[[DE.. VAT ID if applicable]]",
     "sameAs": [
       "https://www.youtube.com/@FreQtik",
       "https://www.instagram.com/freqtik/",
@@ -229,7 +204,6 @@
         </li>
         <li><button onclick="loadFeed('downloads')" type="button">Downloads</button></li>
         <li><button onclick="loadFeed('socials')" type="button">Connect</button></li>
-        <!-- New: Impressum nav item -->
         <li><a class="nav-link" href="#" onclick="loadFeed('impressum');return false;">Impressum</a></li>
       </ul>
     </nav>
@@ -239,9 +213,9 @@
 
   <footer role="contentinfo">
     <div>© <span id="yearSpan"></span> FreQtik. All rights reserved. ·
-      <a href="#" onclick="loadFeed('impressum');return false;">Impressum</a> ·
-      <a href="[[LINK-TO-YOUR-PRIVACY-POLICY]]">Privacy</a> ·
-      <a href="[[LINK-TO-YOUR-TERMS]]">Terms</a>
+      <a href="#" onclick="loadFeed('impressum');return false;">Impressum / Legal Notice</a> ·
+      <a href="/privacy.html">Privacy / Datenschutz</a> ·
+      <a href="/terms.html">Terms / AGB</a>
     </div>
   </footer>
 
@@ -347,76 +321,69 @@
                 <a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank" rel="noopener noreferrer">
                   <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify
                 </a>
-                <a href="mailto:[[YOUR-CONTACT-EMAIL]]">
+                <a href="mailto:freqtiksup@gmail.com">
                   <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">Email
                 </a>
               </div>
             </section>`;
             break;
 
-          /* NEW: Impressum (Germany-compliant disclosure) */
+          /* BILINGUAL IMPRESSUM / LEGAL NOTICE (German governs; English for convenience) */
           case 'impressum':
             html = `<section id="impressum" class="depth-effect">
-              <h2>Impressum</h2>
+              <h2>Impressum / Legal Notice</h2>
 
-              <p><strong>Angaben gemäß § 5 TMG</strong></p>
-              <address>
-                <div><strong>[[Your Legal Name or Company]]</strong></div>
-                <div>[[Your Street and Number]]</div>
-                <div>[[ZIP]] [[City]]</div>
-                <div>Deutschland</div>
-              </address>
+              <!-- German (binding) -->
+              <div lang="de">
+                <p><strong>Angaben gemäß § 5 TMG</strong></p>
+                <address>
+                  <div><strong>FreQtik</strong></div>
+                  <div>Maximilian Georg Walla</div>
+                  <div>Wilhelm Leuschner Str. 93</div>
+                  <div>63263 Neu Isenburg</div>
+                  <div>Deutschland</div>
+                </address>
 
-              <p><strong>Vertreten durch:</strong><br>
-              [[Name of legal representative (if company)]]</p>
+                <p><strong>Kontakt</strong><br>
+                  E-Mail: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+                </p>
 
-              <p><strong>Kontakt</strong><br>
-                E-Mail: <a href="mailto:[[YOUR-CONTACT-EMAIL]]">[[YOUR-CONTACT-EMAIL]]</a><br>
-                Telefon: [[+49 ...]] (optional)
-              </p>
+                <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
+                  Maximilian Georg Walla, Wilhelm Leuschner Str. 93, 63263 Neu Isenburg, Deutschland
+                </p>
 
-              <p><strong>Umsatzsteuer-ID</strong><br>
-              Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br>
-              [[DE _________]] (falls vorhanden)</p>
+                <h3>Haftungsausschluss, Links, Urheberrecht</h3>
+                <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte verantwortlich. Nach §§ 8–10 TMG sind wir nicht verpflichtet, fremde Informationen zu überwachen. Bei Kenntnis von Rechtsverletzungen entfernen wir Inhalte/Links umgehend. Inhalte unterliegen dem deutschen Urheberrecht.</p>
 
-              <p><strong>Aufsichtsbehörde / Zulassung</strong> (falls anwendbar)<br>
-              [[Name der Aufsichtsbehörde, Anschrift, Web]]</p>
+                <p><strong>EU-Streitschlichtung</strong><br>
+                  Plattform der EU-Kommission: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.
+                </p>
 
-              <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
-              [[Full Name]], [[Street & No.]], [[ZIP City]], Deutschland</p>
+                <p style="opacity:.7;margin-top:16px;">Stand: 2025-11-07</p>
+              </div>
 
-              <p><strong>EU-Streitschlichtung</strong><br>
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-              <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.
-              Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+              <hr style="margin:24px 0;border:none;border-top:1px solid var(--line)">
 
-              <p><strong>Verbraucherstreitbeilegung/Universalschlichtungsstelle</strong><br>
-              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
+              <!-- English (for convenience; German prevails) -->
+              <div lang="en">
+                <p><strong>Legal Notice (non-binding translation)</strong></p>
+                <address>
+                  <div><strong>FreQtik</strong></div>
+                  <div>Maximilian Georg Walla</div>
+                  <div>Wilhelm Leuschner Str. 93</div>
+                  <div>63263 Neu Isenburg</div>
+                  <div>Germany</div>
+                </address>
 
-              <h3>Haftung für Inhalte</h3>
-              <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-              Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
-              überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung
-              der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem
-              Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese
-              Inhalte umgehend entfernen.</p>
+                <p><strong>Contact</strong><br>
+                  Email: <span class="eml" data-user="freqtiksup" data-domain="gmail" data-tld="com">loading…</span>
+                </p>
 
-              <h3>Haftung für Links</h3>
-              <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden
-              Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
-              verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren
-              zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte
-              einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+                <h3>Disclaimer</h3>
+                <p>The German version above governs. The English text is for convenience and does not change the legal meaning of the German “Impressum”.</p>
 
-              <h3>Urheberrecht</h3>
-              <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
-              Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen
-              Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte
-              auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet und Inhalte als solche gekennzeichnet. Sollten Sie
-              trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
-              werden wir derartige Inhalte umgehend entfernen.</p>
-
-              <p style="opacity:.7;margin-top:16px;">Stand: [[DD.MM.YYYY]]</p>
+                <p style="opacity:.7">Last updated: 2025-11-07</p>
+              </div>
             </section>`;
             break;
 
@@ -484,6 +451,25 @@
         .replaceAll('"','&quot;')
         .replaceAll("'","&#39;");
     }
+
+    // Build clickable emails from data attributes to defeat simple scrapers
+    (function(){
+      try {
+        const nodes = document.querySelectorAll('.eml');
+        nodes.forEach(n => {
+          const u = n.getAttribute('data-user');
+          const d = n.getAttribute('data-domain');
+          const t = n.getAttribute('data-tld');
+          if (!u || !d || !t) return;
+          const addr = `${u}@${d}.${t}`;
+          const a = document.createElement('a');
+          a.href = `mailto:${addr}`;
+          a.rel = 'noopener noreferrer';
+          a.textContent = addr;
+          n.replaceWith(a);
+        });
+      } catch {}
+    })();
 
     // menu toggle click
     toggleBtn.addEventListener('click', ()=>{
