@@ -194,15 +194,36 @@
     footer a:hover { border-bottom-color:#888; }
 
     /* MOBILE */
-    @media (max-width:900px){ .grid{grid-template-columns:1fr;} .hero{grid-template-columns:1fr;} .cols{grid-template-columns:1fr;} }
-    @media (max-width:600px) {
-      :root { --header-height:150px; }
-      html { font-size:90%; }
-      nav ul { flex-wrap:wrap; gap:10px; }
-      nav ul li { flex:1 1 30%; text-align:center; }
-      nav ul li button, nav ul li a.nav-link { padding:8px; font-size:14px; }
-      .dropdown-content { width:auto; margin-top:10px; text-align:center; }
-    }
+    /* MOBILE — replace your existing block with this */
+@media (max-width:600px) {
+  /* Smaller header height so scroll-padding matches */
+  :root { --header-height:110px; }
+
+  html { font-size:90%; }
+
+  /* Header + logo */
+  .logo-container { height:72px; }               /* was 150px */
+  .logo-container img { height:56px; }           /* was 120px */
+
+  /* Nav compaction */
+  nav { padding:8px 0; }                         /* was 20px 0 */
+  nav ul { flex-wrap:wrap; gap:6px; }            /* was 10px */
+  nav ul li { flex:1 1 33%; text-align:center; }
+  nav ul li button,
+  nav ul li a.nav-link {
+    padding:6px 8px;                             /* was 8px */
+    font-size:13px;                              /* was 14–16px */
+  }
+  .dropdown-content {
+    width:auto; margin-top:8px; text-align:center;
+  }
+
+  /* Menu toggle icon a bit tighter to the top-left */
+  #menuToggle { top:6px; font-size:20px; }
+
+  /* Optional: reduce hero heading size a touch on small screens */
+  .hero h1 { font-size:32px; }                   /* was 40px */
+}
   </style>
 
   <!-- Organization JSON-LD -->
@@ -952,6 +973,7 @@
   </script>
 </body>
 </html>
+
 
 
 
