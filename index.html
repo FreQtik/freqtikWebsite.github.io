@@ -11,9 +11,13 @@
     :root {
       --bg: #fff;
       --text: #000;
+      --muted: #666;
       --line: #e0e0e0;
       --shadow: rgba(0,0,0,0.08);
+      --accent: #111;
+      --accent2:#0b0b0b;
       --header-height: 200px;
+      --rad: 14px;
     }
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Manrope',sans-serif; }
     html {
@@ -89,7 +93,7 @@
     .dropdown-content {
       display:none; position:absolute; top:100%; left:0;
       background:var(--bg); border:1px solid var(--line);
-      padding:10px 15px; min-width:180px;
+      padding:10px 15px; min-width:220px;
       box-shadow:0 4px 8px var(--shadow); z-index:999;
       white-space:nowrap;
     }
@@ -112,14 +116,15 @@
     .content-container { padding-top:var(--header-height); }
     .responsive-iframe { display:block; width:100%; max-width:600px; height:300px; border:none; }
     section {
-      padding:60px 20px; max-width:900px; margin:auto;
+      padding:60px 20px; max-width:1100px; margin:auto;
       border-bottom:1px solid var(--line);
       opacity:0; transform:translateY(30px);
       animation:slideIn 0.6s ease forwards;
     }
     @keyframes slideIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
-    section h2 { margin-bottom:20px; font-size:28px; border-bottom:1px solid var(--line); padding-bottom:5px; }
-    section p, section ul { font-size:16px; line-height:1.6; }
+    section h2 { margin-bottom:20px; font-size:32px; border-bottom:1px solid var(--line); padding-bottom:5px; }
+    section p, section ul { font-size:16px; line-height:1.65; color:var(--text); }
+    section small { color:var(--muted); }
     section ul { list-style:inside; }
     .flex-container {
       display:flex; gap:20px; flex-wrap:wrap; justify-content:center; margin-top:20px;
@@ -131,12 +136,60 @@
     .flex-container a:hover { border-bottom:1px solid var(--text); }
     .social-icon { width:20px; height:20px; }
 
+    /* PRODUCT UI */
+    .hero {
+      display:grid; gap:18px; align-items:center;
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .hero h1 { font-size:40px; line-height:1.1; }
+    .tagline { color:var(--muted); font-weight:600; }
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border-radius:var(--rad);
+      border:1px solid var(--text); background:#fff; color:#000; text-decoration:none; font-weight:600;
+      transition:transform .15s, box-shadow .2s, background .2s, color .2s;
+      box-shadow:0 2px 6px var(--shadow);
+    }
+    .btn:hover { transform:translateY(-1px); }
+    .btn.primary { background:var(--text); color:#fff; border-color:var(--text); }
+    .btn.ghost { border-style:dashed; }
+    .grid {
+      display:grid; gap:18px; grid-template-columns: repeat(3,1fr);
+    }
+    .card {
+      border:1px solid var(--line); border-radius:var(--rad); padding:18px;
+      box-shadow:0 4px 12px var(--shadow);
+      background:#fff;
+    }
+    .card h3 { font-size:20px; margin-bottom:8px; }
+    .price { font-weight:800; font-size:26px; margin:8px 0 2px; }
+    .sub { color:var(--muted); font-size:13px; }
+    .badge { display:inline-block; font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid var(--line); margin-left:8px; color:#333; }
+    .popular { border-color:#111; box-shadow:0 8px 20px var(--shadow); position:relative; }
+    .popular::after{
+      content:"Most popular"; position:absolute; top:10px; right:10px; font-size:11px;
+      padding:4px 8px; border:1px solid var(--line); border-radius:999px; background:#fff;
+    }
+    .matrix { width:100%; border-collapse:collapse; margin-top:8px; }
+    .matrix th, .matrix td { border:1px solid var(--line); padding:10px; font-size:14px; text-align:center; }
+    .matrix th { background:#fafafa; }
+    .muted { color:var(--muted); }
+    .kicker { text-transform:uppercase; letter-spacing:.12em; font-weight:800; font-size:12px; color:#333; }
+    .note { font-size:13px; color:var(--muted); margin-top:8px; }
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .list { margin-top:8px; }
+    .list li { margin:6px 0; }
+    .hr { height:1px; background:var(--line); margin:18px 0; }
+    .tiny { font-size:12px; color:var(--muted); }
+
     /* FOOTER */
     footer { padding:24px 16px; text-align:center; font-size:14px; color:#555; }
     footer a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
     footer a:hover { border-bottom-color:#888; }
 
     /* MOBILE */
+    @media (max-width:900px){ .grid{grid-template-columns:1fr;} .hero{grid-template-columns:1fr;} .cols{grid-template-columns:1fr;} }
     @media (max-width:600px) {
       :root { --header-height:150px; }
       html { font-size:90%; }
@@ -147,7 +200,7 @@
     }
   </style>
 
-  <!-- Organization JSON-LD (filled) -->
+  <!-- Organization JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -170,6 +223,43 @@
     ]
   }
   </script>
+
+  <!-- Product JSON-LD: Impulse Anvil -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "applicationCategory":"AudioApplication",
+    "operatingSystem":"Windows 10/11 (64-bit)",
+    "name":"Impulse Anvil",
+    "description":"VST3 IR-morphing and design workstation with spectral/time morphing, curve shaping, Color/Fractal stages, and bake-to-IR export.",
+    "offers":{"@type":"AggregateOffer","lowPrice":"39","highPrice":"129","priceCurrency":"EUR"}
+  }
+  </script>
+
+  <!-- Product JSON-LD: Impulse Forge -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "applicationCategory":"AudioApplication",
+    "operatingSystem":"Windows 10/11 (64-bit)",
+    "name":"Impulse Forge",
+    "description":"Unreal-based acoustic level editor for capturing, trimming, normalizing, and baking impulse responses with DAW bridge.",
+    "offers":{"@type":"AggregateOffer","lowPrice":"49","highPrice":"199","priceCurrency":"EUR"}
+  }
+  </script>
+
+  <!-- Product JSON-LD: Impulse Smith (bundle) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Product",
+    "name":"Impulse Smith",
+    "description":"Bundle of Impulse Anvil (VST3) and Impulse Forge (Editor).",
+    "offers":{"@type":"Offer","price":"249","priceCurrency":"EUR"}
+  }
+  </script>
 </head>
 <body>
 
@@ -187,6 +277,18 @@
     <nav role="navigation" aria-label="Main">
       <ul>
         <li><button onclick="loadFeed('about')" type="button">About</button></li>
+
+        <!-- NEW: Audio Tools menu -->
+        <li class="dropdown">
+          <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
+          <div class="dropdown-content" role="menu" aria-label="Audio Tools">
+            <a href="#" onclick="loadFeed('impulse');closeDropdowns();return false;">Impulse (All)</a>
+            <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil (VST3)</a>
+            <a href="#" onclick="loadFeed('forge');closeDropdowns();return false;">Impulse Forge (Editor)</a>
+            <a href="#" onclick="loadFeed('smith');closeDropdowns();return false;">Impulse Smith (Bundle)</a>
+          </div>
+        </li>
+
         <li class="dropdown">
           <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Games</button>
           <div class="dropdown-content" role="menu" aria-label="Games">
@@ -222,27 +324,17 @@
   <script>
     "use strict";
 
-    /**
-     * steam app IDs (immutable)
-     * @type {{ ltb: number, aim: number }}
-     */
+    /** steam app IDs (immutable) */
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
 
-    /** @type {HTMLDivElement} */
-    const introEl   = /** @type {HTMLDivElement} */(document.getElementById('intro'));
-    /** @type {HTMLElement} */
-    const headerEl  = /** @type {HTMLElement} */(document.getElementById('mainHeader'));
-    /** @type {HTMLButtonElement} */
-    const toggleBtn = /** @type {HTMLButtonElement} */(document.getElementById('menuToggle'));
-    /** @type {HTMLElement} */
-    const mainEl    = /** @type {HTMLElement} */(document.getElementById('mainContent'));
+    const introEl   = document.getElementById('intro');
+    const headerEl  = document.getElementById('mainHeader');
+    const toggleBtn = document.getElementById('menuToggle');
+    const mainEl    = document.getElementById('mainContent');
 
     let lastY = window.scrollY;
 
-    /**
-     * Toggle a dropdown open/close
-     * @param {HTMLElement} btn
-     */
+    /* Dropdown helpers */
     function toggleDropdown(btn) {
       const li = btn.parentElement;
       if (!li) return;
@@ -256,8 +348,6 @@
         }
       });
     }
-
-    /** Close all dropdowns (no-op if none open) */
     function closeDropdowns() {
       document.querySelectorAll('nav .dropdown').forEach(d => {
         d.classList.remove('dropdown-open');
@@ -266,14 +356,384 @@
       });
     }
 
-    /**
-     * Render a section by logical feed key
-     * @param {'about'|'ltb'|'aim'|'youtube'|'spotify'|'downloads'|'socials'|'impressum'} feed
-     */
+    /* Tiny util */
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#39;");
+    }
+
+    /* Product building blocks */
+    function productHero(opts){
+      return `
+      <section id="${opts.id}">
+        <div class="hero">
+          <div>
+            <span class="kicker">${opts.kicker}</span>
+            <h1>${opts.title}</h1>
+            <p class="tagline">${opts.tagline}</p>
+            <div class="cta-row">
+              <a class="btn primary" href="${opts.buyHref}" target="_blank" rel="noopener" aria-label="Buy ${opts.title}">Buy from €${opts.priceFrom}</a>
+              <a class="btn" href="${opts.demoHref}" target="_blank" rel="noopener" aria-label="Download demo for ${opts.title}">Try Demo</a>
+              <a class="btn ghost" href="${opts.docsHref}" target="_blank" rel="noopener">Docs</a>
+            </div>
+            <p class="note">Windows 10/11 · 64-bit · ${opts.req}</p>
+          </div>
+          <div class="card" aria-hidden="true">
+            <div style="display:grid;gap:8px">
+              <div class="kicker">Highlights</div>
+              ${opts.highlights.map(x=>`<div>• ${escapeHtml(x)}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </section>`;
+    }
+
+    function pricingGrid(title, plans){
+      return `
+      <section>
+        <h2>${title}</h2>
+        <div class="grid">
+          ${plans.map(p=>`
+            <div class="card ${p.popular?'popular':''}">
+              <h3>${p.name}${p.badge?` <span class="badge">${p.badge}</span>`:''}</h3>
+              <div class="price">€${p.price}</div>
+              <div class="sub muted">${p.subtitle}</div>
+              <div class="hr"></div>
+              <ul class="list">
+                ${p.points.map(pt=>`<li>${escapeHtml(pt)}</li>`).join('')}
+              </ul>
+              <div class="hr"></div>
+              <div class="cta-row">
+                <a class="btn primary" href="${p.buyHref}" target="_blank" rel="noopener">Buy</a>
+                <a class="btn" href="${p.demoHref}" target="_blank" rel="noopener">Demo</a>
+              </div>
+              ${p.foot?`<div class="note">${p.foot}</div>`:''}
+            </div>
+          `).join('')}
+        </div>
+      </section>`;
+    }
+
+    function featureMatrix(title, cols, rows){
+      return `
+      <section>
+        <h2>${title}</h2>
+        <div class="card">
+          <table class="matrix" aria-describedby="matrix-desc">
+            <caption id="matrix-desc" class="tiny" style="caption-side:bottom;text-align:left;padding-top:8px;">Feature comparison across versions</caption>
+            <thead>
+              <tr>
+                <th style="text-align:left">Feature</th>
+                ${cols.map(c=>`<th>${escapeHtml(c)}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r=>`
+                <tr>
+                  <td style="text-align:left">${escapeHtml(r.name)}</td>
+                  ${r.cells.map(c=>`<td>${c}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </section>`;
+    }
+
+    function demoSection(items){
+      return `
+      <section>
+        <h2>Demo & Licensing</h2>
+        <div class="cols">
+          <div class="card">
+            <h3>Demo Limits</h3>
+            <ul class="list">
+              ${items.map(i=>`<li><strong>${escapeHtml(i.name)}:</strong> ${escapeHtml(i.detail)}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="card">
+            <h3>License & Installer</h3>
+            <ul class="list">
+              <li>Perpetual license · 12 months of updates included</li>
+              <li>3 activations per license (offline fallback available)</li>
+              <li>Installer required for folder structure <span class="muted">(code-signing planned)</span></li>
+              <li>Windows 10/11 (64-bit). Anvil: VST3 host · Forge: Unreal 5.x</li>
+            </ul>
+          </div>
+        </div>
+      </section>`;
+    }
+
+    /* PAGE BUILDS */
+    function buildImpulseAll(){
+      const hero = productHero({
+        id:'impulse',
+        kicker:'New · Audio Toolkit',
+        title:'Impulse Smith',
+        tagline:'Design, morph, and bake impulse responses — from DAW to Unreal and back.',
+        buyHref:'#TODO-buy-smith',   // TODO: replace with your checkout/buy link
+        demoHref:'#TODO-demo-smith', // TODO: replace with your demo link
+        docsHref:'#TODO-docs-smith', // TODO: docs/guide link
+        priceFrom: '99',
+        req:'Includes VST3 (Anvil) & Unreal Editor (Forge)',
+        highlights:[
+          'Bundle: Impulse Anvil (VST3) + Impulse Forge (Editor)',
+          'Spectral & time morphing with curve shaping',
+          'Color/Fractal enrichment and bake to IR',
+          'On-engine capture & batch bake in Unreal',
+          'Shared activation, upgrade-friendly'
+        ]
+      });
+
+      const pricing = pricingGrid('Bundle Pricing – Impulse Smith', [
+        {
+          name:'Basic Bundle', badge:'Best value', price:99,
+          subtitle:'Starter morph + on-engine capture',
+          points:[
+            'Anvil Basic + Forge Basic',
+            'Time morph, linear curve',
+            '8–10s demo-friendly workflows',
+            'Great for creating first IR packs'
+          ],
+          buyHref:'#TODO-buy-smith-basic', demoHref:'#TODO-demo-smith'
+        },
+        {
+          name:'Pro Bundle', price:249, popular:true,
+          subtitle:'Full creative workstation',
+          points:[
+            'Anvil Pro + Forge Pro',
+            'Spectral & time morph, all curves + K',
+            'Color ×2 per IR, full Fractal depth',
+            'Batch morph/bake + headless CLI in Forge'
+          ],
+          buyHref:'#TODO-buy-smith-pro', demoHref:'#TODO-demo-smith',
+          foot:'Launch promo −20% for 2 weeks'
+        }
+      ]);
+
+      const matrix = featureMatrix('At a glance', ['Basic Bundle','Pro Bundle'], [
+        { name:'Morph modes', cells:['Time','Time + Spectral'] },
+        { name:'Curves', cells:['Linear','Linear, Exp, Log, S, Power (+K)'] },
+        { name:'Color / Fractal', cells:['—','2× Color per IR + full Fractal'] },
+        { name:'Export / Bake', cells:['—','Bake morphed IRs + batch'] },
+        { name:'Unreal capture', cells:['Manual capture','Batch + presets + CLI'] },
+        { name:'License', cells:['Single user','Single user (team add-ons)'] }
+      ]);
+
+      const demo = demoSection([
+        { name:'Anvil', detail:'Perpetual demo. Short periodic mute; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' },
+        { name:'Forge', detail:'Capture up to 8s (+1.5s tail). Batch/CLI disabled. Filenames tagged “_DEMO”.' }
+      ]);
+
+      const tiles = `
+      <section>
+        <h2>Included Apps</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Impulse Anvil <span class="badge">VST3</span></h3>
+            <p class="muted">IR morphing, shaping & export inside your DAW.</p>
+            <div class="hr"></div>
+            <ul class="list">
+              <li>Load A/B IRs, stretch & morph</li>
+              <li>Spectral or time domain modes</li>
+              <li>Curve shaping (Linear→Power, K-shape)</li>
+              <li>Color & Fractal enrichment</li>
+              <li>Bake-to-WAV (Pro)</li>
+            </ul>
+            <div class="hr"></div>
+            <div class="cta-row">
+              <a class="btn" href="#" onclick="loadFeed('anvil');return false;">See Anvil</a>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Impulse Forge <span class="badge">Unreal Editor</span></h3>
+            <p class="muted">Capture, trim, normalize & bake IRs in-engine.</p>
+            <div class="hr"></div>
+            <ul class="list">
+              <li>Submix capture (pulse/noise)</li>
+              <li>Trim, tail, target dBFS</li>
+              <li>Batch bake (Studio/Pro)</li>
+              <li>DAW bridge to Anvil</li>
+              <li>Headless/CLI (Pro)</li>
+            </ul>
+            <div class="hr"></div>
+            <div class="cta-row">
+              <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Get the Bundle</h3>
+            <p class="muted">One key. Shared activation. Seamless workflow.</p>
+            <div class="hr"></div>
+            <div class="cta-row">
+              <a class="btn primary" href="#TODO-buy-smith" target="_blank" rel="noopener">Buy Impulse Smith</a>
+              <a class="btn" href="#TODO-demo-smith" target="_blank" rel="noopener">Try Demo</a>
+            </div>
+          </div>
+        </div>
+      </section>`;
+
+      return hero + pricing + matrix + tiles + demo;
+    }
+
+    function buildAnvil(){
+      const hero = productHero({
+        id:'anvil',
+        kicker:'VST3 Plugin',
+        title:'Impulse Anvil',
+        tagline:'Morph any two IRs — time or spectral — then color, enrich, and bake.',
+        buyHref:'#TODO-buy-anvil',
+        demoHref:'#TODO-demo-anvil',
+        docsHref:'#TODO-docs-anvil',
+        priceFrom:'39',
+        req:'VST3 host (64-bit)',
+        highlights:[
+          'A/B IR loading with per-IR gain & stretch',
+          'Time & spectral morphing with curve shaping',
+          'Color stages and Fractal depth',
+          'Export baked IRs to WAV (Advanced/Pro)',
+          'Bridge preview with external tools'
+        ]
+      });
+
+      const pricing = pricingGrid('Impulse Anvil – Versions', [
+        {
+          name:'Basic', price:39, subtitle:'Core morphing',
+          points:[
+            'Time morph · Linear curve',
+            'Load A/B IRs (≤ 6s each)',
+            'Session recall; user banks disabled',
+            'No Color/Fractal, no export'
+          ],
+          buyHref:'#TODO-buy-anvil-basic', demoHref:'#TODO-demo-anvil'
+        },
+        {
+          name:'Advanced', price:79, subtitle:'Power tools',
+          points:[
+            'Time + Spectral morph',
+            'Curves: Linear, Exp, Log, S (+K)',
+            'Color ×1 per IR · Fractal to 50%',
+            'Bake to WAV · User presets',
+            'IR length up to 12s'
+          ],
+          buyHref:'#TODO-buy-anvil-adv', demoHref:'#TODO-demo-anvil'
+        },
+        {
+          name:'Pro', price:129, subtitle:'Full workstation', popular:true,
+          points:[
+            'All curves incl. Power (+ extended K)',
+            'Color ×2 per IR · Fractal 0–100%',
+            'Batch morph & bake',
+            'High-res meters + bridge diagnostics',
+            'IR length up to 60s'
+          ],
+          buyHref:'#TODO-buy-anvil-pro', demoHref:'#TODO-demo-anvil'
+        }
+      ]);
+
+      const matrix = featureMatrix('Feature comparison (Anvil)', ['Basic','Advanced','Pro'], [
+        { name:'Morph modes', cells:['Time','Time + Spectral','Time + Spectral'] },
+        { name:'Curves', cells:['Linear','Lin/Exp/Log/S (+K)','All + Power (+K+)'] },
+        { name:'Color per IR', cells:['—','×1','×2'] },
+        { name:'Fractal depth', cells:['—','0–50%','0–100%'] },
+        { name:'Bake/export', cells:['—','✓','✓ (batch)'] },
+        { name:'Max IR length', cells:['6s','12s','60s'] },
+        { name:'Bridge preview', cells:['—','✓','✓ + diagnostics'] },
+        { name:'User presets', cells:['—','✓','✓'] }
+      ]);
+
+      const demo = demoSection([
+        { name:'Anvil', detail:'Perpetual; short periodic mute every ~60s; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' }
+      ]);
+
+      return hero + pricing + matrix + demo;
+    }
+
+    function buildForge(){
+      const hero = productHero({
+        id:'forge',
+        kicker:'Unreal Editor Tool',
+        title:'Impulse Forge',
+        tagline:'Capture, normalize, trim and bake IRs directly inside Unreal.',
+        buyHref:'#TODO-buy-forge',
+        demoHref:'#TODO-demo-forge',
+        docsHref:'#TODO-docs-forge',
+        priceFrom:'49',
+        req:'Unreal 5.x (Editor)',
+        highlights:[
+          'Submix capture (pulse/noise) with tail/trim',
+          'Target dBFS normalization',
+          'Batch bake & DAW bridge (Studio/Pro)',
+          'Headless/CLI for CI builds (Pro)',
+          'Starter content & blueprint library'
+        ]
+      });
+
+      const pricing = pricingGrid('Impulse Forge – Versions', [
+        {
+          name:'Basic', price:49, subtitle:'Get started',
+          points:[
+            'Pulse or noise capture',
+            'Max 10s capture (+2s tail)',
+            'Convolution preview (wet/dry)',
+            'Manual bake; no batch'
+          ],
+          buyHref:'#TODO-buy-forge-basic', demoHref:'#TODO-demo-forge'
+        },
+        {
+          name:'Studio', price:119, subtitle:'Production workflow',
+          points:[
+            'Max 60s capture (+tail)',
+            'Trim + normalization per capture',
+            'Batch bake UI',
+            'VST Bridge component to Anvil',
+            'Blueprint helpers & templates'
+          ],
+          buyHref:'#TODO-buy-forge-studio', demoHref:'#TODO-demo-forge'
+        },
+        {
+          name:'Pro', price:199, subtitle:'Team & automation', popular:true,
+          points:[
+            'Everything in Studio',
+            'Headless/CLI baking for CI',
+            'Per-map presets & auto-naming',
+            'Capture variants (multi-seed)',
+            'Team license (2 seats)'
+          ],
+          buyHref:'#TODO-buy-forge-pro', demoHref:'#TODO-demo-forge'
+        }
+      ]);
+
+      const matrix = featureMatrix('Feature comparison (Forge)', ['Basic','Studio','Pro'], [
+        { name:'Capture duration', cells:['≤10s (+2s)','≤60s (+tail)','≤60s (+tail)'] },
+        { name:'Trim / Normalize', cells:['Trim basic','Full','Full'] },
+        { name:'Batch bake', cells:['—','✓','✓ + CLI'] },
+        { name:'DAW bridge', cells:['—','✓','✓'] },
+        { name:'Presets / Auto-naming', cells:['—','—','✓'] },
+        { name:'Team / Seats', cells:['Single','Single','2 seats (add-on)'] }
+      ]);
+
+      const demo = demoSection([
+        { name:'Forge', detail:'Demo captures up to 8s (+1.5s tail), batch & CLI disabled, filenames tagged “_DEMO”.' }
+      ]);
+
+      return hero + pricing + matrix + demo;
+    }
+
+    /* Router */
     function loadFeed(feed){
       try {
         let html = '';
         switch(feed){
+          case 'impulse': html = buildImpulseAll(); break;
+          case 'anvil': html = buildAnvil(); break;
+          case 'forge': html = buildForge(); break;
+          case 'smith': html = buildImpulseAll(); break; // alias to bundle page
+
           case 'about':
             html = `<section id="about"><h2>About FreQtik</h2><p>Creator with passions in game dev, music production, tool creation, and more. Welcome to my digital space—where innovative experiences come to life.</p></section>`;
             break;
@@ -308,7 +768,31 @@
             break;
 
           case 'downloads':
-            html = `<section id="downloads" class="depth-effect"><h2>Downloads & Tools</h2><p>Coming soon.</p></section>`;
+            html = `<section id="downloads" class="depth-effect">
+              <h2>Downloads & Tools</h2>
+              <p>Grab demos and updates here once links are live.</p>
+              <div class="grid" style="margin-top:14px">
+                <div class="card">
+                  <h3>Impulse Anvil Demo</h3>
+                  <p class="muted">VST3 · Windows 64-bit</p>
+                  <div class="hr"></div>
+                  <a class="btn" href="#TODO-demo-anvil" target="_blank" rel="noopener">Download</a>
+                </div>
+                <div class="card">
+                  <h3>Impulse Forge Demo</h3>
+                  <p class="muted">Unreal Editor · Windows 64-bit</p>
+                  <div class="hr"></div>
+                  <a class="btn" href="#TODO-demo-forge" target="_blank" rel="noopener">Download</a>
+                </div>
+                <div class="card">
+                  <h3>Impulse Smith (Bundle) Demo</h3>
+                  <p class="muted">Both installers</p>
+                  <div class="hr"></div>
+                  <a class="btn" href="#TODO-demo-smith" target="_blank" rel="noopener">Download</a>
+                </div>
+              </div>
+              <p class="note">Windows SmartScreen may warn because the installer isn’t code-signed yet. <a href="#TODO-smartscreen-help" target="_blank" rel="noopener">Here’s why and how to proceed safely</a>.</p>
+            </section>`;
             break;
 
           case 'socials':
@@ -328,12 +812,11 @@
             </section>`;
             break;
 
-          /* BILINGUAL IMPRESSUM / LEGAL NOTICE (German governs; English for convenience) */
+          /* BILINGUAL IMPRESSUM / LEGAL NOTICE */
           case 'impressum':
             html = `<section id="impressum" class="depth-effect">
               <h2>Impressum / Legal Notice</h2>
 
-              <!-- German (binding) -->
               <div lang="de">
                 <p><strong>Angaben gemäß § 5 TMG</strong></p>
                 <address>
@@ -364,7 +847,6 @@
 
               <hr style="margin:24px 0;border:none;border-top:1px solid var(--line)">
 
-              <!-- English (for convenience; German prevails) -->
               <div lang="en">
                 <p><strong>Legal Notice (non-binding translation)</strong></p>
                 <address>
@@ -399,12 +881,7 @@
       }
     }
 
-    /**
-     * Fetch Steam data via CORS proxy and display
-     * @param {'ltb'|'aim'} feed
-     * @param {number} id
-     * @returns {Promise<void>}
-     */
+    /* Steam fetch helper */
     async function fetchSteam(feed, id){
       const targetId = `steam-${feed}`;
       const container = document.getElementById(targetId);
@@ -414,7 +891,6 @@
         const url = encodeURIComponent(`https://store.steampowered.com/api/appdetails?appids=${id}&cc=US&l=en`);
         const res = await fetch(`https://api.allorigins.win/raw?url=${url}`, { method:'GET' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        /** @type {any} */
         const json = await res.json();
 
         if (!json || !json[id] || !json[id].success) {
@@ -434,57 +910,24 @@
           <p><a href="https://store.steampowered.com/app/${id}" target="_blank" rel="noopener noreferrer">View on Steam</a></p>
         `;
       }catch(e){
-        container.innerHTML = `<p>Error loading Steam details. ${escapeHtml((/** @type {Error} */(e)).message || '')}</p>`;
+        container.innerHTML = `<p>Error loading Steam details. ${escapeHtml((e).message || '')}</p>`;
       }
     }
 
-    /**
-     * Simple HTML escape to avoid accidental injection
-     * @param {string} str
-     * @returns {string}
-     */
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
-    }
-
-    // (kept) Email obfuscation helper — safe no-op now that emails are hardcoded
-    (function(){
-      try {
-        const nodes = document.querySelectorAll('.eml');
-        nodes.forEach(n => {
-          const u = n.getAttribute('data-user');
-          const d = n.getAttribute('data-domain');
-          const t = n.getAttribute('data-tld');
-          if (!u || !d || !t) return;
-          const addr = `${u}@${d}.${t}`;
-          const a = document.createElement('a');
-          a.href = `mailto:${addr}`;
-          a.rel = 'noopener noreferrer';
-          a.textContent = addr;
-          n.replaceWith(a);
-        });
-      } catch {}
-    })();
-
-    // menu toggle click
+    /* menu toggle */
     toggleBtn.addEventListener('click', ()=>{
       headerEl.style.transform='translateY(0)';
       toggleBtn.style.display='none';
     });
 
-    // scroll behavior: hide/show header & toggle, animate logo
+    /* scroll behavior */
     window.addEventListener('scroll', ()=>{
       const y = window.scrollY;
       const hidden = (y>0);
       headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
       toggleBtn.style.display = hidden ? 'block' : 'none';
 
-      const logo = /** @type {HTMLImageElement} */ (document.getElementById('scrollLogo'));
+      const logo = document.getElementById('scrollLogo');
       if (logo) {
         const max = window.innerWidth - logo.clientWidth - 40;
         const x = Math.sin(y*0.005)*(max/2);
@@ -492,21 +935,19 @@
       }
     });
 
-    // persist scroll
+    /* persist scroll */
     window.addEventListener('beforeunload', ()=> {
       try { sessionStorage.setItem('scrollPos', String(window.scrollY)); } catch {}
     });
 
     window.addEventListener('load', ()=>{
-      // footer year
       const ySpan = document.getElementById('yearSpan');
       if (ySpan) ySpan.textContent = String(new Date().getFullYear());
-
       try {
         const pos = sessionStorage.getItem('scrollPos');
         if (pos) window.scrollTo(0, parseFloat(pos));
       } catch {}
-      loadFeed('about');
+      loadFeed('impulse'); // land on products; change to 'about' if you prefer
       if (window.innerWidth < 600) introEl.classList.add('hidden');
     });
 
