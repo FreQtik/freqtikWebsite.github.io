@@ -183,6 +183,11 @@
     .hr { height:1px; background:var(--line); margin:18px 0; }
     .tiny { font-size:12px; color:var(--muted); }
 
+    /* MEDIA PANE (product images) */
+    .media-pane { border:1px solid var(--line); border-radius:var(--rad); overflow:hidden; box-shadow:0 4px 12px var(--shadow); background:#000; display:flex; align-items:center; justify-content:center; aspect-ratio: 16/10; }
+    .media-pane img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(0.95) contrast(1.02); }
+    .media-hide { display:none; }
+
     /* FOOTER */
     footer { padding:24px 16px; text-align:center; font-size:14px; color:#555; }
     footer a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
@@ -366,7 +371,7 @@
         .replaceAll("'","&#39;");
     }
 
-    /* Product building blocks */
+    /* Product building blocks (now with image support) */
     function productHero(opts){
       return `
       <section id="${opts.id}">
@@ -382,11 +387,8 @@
             </div>
             <p class="note">Windows 10/11 · 64-bit · ${opts.req}</p>
           </div>
-          <div class="card" aria-hidden="true">
-            <div style="display:grid;gap:8px">
-              <div class="kicker">Highlights</div>
-              ${opts.highlights.map(x=>`<div>• ${escapeHtml(x)}</div>`).join('')}
-            </div>
+          <div class="media-pane" ${opts.img ? '' : 'aria-hidden="true"'}>
+            <img src="${opts.img || ''}" alt="${opts.title}" onerror="this.closest('.media-pane').classList.add('media-hide')">
           </div>
         </div>
       </section>`;
@@ -475,18 +477,12 @@
         kicker:'New · Audio Toolkit',
         title:'Impulse Smith',
         tagline:'Design, morph, and bake impulse responses — from DAW to Unreal and back.',
-        buyHref:'#TODO-buy-smith',   // TODO: replace with your checkout/buy link
-        demoHref:'#TODO-demo-smith', // TODO: replace with your demo link
-        docsHref:'#TODO-docs-smith', // TODO: docs/guide link
+        buyHref:'#TODO-buy-smith',   // TODO
+        demoHref:'#TODO-demo-smith', // TODO
+        docsHref:'#TODO-docs-smith', // TODO
         priceFrom: '99',
         req:'Includes VST3 (Anvil) & Unreal Editor (Forge)',
-        highlights:[
-          'Bundle: Impulse Anvil (VST3) + Impulse Forge (Editor)',
-          'Spectral & time morphing with curve shaping',
-          'Color/Fractal enrichment and bake to IR',
-          'On-engine capture & batch bake in Unreal',
-          'Shared activation, upgrade-friendly'
-        ]
+        img:'impulse-forge-hero.png'
       });
 
       const pricing = pricingGrid('Bundle Pricing – Impulse Smith', [
@@ -535,6 +531,9 @@
         <div class="grid">
           <div class="card">
             <h3>Impulse Anvil <span class="badge">VST3</span></h3>
+            <div class="media-pane" style="margin-bottom:10px;">
+              <img src="impulse-anvil-header.png" alt="Impulse Anvil" onerror="this.closest('.media-pane').classList.add('media-hide')">
+            </div>
             <p class="muted">IR morphing, shaping & export inside your DAW.</p>
             <div class="hr"></div>
             <ul class="list">
@@ -551,6 +550,9 @@
           </div>
           <div class="card">
             <h3>Impulse Forge <span class="badge">Unreal Editor</span></h3>
+            <div class="media-pane" style="margin-bottom:10px;">
+              <img src="impulse-forge-hero.png" alt="Impulse Forge" onerror="this.closest('.media-pane').classList.add('media-hide')">
+            </div>
             <p class="muted">Capture, trim, normalize & bake IRs in-engine.</p>
             <div class="hr"></div>
             <ul class="list">
@@ -591,13 +593,7 @@
         docsHref:'#TODO-docs-anvil',
         priceFrom:'39',
         req:'VST3 host (64-bit)',
-        highlights:[
-          'A/B IR loading with per-IR gain & stretch',
-          'Time & spectral morphing with curve shaping',
-          'Color stages and Fractal depth',
-          'Export baked IRs to WAV (Advanced/Pro)',
-          'Bridge preview with external tools'
-        ]
+        img:'impulse-anvil-header.png'
       });
 
       const pricing = pricingGrid('Impulse Anvil – Versions', [
@@ -664,13 +660,7 @@
         docsHref:'#TODO-docs-forge',
         priceFrom:'49',
         req:'Unreal 5.x (Editor)',
-        highlights:[
-          'Submix capture (pulse/noise) with tail/trim',
-          'Target dBFS normalization',
-          'Batch bake & DAW bridge (Studio/Pro)',
-          'Headless/CLI for CI builds (Pro)',
-          'Starter content & blueprint library'
-        ]
+        img:'impulse-forge-hero.png'
       });
 
       const pricing = pricingGrid('Impulse Forge – Versions', [
