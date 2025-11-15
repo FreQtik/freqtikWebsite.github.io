@@ -188,42 +188,154 @@
     .media-pane img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(0.95) contrast(1.02); }
     .media-hide { display:none; }
 
+    /* APPLE-LIKE DARK BAND FOR ANVIL */
+    .band-dark {
+      padding:80px 0;
+      max-width:100%;
+      margin:0;
+      background:#000;
+      color:#f5f5f5;
+      border-bottom:none;
+    }
+    .band-dark .band-inner {
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+    .band-dark h2 {
+      border-bottom:none;
+      font-size:32px;
+      margin-bottom:6px;
+      padding-bottom:0;
+      color:#f5f5f5;
+    }
+    .band-dark .kicker {
+      color:#bbb;
+    }
+    .band-dark p,
+    .band-dark li {
+      color:#e0e0e0;
+    }
+    .band-dark .muted {
+      color:#9a9a9a;
+    }
+
+    .anvil-slides {
+      margin-top:32px;
+      display:flex;
+      gap:16px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding-bottom:12px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .anvil-slide {
+      flex:0 0 82%;
+      max-width:460px;
+      scroll-snap-align:start;
+      background:radial-gradient(circle at top left, #222 0, #111 40%, #050505 100%);
+      border-radius:var(--rad);
+      padding:20px 18px 22px;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 20px 50px rgba(0,0,0,0.85);
+    }
+    .anvil-slide h3 {
+      font-size:20px;
+      margin-bottom:8px;
+      color:#fdfdfd;
+    }
+    .anvil-slide p {
+      font-size:15px;
+      margin-bottom:8px;
+    }
+    .anvil-slide ul.list {
+      margin-top:6px;
+      padding-left:0;
+      list-style:none;
+    }
+    .anvil-slide ul.list li::before {
+      content:"•";
+      display:inline-block;
+      margin-right:6px;
+      color:#cfcfcf;
+    }
+    .band-pill {
+      display:inline-flex;
+      align-items:center;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      margin-bottom:10px;
+      color:#cfcfcf;
+    }
+
+    .band-dark small {
+      color:#7a7a7a;
+    }
+
+    .anvil-slides::-webkit-scrollbar {
+      height:6px;
+    }
+    .anvil-slides::-webkit-scrollbar-track {
+      background:#050505;
+    }
+    .anvil-slides::-webkit-scrollbar-thumb {
+      background:#444;
+      border-radius:999px;
+    }
+
+    @media (min-width:900px){
+      .anvil-slide { flex-basis:30%; }
+    }
+
     /* FOOTER */
-    footer { padding:24px 16px; text-align:center; font-size:14px; color:#555; }
+    footer { padding:24px 16px; text-align:center; font-size:14px; color: #555; }
     footer a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
     footer a:hover { border-bottom-color:#888; }
 
     /* MOBILE */
-    /* MOBILE — replace your existing block with this */
-@media (max-width:600px) {
-  /* Smaller header height so scroll-padding matches */
-  :root { --header-height:110px; }
+    @media (max-width:600px) {
+      :root { --header-height:110px; }
 
-  html { font-size:90%; }
+      html { font-size:90%; }
 
-  /* Header + logo */
-  .logo-container { height:72px; }               /* was 150px */
-  .logo-container img { height:56px; }           /* was 120px */
+      .logo-container { height:72px; }
+      .logo-container img { height:56px; }
 
-  /* Nav compaction */
-  nav { padding:8px 0; }                         /* was 20px 0 */
-  nav ul { flex-wrap:wrap; gap:6px; }            /* was 10px */
-  nav ul li { flex:1 1 33%; text-align:center; }
-  nav ul li button,
-  nav ul li a.nav-link {
-    padding:6px 8px;                             /* was 8px */
-    font-size:13px;                              /* was 14–16px */
-  }
-  .dropdown-content {
-    width:auto; margin-top:8px; text-align:center;
-  }
+      nav { padding:8px 0; }
+      nav ul { flex-wrap:wrap; gap:6px; }
+      nav ul li { flex:1 1 33%; text-align:center; }
+      nav ul li button,
+      nav ul li a.nav-link {
+        padding:6px 8px;
+        font-size:13px;
+      }
+      .dropdown-content {
+        width:auto; margin-top:8px; text-align:center;
+      }
 
-  /* Menu toggle icon a bit tighter to the top-left */
-  #menuToggle { top:6px; font-size:20px; }
+      #menuToggle { top:6px; font-size:20px; }
 
-  /* Optional: reduce hero heading size a touch on small screens */
-  .hero h1 { font-size:32px; }                   /* was 40px */
-}
+      .hero {
+        grid-template-columns:1fr;
+      }
+      .hero h1 { font-size:32px; }
+
+      .cols {
+        grid-template-columns:1fr;
+      }
+
+      .anvil-slide {
+        flex-basis:90%;
+      }
+
+      .grid {
+        grid-template-columns:1fr;
+      }
+    }
   </style>
 
   <!-- Organization JSON-LD -->
@@ -304,7 +416,7 @@
       <ul>
         <li><button onclick="loadFeed('about')" type="button">About</button></li>
 
-        <!-- NEW: Audio Tools menu -->
+        <!-- Audio Tools menu -->
         <li class="dropdown">
           <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
           <div class="dropdown-content" role="menu" aria-label="Audio Tools">
@@ -392,7 +504,7 @@
         .replaceAll("'","&#39;");
     }
 
-    /* Product building blocks (now with image support) */
+    /* Product building blocks (with image support) */
     function productHero(opts){
       return `
       <section id="${opts.id}">
@@ -498,9 +610,9 @@
         kicker:'New · Audio Toolkit',
         title:'Impulse Smith',
         tagline:'Design, morph, and bake impulse responses — from vision to reverb.',
-        buyHref:'#TODO-buy-smith',   // TODO
-        demoHref:'#TODO-demo-smith', // TODO
-        docsHref:'#TODO-docs-smith', // TODO
+        buyHref:'#TODO-buy-smith',
+        demoHref:'#TODO-demo-smith',
+        docsHref:'#TODO-docs-smith',
         priceFrom: '99',
         req:'Includes VST3 (Anvil) & Unreal Editor (Forge)',
         img:'impulse-forge-hero.png'
@@ -608,7 +720,7 @@
         id:'anvil',
         kicker:'VST3 Plugin',
         title:'Impulse Anvil',
-        tagline:'Morph any two IRs — time or spectral — then color, enrich, and bake.',
+        tagline:'Forge new IRs from the ones you already own – then use them everywhere.',
         buyHref:'#TODO-buy-anvil',
         demoHref:'#TODO-demo-anvil',
         docsHref:'#TODO-docs-anvil',
@@ -616,6 +728,102 @@
         req:'VST3 host (64-bit)',
         img:'impulse-anvil-header.png'
       });
+
+      const anvilIntro = `
+      <section>
+        <h2>What Impulse Anvil is</h2>
+        <div class="cols">
+          <div>
+            <p><strong>Impulse Anvil</strong> is a dual-slot impulse response morphing &amp; baking plugin. It takes the IRs you already have – from other plugins, IR packs, your own captures, even AI-generated files – and lets you reshape, blend and re-forge them into new, portable WAV IRs.</p>
+            <p>It’s not a “wiggle everything in real time” effect. Every move you make <strong>rebuilds the impulse response itself</strong> behind the scenes. You dial in the sound, bake it, and then use that IR in any other convolution reverb, cab sim or IR loader you own.</p>
+            <p>Impulse Anvil started from a simple problem: <em>great instruments that felt dusty and over-used</em>. The solution was to create brand new spaces and resonances around them – spaces that hadn’t been heard before.</p>
+          </div>
+          <div class="card">
+            <h3>Impulse Responses, in short</h3>
+            <p>An <strong>Impulse Response (IR)</strong> is not just a reverb preset. It’s a full fingerprint of a signal path:</p>
+            <ul class="list">
+              <li>Rooms and halls</li>
+              <li>Speaker cabinets &amp; mics</li>
+              <li>Hardware chains &amp; FX</li>
+              <li>Any linear time-based process</li>
+            </ul>
+            <p class="note">With the right IR you can make a sound feel like it’s inside a cathedral, a bedroom closet, a guitar cab, or some impossible, cinematic space. Impulse Anvil lets you <strong>design those fingerprints yourself</strong>.</p>
+          </div>
+        </div>
+      </section>`;
+
+      const anvilBand = `
+      <section class="band-dark">
+        <div class="band-inner">
+          <div class="band-header">
+            <span class="band-pill">Why producers reach for Impulse Anvil</span>
+            <h2>Turn every IR collection into a forge.</h2>
+            <p class="muted">Scroll horizontally to explore what you can do.</p>
+          </div>
+
+          <div class="anvil-slides" aria-label="Impulse Anvil highlights">
+            <article class="anvil-slide">
+              <h3>Use any IRs you already own</h3>
+              <p>Load IRs from other reverbs, cab sims, hardware captures, sample packs or AI tools. Impulse Anvil doesn’t care where they came from – it treats them as raw material.</p>
+              <ul class="list">
+                <li>Drop in WAV IRs from any plugin or library.</li>
+                <li>Combine spaces, cabs and chains that were never meant to meet.</li>
+                <li>Turn existing collections into a source of <strong>new</strong> IRs.</li>
+              </ul>
+            </article>
+
+            <article class="anvil-slide">
+              <h3>Forge, don’t automate</h3>
+              <p>Impulse Anvil is a <strong>forge</strong>, not an automatable reverb. Every knob drag rebuilds the IR itself, so the result is precise, clean and portable.</p>
+              <ul class="list">
+                <li>Work deliberately, commit when it sounds right.</li>
+                <li>No parameter-chasing in every project – just load the baked IR.</li>
+                <li>Perfect for building reusable, recall-safe sounds.</li>
+              </ul>
+            </article>
+
+            <article class="anvil-slide">
+              <h3>Colour Stripes &amp; Fractal depth</h3>
+              <p>Shape each source IR with two independent <strong>Colour Stripes</strong> and optional <strong>Fractal</strong> stacking to build complex, living spaces.</p>
+              <ul class="list">
+                <li>Time, phase and gain control per stripe for precise shaping.</li>
+                <li>Fractal mode re-applies that colouring in layers, adding density and richness.</li>
+                <li>Turn simple rooms or cabs into hyper-detailed, characterful spaces.</li>
+              </ul>
+            </article>
+
+            <article class="anvil-slide">
+              <h3>Morph between A and B</h3>
+              <p>Morph two IRs in time or in the spectral domain – or use band-swap and zig-zag modes to create hybrids that feel almost synthesized.</p>
+              <ul class="list">
+                <li>Time or spectral morphing, with optional peak alignment.</li>
+                <li>Multiple morph curves (Linear, Exp, Log, S, Power) with K control.</li>
+                <li>From transparent blends to bold, broken spaces.</li>
+              </ul>
+            </article>
+
+            <article class="anvil-slide">
+              <h3>IRs you can use anywhere</h3>
+              <p>When you’ve forged something special, bake it out as a high-quality WAV IR and use it in any other impulse response tool you own.</p>
+              <ul class="list">
+                <li>Bake morphed, coloured and fractal-processed IRs to disk.</li>
+                <li>Drop them into your favourite convolution reverb or cab sim.</li>
+                <li>Build your own signature IR folders and packs.</li>
+              </ul>
+            </article>
+
+            <article class="anvil-slide">
+              <h3>For creators who’ve heard it all</h3>
+              <p>If your instruments and presets feel old, Impulse Anvil gives them new life by changing the space around them – not just the EQ or compressor on top.</p>
+              <ul class="list">
+                <li>Refresh dusty VST instruments with unheard spaces.</li>
+                <li>Turn “boring” sounds into something exciting and inspiring.</li>
+                <li>Perfect for artists chasing a <strong>truly personal</strong> sound.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>`;
 
       const pricing = pricingGrid('Impulse Anvil – Versions', [
         {
@@ -667,7 +875,7 @@
         { name:'Anvil', detail:'Perpetual; short periodic mute every ~60s; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' }
       ]);
 
-      return hero + pricing + matrix + demo;
+      return hero + anvilIntro + anvilBand + pricing + matrix + demo;
     }
 
     function buildForge(){
@@ -823,7 +1031,6 @@
             </section>`;
             break;
 
-          /* BILINGUAL IMPRESSUM / LEGAL NOTICE */
           case 'impressum':
             html = `<section id="impressum" class="depth-effect">
               <h2>Impressum / Legal Notice</h2>
@@ -973,10 +1180,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
