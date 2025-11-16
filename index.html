@@ -26,12 +26,11 @@
       scroll-padding-top:var(--header-height);
     }
     body {
-  overflow-x:hidden;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
+      overflow-x:hidden;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
 
     /* INTRO */
     .intro {
@@ -62,6 +61,15 @@
     .logo-container {
       height:150px; border-bottom:1px solid var(--line);
       display:flex; justify-content:center; align-items:center;
+    }
+    .logo-button {
+      background:none;
+      border:none;
+      padding:0;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .logo-container img {
       height:120px;
@@ -116,10 +124,9 @@
 
     /* CONTENT */
     .content-container {
-  padding-top:var(--header-height);
-  flex:1 0 auto;
-}
-
+      padding-top:var(--header-height);
+      flex:1 0 auto;
+    }
     .responsive-iframe { display:block; width:100%; max-width:600px; height:300px; border:none; }
     section {
       padding:60px 20px; max-width:1100px; margin:auto;
@@ -309,13 +316,12 @@
 
     /* FOOTER */
     footer {
-  padding:24px 16px;
-  text-align:center;
-  font-size:14px;
-  color:#555;
-  flex-shrink:0;
-}
-
+      padding:24px 16px;
+      text-align:center;
+      font-size:14px;
+      color:#555;
+      flex-shrink:0;
+    }
     footer a { color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
     footer a:hover { border-bottom-color:#888; }
 
@@ -406,7 +412,7 @@
     "applicationCategory":"AudioApplication",
     "operatingSystem":"Windows 10/11 (64-bit)",
     "name":"Impulse Forge",
-    "description":"Unreal-based acoustic level editor for building rooms, importing meshes, simulating acoustics and baking impulse responses.",
+    "description":"Acoustic editor for building rooms, importing meshes, simulating acoustics and baking impulse responses.",
     "offers":{"@type":"AggregateOffer","lowPrice":"49","highPrice":"199","priceCurrency":"EUR"}
   }
   </script>
@@ -433,9 +439,11 @@
 
   <header id="mainHeader" role="banner">
     <div class="logo-container">
-      <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
+      <button class="logo-button" type="button" onclick="loadFeed('impulse'); closeDropdowns();">
+        <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
+      </button>
     </div>
-        <nav role="navigation" aria-label="Main">
+    <nav role="navigation" aria-label="Main">
       <ul>
         <!-- Audio Tools menu -->
         <li class="dropdown">
@@ -443,7 +451,7 @@
           <div class="dropdown-content" role="menu" aria-label="Audio Tools">
             <a href="#" onclick="loadFeed('impulse');closeDropdowns();return false;">Impulse (All)</a>
             <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil (VST3)</a>
-            <a href="#" onclick="loadFeed('forge');closeDropdowns();return false;">Impulse Forge (Editor)</a>
+            <a href="#" onclick="loadFeed('forge');closeDropdowns();return false;">Impulse Forge (Acoustic Editor)</a>
             <a href="#" onclick="loadFeed('smith');closeDropdowns();return false;">Impulse Smith (Bundle)</a>
           </div>
         </li>
@@ -479,7 +487,7 @@
     </div>
   </footer>
 
-    <script>
+  <script>
     "use strict";
 
     /** steam app IDs (immutable) */
@@ -625,7 +633,7 @@
               <li>Perpetual license · 12 months of updates included</li>
               <li>3 activations per license (offline fallback available)</li>
               <li>Installer required for folder structure <span class="muted">(code-signing planned)</span></li>
-              <li>Windows 10/11 (64-bit). Anvil: VST3 host · Forge: Unreal 5.x</li>
+              <li>Windows 10/11 (64-bit). Anvil: VST3 host · Forge: Acoustic Editor</li>
             </ul>
           </div>
         </div>
@@ -723,7 +731,7 @@
         demoHref:'#TODO-demo-smith',
         docsHref:'#TODO-docs-smith',
         priceFrom: '99',
-        req:'Includes VST3 (Anvil) & Unreal Editor (Forge)',
+        req:'Includes Impulse Anvil (VST3) & Impulse Forge (Acoustic Editor)',
         img:'impulse-forge-hero.png'
       });
 
@@ -893,7 +901,26 @@
         </div>
       </section>`;
 
-      return hero + tipsBand + pricing + matrix + tiles + demo;
+      const related = `
+      <section>
+        <h2>Continue exploring the Impulse family</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Impulse Anvil</h3>
+            <p class="muted">Part of the Impulse Smith bundle · VST3 IR forge inside your DAW.</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('anvil');return false;">Go to Impulse Anvil</a>
+          </div>
+          <div class="card">
+            <h3>Impulse Forge</h3>
+            <p class="muted">Part of the Impulse Smith bundle · Standalone acoustic editor for building and baking spaces.</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('forge');return false;">Go to Impulse Forge</a>
+          </div>
+        </div>
+      </section>`;
+
+      return hero + tipsBand + pricing + matrix + tiles + demo + related;
     }
 
     function buildAnvil(){
@@ -1055,7 +1082,26 @@
         { name:'Anvil', detail:'Perpetual; short periodic mute every ~60s; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' }
       ]);
 
-      return hero + anvilIntro + anvilBand + pricing + matrix + demo;
+      const related = `
+      <section>
+        <h2>Part of the Impulse Smith bundle</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Impulse Smith</h3>
+            <p class="muted">Bundle including Impulse Anvil (VST3) and Impulse Forge (Acoustic Editor).</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('impulse');return false;">View Impulse Smith bundle</a>
+          </div>
+          <div class="card">
+            <h3>Impulse Forge</h3>
+            <p class="muted">Design the rooms and spaces that feed your Impulse Anvil IRs.</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('forge');return false;">Go to Impulse Forge</a>
+          </div>
+        </div>
+      </section>`;
+
+      return hero + anvilIntro + anvilBand + pricing + matrix + demo + related;
     }
 
     function buildForge(){
@@ -1068,7 +1114,7 @@
         demoHref:'#TODO-demo-forge',
         docsHref:'#TODO-docs-forge',
         priceFrom:'49',
-        req:'Unreal 5.x (Editor)',
+        req:'Acoustic Editor · Windows 64-bit',
         img:'impulse-forge-hero.png'
       });
 
@@ -1077,7 +1123,7 @@
         <h2>What Impulse Forge is</h2>
         <div class="cols">
           <div>
-            <p><strong>Impulse Forge</strong> is a geometry-based acoustic sandbox built in Unreal Engine. You can build any room you can imagine, fly through it in first-person and hear its acoustics react in real time.</p>
+            <p><strong>Impulse Forge</strong> is a geometry-based acoustic sandbox. You can build any room you can imagine, fly through it in first-person and hear its acoustics react in real time.</p>
             <p>Create simple box rooms or intricate multi-room levels, edit them with precise snapping and grouping tools, then bake their response as IRs you can load in Impulse Anvil or any convolution reverb.</p>
             <p>You can also create complex meshes in any 3D package, export them as <strong>.obj</strong> and import them as runtime actors with full acoustic materials attached – perfect for architectural experiments, sound design spaces or game levels.</p>
           </div>
@@ -1129,7 +1175,7 @@
               <p>A dedicated first-person character lets you fly or walk through your scene and listen as the space reacts around you.</p>
               <ul class="list">
                 <li>Convolution preview wired to a submix for instant “room feel”.</li>
-                <li>Runtime Steam Audio integration for physical simulation.</li>
+                <li>Physical acoustic simulation under the hood.</li>
                 <li>Switch between exploring and editing with a single UI toggle.</li>
               </ul>
             </article>
@@ -1215,7 +1261,26 @@
         { name:'Forge', detail:'Demo captures up to 8s (+1.5s tail), batch & CLI disabled, filenames tagged “_DEMO”.' }
       ]);
 
-      return hero + forgeIntro + forgeBand + pricing + matrix + demo;
+      const related = `
+      <section>
+        <h2>Part of the Impulse Smith ecosystem</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Impulse Smith Bundle</h3>
+            <p class="muted">Impulse Forge is included in the Impulse Smith bundle alongside Impulse Anvil.</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('impulse');return false;">View Impulse Smith bundle</a>
+          </div>
+          <div class="card">
+            <h3>Impulse Anvil</h3>
+            <p class="muted">Use your baked rooms as IRs and forge completely new spaces inside your DAW.</p>
+            <div class="hr"></div>
+            <a class="btn" href="#" onclick="loadFeed('anvil');return false;">Go to Impulse Anvil</a>
+          </div>
+        </div>
+      </section>`;
+
+      return hero + forgeIntro + forgeBand + pricing + matrix + demo + related;
     }
 
     /* Router */
@@ -1277,7 +1342,7 @@
                 </div>
                 <div class="card">
                   <h3>Impulse Forge Demo</h3>
-                  <p class="muted">Unreal Editor · Windows 64-bit</p>
+                  <p class="muted">Acoustic Editor · Windows 64-bit</p>
                   <div class="hr"></div>
                   <a class="btn" href="#TODO-demo-forge" target="_blank" rel="noopener">Download</a>
                 </div>
@@ -1455,6 +1520,3 @@
   </script>
 </body>
 </html>
-
-
-
