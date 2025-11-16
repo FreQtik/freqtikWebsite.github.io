@@ -482,7 +482,7 @@
         position:relative;
         height:auto !important;
       }
-      .anvil-slides {
+            .anvil-slides {
         scroll-snap-type:x mandatory;
         -webkit-overflow-scrolling:touch;
       }
@@ -490,10 +490,16 @@
       .anvil-slide {
         scroll-snap-align:center;
       }
+
       .anatomy-step {
         position:relative;
+        display:none;        /* hide non-active cards from layout */
+      }
+      .anatomy-step.is-active {
+        display:block;       /* only the active one is visible & takes space */
       }
     }
+
 
 
     /* FOOTER */
@@ -980,7 +986,7 @@
       line.style.transform = `rotate(${angle}deg)`;
     }
 
-                function initAnatomy(){
+                    function initAnatomy(){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
 
@@ -995,6 +1001,16 @@
       let currentIndex = 0;
 
       const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+      // Throttle for all step-like gestures (wheel, swipe, keys)
+      const STEP_DELAY = 350; // ms
+      let lastStepTime = 0;
+      function canStep(){
+        const now = (window.performance && performance.now) ? performance.now() : Date.now();
+        if (now - lastStepTime < STEP_DELAY) return false;
+        lastStepTime = now;
+        return true;
+      }
 
       // Clear any previous timer (if user switched sections)
       if (window.__anatomyTimer) {
@@ -1020,7 +1036,7 @@
         });
 
         if (activeStep && stepsContainer) {
-          // Measure twice (layout may change slightly on mobile)
+          // Desktop uses fixed-height container; on mobile height:auto !important
           stepsContainer.style.height = activeStep.offsetHeight + 'px';
           requestAnimationFrame(() => {
             stepsContainer.style.height = activeStep.offsetHeight + 'px';
@@ -1031,7 +1047,7 @@
       }
 
       function restartTimer() {
-        if (!isMobile) return; // auto-advance only on mobile, as requested
+        if (!isMobile) return; // auto-advance only on mobile
         if (window.__anatomyTimer) {
           clearInterval(window.__anatomyTimer);
         }
@@ -1041,7 +1057,7 @@
         }, 12000); // ~12 seconds per feature
       }
 
-      // Dots: jump directly to a feature
+      // Dots: jump directly to a feature (no heavy throttle needed)
       dots.forEach(dot => {
         dot.addEventListener('click', () => {
           const feature = dot.getAttribute('data-target');
@@ -1063,10 +1079,12 @@
         const atLast  = currentIndex === featureOrder.length - 1;
 
         if (delta > 0 && !atLast) {
+          if (!canStep()) { ev.preventDefault(); return; }
           ev.preventDefault();
           setActiveByIndex(currentIndex + 1);
           restartTimer();
         } else if (delta < 0 && !atFirst) {
+          if (!canStep()) { ev.preventDefault(); return; }
           ev.preventDefault();
           setActiveByIndex(currentIndex - 1);
           restartTimer();
@@ -1075,7 +1093,7 @@
         }
       }, { passive:false });
 
-      // Mobile swipe: swipe left/right to move features
+      // Mobile swipe: swipe left/right to move features, throttled
       if (isMobile) {
         let touchStartX = null;
         let touchStartY = null;
@@ -1094,6 +1112,8 @@
           touchStartX = touchStartY = null;
 
           if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (!canStep()) return;
+
             if (dx < 0 && currentIndex < featureOrder.length - 1) {
               setActiveByIndex(currentIndex + 1);
             } else if (dx > 0 && currentIndex > 0) {
@@ -1104,16 +1124,16 @@
         }, { passive:true });
       }
 
-      // Optional keyboard nav
+      // Optional keyboard nav (also throttled)
       band.addEventListener('keydown', (ev) => {
         if (ev.key === 'ArrowDown') {
-          if (currentIndex < featureOrder.length - 1) {
+          if (currentIndex < featureOrder.length - 1 && canStep()) {
             ev.preventDefault();
             setActiveByIndex(currentIndex + 1);
             restartTimer();
           }
         } else if (ev.key === 'ArrowUp') {
-          if (currentIndex > 0) {
+          if (currentIndex > 0 && canStep()) {
             ev.preventDefault();
             setActiveByIndex(currentIndex - 1);
             restartTimer();
@@ -2032,6 +2052,7 @@
   </script>
 </body>
 </html>
+
 
 
 
