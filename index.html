@@ -462,19 +462,39 @@
       color:#cfcfcf;
     }
 
-    @media (max-width:900px){
+        @media (max-width:900px){
       .plugin-anatomy {
         grid-template-columns:1fr;
       }
+
       .plugin-anatomy__image-wrap {
         position:static;
-        margin-bottom:24px;
+        margin-bottom:16px;
       }
+
       .plugin-anatomy__focus-line,
       .plugin-anatomy__focus-box {
         display:none; /* keep mobile clean */
       }
+
+      /* Anatomy cards: let them size naturally on mobile */
+      .plugin-anatomy__steps {
+        position:relative;
+        height:auto !important;
+      }
+      .anvil-slides {
+        scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .anvil-slide {
+        scroll-snap-align:center;
+      }
+      .anatomy-step {
+        position:relative;
+      }
     }
+
 
     /* FOOTER */
     footer {
@@ -960,7 +980,7 @@
       line.style.transform = `rotate(${angle}deg)`;
     }
 
-            function initAnatomy(){
+                function initAnatomy(){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
 
@@ -971,9 +991,16 @@
       const dots  = Array.from(bandRoot.querySelectorAll('.plugin-anatomy__dot'));
       const stepsContainer = anatomy.querySelector('.plugin-anatomy__steps');
 
-      // Order of features for stepping
       const featureOrder = ['global','ira','irb','morph','fractal'];
       let currentIndex = 0;
+
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+      // Clear any previous timer (if user switched sections)
+      if (window.__anatomyTimer) {
+        clearInterval(window.__anatomyTimer);
+        window.__anatomyTimer = null;
+      }
 
       function setActiveByIndex(idx) {
         if (idx < 0 || idx >= featureOrder.length) return;
@@ -993,10 +1020,25 @@
         });
 
         if (activeStep && stepsContainer) {
+          // Measure twice (layout may change slightly on mobile)
           stepsContainer.style.height = activeStep.offsetHeight + 'px';
+          requestAnimationFrame(() => {
+            stepsContainer.style.height = activeStep.offsetHeight + 'px';
+          });
         }
 
         updateAnatomyHighlight(feature);
+      }
+
+      function restartTimer() {
+        if (!isMobile) return; // auto-advance only on mobile, as requested
+        if (window.__anatomyTimer) {
+          clearInterval(window.__anatomyTimer);
+        }
+        window.__anatomyTimer = setInterval(() => {
+          const nextIdx = (currentIndex + 1) % featureOrder.length;
+          setActiveByIndex(nextIdx);
+        }, 12000); // ~12 seconds per feature
       }
 
       // Dots: jump directly to a feature
@@ -1006,47 +1048,82 @@
           const idx = featureOrder.indexOf(feature);
           if (idx !== -1) {
             setActiveByIndex(idx);
+            restartTimer();
           }
         });
       });
 
-      // Wheel inside the anatomy band: step through features first,
-      // only scroll the page once you’re at the first/last feature.
+      // Wheel inside the anatomy band: step through features on desktop
       const band = bandRoot;
       band.addEventListener('wheel', (ev) => {
         const delta = ev.deltaY || ev.detail || 0;
         if (!delta) return;
 
-        if (delta > 0 && currentIndex < featureOrder.length - 1) {
-          // Scroll down -> next feature
+        const atFirst = currentIndex === 0;
+        const atLast  = currentIndex === featureOrder.length - 1;
+
+        if (delta > 0 && !atLast) {
           ev.preventDefault();
           setActiveByIndex(currentIndex + 1);
-        } else if (delta < 0 && currentIndex > 0) {
-          // Scroll up -> previous feature
+          restartTimer();
+        } else if (delta < 0 && !atFirst) {
           ev.preventDefault();
           setActiveByIndex(currentIndex - 1);
+          restartTimer();
         } else {
           // At edges: let normal page scroll continue
         }
       }, { passive:false });
 
-      // Optional keyboard nav (up/down arrows) when the section is focused
+      // Mobile swipe: swipe left/right to move features
+      if (isMobile) {
+        let touchStartX = null;
+        let touchStartY = null;
+
+        band.addEventListener('touchstart', (ev) => {
+          const t = ev.touches[0];
+          touchStartX = t.clientX;
+          touchStartY = t.clientY;
+        }, { passive:true });
+
+        band.addEventListener('touchend', (ev) => {
+          if (touchStartX == null || touchStartY == null) return;
+          const t = ev.changedTouches[0];
+          const dx = t.clientX - touchStartX;
+          const dy = t.clientY - touchStartY;
+          touchStartX = touchStartY = null;
+
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0 && currentIndex < featureOrder.length - 1) {
+              setActiveByIndex(currentIndex + 1);
+            } else if (dx > 0 && currentIndex > 0) {
+              setActiveByIndex(currentIndex - 1);
+            }
+            restartTimer();
+          }
+        }, { passive:true });
+      }
+
+      // Optional keyboard nav
       band.addEventListener('keydown', (ev) => {
         if (ev.key === 'ArrowDown') {
           if (currentIndex < featureOrder.length - 1) {
             ev.preventDefault();
             setActiveByIndex(currentIndex + 1);
+            restartTimer();
           }
         } else if (ev.key === 'ArrowUp') {
           if (currentIndex > 0) {
             ev.preventDefault();
             setActiveByIndex(currentIndex - 1);
+            restartTimer();
           }
         }
       });
 
       // Initialise: first card & first dot, plugin aligned
       setActiveByIndex(0);
+      restartTimer();
 
       // Keep highlight & height aligned on resize
       window.addEventListener('resize', () => {
@@ -1421,10 +1498,10 @@
       <section class="band-dark anatomy-band">
         <div class="band-inner">
           <div class="band-header">
-            <span class="band-pill">Anatomy of Impulse Anvil</span>
-            <h2>See exactly what each section does.</h2>
-            <p class="muted">Scroll through the cards or use the dots to highlight each area on the plugin.</p>
-          </div>
+  <span class="band-pill">Anatomy of Impulse Anvil</span>
+  <h2>See exactly what each section does.</h2>
+</div>
+
 
           <div class="plugin-anatomy__dots">
             <button type="button" class="plugin-anatomy__dot" data-target="global" aria-label="Global controls"></button>
@@ -1955,6 +2032,7 @@
   </script>
 </body>
 </html>
+
 
 
 
