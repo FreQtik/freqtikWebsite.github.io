@@ -58,7 +58,7 @@
       display:flex; justify-content:center; align-items:center;
     }
     .logo-container img {
-      height:120px; transition:transform 0.4s; will-change:transform;
+      height:120px;
     }
 
     /* NAV */
@@ -78,15 +78,9 @@
       transition:transform 0.2s;
       text-decoration:none;
     }
-    nav ul li button:hover, nav ul li a.nav-link:hover { transform:scale(1.05); }
-    nav ul li button::after, nav ul li a.nav-link::after {
-      content:""; position:absolute; bottom:0; left:0;
-      width:100%; height:1px; background:var(--text);
-      transform:scaleX(0); transform-origin:right;
-      transition:transform 0.3s;
-    }
-    nav ul li button:hover::after, nav ul li a.nav-link:hover::after {
-      transform:scaleX(1); transform-origin:left;
+    nav ul li button:hover,
+    nav ul li a.nav-link:hover {
+      transform:scale(1.05);
     }
 
     /* DROPDOWNS */
@@ -98,17 +92,19 @@
       white-space:nowrap;
     }
     nav ul li.dropdown:last-child .dropdown-content { left:auto; right:0; }
-    @media (min-width:601px) {
-      .dropdown:hover .dropdown-content { display:block; animation:fadeIn 0.3s; }
-    }
+
     .dropdown-open .dropdown-content { display:block; animation:fadeIn 0.3s; }
+
     .dropdown-content a {
       display:block; margin-bottom:12px;
       text-decoration:none; color:var(--text);
-      font-size:16px; transition:transform 0.2s;
+      font-size:16px;
+      transition:transform 0.15s ease-out;
     }
     .dropdown-content a:last-child { margin-bottom:0; }
-    .dropdown-content a:hover { transform:rotate(2.5deg); }
+    .dropdown-content a:hover {
+      transform:scale(1.03);
+    }
 
     @keyframes fadeIn { from{opacity:0;transform:translateY(-5px);} to{opacity:1;transform:translateY(0);} }
 
@@ -613,7 +609,7 @@
       </section>`;
     }
 
-    /* Auto-scrolling slides (Apple-like) */
+    /* Auto-scrolling slides (Apple-like, with hover pause + wheel horizontal scroll) */
     function initAutoSlides() {
       const sliders = mainEl.querySelectorAll('.anvil-slides');
       sliders.forEach(slidesEl => {
@@ -625,36 +621,68 @@
 
         slidesEl.dataset.scrollInit = '1';
 
-        // Duplicate children once to allow seamless looping
+        // Duplicate children once to allow seamless looping for auto-scroll
         originalChildren.forEach(child => {
           slidesEl.appendChild(child.cloneNode(true));
         });
 
         const state = {
-          pos: 0,
-          baseSpeed: 0.22,   // px per frame
-          slowSpeed: 0.04,   // px per frame when hovered
-          speed: 0.22,
+          pos: slidesEl.scrollLeft || 0,
+          speed: 0.22,       // px per frame
+          auto: true,
           contentWidth: slidesEl.scrollWidth / 2
         };
 
         slidesEl.addEventListener('mouseenter', () => {
-          state.speed = state.slowSpeed;
+          // Stop auto scroll while user is over the cards
+          state.auto = false;
         });
+
         slidesEl.addEventListener('mouseleave', () => {
-          state.speed = state.baseSpeed;
+          // Resume auto scroll from current position
+          if (state.contentWidth > 0) {
+            state.pos = slidesEl.scrollLeft % state.contentWidth;
+          } else {
+            state.pos = slidesEl.scrollLeft || 0;
+          }
+          state.auto = true;
         });
+
+        const onWheel = (ev) => {
+          const absX = Math.abs(ev.deltaX);
+          const absY = Math.abs(ev.deltaY);
+
+          // When mouse is over the card area, use vertical wheel to scroll horizontally
+          if (absY > absX) {
+            state.auto = false;
+            slidesEl.scrollLeft += ev.deltaY;
+            if (state.contentWidth > 0) {
+              state.pos = slidesEl.scrollLeft % state.contentWidth;
+            } else {
+              state.pos = slidesEl.scrollLeft || 0;
+            }
+            ev.preventDefault();
+          }
+        };
+
+        slidesEl.addEventListener('wheel', onWheel, { passive: false });
 
         function step() {
           // stop if this node is no longer in the DOM
           if (!document.body.contains(slidesEl))
             return;
 
-          state.pos += state.speed;
-          if (state.pos >= state.contentWidth)
-            state.pos -= state.contentWidth;
+          if (state.auto && state.contentWidth > 0) {
+            state.pos += state.speed;
+            if (state.pos >= state.contentWidth)
+              state.pos -= state.contentWidth;
 
-          slidesEl.scrollLeft = state.pos;
+            slidesEl.scrollLeft = state.pos;
+          } else if (state.contentWidth > 0) {
+            // keep internal position in sync when user scrolls manually
+            state.pos = slidesEl.scrollLeft % state.contentWidth;
+          }
+
           requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
@@ -1363,19 +1391,12 @@
       toggleBtn.style.display='none';
     });
 
-    /* scroll behavior */
+    /* scroll behavior (header hide/show only; logo stays fixed) */
     window.addEventListener('scroll', ()=>{
       const y = window.scrollY;
       const hidden = (y>0);
       headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
       toggleBtn.style.display = hidden ? 'block' : 'none';
-
-      const logo = document.getElementById('scrollLogo');
-      if (logo) {
-        const max = window.innerWidth - logo.clientWidth - 40;
-        const x = Math.sin(y*0.005)*(max/2);
-        logo.style.transform = `translateX(${x}px) rotate(${y*0.005}deg)`;
-      }
     });
 
     /* persist scroll */
