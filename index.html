@@ -465,7 +465,7 @@
     </div>
   </footer>
 
-  <script>
+    <script>
     "use strict";
 
     /** steam app IDs (immutable) */
@@ -499,6 +499,15 @@
         if (b) b.setAttribute('aria-expanded', 'false');
       });
     }
+
+    /* Close dropdowns when clicking anywhere outside nav dropdowns */
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      // If click is not inside a nav dropdown, close all
+      if (!target.closest('nav .dropdown')) {
+        closeDropdowns();
+      }
+    });
 
     /* Tiny util */
     function escapeHtml(str){
@@ -1198,6 +1207,9 @@
     /* Router */
     function loadFeed(feed){
       try {
+        // Always close dropdowns when changing section
+        closeDropdowns();
+
         let html = '';
         switch(feed){
           case 'impulse': html = buildImpulseAll(); break;
@@ -1397,6 +1409,9 @@
       const hidden = (y>0);
       headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
       toggleBtn.style.display = hidden ? 'block' : 'none';
+
+      // Close dropdowns when user scrolls
+      closeDropdowns();
     });
 
     /* persist scroll */
@@ -1426,3 +1441,4 @@
   </script>
 </body>
 </html>
+
