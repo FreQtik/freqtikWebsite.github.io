@@ -224,11 +224,20 @@
       margin-top:32px;
       display:flex;
       gap:16px;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      padding-bottom:12px;
+      overflow-x:scroll;
+      overflow-y:hidden;
+      scroll-snap-type:none;
+      padding:24px 0 32px 0;
       -webkit-overflow-scrolling:touch;
+      width:100vw;
+      margin-left:calc(50% - 50vw); /* full-bleed, like Apple */
+      scrollbar-width:none;         /* Firefox hide scrollbar */
+      -ms-overflow-style:none;      /* IE/Edge hide scrollbar */
     }
+    .anvil-slides::-webkit-scrollbar {
+      display:none;                 /* Chrome/Safari hide scrollbar */
+    }
+
     .anvil-slide {
       flex:0 0 82%;
       max-width:460px;
@@ -238,6 +247,11 @@
       padding:20px 18px 22px;
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 20px 50px rgba(0,0,0,0.85);
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
     }
     .anvil-slide h3 {
       font-size:20px;
@@ -259,6 +273,13 @@
       margin-right:6px;
       color:#cfcfcf;
     }
+    .anvil-slide:hover {
+      transform:translateY(-6px) scale(1.01);
+      box-shadow:0 26px 70px rgba(0,0,0,0.95);
+      border-color:rgba(255,255,255,0.32);
+      background:radial-gradient(circle at top left, #303030 0, #141414 40%, #050505 100%);
+    }
+
     .band-pill {
       display:inline-flex;
       align-items:center;
@@ -274,17 +295,6 @@
 
     .band-dark small {
       color:#7a7a7a;
-    }
-
-    .anvil-slides::-webkit-scrollbar {
-      height:6px;
-    }
-    .anvil-slides::-webkit-scrollbar-track {
-      background:#050505;
-    }
-    .anvil-slides::-webkit-scrollbar-thumb {
-      background:#444;
-      border-radius:999px;
     }
 
     @media (min-width:900px){
@@ -603,6 +613,54 @@
       </section>`;
     }
 
+    /* Auto-scrolling slides (Apple-like) */
+    function initAutoSlides() {
+      const sliders = mainEl.querySelectorAll('.anvil-slides');
+      sliders.forEach(slidesEl => {
+        if (!slidesEl || slidesEl.dataset.scrollInit === '1')
+          return;
+        const originalChildren = Array.from(slidesEl.children);
+        if (!originalChildren.length)
+          return;
+
+        slidesEl.dataset.scrollInit = '1';
+
+        // Duplicate children once to allow seamless looping
+        originalChildren.forEach(child => {
+          slidesEl.appendChild(child.cloneNode(true));
+        });
+
+        const state = {
+          pos: 0,
+          baseSpeed: 0.22,   // px per frame
+          slowSpeed: 0.04,   // px per frame when hovered
+          speed: 0.22,
+          contentWidth: slidesEl.scrollWidth / 2
+        };
+
+        slidesEl.addEventListener('mouseenter', () => {
+          state.speed = state.slowSpeed;
+        });
+        slidesEl.addEventListener('mouseleave', () => {
+          state.speed = state.baseSpeed;
+        });
+
+        function step() {
+          // stop if this node is no longer in the DOM
+          if (!document.body.contains(slidesEl))
+            return;
+
+          state.pos += state.speed;
+          if (state.pos >= state.contentWidth)
+            state.pos -= state.contentWidth;
+
+          slidesEl.scrollLeft = state.pos;
+          requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
     /* PAGE BUILDS */
     function buildImpulseAll(){
       const hero = productHero({
@@ -624,7 +682,6 @@
           <div class="band-header">
             <span class="band-pill">Creative Tips</span>
             <h2>Why creators want Impulse Smith.</h2>
-            <p class="muted">Scroll horizontally for ideas, workflows and “I didn’t know you could do that” moments.</p>
           </div>
 
           <div class="anvil-slides" aria-label="Impulse Smith tips and creative ideas">
@@ -831,7 +888,6 @@
           <div class="band-header">
             <span class="band-pill">Why producers reach for Impulse Anvil</span>
             <h2>Turn every IR collection into a forge.</h2>
-            <p class="muted">Scroll horizontally to explore what you can do.</p>
           </div>
 
           <div class="anvil-slides" aria-label="Impulse Anvil highlights">
@@ -994,7 +1050,6 @@
           <div class="band-header">
             <span class="band-pill">Build · Fly · Bake</span>
             <h2>From room shape to impulse response.</h2>
-            <p class="muted">Scroll horizontally to see what Impulse Forge is made for.</p>
           </div>
 
           <div class="anvil-slides" aria-label="Impulse Forge highlights">
@@ -1261,6 +1316,7 @@
         }
 
         mainEl.innerHTML = html;
+        initAutoSlides(); // initialize auto-scrolling on any slides in this view
         mainEl.scrollIntoView({behavior:'smooth'});
       } catch (err) {
         console.error(err);
@@ -1334,7 +1390,7 @@
         const pos = sessionStorage.getItem('scrollPos');
         if (pos) window.scrollTo(0, parseFloat(pos));
       } catch {}
-      loadFeed('impulse'); // land on products; change to 'about' if you prefer
+      loadFeed('impulse'); // default landing section
       if (window.innerWidth < 600) introEl.classList.add('hidden');
     });
 
