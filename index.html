@@ -384,35 +384,11 @@
       pointer-events:none;
       transition:all 0.4s ease;
     }
-
-    .plugin-anatomy__steps {
+  
+        .plugin-anatomy__steps {
       position:relative;
-      min-height:260px;
-      margin-top:12px;
-    }
-
-    .plugin-anatomy__dots {
-      display:flex;
-      gap:8px;
-      margin-bottom:18px;
-    }
-    .plugin-anatomy__dot {
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.6);
-      background:transparent;
-      cursor:pointer;
-      padding:0;
-      outline:none;
-      transition:background 0.2s, transform 0.2s, border-color 0.2s, opacity 0.2s;
-      opacity:0.6;
-    }
-    .plugin-anatomy__dot.is-active {
-      background:#fff;
-      border-color:#fff;
-      opacity:1;
-      transform:scale(1.15);
+      margin-top:16px;
+      transition:height 0.3s ease;
     }
 
     .anatomy-step {
@@ -428,6 +404,41 @@
       transition:opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
       pointer-events:none;
     }
+
+    .anatomy-step.is-active {
+      opacity:1;
+      transform:translateY(0);
+      box-shadow:0 22px 55px rgba(0,0,0,0.95);
+      pointer-events:auto;
+    }
+
+    .plugin-anatomy__dots {
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:22px auto 8px;
+    }
+
+    .plugin-anatomy__dot {
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      border:2px solid #fff;
+      background:#fff;
+      cursor:pointer;
+      padding:0;
+      outline:none;
+      transition:background 0.2s, transform 0.2s, border-color 0.2s, opacity 0.2s;
+      opacity:0.75;
+    }
+
+    .plugin-anatomy__dot.is-active {
+      background:#000;
+      border-color:#fff;
+      opacity:1;
+      transform:scale(1.15);
+    }
+
 
     .anatomy-step h3 {
       font-size:18px;
@@ -958,14 +969,16 @@
       line.style.transform = `rotate(${angle}deg)`;
     }
 
-        function initAnatomy(){
+            function initAnatomy(){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
 
       const steps = Array.from(anatomy.querySelectorAll('.anatomy-step'));
       if (!steps.length) return;
 
-      const dots  = Array.from(anatomy.querySelectorAll('.plugin-anatomy__dot'));
+      const bandRoot = anatomy.closest('.anatomy-band') || anatomy;
+      const dots  = Array.from(bandRoot.querySelectorAll('.plugin-anatomy__dot'));
+      const stepsContainer = anatomy.querySelector('.plugin-anatomy__steps');
 
       // Order of features for stepping
       const featureOrder = ['global','ira','irb','morph','fractal'];
@@ -976,15 +989,21 @@
         currentIndex = idx;
         const feature = featureOrder[currentIndex];
 
+        let activeStep = null;
         steps.forEach(step => {
           const on = step.getAttribute('data-feature') === feature;
           step.classList.toggle('is-active', on);
+          if (on) activeStep = step;
         });
 
         dots.forEach(dot => {
           const on = dot.getAttribute('data-target') === feature;
           dot.classList.toggle('is-active', on);
         });
+
+        if (activeStep && stepsContainer) {
+          stepsContainer.style.height = activeStep.offsetHeight + 'px';
+        }
 
         updateAnatomyHighlight(feature);
       }
@@ -1002,7 +1021,7 @@
 
       // Wheel inside the anatomy band: step through features first,
       // only scroll the page once you’re at the first/last feature.
-      const band = anatomy.closest('.anatomy-band') || anatomy;
+      const band = bandRoot;
       band.addEventListener('wheel', (ev) => {
         const delta = ev.deltaY || ev.detail || 0;
         if (!delta) return;
@@ -1038,12 +1057,14 @@
       // Initialise: first card & first dot, plugin aligned
       setActiveByIndex(0);
 
-      // Keep highlight aligned on resize
+      // Keep highlight & height aligned on resize
       window.addEventListener('resize', () => {
         const feature = featureOrder[currentIndex];
+        setActiveByIndex(currentIndex);
         updateAnatomyHighlight(feature);
       }, { passive:true });
     }
+
 
 
     /* PAGE BUILDS */
@@ -1406,12 +1427,21 @@
       ]);
 
       const anatomy = `
+            const anatomy = `
       <section class="band-dark anatomy-band">
         <div class="band-inner">
           <div class="band-header">
             <span class="band-pill">Anatomy of Impulse Anvil</span>
             <h2>See exactly what each section does.</h2>
             <p class="muted">Scroll through the cards or use the dots to highlight each area on the plugin.</p>
+          </div>
+
+          <div class="plugin-anatomy__dots">
+            <button type="button" class="plugin-anatomy__dot" data-target="global" aria-label="Global controls"></button>
+            <button type="button" class="plugin-anatomy__dot" data-target="ira" aria-label="IR A slot"></button>
+            <button type="button" class="plugin-anatomy__dot" data-target="irb" aria-label="IR B slot"></button>
+            <button type="button" class="plugin-anatomy__dot" data-target="morph" aria-label="Morph engine"></button>
+            <button type="button" class="plugin-anatomy__dot" data-target="fractal" aria-label="Fractal depth"></button>
           </div>
 
           <div class="plugin-anatomy">
@@ -1427,14 +1457,6 @@
             </div>
 
             <div class="plugin-anatomy__steps">
-              <div class="plugin-anatomy__dots">
-                <button type="button" class="plugin-anatomy__dot" data-target="global" aria-label="Global controls"></button>
-                <button type="button" class="plugin-anatomy__dot" data-target="ira" aria-label="IR A slot"></button>
-                <button type="button" class="plugin-anatomy__dot" data-target="irb" aria-label="IR B slot"></button>
-                <button type="button" class="plugin-anatomy__dot" data-target="morph" aria-label="Morph engine"></button>
-                <button type="button" class="plugin-anatomy__dot" data-target="fractal" aria-label="Fractal depth"></button>
-              </div>
-
               <article class="anatomy-step" data-feature="global">
                 <h3>Global control &amp; loudness</h3>
                 <p>The top-left of Anvil gives you global control over the chain: bypass, wet-only listening, IR normalisation and the main input / wet level knobs.</p>
@@ -1494,6 +1516,7 @@
           </div>
         </div>
       </section>`;
+
 
       const demo = demoSection([
         { name:'Anvil', detail:'Perpetual; short periodic mute every ~60s; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' }
@@ -1942,6 +1965,7 @@
   </script>
 </body>
 </html>
+
 
 
 
