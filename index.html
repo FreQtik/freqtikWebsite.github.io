@@ -384,11 +384,36 @@
       pointer-events:none;
       transition:all 0.4s ease;
     }
-  
-        .plugin-anatomy__steps {
+
+    .plugin-anatomy__steps {
       position:relative;
       margin-top:16px;
       transition:height 0.3s ease;
+    }
+
+    .plugin-anatomy__dots {
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin:22px auto 8px;
+    }
+    .plugin-anatomy__dot {
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      border:2px solid #fff;
+      background:#fff;
+      cursor:pointer;
+      padding:0;
+      outline:none;
+      transition:background 0.2s, transform 0.2s, border-color 0.2s, opacity 0.2s;
+      opacity:0.75;
+    }
+    .plugin-anatomy__dot.is-active {
+      background:#000;
+      border-color:#fff;
+      opacity:1;
+      transform:scale(1.15);
     }
 
     .anatomy-step {
@@ -404,41 +429,6 @@
       transition:opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
       pointer-events:none;
     }
-
-    .anatomy-step.is-active {
-      opacity:1;
-      transform:translateY(0);
-      box-shadow:0 22px 55px rgba(0,0,0,0.95);
-      pointer-events:auto;
-    }
-
-    .plugin-anatomy__dots {
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      margin:22px auto 8px;
-    }
-
-    .plugin-anatomy__dot {
-      width:10px;
-      height:10px;
-      border-radius:999px;
-      border:2px solid #fff;
-      background:#fff;
-      cursor:pointer;
-      padding:0;
-      outline:none;
-      transition:background 0.2s, transform 0.2s, border-color 0.2s, opacity 0.2s;
-      opacity:0.75;
-    }
-
-    .plugin-anatomy__dot.is-active {
-      background:#000;
-      border-color:#fff;
-      opacity:1;
-      transform:scale(1.15);
-    }
-
 
     .anatomy-step h3 {
       font-size:18px;
@@ -1426,7 +1416,6 @@
         { name:'User presets', cells:['—','✓','✓'] }
       ]);
 
-      const anatomy = `
             const anatomy = `
       <section class="band-dark anatomy-band">
         <div class="band-inner">
@@ -1965,8 +1954,5 @@
   </script>
 </body>
 </html>
-
-
-
 
 
