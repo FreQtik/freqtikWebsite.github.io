@@ -435,10 +435,8 @@
     <div class="logo-container">
       <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
     </div>
-    <nav role="navigation" aria-label="Main">
+        <nav role="navigation" aria-label="Main">
       <ul>
-        <li><button onclick="loadFeed('about')" type="button">About</button></li>
-
         <!-- Audio Tools menu -->
         <li class="dropdown">
           <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
@@ -450,24 +448,23 @@
           </div>
         </li>
 
-        <li class="dropdown">
-          <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Games</button>
-          <div class="dropdown-content" role="menu" aria-label="Games">
-            <a href="#" onclick="loadFeed('ltb');closeDropdowns();return false;">Learning to Bear</a>
-            <a href="#" onclick="loadFeed('aim');closeDropdowns();return false;">Aim Trainer Bee Pro</a>
-            <a href="aimgame.html" onclick="closeDropdowns()">UFO Clicker</a>
-          </div>
-        </li>
-        <li class="dropdown">
-          <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Music</button>
-          <div class="dropdown-content" role="menu" aria-label="Music">
-            <a href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">YouTube</a>
-            <a href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Spotify</a>
-          </div>
-        </li>
         <li><button onclick="loadFeed('downloads')" type="button">Downloads</button></li>
         <li><button onclick="loadFeed('socials')" type="button">Connect</button></li>
-        <li><a class="nav-link" href="#" onclick="loadFeed('impressum');return false;">Impressum</a></li>
+
+        <!-- About & personal projects on the far right -->
+        <li class="dropdown">
+          <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">About & Projects</button>
+          <div class="dropdown-content" role="menu" aria-label="About & Projects">
+            <a href="#" onclick="loadFeed('about');closeDropdowns();return false;">About FreQtik</a>
+
+            <a href="#" onclick="loadFeed('ltb');closeDropdowns();return false;">Games · Learning to Bear</a>
+            <a href="#" onclick="loadFeed('aim');closeDropdowns();return false;">Games · Aim Trainer Bee Pro</a>
+            <a href="aimgame.html" onclick="closeDropdowns()">Games · UFO Clicker</a>
+
+            <a href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
+            <a href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Music · Spotify</a>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -1458,5 +1455,6 @@
   </script>
 </body>
 </html>
+
 
 
