@@ -769,12 +769,13 @@
       </section>`;
     }
 
-    /* Auto-scrolling slides (Apple-like, with hover pause + wheel horizontal scroll) */
+        /* Auto-scrolling slides (Apple-like, with hover pause + wheel horizontal scroll) */
     function initAutoSlides() {
       const sliders = mainEl.querySelectorAll('.anvil-slides');
       sliders.forEach(slidesEl => {
         if (!slidesEl || slidesEl.dataset.scrollInit === '1')
           return;
+
         const originalChildren = Array.from(slidesEl.children);
         if (!originalChildren.length)
           return;
@@ -793,13 +794,13 @@
           contentWidth: slidesEl.scrollWidth / 2
         };
 
+        // Pause auto-scroll while user is over the cards
         slidesEl.addEventListener('mouseenter', () => {
-          // Stop auto scroll while user is over the cards
           state.auto = false;
         });
 
+        // Resume auto-scroll when leaving the card area
         slidesEl.addEventListener('mouseleave', () => {
-          // Resume auto scroll from current position
           if (state.contentWidth > 0) {
             state.pos = slidesEl.scrollLeft % state.contentWidth;
           } else {
@@ -808,22 +809,50 @@
           state.auto = true;
         });
 
+        // Vertical wheel = horizontal scroll when over the card area
         const onWheel = (ev) => {
           const absX = Math.abs(ev.deltaX);
           const absY = Math.abs(ev.deltaY);
 
-          // When mouse is over the card area, use vertical wheel to scroll horizontally
           if (absY > absX) {
             state.auto = false;
             slidesEl.scrollLeft += ev.deltaY;
+
             if (state.contentWidth > 0) {
               state.pos = slidesEl.scrollLeft % state.contentWidth;
             } else {
               state.pos = slidesEl.scrollLeft || 0;
             }
+
             ev.preventDefault();
           }
         };
+
+        slidesEl.addEventListener('wheel', onWheel, { passive: false });
+
+        function step() {
+          // stop if this node is no longer in the DOM
+          if (!document.body.contains(slidesEl))
+            return;
+
+          if (state.auto && state.contentWidth > 0) {
+            state.pos += state.speed;
+            if (state.pos >= state.contentWidth)
+              state.pos -= state.contentWidth;
+
+            slidesEl.scrollLeft = state.pos;
+          } else if (state.contentWidth > 0) {
+            // keep internal position in sync when user scrolls manually
+            state.pos = slidesEl.scrollLeft % state.contentWidth;
+          }
+
+          requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+      });
+    }
+
     /* IMPULSE ANVIL – ANATOMY HIGHLIGHTING */
 
     const anatomyFeatureMap = {
@@ -837,6 +866,7 @@
     function updateAnatomyHighlight(featureKey){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
+
       const area = anatomyFeatureMap[featureKey];
       if (!area) return;
 
@@ -928,31 +958,8 @@
       }, { passive:true });
     }
 
-        slidesEl.addEventListener('wheel', onWheel, { passive: false });
-
-        function step() {
-          // stop if this node is no longer in the DOM
-          if (!document.body.contains(slidesEl))
-            return;
-
-          if (state.auto && state.contentWidth > 0) {
-            state.pos += state.speed;
-            if (state.pos >= state.contentWidth)
-              state.pos -= state.contentWidth;
-
-            slidesEl.scrollLeft = state.pos;
-          } else if (state.contentWidth > 0) {
-            // keep internal position in sync when user scrolls manually
-            state.pos = slidesEl.scrollLeft % state.contentWidth;
-          }
-
-          requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      });
-    }
-
     /* PAGE BUILDS */
+
     function buildImpulseAll(){
       const hero = productHero({
         id:'impulse',
@@ -1837,4 +1844,5 @@
   </script>
 </body>
 </html>
+
 
