@@ -857,7 +857,7 @@
       </section>`;
     }
 
-            /* Auto-scrolling slides (Anvil highlight band) */
+                /* Auto-scrolling slides (Anvil highlight band) */
     function initAutoSlides() {
       const sliders = mainEl.querySelectorAll('.anvil-slides');
 
@@ -876,6 +876,14 @@
           ? Array.from(dotsContainer.querySelectorAll('.anvil-dot'))
           : [];
 
+        let currentIdx = 0;           // which slide is "active"
+        const state = {
+          pos: slidesEl.scrollLeft || 0,
+          speed: 0.25,
+          auto: !isMobile,            // auto-scroll only on desktop
+          animating: false
+        };
+
         // Helper: mark active dot
         function setActiveDot(index) {
           dots.forEach(dot => {
@@ -884,87 +892,99 @@
           });
         }
 
-        // Helper: smooth scroll to center a given card
-        function animateScrollToCard(card) {
+        // Helper: smooth scroll to center a given card index
+        function animateScrollToIndex(targetIdx) {
+          const card = cards[targetIdx];
           if (!card) return;
+
+          currentIdx = targetIdx;
+          setActiveDot(currentIdx);
 
           const container = slidesEl;
           const containerRect = container.getBoundingClientRect();
           const cardRect = card.getBoundingClientRect();
-          const current = container.scrollLeft;
-          const target = current +
+          const startScroll = container.scrollLeft;
+          const targetScroll = startScroll +
             (cardRect.left - containerRect.left) -
             (containerRect.width - cardRect.width) / 2;
 
           const duration = 400;
           const startTime = (window.performance && performance.now()) || Date.now();
 
+          state.animating = true;
+
           function frame(now) {
             const t = Math.min(1, ((now || Date.now()) - startTime) / duration);
             const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            container.scrollLeft = current + (target - current) * eased;
+            container.scrollLeft = startScroll + (targetScroll - startScroll) * eased;
+
             if (t < 1) {
               requestAnimationFrame(frame);
+            } else {
+              state.animating = false;
+              state.pos = container.scrollLeft; // auto-scroll resumes from here
             }
           }
           requestAnimationFrame(frame);
         }
 
-        // MOBILE / TABLET: native swipe + scroll-snap, no auto-scroll, only dots & card click centering
+        /* ------------------- MOBILE / TABLET ------------------- */
         if (isMobile) {
+          // Native swipe + scroll-snap, no auto-scroll; support endless tap-through via cards/dots.
           cards.forEach((card, idx) => {
             card.addEventListener('click', () => {
-              animateScrollToCard(card);
-              setActiveDot(idx);
+              let targetIdx = idx;
+              if (targetIdx === currentIdx) {
+                // tapping same card again -> go to next in a loop
+                targetIdx = (targetIdx + 1) % cards.length;
+              }
+              animateScrollToIndex(targetIdx);
             });
           });
 
           dots.forEach(dot => {
             dot.addEventListener('click', () => {
               const idx = parseInt(dot.dataset.index, 10);
-              const card = cards[idx];
-              if (card) {
-                animateScrollToCard(card);
-                setActiveDot(idx);
+              let targetIdx = idx;
+              if (targetIdx === currentIdx) {
+                targetIdx = (targetIdx + 1) % cards.length;
               }
+              animateScrollToIndex(targetIdx);
             });
           });
 
-          // Mark first as active for visual feedback
           setActiveDot(0);
-          return;
+          return; // no JS auto-scroll on mobile
         }
 
-        // DESKTOP: gentle auto-scroll + click-to-center
-        const state = {
-          pos: slidesEl.scrollLeft || 0,
-          speed: 0.25,
-          auto: true
-        };
+        /* ------------------- DESKTOP ------------------- */
 
-        // Click card: center and pause auto until mouse leaves
+        // Click card: center it (first click), then loop to next if you keep clicking it
         cards.forEach((card, idx) => {
           card.addEventListener('click', () => {
+            let targetIdx = idx;
+            if (targetIdx === currentIdx) {
+              targetIdx = (targetIdx + 1) % cards.length;
+            }
             state.auto = false;
-            animateScrollToCard(card);
-            setActiveDot(idx);
+            animateScrollToIndex(targetIdx);
           });
         });
 
-        // Click dot: center matching card and pause auto
+        // Click dot: same endless-loop behaviour
         dots.forEach(dot => {
           dot.addEventListener('click', () => {
             const idx = parseInt(dot.dataset.index, 10);
-            const card = cards[idx];
-            if (card) {
-              state.auto = false;
-              animateScrollToCard(card);
-              setActiveDot(idx);
+            let targetIdx = idx;
+            if (targetIdx === currentIdx) {
+              targetIdx = (targetIdx + 1) % cards.length;
             }
+            state.auto = false;
+            animateScrollToIndex(targetIdx);
           });
         });
 
-        // Hover: pause auto-scroll; leaving: resume
+        // Hover: pause auto-scroll; leaving: resume from *current* position
         slidesEl.addEventListener('mouseenter', () => {
           state.auto = false;
         });
@@ -972,12 +992,16 @@
           state.auto = true;
         });
 
-        // IMPORTANT: no wheel handler here -> no vertical scroll hijack
+        // No wheel handler: do not hijack vertical scroll.
 
         function step() {
           if (!document.body.contains(slidesEl)) return;
 
-          if (state.auto) {
+          if (state.animating) {
+            // Let the animation control scrollLeft; keep pos in sync
+            state.pos = slidesEl.scrollLeft;
+          } else if (state.auto) {
+            // Gentle auto-scroll, starting from last position
             state.pos += state.speed;
             const maxScroll = slidesEl.scrollWidth - slidesEl.clientWidth;
             if (state.pos > maxScroll + 20) {
@@ -985,6 +1009,7 @@
             }
             slidesEl.scrollLeft = state.pos;
           } else {
+            // Auto paused: keep our pos in sync with manual movement
             state.pos = slidesEl.scrollLeft;
           }
 
@@ -996,6 +1021,7 @@
         requestAnimationFrame(step);
       });
     }
+
 
 
 
@@ -2174,6 +2200,7 @@
   </script>
 </body>
 </html>
+
 
 
 
