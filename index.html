@@ -936,7 +936,7 @@
       fractal:{ shift:0 }
     };
 
-        function updateAnatomyHighlight(featureKey){
+            function updateAnatomyHighlight(featureKey){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
 
@@ -984,13 +984,20 @@
       let startX, startY, endX, endY;
 
       if (isMobile) {
-        // Mobile: vertical pointer from bottom-center of highlight downwards
-        startX = innerRect.left - wrapRect.left + x + w/2;
-        startY = innerRect.top  - wrapRect.top + y + h;
+        // MOBILE:
+        // Use the real box position so the line always starts exactly at the highlighted area.
+        const boxRect  = box.getBoundingClientRect();
+
+        // Start at bottom-center of the highlight box (in wrap coordinates)
+        startX = boxRect.left - wrapRect.left + boxRect.width / 2;
+        startY = boxRect.bottom - wrapRect.top;
+
+        // Short vertical pointer downwards toward the text
         endX   = startX;
-        endY   = startY + 40; // small tail into the gap above text
+        endY   = startY + 32; // adjust length if you want longer/shorter pointer
       } else {
-        // Desktop: line from right edge of highlight into text column
+        // DESKTOP:
+        // Line from right edge of highlight into the text column
         startX = innerRect.left - wrapRect.left + x + w + 6;
         startY = innerRect.top  - wrapRect.top + y + h/2;
         endX   = wrapRect.width + 40; // 40px into the text column
@@ -1007,6 +1014,7 @@
       line.style.width = `${length}px`;
       line.style.transform = `rotate(${angle}deg)`;
     }
+
 
 
                     function initAnatomy(){
@@ -2075,6 +2083,7 @@
   </script>
 </body>
 </html>
+
 
 
 
