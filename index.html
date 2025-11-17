@@ -472,11 +472,7 @@
         margin-bottom:16px;
       }
 
-      .plugin-anatomy__focus-line,
-      .plugin-anatomy__focus-box {
-        display:none; /* keep mobile clean */
-      }
-
+      
       /* Anatomy cards: let them size naturally on mobile */
       .plugin-anatomy__steps {
         position:relative;
@@ -841,6 +837,15 @@
 
         slidesEl.dataset.scrollInit = '1';
 
+        const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
+        // --- Mobile / tablet: no cloning, no JS auto-scroll ---
+        // Use native swipe + scroll-snap for clean one-card swipes.
+        if (isMobile) {
+          return;
+        }
+
+        // --- Desktop / large screens: keep the auto-scrolling behaviour ---
         // Duplicate children once to allow seamless looping for auto-scroll
         originalChildren.forEach(child => {
           slidesEl.appendChild(child.cloneNode(true));
@@ -912,6 +917,7 @@
       });
     }
 
+
         /* IMPULSE ANVIL – ANATOMY HIGHLIGHTING */
 
     const anatomyFeatureMap = {
@@ -930,7 +936,7 @@
       fractal:{ shift:0 }
     };
 
-    function updateAnatomyHighlight(featureKey){
+        function updateAnatomyHighlight(featureKey){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
       if (!anatomy) return;
 
@@ -945,8 +951,16 @@
 
       if (!wrap || !inner || !focusImg || !box || !line) return;
 
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+
       const layout = anatomyLayoutMap[featureKey] || { shift:0 };
-      inner.style.transform = `translateX(${layout.shift}px)`;
+      if (isMobile) {
+        // Mobile: keep plugin centered, no side movement
+        inner.style.transform = 'translateX(0px)';
+      } else {
+        // Desktop: gently shift plugin left/right per feature
+        inner.style.transform = `translateX(${layout.shift}px)`;
+      }
 
       const innerRect = inner.getBoundingClientRect();
       const wrapRect  = wrap.getBoundingClientRect();
@@ -967,13 +981,21 @@
       box.style.width  = `${w}px`;
       box.style.height = `${h}px`;
 
-            // Start line at the right edge of the highlighted box, so it “grows” out of the focus area
-      const startX = innerRect.left - wrapRect.left + x + w + 6;
-      const startY = innerRect.top  - wrapRect.top + y + h/2;
+      let startX, startY, endX, endY;
 
-
-      const endX = wrapRect.width + 40; // 40px into the text column
-      const endY = startY;
+      if (isMobile) {
+        // Mobile: vertical pointer from bottom-center of highlight downwards
+        startX = innerRect.left - wrapRect.left + x + w/2;
+        startY = innerRect.top  - wrapRect.top + y + h;
+        endX   = startX;
+        endY   = startY + 40; // small tail into the gap above text
+      } else {
+        // Desktop: line from right edge of highlight into text column
+        startX = innerRect.left - wrapRect.left + x + w + 6;
+        startY = innerRect.top  - wrapRect.top + y + h/2;
+        endX   = wrapRect.width + 40; // 40px into the text column
+        endY   = startY;
+      }
 
       const dx = endX - startX;
       const dy = endY - startY;
@@ -985,6 +1007,7 @@
       line.style.width = `${length}px`;
       line.style.transform = `rotate(${angle}deg)`;
     }
+
 
                     function initAnatomy(){
       const anatomy = mainEl.querySelector('.plugin-anatomy');
@@ -2052,6 +2075,7 @@
   </script>
 </body>
 </html>
+
 
 
 
