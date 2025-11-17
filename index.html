@@ -31,7 +31,11 @@
       display:flex;
       flex-direction:column;
     }
-
+     @media (min-width:901px){
+      main > section:first-of-type {
+        min-height: calc(100vh - 80px);
+      }
+    }
     /* INTRO */
     .intro {
       position:fixed; inset:0;
@@ -249,6 +253,31 @@
     }
     .anvil-slides::-webkit-scrollbar {
       display:none;                 /* Chrome/Safari hide scrollbar */
+    }
+        .anvil-dots {
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin:18px 0 10px;
+    }
+
+    .anvil-dot {
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      border:1px solid #fff;
+      background:rgba(255,255,255,0.4);
+      opacity:0.7;
+      cursor:pointer;
+      padding:0;
+      outline:none;
+      transition:background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .anvil-dot.is-active {
+      background:#fff;
+      opacity:1;
+      transform:scale(1.15);
     }
 
     .anvil-slide {
@@ -828,98 +857,146 @@
       </section>`;
     }
 
-        /* Auto-scrolling slides (Apple-like, with hover pause + wheel horizontal scroll) */
+            /* Auto-scrolling slides (Anvil highlight band) */
     function initAutoSlides() {
       const sliders = mainEl.querySelectorAll('.anvil-slides');
+
       sliders.forEach(slidesEl => {
         if (!slidesEl || slidesEl.dataset.scrollInit === '1')
-          return;
-
-        const originalChildren = Array.from(slidesEl.children);
-        if (!originalChildren.length)
           return;
 
         slidesEl.dataset.scrollInit = '1';
 
         const isMobile = window.matchMedia('(max-width: 900px)').matches;
+        const cards = Array.from(slidesEl.children);
+        if (!cards.length) return;
 
-        // --- Mobile / tablet: no cloning, no JS auto-scroll ---
-        // Use native swipe + scroll-snap for clean one-card swipes.
+        const dotsContainer = slidesEl.previousElementSibling;
+        const dots = dotsContainer && dotsContainer.classList.contains('anvil-dots')
+          ? Array.from(dotsContainer.querySelectorAll('.anvil-dot'))
+          : [];
+
+        // Helper: mark active dot
+        function setActiveDot(index) {
+          dots.forEach(dot => {
+            const idx = parseInt(dot.dataset.index, 10);
+            dot.classList.toggle('is-active', idx === index);
+          });
+        }
+
+        // Helper: smooth scroll to center a given card
+        function animateScrollToCard(card) {
+          if (!card) return;
+
+          const container = slidesEl;
+          const containerRect = container.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+          const current = container.scrollLeft;
+          const target = current +
+            (cardRect.left - containerRect.left) -
+            (containerRect.width - cardRect.width) / 2;
+
+          const duration = 400;
+          const startTime = (window.performance && performance.now()) || Date.now();
+
+          function frame(now) {
+            const t = Math.min(1, ((now || Date.now()) - startTime) / duration);
+            const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            container.scrollLeft = current + (target - current) * eased;
+            if (t < 1) {
+              requestAnimationFrame(frame);
+            }
+          }
+          requestAnimationFrame(frame);
+        }
+
+        // MOBILE / TABLET: native swipe + scroll-snap, no auto-scroll, only dots & card click centering
         if (isMobile) {
+          cards.forEach((card, idx) => {
+            card.addEventListener('click', () => {
+              animateScrollToCard(card);
+              setActiveDot(idx);
+            });
+          });
+
+          dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+              const idx = parseInt(dot.dataset.index, 10);
+              const card = cards[idx];
+              if (card) {
+                animateScrollToCard(card);
+                setActiveDot(idx);
+              }
+            });
+          });
+
+          // Mark first as active for visual feedback
+          setActiveDot(0);
           return;
         }
 
-        // --- Desktop / large screens: keep the auto-scrolling behaviour ---
-        // Duplicate children once to allow seamless looping for auto-scroll
-        originalChildren.forEach(child => {
-          slidesEl.appendChild(child.cloneNode(true));
-        });
-
+        // DESKTOP: gentle auto-scroll + click-to-center
         const state = {
           pos: slidesEl.scrollLeft || 0,
-          speed: 0.22,       // px per frame
-          auto: true,
-          contentWidth: slidesEl.scrollWidth / 2
+          speed: 0.25,
+          auto: true
         };
 
-        // Pause auto-scroll while user is over the cards
+        // Click card: center and pause auto until mouse leaves
+        cards.forEach((card, idx) => {
+          card.addEventListener('click', () => {
+            state.auto = false;
+            animateScrollToCard(card);
+            setActiveDot(idx);
+          });
+        });
+
+        // Click dot: center matching card and pause auto
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const idx = parseInt(dot.dataset.index, 10);
+            const card = cards[idx];
+            if (card) {
+              state.auto = false;
+              animateScrollToCard(card);
+              setActiveDot(idx);
+            }
+          });
+        });
+
+        // Hover: pause auto-scroll; leaving: resume
         slidesEl.addEventListener('mouseenter', () => {
           state.auto = false;
         });
-
-        // Resume auto-scroll when leaving the card area
         slidesEl.addEventListener('mouseleave', () => {
-          if (state.contentWidth > 0) {
-            state.pos = slidesEl.scrollLeft % state.contentWidth;
-          } else {
-            state.pos = slidesEl.scrollLeft || 0;
-          }
           state.auto = true;
         });
 
-        // Vertical wheel = horizontal scroll when over the card area
-        const onWheel = (ev) => {
-          const absX = Math.abs(ev.deltaX);
-          const absY = Math.abs(ev.deltaY);
-
-          if (absY > absX) {
-            state.auto = false;
-            slidesEl.scrollLeft += ev.deltaY;
-
-            if (state.contentWidth > 0) {
-              state.pos = slidesEl.scrollLeft % state.contentWidth;
-            } else {
-              state.pos = slidesEl.scrollLeft || 0;
-            }
-
-            ev.preventDefault();
-          }
-        };
-
-        slidesEl.addEventListener('wheel', onWheel, { passive: false });
+        // IMPORTANT: no wheel handler here -> no vertical scroll hijack
 
         function step() {
-          // stop if this node is no longer in the DOM
-          if (!document.body.contains(slidesEl))
-            return;
+          if (!document.body.contains(slidesEl)) return;
 
-          if (state.auto && state.contentWidth > 0) {
+          if (state.auto) {
             state.pos += state.speed;
-            if (state.pos >= state.contentWidth)
-              state.pos -= state.contentWidth;
-
+            const maxScroll = slidesEl.scrollWidth - slidesEl.clientWidth;
+            if (state.pos > maxScroll + 20) {
+              state.pos = 0;
+            }
             slidesEl.scrollLeft = state.pos;
-          } else if (state.contentWidth > 0) {
-            // keep internal position in sync when user scrolls manually
-            state.pos = slidesEl.scrollLeft % state.contentWidth;
+          } else {
+            state.pos = slidesEl.scrollLeft;
           }
 
           requestAnimationFrame(step);
         }
 
+        // Initialize dots and start auto-scroll
+        setActiveDot(0);
         requestAnimationFrame(step);
       });
     }
+
 
 
         /* IMPULSE ANVIL – ANATOMY HIGHLIGHTING */
@@ -1431,12 +1508,21 @@
         </div>
       </section>`;
 
-      const anvilBand = `
+            const anvilBand = `
       <section class="band-dark">
         <div class="band-inner">
           <div class="band-header">
             <span class="band-pill">Why producers reach for Impulse Anvil</span>
             <h2>Turn every IR collection into a forge.</h2>
+          </div>
+
+          <div class="anvil-dots" aria-hidden="true">
+            <button class="anvil-dot" type="button" data-index="0"></button>
+            <button class="anvil-dot" type="button" data-index="1"></button>
+            <button class="anvil-dot" type="button" data-index="2"></button>
+            <button class="anvil-dot" type="button" data-index="3"></button>
+            <button class="anvil-dot" type="button" data-index="4"></button>
+            <button class="anvil-dot" type="button" data-index="5"></button>
           </div>
 
           <div class="anvil-slides" aria-label="Impulse Anvil highlights">
@@ -1502,6 +1588,7 @@
           </div>
         </div>
       </section>`;
+
 
       const pricing = pricingGrid('Impulse Anvil – Versions', [
         {
@@ -2087,6 +2174,7 @@
   </script>
 </body>
 </html>
+
 
 
 
