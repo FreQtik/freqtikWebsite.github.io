@@ -1616,51 +1616,46 @@
       </section>`;
 
 
-      const pricing = pricingGrid('Impulse Anvil – Versions', [
+            const pricing = pricingGrid('Impulse Anvil – Versions', [
         {
-          name:'Basic', price:39, subtitle:'Core morphing',
+          name:'Basic', price:39, subtitle:'Core morph & bake',
           points:[
-            'Time morph · Linear curve',
-            'Load A/B IRs (≤ 6s each)',
-            'Session recall; user banks disabled',
-            'No Color/Fractal, no export'
+            'Time Morph engine',
+            'Morph curves + K shaping',
+            '1 Color stripe per IR',
+            'Per-IR gain & time stretch',
+            'Bake morphed IRs to WAV'
           ],
-          buyHref:'#TODO-buy-anvil-basic', demoHref:'#TODO-demo-anvil'
+          buyHref:'#TODO-buy-anvil-basic',
+          demoHref:'#TODO-demo-anvil'
         },
         {
-          name:'Advanced', price:79, subtitle:'Power tools',
+          name:'Pro', price:79, subtitle:'Full spectral & fractal toolkit', popular:true,
           points:[
-            'Time + Spectral morph',
-            'Curves: Linear, Exp, Log, S (+K)',
-            'Color ×1 per IR · Fractal to 50%',
-            'Bake to WAV · User presets',
-            'IR length up to 12s'
+            'Time + Spectral morph modes',
+            'All curves with K control',
+            '2 Color stripes per IR',
+            'Fractal depth per slot',
+            'Lerp bake & advanced export'
           ],
-          buyHref:'#TODO-buy-anvil-adv', demoHref:'#TODO-demo-anvil'
-        },
-        {
-          name:'Pro', price:129, subtitle:'Full workstation', popular:true,
-          points:[
-            'All curves incl. Power (+ extended K)',
-            'Color ×2 per IR · Fractal 0–100%',
-            'Batch morph & bake',
-            'High-res meters + bridge diagnostics',
-            'IR length up to 60s'
-          ],
-          buyHref:'#TODO-buy-anvil-pro', demoHref:'#TODO-demo-anvil'
+          buyHref:'#TODO-buy-anvil-pro',
+          demoHref:'#TODO-demo-anvil'
         }
       ]);
 
-      const matrix = featureMatrix('Feature comparison (Anvil)', ['Basic','Advanced','Pro'], [
-        { name:'Morph modes', cells:['Time','Time + Spectral','Time + Spectral'] },
-        { name:'Curves', cells:['Linear','Lin/Exp/Log/S (+K)','All + Power (+K+)'] },
-        { name:'Color per IR', cells:['—','×1','×2'] },
-        { name:'Fractal depth', cells:['—','0–50%','0–100%'] },
-        { name:'Bake/export', cells:['—','✓','✓ (batch)'] },
-        { name:'Max IR length', cells:['6s','12s','60s'] },
-        { name:'Bridge preview', cells:['—','✓','✓ + diagnostics'] },
-        { name:'User presets', cells:['—','✓','✓'] }
+
+            const matrix = featureMatrix('Feature comparison (Impulse Anvil)', ['Demo','Basic','Pro'], [
+        { name:'Morph modes',        cells:['Time','Time','Time + Spectral'] },
+        { name:'Morph curves & K',   cells:['Linear only','Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
+        { name:'Live Morph',         cells:['✓','✓','✓'] },
+        { name:'Color stripes per IR', cells:['×1','×1','×2'] },
+        { name:'Fractal depth',      cells:['—','—','✓'] },
+        { name:'Per-IR stretch & gain', cells:['✓','✓','✓'] },
+        { name:'Bake / Export IR',   cells:['—','✓','✓ + Lerp bake'] },
+        { name:'Spectral morph modes', cells:['—','—','✓'] },
+        { name:'Demo mute / watermark', cells:['Periodic short mute','—','—'] }
       ]);
+
 
             const anatomy = `
       <section class="band-dark anatomy-band">
@@ -1753,9 +1748,13 @@
       </section>`;
 
 
-      const demo = demoSection([
-        { name:'Anvil', detail:'Perpetual; short periodic mute every ~60s; export limited to 10s with subtle watermark; disk preset save disabled in Basic.' }
+            const demo = demoSection([
+        {
+          name:'Anvil',
+          detail:'Perpetual demo with short periodic mute during playback. Time Morph only, 1 Color stripe per IR, no Fractal, no export.'
+        }
       ]);
+
 
       const related = `
       <section>
@@ -2200,6 +2199,7 @@
   </script>
 </body>
 </html>
+
 
 
 
