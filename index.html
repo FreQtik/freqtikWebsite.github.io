@@ -760,26 +760,41 @@
 
     /* Product building blocks (with image support) */
     function productHero(opts){
-      return `
-      <section id="${opts.id}">
-        <div class="hero">
-          <div>
-            <span class="kicker">${opts.kicker}</span>
-            <h1>${opts.title}</h1>
-            <p class="tagline">${opts.tagline}</p>
-            <div class="cta-row">
-              <a class="btn primary" href="${opts.buyHref}" target="_blank" rel="noopener" aria-label="Buy ${opts.title}">Buy from €${opts.priceFrom}</a>
-              <a class="btn" href="${opts.demoHref}" target="_blank" rel="noopener" aria-label="Download demo for ${opts.title}">Try Demo</a>
-              <a class="btn ghost" href="${opts.docsHref}" target="_blank" rel="noopener">Docs</a>
-            </div>
-            <p class="note">Windows 10/11 · 64-bit · ${opts.req}</p>
-          </div>
-          <div class="media-pane" ${opts.img ? '' : 'aria-hidden="true"'}>
-            <img src="${opts.img || ''}" alt="${opts.title}" onerror="this.closest('.media-pane').classList.add('media-hide')">
-          </div>
+  return `
+  <section id="${opts.id}">
+    <div class="hero">
+      <div>
+        <span class="kicker">${opts.kicker}</span>
+        <h1>${opts.title}</h1>
+        <p class="tagline">${opts.tagline}</p>
+        <div class="cta-row">
+          <a class="btn primary"
+             href="${opts.buyHref}"
+             target="_blank"
+             rel="noopener"
+             aria-label="Buy ${opts.title}">
+            Buy from €${opts.priceFrom}
+          </a>
+          <a class="btn"
+             href="${opts.demoHref}"
+             target="_blank"
+             rel="noopener"
+             aria-label="${opts.secondaryCtaLabel || ('Try ' + opts.title + ' demo')}">
+            ${opts.secondaryCtaLabel || 'Try Demo'}
+          </a>
+          ${opts.docsHref ? `<a class="btn ghost" href="${opts.docsHref}" target="_blank" rel="noopener">Docs</a>` : ''}
         </div>
-      </section>`;
-    }
+        <p class="note">${opts.req}</p>
+      </div>
+      <div class="hero-art">
+        <div class="card">
+          <img src="${opts.img}" alt="${opts.title} UI preview">
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
 
     function pricingGrid(title, plans){
       return `
@@ -1498,18 +1513,20 @@
     }
 
         function buildAnvil(){
-      const hero = productHero({
-        id:'anvil',
-        kicker:'VST3 Plugin',
-        title:'Impulse Anvil',
-        tagline:'Forge new IRs from the ones you already own – then use them everywhere.',
-        buyHref:'#TODO-buy-anvil',
-        demoHref:'#TODO-demo-anvil',
-        docsHref:'#TODO-docs-anvil',
-        priceFrom:'39',
-        req:'VST3 host (64-bit)',
-        img:'impulse-anvil-header.png'
-      });
+  const hero = productHero({
+    id:'anvil',
+    kicker:'VST3 Plugin',
+    title:'Impulse Anvil',
+    tagline:'Forge new IRs from the ones you already own – then use them everywhere.',
+    buyHref:'#TODO-buy-anvil',
+    demoHref:'#TODO-demo-anvil',
+    docsHref:'#TODO-docs-anvil',
+    priceFrom:'39',
+    req:'Windows 10/11 · 64-bit · VST3 only',
+    img:'impulse-anvil-header.png',
+    secondaryCtaLabel:'Download'
+  });
+
 
       const anvilIntro = `
       <section>
@@ -1961,8 +1978,11 @@
     }
 
     /* Router */
-    function loadFeed(feed){
-      try {
+    let currentFeed = null;
+    function loadFeed(feed, options){
+  const fromHash = options && options.fromHash === true;
+
+  try {
         // Always close dropdowns when changing section
         closeDropdowns();
 
@@ -2012,11 +2032,12 @@
               <p>Grab demos and updates here once links are live.</p>
               <div class="grid" style="margin-top:14px">
                 <div class="card">
-                  <h3>Impulse Anvil Demo</h3>
-                  <p class="muted">VST3 · Windows 64-bit</p>
-                  <div class="hr"></div>
-                  <a class="btn" href="#TODO-demo-anvil" target="_blank" rel="noopener">Download</a>
-                </div>
+        <h3>Impulse Anvil</h3>
+        <p class="muted">Windows 10/11 · 64-bit · VST3 only</p>
+        <p class="note">Single installer. Runs in Demo until you enter a Basic or Pro license.</p>
+        <div class="hr"></div>
+        <a class="btn" href="#TODO-demo-anvil" target="_blank" rel="noopener">Download</a>
+      </div>
                 <div class="card">
                   <h3>Impulse Forge Demo</h3>
                   <p class="muted">Acoustic Editor · Windows 64-bit</p>
@@ -2107,20 +2128,46 @@
             </section>`;
             break;
 
-          default:
-            html = `<section><h2>Not found</h2><p>Sorry, that section doesn't exist.</p></section>`;
-        }
+                  default:
+          html = `<section><h2>Not found</h2><p>Sorry, that section doesn't exist.</p></section>`;
+    }
 
-                mainEl.innerHTML = html;
-        initAutoSlides(); // initialize auto-scrolling on any slides in this view
-        initAnatomy();    // initialize plugin anatomy highlight if present
-        mainEl.scrollIntoView({behavior:'smooth'});
+    currentFeed = feed;
 
-      } catch (err) {
-        console.error(err);
-        mainEl.innerHTML = `<section><h2>Error</h2><p>Something went wrong loading this section.</p></section>`;
+    mainEl.innerHTML = html;
+    initAutoSlides(); // initialize auto-scrolling on any slides in this view
+    initAnatomy();    // initialize plugin anatomy highlight if present
+    mainEl.scrollIntoView({behavior:'smooth'});
+
+    // Update URL hash when navigation comes from clicks, not from hashchange
+    if (!fromHash) {
+      const targetHash = '#' + feed;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
       }
     }
+
+  } catch (err) {
+    console.error(err);
+    mainEl.innerHTML = `<section><h2>Error</h2><p>Something went wrong loading this section.</p></section>`;
+  }
+}
+    // Listen to back/forward and direct #links
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash || '';
+  const feed = hash.startsWith('#') ? hash.substring(1) : '';
+
+  if (!feed) {
+    loadFeed('impulse', { fromHash: true });
+    return;
+  }
+
+  if (feed === currentFeed)
+    return;
+
+  loadFeed(feed, { fromHash: true });
+});
+
 
     /* Steam fetch helper */
     async function fetchSteam(feed, id){
@@ -2178,15 +2225,25 @@
     });
 
     window.addEventListener('load', ()=>{
-      const ySpan = document.getElementById('yearSpan');
-      if (ySpan) ySpan.textContent = String(new Date().getFullYear());
-      try {
-        const pos = sessionStorage.getItem('scrollPos');
-        if (pos) window.scrollTo(0, parseFloat(pos));
-      } catch {}
-      loadFeed('impulse'); // default landing section
-      if (window.innerWidth < 600) introEl.classList.add('hidden');
-    });
+  const ySpan = document.getElementById('yearSpan');
+  if (ySpan) ySpan.textContent = String(new Date().getFullYear());
+  try {
+    const pos = sessionStorage.getItem('scrollPos');
+    if (pos) window.scrollTo(0, parseFloat(pos));
+  } catch {}
+
+  const hash = window.location.hash || '';
+  const feedFromHash = hash && hash.startsWith('#') ? hash.substring(1) : '';
+
+  if (feedFromHash) {
+    loadFeed(feedFromHash, { fromHash: true });
+  } else {
+    loadFeed('impulse');
+  }
+
+  if (window.innerWidth < 600) introEl.classList.add('hidden');
+});
+
 
     // dismiss intro on minimal mouse movement
     let moved=0,lx=null,ly=null,done=false;
@@ -2199,3 +2256,4 @@
   </script>
 </body>
 </html>
+
