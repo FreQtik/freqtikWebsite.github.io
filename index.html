@@ -1974,30 +1974,30 @@ function loadFeed(feed, options) {
   const fromHash = options && options.fromHash === true;
 
   try {
-        // Always close dropdowns when changing section
-        closeDropdowns();
+    // Always close dropdowns when changing section
+    closeDropdowns();
 
-        let html = '';
-        switch(feed){
-          case 'impulse': html = buildImpulseAll(); break;
-          case 'anvil': html = buildAnvil(); break;
-          case 'forge': html = buildForge(); break;
-          case 'smith': html = buildImpulseAll(); break; // alias to bundle page
+    let html = '';
+    switch (feed) {
+      case 'impulse': html = buildImpulseAll(); break;
+      case 'anvil':   html = buildAnvil();      break;
+      case 'forge':   html = buildForge();      break;
+      case 'smith':   html = buildImpulseAll(); break; // alias to bundle page
 
-          case 'about':
-            html = `<section id="about"><h2>About FreQtik</h2><p>FreQtik is a one-person studio, building professional audio tools, software solutions and games.</p></section>`;
-            break;
+      case 'about':
+        html = `<section id="about"><h2>About FreQtik</h2><p>FreQtik is a one-person studio, building professional audio tools, software solutions and games.</p></section>`;
+        break;
 
-          case 'ltb': case 'aim': {
-            const id = STEAM_IDS[feed];
-            html = `<section id="${feed}" class="depth-effect">
-              <h2>${feed==='ltb'?'Learning to Bear':'Aim Trainer Bee Pro'}</h2>
-              <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/${id}/" frameborder="0" loading="lazy" title="Steam widget ${id}"></iframe>
-              <div id="steam-${feed}"><p>Loading details…</p></div>
-            </section>`;
-            setTimeout(()=>fetchSteam(feed,id),0);
-            break;
-          }
+      case 'ltb': case 'aim': {
+        const id = STEAM_IDS[feed];
+        html = `<section id="${feed}" class="depth-effect">
+          <h2>${feed==='ltb'?'Learning to Bear':'Aim Trainer Bee Pro'}</h2>
+          <iframe class="responsive-iframe" src="https://store.steampowered.com/widget/${id}/" frameborder="0" loading="lazy" title="Steam widget ${id}"></iframe>
+          <div id="steam-${feed}"><p>Loading details…</p></div>
+        </section>`;
+        setTimeout(()=>fetchSteam(feed,id),0);
+        break;
+      }
 
           case 'youtube':
             html = `<section id="youtube" class="depth-effect">
@@ -2122,17 +2122,28 @@ function loadFeed(feed, options) {
           default:
             html = `<section><h2>Not found</h2><p>Sorry, that section doesn't exist.</p></section>`;
         }
+                currentFeed = feed;
+    mainEl.innerHTML = html;
+    mainEl.scrollIntoView({ behavior:'smooth' });
 
-                mainEl.innerHTML = html;
-        initAutoSlides(); // initialize auto-scrolling on any slides in this view
-        initAnatomy();    // initialize plugin anatomy highlight if present
-        mainEl.scrollIntoView({behavior:'smooth'});
+    // Re-init anatomy if we’re on the Anvil page
+    if (feed === 'anvil') {
+      setTimeout(initAnatomy, 0);
+    }
 
-      } catch (err) {
-        console.error(err);
-        mainEl.innerHTML = `<section><h2>Error</h2><p>Something went wrong loading this section.</p></section>`;
+    // NEW: update URL hash, unless this change came *from* a hash change
+    if (!fromHash) {
+      const targetHash = '#' + feed;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
       }
     }
+
+  } catch(e) {
+    mainEl.innerHTML = `<section><h2>Oops.</h2><p>Something went wrong loading this section.</p></section>`;
+    console.error(e);
+  }
+}
 
     /* Steam fetch helper */
     async function fetchSteam(feed, id){
@@ -2211,6 +2222,7 @@ function loadFeed(feed, options) {
   </script>
 </body>
 </html>
+
 
 
 
