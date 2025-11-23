@@ -709,6 +709,8 @@
 
     /** steam app IDs (immutable) */
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
+const IMPULSE_SUITE_DOWNLOAD =
+  'https://github.com/FreQtik/impulse-smith-suite/releases/download/v1.0.0/ImpulseAnvil_Suite_Setup_1.0.0.exe';
 
     const introEl   = document.getElementById('intro');
     const headerEl  = document.getElementById('mainHeader');
@@ -1317,7 +1319,7 @@
         title:'Impulse Smith',
         tagline:'Design, morph and bake impulse responses — from room shape to IR file.',
         buyHref:'#TODO-buy-smith',
-        demoHref:'#TODO-demo-smith',
+        demoHref:'IMPULSE_SUITE_DOWNLOAD',
         docsHref:'#TODO-docs-smith',
         priceFrom: '99',
         req:'Includes Impulse Anvil (VST3) & Impulse Forge (Acoustic Editor)',
@@ -1406,7 +1408,7 @@
             '8–10s demo-friendly workflows',
             'Great for creating first IR packs'
           ],
-          buyHref:'#TODO-buy-smith-basic', demoHref:'#TODO-demo-smith'
+          buyHref:'#TODO-buy-smith-basic', demoHref:'IMPULSE_SUITE_DOWNLOAD'
         },
         {
           name:'Pro Bundle', price:249, popular:true,
@@ -1417,7 +1419,7 @@
             'Color ×2 per IR, full Fractal depth',
             'Batch morph/bake + headless CLI in Forge'
           ],
-          buyHref:'#TODO-buy-smith-pro', demoHref:'#TODO-demo-smith',
+          buyHref:'#TODO-buy-smith-pro', demoHref:'IMPULSE_SUITE_DOWNLOAD',
           foot:'Launch promo −20% for 2 weeks'
         }
       ]);
@@ -1484,7 +1486,7 @@
             <div class="hr"></div>
             <div class="cta-row">
               <a class="btn primary" href="#TODO-buy-smith" target="_blank" rel="noopener">Buy Impulse Smith</a>
-              <a class="btn" href="#TODO-demo-smith" target="_blank" rel="noopener">Try Demo</a>
+              <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Try Demo</a>
             </div>
           </div>
         </div>
@@ -1519,7 +1521,7 @@
     title:'Impulse Anvil',
     tagline:'Forge new IRs from the ones you already own – then use them everywhere.',
     buyHref:'#TODO-buy-anvil',
-    demoHref:'#TODO-demo-anvil',
+    demoHref:'IMPULSE_SUITE_DOWNLOAD',
     docsHref:'#TODO-docs-anvil',
     priceFrom:'39',
     req:'Windows 10/11 · 64-bit · VST3 only',
@@ -1644,7 +1646,7 @@
             'Bake morphed IRs to WAV'
           ],
           buyHref:'#TODO-buy-anvil-basic',
-          demoHref:'#TODO-demo-anvil'
+          demoHref:'IMPULSE_SUITE_DOWNLOAD'
         },
         {
           name:'Pro', price:79, subtitle:'Full spectral & fractal toolkit', popular:true,
@@ -1656,7 +1658,7 @@
             'Lerp bake & advanced export'
           ],
           buyHref:'#TODO-buy-anvil-pro',
-          demoHref:'#TODO-demo-anvil'
+          demoHref:'IMPULSE_SUITE_DOWNLOAD'
         }
       ]);
 
@@ -1805,7 +1807,7 @@
         title:'Impulse Forge',
         tagline:'Build any room, fly through it, and bake its acoustics as impulse responses.',
         buyHref:'#TODO-buy-forge',
-        demoHref:'#TODO-demo-forge',
+        demoHref:'IMPULSE_SUITE_DOWNLOAD',
         docsHref:'#TODO-docs-forge',
         priceFrom:'49',
         req:'Acoustic Editor · Windows 64-bit',
@@ -1916,7 +1918,7 @@
             'Convolution preview (wet/dry)',
             'Manual bake; no batch'
           ],
-          buyHref:'#TODO-buy-forge-basic', demoHref:'#TODO-demo-forge'
+          buyHref:'#TODO-buy-forge-basic', demoHref:'IMPULSE_SUITE_DOWNLOAD'
         },
         {
           name:'Studio', price:119, subtitle:'Production workflow',
@@ -1927,7 +1929,7 @@
             'VST Bridge component to Anvil',
             'Blueprint helpers & templates'
           ],
-          buyHref:'#TODO-buy-forge-studio', demoHref:'#TODO-demo-forge'
+          buyHref:'#TODO-buy-forge-studio', demoHref:'IMPULSE_SUITE_DOWNLOAD'
         },
         {
           name:'Pro', price:199, subtitle:'Team & automation', popular:true,
@@ -1938,7 +1940,7 @@
             'Capture variants (multi-seed)',
             'Team license (2 seats)'
           ],
-          buyHref:'#TODO-buy-forge-pro', demoHref:'#TODO-demo-forge'
+          buyHref:'#TODO-buy-forge-pro', demoHref:'IMPULSE_SUITE_DOWNLOAD'
         }
       ]);
 
@@ -2036,19 +2038,19 @@
         <p class="muted">Windows 10/11 · 64-bit · VST3 only</p>
         <p class="note">Single installer. Runs in Demo until you enter a Basic or Pro license.</p>
         <div class="hr"></div>
-        <a class="btn" href="#TODO-demo-anvil" target="_blank" rel="noopener">Download</a>
+        <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
       </div>
                 <div class="card">
                   <h3>Impulse Forge Demo</h3>
                   <p class="muted">Acoustic Editor · Windows 64-bit</p>
                   <div class="hr"></div>
-                  <a class="btn" href="#TODO-demo-forge" target="_blank" rel="noopener">Download</a>
+                  <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
                 </div>
                 <div class="card">
                   <h3>Impulse Smith (Bundle) Demo</h3>
                   <p class="muted">Both installers</p>
                   <div class="hr"></div>
-                  <a class="btn" href="#TODO-demo-smith" target="_blank" rel="noopener">Download</a>
+                  <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
                 </div>
               </div>
               <p class="note">Windows SmartScreen may warn because the installer isn’t code-signed yet. <a href="#TODO-smartscreen-help" target="_blank" rel="noopener">Here’s why and how to proceed safely</a>.</p>
@@ -2256,4 +2258,5 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
