@@ -807,7 +807,8 @@
              aria-label="${opts.secondaryCtaLabel || ('Try ' + opts.title + ' demo')}">
             ${opts.secondaryCtaLabel || 'Try Demo'}
           </a>
-          ${opts.docsHref ? `<a class="btn ghost" href="${opts.docsHref}" target="_blank" rel="noopener">Docs</a>` : ''}
+          ${opts.docsHref ? `<a class="btn ghost" href="${opts.docsHref}" onclick="loadFeed('docs');">Docs</a>` : ''}
+
         </div>
         <p class="note">${opts.req}</p>
       </div>
@@ -1389,26 +1390,28 @@
           </ul>
         </article>
 
-        <article class="anvil-slide">
+                        <article class="anvil-slide">
           <h3>Build · Fly · Bake · Morph</h3>
           <p>Use <strong>Impulse Forge</strong> to build the room, fly through it in real time, then bake its acoustics as IRs for Anvil.</p>
           <ul class="list">
             <li>Lay out geometry, assign acoustic materials and listen inside the space.</li>
-            <li>Fire the one-click bake: Forge excites the room and records a high-quality WAV IR.</li>
+            <li>Hit Bake: Forge excites the room and records a high-quality WAV IR.</li>
             <li>Open that IR in Anvil, morph it with field recordings or other rooms and export new variants.</li>
           </ul>
         </article>
 
-        <article class="anvil-slide">
-          <h3>Out-of-the-Box series</h3>
-          <p>Short, focused video recipes show exactly how to go from “random sound” to “usable IR pack”.</p>
+
+
+                <article class="anvil-slide">
+          <h3>High-resolution bake</h3>
+          <p>When a space feels right, trigger the bake: Forge fires an excitation signal through the room and records the response as a high-quality WAV IR.</p>
           <ul class="list">
-            <li>Trash-take to gold: pops, clicks and broken recordings as IRs.</li>
-            <li>Recording the world as filters: ice, wind, traffic, water and more.</li>
-            <li>Baking brutal FX chains into light, morphable IRs.</li>
+            <li>Fast, focused baking for “what if?” exploration.</li>
+            <li>Float32 WAV IRs, ready for Anvil or any IR loader.</li>
+            <li>Directly usable inside your DAW the moment it’s baked.</li>
           </ul>
-          <p class="note">Watch the playlist on YouTube or right here on the page once the videos are live.</p>
         </article>
+
       </div>
     </div>
   </section>`;
@@ -1452,13 +1455,14 @@
         {
           name:'Basic Bundle', badge:'Best value', price:99,
           subtitle:'Anvil Basic + Forge Full',
-          points:[
+                    points:[
             'Impulse Anvil Basic (VST3)',
             'Impulse Forge Full (standalone)',
             'Time Morph with full curve set in Anvil',
-            'One-click bake in Forge',
+            'Bake rooms in Forge to high-quality WAV IRs',
             'Great for starting IR creators'
           ],
+
           buyHref:'#TODO-buy-smith-basic',
           demoHref:IMPULSE_SUITE_DOWNLOAD
         },
@@ -1528,9 +1532,10 @@
           <li>Geometry-based acoustic sandbox with snapping and grouping.</li>
           <li>Acoustic materials with absorption, transmission and scattering.</li>
           <li>.OBJ import from any 3D tool for custom spaces.</li>
-          <li>Live input from Impulse Anvil via the VST3 bridge.</li>
-          <li>One-click bake to high-quality WAV IRs.</li>
+                    <li>Live input from Impulse Anvil via the VST3 bridge.</li>
+          <li>Bake to high-quality WAV IRs.</li>
         </ul>
+
         <div class="hr"></div>
         <div class="cta-row">
           <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
@@ -1579,7 +1584,7 @@
     tagline:'Forge new impulse responses from the IRs, rooms and noise you already have – then use them everywhere.',
     buyHref:'#TODO-buy-anvil',
     demoHref:IMPULSE_SUITE_DOWNLOAD,
-    docsHref:'#TODO-docs-anvil',
+    docsHref:'#docs-anvil',
     priceFrom:'39',
     req:'Windows 10/11 · 64-bit · VST3 only',
     img:'impulse-anvil-header.png',
@@ -1862,7 +1867,7 @@
         tagline:'Build any room, fly through it, feed it from your DAW and bake its acoustics as impulse responses.',
         buyHref:'#TODO-buy-forge',
         demoHref:IMPULSE_SUITE_DOWNLOAD,
-        docsHref:'#TODO-docs-forge',
+        docsHref:'#docs-forge',
         priceFrom:'89',
         req:'Standalone · Windows 10/11 · 64-bit',
         img:'impulse-forge-hero.png'
@@ -1875,7 +1880,7 @@
     <div class="cols">
       <div>
         <p><strong>Impulse Forge</strong> is a geometry-based acoustic sandbox for Windows. You build any room you can imagine, fly through it in first-person, feed it from your DAW and hear its acoustics react in real time.</p>
-        <p>Create simple box rooms or intricate multi-room levels, edit them with precise snapping and grouping tools, then fire the one-click bake to capture the room as a high-quality WAV IR you can use in <strong>Impulse Anvil</strong> or any convolution reverb.</p>
+        <p>Create simple box rooms or intricate multi-room levels, edit them with precise snapping and grouping tools, then use Bake to capture the room as a high-quality WAV IR you can use in <strong>Impulse Anvil</strong> or any convolution reverb.</p>
         <p>You can also create complex meshes in any 3D package, export them as <strong>.obj</strong> and import them as runtime actors with full acoustic materials attached – perfect for architectural experiments, sound design spaces or game-style environments.</p>
       </div>
       <div class="card">
@@ -1968,13 +1973,14 @@
         {
           name:'Forge Full', price:89,
           subtitle:'Build, fly, bake & feed from your DAW',
-          points:[
+                    points:[
             'Full 3D acoustic editor for Windows',
             'Live listening inside the room',
             'VST3 bridge input via Impulse Anvil',
-            'One-click bake to high-quality WAV IRs',
+            'Bake to high-quality WAV IRs',
             'Save/load levels and materials'
           ],
+
           buyHref:'#TODO-buy-forge-full',
           demoHref:IMPULSE_SUITE_DOWNLOAD
         }
@@ -2116,15 +2122,16 @@
               <li><strong>Build a room.</strong> Add floors, walls and objects, or import an <code>.obj</code> from your 3D tool. Assign acoustic materials (concrete, glass, curtain, etc.).</li>
               <li><strong>Walk or fly the space.</strong> Use the first-person controls to move through the room and hear how it reacts in real time.</li>
               <li><strong>Send audio in from Anvil.</strong> Use the Impulse Anvil bridge to route a track or bus into Forge and listen to it in your virtual room.</li>
-              <li><strong>One-click bake.</strong> When it feels right, use Bake to fire a probe signal and record the room’s response as a high-quality IR.</li>
+              <li><strong>Bake the room.</strong> When it feels right, use Bake to fire a probe signal and record the room’s response as a high-quality IR.</li>
               <li><strong>Use IRs in your DAW.</strong> Load the baked WAV in Impulse Anvil or any IR loader and keep designing from there.</li>
+
             </ol>
           </div>
           <div class="card">
             <h3>Demo vs full</h3>
             <ul class="list">
               <li><strong>Demo:</strong> Full editor and live listening, plus bridge from Anvil. Export / bake to WAV is disabled.</li>
-              <li><strong>Full:</strong> Enables one-click baking to WAV so you can keep the rooms you design.</li>
+              <li><strong>Full:</strong> Enables baking to WAV so you can keep the rooms you design.</li>
               <li>Forge listens to a single input – to hear multiple instruments, route them to a group or your master.</li>
             </ul>
             <p class="note">Impulse Forge is currently Windows-only standalone software.</p>
@@ -2268,40 +2275,49 @@
             </section>`;
             break;
 
-                case 'downloads':
-        html = `<section id="downloads" class="depth-effect">
-          <h2>Downloads & Tools</h2>
-          <p>Close your DAW, download the installer, run it, and you’re ready to forge IRs. Updating never touches your own IRs or projects.</p>
-          <div class="grid" style="margin-top:14px">
-            <div class="card">
-              <h3>Impulse Anvil</h3>
-              <p class="muted">Windows 10/11 · 64-bit · VST3 only</p>
-              <p class="note">Single installer. Runs in Demo until you enter a Basic or Pro license.</p>
-              <div class="hr"></div>
-              <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
-            </div>
-            <div class="card">
-              <h3>Impulse Forge Demo</h3>
-              <p class="muted">Acoustic Editor · Windows 10/11 · 64-bit</p>
-              <div class="hr"></div>
-              <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
-            </div>
-            <div class="card">
-              <h3>Impulse Smith (Suite) Demo</h3>
-              <p class="muted">Includes both installers</p>
-              <div class="hr"></div>
-              <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download</a>
-            </div>
-          </div>
-          <p class="note" style="margin-top:16px;">
-            <strong>Windows SmartScreen</strong> may warn because the installer isn’t code-signed yet and will show “Unknown publisher”.
-            The binary is built and hosted by FreQtik only. Once a code-signing certificate is in budget, future installers will be signed.
-          </p>
-          <p class="note">
-            <strong>Licenses & seats.</strong> After purchase you receive a license key by email. Open Impulse Anvil or Impulse Forge, click the License button and paste the key – features unlock instantly. Each license gives you <strong>2 seats</strong>, so you can activate on two Windows machines you own.
-          </p>
-        </section>`;
-        break;
+                          case 'downloads':
+            html = `<section id="downloads" class="depth-effect">
+              <h2>Downloads &amp; Tools</h2>
+              <p>Close your DAW, download the installer, run it, and you’re ready to forge IRs. Updating never touches your own IRs or projects.</p>
+              <div class="grid" style="margin-top:14px">
+                <div class="card">
+                  <h3>Impulse Smith Suite Installer</h3>
+                  <p class="muted">Installs Impulse Anvil (VST3) and Impulse Forge (Standalone) in one step.</p>
+                  <p class="note">Single Windows installer. Runs in Demo until you enter a license.</p>
+                  <div class="hr"></div>
+                  <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download for Windows</a>
+                </div>
+                <div class="card">
+                  <h3>What you get</h3>
+                  <ul class="list">
+                    <li>Impulse Anvil VST3 plugin for Windows 10/11 (64-bit).</li>
+                    <li>Impulse Forge standalone Acoustic Editor for Windows 10/11 (64-bit).</li>
+                    <li>Shared content folders under <code>C:\\ProgramData\\FreQtik</code>.</li>
+                    <li>Demo mode by default – unlocks instantly when you enter a license key.</li>
+                  </ul>
+                </div>
+                <div class="card">
+                  <h3>System requirements</h3>
+                  <ul class="list">
+                    <li>Windows 10 or 11 · 64-bit.</li>
+                    <li>VST3-compatible DAW for Impulse Anvil.</li>
+                    <li>Internet connection for license activation and update checks.</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="note" style="margin-top:16px;">
+                <strong>Windows SmartScreen</strong> may warn because the installer isn’t code-signed yet and will show “Unknown publisher”.
+                The binary is built and hosted by FreQtik only. Once a code-signing certificate is in budget, future installers will be signed.
+              </p>
+              <p class="note">
+                <strong>Licenses &amp; seats.</strong> After purchase you receive a license key by email. Open Impulse Anvil or Impulse Forge, click the License button and paste the key – features unlock instantly. Each license gives you <strong>2 seats</strong>, so you can activate on two Windows machines you own.
+              </p>
+            </section>`;
+            break;
+
+          case 'docs':
+            html = buildDocs();
+            break;
 
           case 'socials':
             html = `<section id="socials" class="depth-effect">
@@ -2319,6 +2335,7 @@
               </div>
             </section>`;
             break;
+
 
           case 'impressum':
             html = `<section id="impressum" class="depth-effect">
@@ -2504,6 +2521,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
