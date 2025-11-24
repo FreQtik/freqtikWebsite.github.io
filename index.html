@@ -608,7 +608,7 @@
   }
   </script>
 
-  <!-- Product JSON-LD: Impulse Anvil -->
+    <!-- Product JSON-LD: Impulse Anvil -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -616,7 +616,7 @@
     "applicationCategory":"AudioApplication",
     "operatingSystem":"Windows 10/11 (64-bit)",
     "name":"Impulse Anvil",
-    "description":"Windows-only VST3 IR-morphing and design workstation with spectral/time morphing, curve shaping, Color/Fractal stages, and bake-to-IR export.",
+    "description":"VST3 IR-morphing and design workstation with spectral/time morphing, curve shaping, Color/Fractal stages, and bake-to-IR export.",
     "offers":{
       "@type":"AggregateOffer",
       "lowPrice":"39",
@@ -634,10 +634,10 @@
     "applicationCategory":"AudioApplication",
     "operatingSystem":"Windows 10/11 (64-bit)",
     "name":"Impulse Forge",
-    "description":"Windows-only acoustic editor for building rooms, importing meshes, simulating acoustics and baking impulse responses, with live DAW input via VST3 bridge.",
+    "description":"Acoustic editor for building rooms, importing meshes, simulating acoustics and baking impulse responses.",
     "offers":{
       "@type":"Offer",
-      "price":"129",
+      "price":"89",
       "priceCurrency":"EUR"
     }
   }
@@ -648,16 +648,17 @@
   {
     "@context":"https://schema.org",
     "@type":"Product",
-    "name":"Impulse Smith Suite",
-    "description":"Bundle of Impulse Anvil (VST3, Windows) and Impulse Forge (Acoustic Editor, Windows) for designing, morphing and baking custom impulse responses from rooms, field recordings and FX chains.",
+    "name":"Impulse Smith",
+    "description":"Bundle of Impulse Anvil (VST3) and Impulse Forge (Acoustic Editor) for building, flying through and baking custom spaces.",
     "offers":{
       "@type":"AggregateOffer",
-      "lowPrice":"149",
-      "highPrice":"189",
+      "lowPrice":"99",
+      "highPrice":"129",
       "priceCurrency":"EUR"
     }
   }
   </script>
+
 
 </head>
 <body>
@@ -1438,42 +1439,46 @@
     </div>
   </section>`;
 
-  const pricing = pricingGrid('Bundle Pricing – Impulse Smith (Windows only)', [
-    {
-      name:'Basic Bundle', badge:'Best value', price:149,
-      subtitle:'Anvil Basic + Forge Full',
-      points:[
-        'Impulse Anvil Basic (VST3)',
-        'Impulse Forge Full (standalone)',
-        'Time morph, full curve set in Anvil',
-        'One-click bake in Forge',
-        'Perfect for starting IR creators'
-      ],
-      buyHref:'#TODO-buy-smith-basic', demoHref:IMPULSE_SUITE_DOWNLOAD
-    },
-    {
-      name:'Pro Bundle', price:189, popular:true,
-      subtitle:'Full creative workstation',
-      points:[
-        'Impulse Anvil Pro (VST3)',
-        'Impulse Forge Full (standalone)',
-        'Spectral + time morph, Color ×2, full Fractal depth',
-        'Field recordings + rooms + FX chains baked & morphed',
-        'Ideal for sound designers & sample creators'
-      ],
-      buyHref:'#TODO-buy-smith-pro', demoHref:IMPULSE_SUITE_DOWNLOAD
-    }
-  ]);
+        const pricing = pricingGrid('Bundle Pricing – Impulse Smith (windows only)', [
+        {
+          name:'Basic Bundle', badge:'Best value', price:99,
+          subtitle:'Anvil Basic + Forge Full',
+          points:[
+            'Impulse Anvil Basic (VST3)',
+            'Impulse Forge Full (standalone)',
+            'Time Morph with full curve set in Anvil',
+            'One-click bake in Forge',
+            'Great for starting IR creators'
+          ],
+          buyHref:'#TODO-buy-smith-basic',
+          demoHref:IMPULSE_SUITE_DOWNLOAD
+        },
+        {
+          name:'Pro Bundle', price:129, popular:true,
+          subtitle:'Full creative workstation',
+          points:[
+            'Impulse Anvil Pro (VST3)',
+            'Impulse Forge Full (standalone)',
+            'Spectral + time morph, Color ×2, full Fractal depth',
+            'Field recordings, rooms & FX chains baked and morphed',
+            'Ideal for sound designers & sample creators'
+          ],
+          buyHref:'#TODO-buy-smith-pro',
+          demoHref:IMPULSE_SUITE_DOWNLOAD
+        }
+      ]);
 
-  const matrix = featureMatrix('At a glance', ['Basic Bundle','Pro Bundle'], [
-    { name:'Anvil tier',              cells:['Basic','Pro'] },
-    { name:'Forge tier',              cells:['Full','Full'] },
-    { name:'Morph modes (Anvil)',     cells:['Time','Time + Spectral'] },
-    { name:'Curves (Anvil)',          cells:['Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
-    { name:'Color / Fractal (Anvil)', cells:['1× Color per IR, no Fractal','2× Color per IR + full Fractal depth'] },
-    { name:'Export / Bake',           cells:['Anvil bake + Forge one-click bake','Anvil bake + Forge one-click bake'] },
-    { name:'Best for',                cells:['Producers exploring IR design','Heavy sound design, IR packs & libraries'] }
-  ]);
+
+        const matrix = featureMatrix('At a glance', ['Basic Bundle','Pro Bundle'], [
+        { name:'Anvil tier',              cells:['Basic','Pro'] },
+        { name:'Forge tier',              cells:['Full','Full'] },
+        { name:'Morph modes (Anvil)',     cells:['Time','Time + Spectral'] },
+        { name:'Curves (Anvil)',          cells:['Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
+        { name:'Color / Fractal (Anvil)', cells:['1× Color per IR, no Fractal','2× Color per IR + full Fractal depth'] },
+        { name:'Export / Bake',           cells:['Anvil bake + Forge one-click bake','Anvil bake + Forge one-click bake'] },
+        { name:'Best for',                cells:['Producers exploring IR design','Heavy sound design, IR packs & libraries'] }
+      ]);
+
 
   const demo = demoSection([
     { name:'Anvil', detail:'Perpetual demo with short periodic mute. Time Morph only, 1 Color stripe per IR, no Fractal, no export.' },
@@ -1581,16 +1586,13 @@
             <p>It’s not a “wiggle everything in real time” effect. Every move you make <strong>rebuilds the impulse response itself</strong> behind the scenes. You dial in the sound, bake it, and then use that IR in any other convolution reverb, cab sim or IR loader you own.</p>
             <p>Impulse Anvil started from a simple problem: <em>great instruments that felt dusty and over-used</em>. The solution was to create brand new spaces and resonances around them – spaces that hadn’t been heard before.</p>
           </div>
-          <div class="card">
+                    <div class="card">
             <h3>Impulse Responses, in short</h3>
-            <p>An <strong>Impulse Response (IR)</strong> is not just a reverb preset. It’s a full fingerprint of a signal path:</p>
-            <ul class="list">
-              <li>Rooms and halls</li>
-              <li>Speaker cabinets &amp; mics</li>
-              <li>Hardware chains &amp; FX</li>
-              <li>Any linear time-based process</li>
-            </ul>
-            <p class="note">With the right IR you can make a sound feel like it’s inside a cathedral, a bedroom closet, a guitar cab, or some impossible, cinematic space. Impulse Anvil lets you <strong>design those fingerprints yourself</strong>.</p>
+            <p><strong>Impulse Responses are amazing.</strong> They’re like a “photo” of how a space or effect reacts to sound.</p>
+            <p>Imagine you clap your hands in a room. You hear the first hit, then all the reflections and reverb as the sound dies away. If you record that clap and the whole decay very cleanly, you’ve basically captured the <strong>fingerprint of that room</strong>.</p>
+            <p>Convolution reverb takes that fingerprint and <strong>stamps it onto any sound you want</strong>. Play a dry vocal through a cathedral IR and it feels like the singer is really in that cathedral. Do the same with a tiny bathroom IR and suddenly it sounds like they’re in a tiled box.</p>
+            <p>But it doesn’t have to be “rooms”. If you record things like ice cracks, traffic, fabric rustling or wild FX chains and turn them into IRs, they become <strong>insanely complex filters and textures</strong> you can morph and reuse everywhere.</p>
+            <p class="note">Impulse Anvil exists to make that whole process fun: record, build, bake, morph – and end up with IRs nobody else has.</p>
           </div>
         </div>
       </section>`;
@@ -1842,19 +1844,20 @@
 
 
 
-    function buildForge(){
-  const hero = productHero({
-    id:'forge',
-    kicker:'Acoustic Editor · Windows',
-    title:'Impulse Forge',
-    tagline:'Build any room, fly through it, feed it from your DAW and bake its acoustics as impulse responses.',
-    buyHref:'#TODO-buy-forge',
-    demoHref:IMPULSE_SUITE_DOWNLOAD,
-    docsHref:'#TODO-docs-forge',
-    priceFrom:'129',
-    req:'Standalone · Windows 10/11 · 64-bit',
-    img:'impulse-forge-hero.png'
-  });
+        function buildForge(){
+      const hero = productHero({
+        id:'forge',
+        kicker:'Acoustic Editor · Windows',
+        title:'Impulse Forge',
+        tagline:'Build any room, fly through it, feed it from your DAW and bake its acoustics as impulse responses.',
+        buyHref:'#TODO-buy-forge',
+        demoHref:IMPULSE_SUITE_DOWNLOAD,
+        docsHref:'#TODO-docs-forge',
+        priceFrom:'89',
+        req:'Standalone · Windows 10/11 · 64-bit',
+        img:'impulse-forge-hero.png'
+      });
+
 
   const forgeIntro = `
   <section>
@@ -1952,18 +1955,20 @@
   </section>`;
 
   const pricing = pricingGrid('Impulse Forge – Full License (Windows only)', [
-    {
-      name:'Forge Full', price:129, subtitle:'Build, fly, bake & feed from your DAW',
-      points:[
-        'Full 3D acoustic editor for Windows',
-        'Live listening inside the room',
-        'VST3 bridge input via Impulse Anvil',
-        'One-click bake to high-quality WAV IRs',
-        'Save/load levels and materials'
-      ],
-      buyHref:'#TODO-buy-forge-full', demoHref:IMPULSE_SUITE_DOWNLOAD
-    }
-  ]);
+        {
+          name:'Forge Full', price:89,
+          subtitle:'Build, fly, bake & feed from your DAW',
+          points:[
+            'Full 3D acoustic editor for Windows',
+            'Live listening inside the room',
+            'VST3 bridge input via Impulse Anvil',
+            'One-click bake to high-quality WAV IRs',
+            'Save/load levels and materials'
+          ],
+          buyHref:'#TODO-buy-forge-full',
+          demoHref:IMPULSE_SUITE_DOWNLOAD
+        }
+      ]);
 
   const matrix = featureMatrix('Feature overview', ['Forge Demo','Forge Full'], [
     { name:'Editor & navigation',   cells:['✓','✓'] },
@@ -2320,6 +2325,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
