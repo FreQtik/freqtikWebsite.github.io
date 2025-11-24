@@ -879,8 +879,8 @@
           <div class="card">
             <h3>License & Installer</h3>
             <ul class="list">
-              <li>Perpetual license · 12 months of updates included</li>
-              <li>3 activations per license (offline fallback available)</li>
+              <li>Perpetual license · updates included</li>
+              <li>2 activations per license (offline fallback available)</li>
               <li>Installer required for folder structure <span class="muted">(code-signing planned)</span></li>
               <li>Windows 10/11 (64-bit). Anvil: VST3 host · Forge: Acoustic Editor</li>
             </ul>
@@ -1475,7 +1475,7 @@
         { name:'Morph modes (Anvil)',     cells:['Time','Time + Spectral'] },
         { name:'Curves (Anvil)',          cells:['Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
         { name:'Color / Fractal (Anvil)', cells:['1× Color per IR, no Fractal','2× Color per IR + full Fractal depth'] },
-        { name:'Export / Bake',           cells:['Anvil bake + Forge one-click bake','Anvil bake + Forge one-click bake'] },
+        { name:'Export / Bake',           cells:['Anvil bake + Forge bake','Anvil bake + Forge bake'] },
         { name:'Best for',                cells:['Producers exploring IR design','Heavy sound design, IR packs & libraries'] }
       ]);
 
@@ -1980,7 +1980,7 @@
   ]);
 
   const demo = demoSection([
-    { name:'Forge', detail:'Demo mode lets you explore the editor, listen live and run on-engine captures with export limits and demo tags applied to the files.' }
+    { name:'Forge', detail:'Demo mode lets you explore the editor, Build, fly around and listen live. Baking is disabled.' }
   ]);
 
   const faq = `
@@ -1997,7 +1997,7 @@
         </ul>
       </div>
       <div class="card">
-        <h3>Why only one input?</h3>
+        <h3>One Input</h3>
         <p>Forge is designed around a single live input stream. To send multiple instruments at once:</p>
         <ul class="list">
           <li>Create a group bus in your DAW and route the instruments there.</li>
@@ -2006,7 +2006,7 @@
         </ul>
       </div>
       <div class="card">
-        <h3>What does one-click bake actually do?</h3>
+        <h3>What is baking?</h3>
         <p>When you hit bake, Forge:</p>
         <ul class="list">
           <li>Fires an excitation signal through the current room.</li>
@@ -2325,6 +2325,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
