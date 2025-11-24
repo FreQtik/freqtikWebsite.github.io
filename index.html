@@ -1547,7 +1547,7 @@
         <div class="hr"></div>
         <div class="cta-row">
           <a class="btn primary" href="#TODO-buy-smith" target="_blank" rel="noopener">Buy Impulse Smith</a>
-          <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Try Demo</a>
+          <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Try Demo</a>
         </div>
       </div>
     </div>
@@ -2060,7 +2060,7 @@
 
     // Docs & FAQ page
     function buildDocs(){
-      const hero = `
+            const hero = `
       <section id="docs">
         <h2>Docs &amp; FAQ – Impulse Smith Suite</h2>
         <p>Quick starts, common questions and a plain-language explanation of impulse responses for Impulse Anvil, Impulse Forge and the Impulse Smith bundle.</p>
@@ -2069,22 +2069,32 @@
             <h3>Impulse Anvil</h3>
             <p class="muted">VST3 plugin · Windows 10/11 · 64-bit</p>
             <div class="hr"></div>
-            <a class="btn" href="#docs-anvil">Anvil quickstart</a>
+            <a class="btn" href="#"
+               onclick="document.getElementById('docs-anvil')?.scrollIntoView({behavior:'smooth'}); return false;">
+              Anvil quickstart
+            </a>
           </div>
           <div class="card">
             <h3>Impulse Forge</h3>
             <p class="muted">Standalone Acoustic Editor · Windows 10/11 · 64-bit</p>
             <div class="hr"></div>
-            <a class="btn" href="#docs-forge">Forge quickstart</a>
+            <a class="btn" href="#"
+               onclick="document.getElementById('docs-forge')?.scrollIntoView({behavior:'smooth'}); return false;">
+              Forge quickstart
+            </a>
           </div>
           <div class="card">
             <h3>Impulse Smith Suite</h3>
             <p class="muted">Licensing, installer &amp; workflow tips.</p>
             <div class="hr"></div>
-            <a class="btn" href="#docs-suite">Suite FAQ</a>
+            <a class="btn" href="#"
+               onclick="document.getElementById('docs-suite')?.scrollIntoView({behavior:'smooth'}); return false;">
+              Suite FAQ
+            </a>
           </div>
         </div>
       </section>`;
+
 
             const anvilQuickstart = `
       <section id="docs-anvil">
@@ -2108,7 +2118,6 @@
               <li><strong>Demo:</strong> Time Morph only, 1 Color stripe per IR, no Fractal, no export and a short periodic mute during playback.</li>
               <li><strong>Basic / Pro:</strong> Unlock export; Pro adds Spectral Morph, a second Color stripe and Fractal depth.</li>
               <li>If you hear crackles while dragging controls, you are asking Anvil to rebuild long IRs in real time. Temporarily raise your audio buffer while tweaking, then lower it again once you’ve baked or found your setting.</li>
-              <li>Your projects using baked IRs keep working even if Anvil is not loaded – the IRs are just normal WAV files.</li>
             </ul>
             <p class="note">Impulse Anvil is a <strong>VST3-only, Windows-only</strong> plugin.</p>
           </div>
@@ -2122,7 +2131,7 @@
         <div class="cols">
           <div>
             <ol class="list">
-              <li><strong>Launch Forge.</strong> Start Impulse Forge from your Start menu. The Acoustic Editor opens with a simple base cube you can build from.</li>
+              <li><strong>Launch Forge.</strong> Start by clicking Impulse Forge in your VST3.</li>
               <li><strong>Understand the two modes.</strong> Use <strong>Explore</strong> mode to fly or walk the level and listen. Switch to <strong>Build</strong> mode to select, move, rotate and scale objects, assign acoustic materials, create groups and spawn grouped structures.</li>
               <li><strong>Build your space.</strong> Add and edit blocks and shapes to form rooms, corridors or complex structures. At any time you can save your level, load a previous one or click <strong>New</strong> to clear the scene back to a single cube.</li>
               <li><strong>Feed audio from Impulse Anvil.</strong> Insert Impulse Anvil on a track or bus in your DAW. In Anvil, disable <strong>Use Anvil</strong>, enable <strong>Only wet</strong> and click the <strong>Impulse Forge</strong> button to launch the editor. Anvil will go quiet in the DAW while the editor is closed – that’s normal, the signal is being routed into Forge. Forge listens to a <strong>single input</strong>, so to send multiple instruments, route them to a group or your master first.</li>
@@ -2153,8 +2162,7 @@
           <div class="card">
             <h3>Licensing &amp; seats</h3>
             <ul class="list">
-              <li>Each license gives you <strong>2 seats</strong> (for example studio PC + laptop).</li>
-              <li>You can move seats by deactivating on an old machine or contacting support.</li>
+              <li>Each license gives you <strong>2 seats</strong> (for example studio PC + laptop).</li>              
               <li>Demo installs use the same installer – entering a license instantly unlocks Basic or Pro.</li>
             </ul>
           </div>
@@ -2198,7 +2206,7 @@
               <li>Turn “bad” recordings into <strong>beautiful filters</strong> – pops, clicks, rustling fabric, city noise, ice cracking.</li>
               <li>Record CPU-heavy FX chains once as a short noise burst, bake the result and re-use it as a light-weight IR anywhere.</li>
               <li>Capture real-world gestures: a footstep in frozen grass, sliding over dirt, wind through weeds – the motion becomes your reverb tail.</li>
-              <li>Use your phone, then clean and fade the recording before importing it into Anvil or baking it with Forge.</li>
+              
             </ul>
             <p class="note">Impulse Anvil lets you <strong>shape and morph</strong> these IRs. Impulse Forge lets you <strong>design entire acoustic worlds</strong> to capture in the first place.</p>
           </div>
@@ -2282,45 +2290,46 @@
             </section>`;
             break;
 
-                          case 'downloads':
-            html = `<section id="downloads" class="depth-effect">
-              <h2>Downloads &amp; Tools</h2>
-              <p>Close your DAW, download the installer, run it, and you’re ready to forge IRs. Updating never touches your own IRs or projects.</p>
-              <div class="grid" style="margin-top:14px">
-                <div class="card">
-                  <h3>Impulse Smith Suite Installer</h3>
-                  <p class="muted">Installs Impulse Anvil (VST3) and Impulse Forge (Standalone) in one step.</p>
-                  <p class="note">Single Windows installer. Runs in Demo until you enter a license.</p>
-                  <div class="hr"></div>
-                  <a class="btn" href="IMPULSE_SUITE_DOWNLOAD" target="_blank" rel="noopener">Download for Windows</a>
-                </div>
-                <div class="card">
-                  <h3>What you get</h3>
-                  <ul class="list">
-                    <li>Impulse Anvil VST3 plugin for Windows 10/11 (64-bit).</li>
-                    <li>Impulse Forge standalone Acoustic Editor for Windows 10/11 (64-bit).</li>
-                    <li>Shared content folders under <code>C:\\ProgramData\\FreQtik</code>.</li>
-                    <li>Demo mode by default – unlocks instantly when you enter a license key.</li>
-                  </ul>
-                </div>
-                <div class="card">
-                  <h3>System requirements</h3>
-                  <ul class="list">
-                    <li>Windows 10 or 11 · 64-bit.</li>
-                    <li>VST3-compatible DAW for Impulse Anvil.</li>
-                    <li>Internet connection for license activation and update checks.</li>
-                  </ul>
-                </div>
-              </div>
-              <p class="note" style="margin-top:16px;">
-                <strong>Windows SmartScreen</strong> may warn because the installer isn’t code-signed yet and will show “Unknown publisher”.
-                The binary is built and hosted by FreQtik only. Once a code-signing certificate is in budget, future installers will be signed.
-              </p>
-              <p class="note">
-                <strong>Licenses &amp; seats.</strong> After purchase you receive a license key by email. Open Impulse Anvil or Impulse Forge, click the License button and paste the key – features unlock instantly. Each license gives you <strong>2 seats</strong>, so you can activate on two Windows machines you own.
-              </p>
-            </section>`;
-            break;
+                                case 'downloads':
+        html = `<section id="downloads" class="depth-effect">
+          <h2>Downloads &amp; Tools</h2>
+          <p>Close your DAW, download the installer, run it, and you’re ready to forge IRs. Updating never touches your own IRs or projects.</p>
+          <div class="grid" style="margin-top:14px">
+            <div class="card">
+              <h3>Impulse Smith Suite Installer</h3>
+              <p class="muted">Installs Impulse Anvil (VST3) and Impulse Forge (Standalone) in one step.</p>
+              <p class="note">Single Windows installer. Runs in Demo until you enter a license.</p>
+              <div class="hr"></div>
+              <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download for Windows</a>
+            </div>
+            <div class="card">
+              <h3>What you get</h3>
+              <ul class="list">
+                <li>Impulse Anvil VST3 plugin for Windows 10/11 (64-bit).</li>
+                <li>Impulse Forge standalone Acoustic Editor for Windows 10/11 (64-bit).</li>
+                <li>Shared content folders under <code>C:\\ProgramData\\FreQtik</code>.</li>
+                <li>Demo mode by default – unlocks instantly when you enter a license key.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>System requirements</h3>
+              <ul class="list">
+                <li>Windows 10 or 11 · 64-bit.</li>
+                <li>VST3-compatible DAW for Impulse Anvil.</li>
+                <li>Internet connection for license activation and update checks.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note" style="margin-top:16px;">
+            <strong>Windows SmartScreen</strong> may warn because the installer isn’t code-signed yet and will show “Unknown publisher”.
+            The binary is built and hosted by FreQtik only. Once a code-signing certificate is in budget, future installers will be signed.
+          </p>
+          <p class="note">
+            <strong>Licenses &amp; seats.</strong> After purchase you receive a license key by email. Open Impulse Anvil or Impulse Forge, click the License button and paste the key – features unlock instantly. Each license gives you <strong>2 seats</strong>, so you can activate on two Windows machines you own.
+          </p>
+        </section>`;
+        break;
+
 
           case 'docs':
             html = buildDocs();
@@ -2528,6 +2537,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
