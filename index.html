@@ -792,14 +792,15 @@
         <span class="kicker">${opts.kicker}</span>
         <h1>${opts.title}</h1>
         <p class="tagline">${opts.tagline}</p>
-        <div class="cta-row">
+                <div class="cta-row">
+          ${opts.buyHref && opts.priceFrom ? `
           <a class="btn primary"
              href="${opts.buyHref}"
              target="_blank"
              rel="noopener"
              aria-label="Buy ${opts.title}">
             Buy from €${opts.priceFrom}
-          </a>
+          </a>` : ''}
           <a class="btn"
              href="${opts.demoHref}"
              target="_blank"
@@ -808,8 +809,8 @@
             ${opts.secondaryCtaLabel || 'Try Demo'}
           </a>
           ${opts.docsHref ? `<a class="btn ghost" href="${opts.docsHref}" onclick="loadFeed('docs');">Docs</a>` : ''}
-
         </div>
+
         <p class="note">${opts.req}</p>
       </div>
       <div class="hero-art">
@@ -1343,13 +1344,13 @@
     kicker:'Audio Toolkit · Windows only',
     title:'Impulse Smith Suite',
     tagline:'Design, morph and bake impulse responses — from field recording to IR file.',
-    buyHref:'#TODO-buy-smith',
+    // No direct “Buy Suite” – licenses for Anvil and Forge are separate
     demoHref:IMPULSE_SUITE_DOWNLOAD,
-    docsHref:'#TODO-docs-smith',
-    priceFrom: '99',
-    req:'Includes Impulse Anvil (VST3 · Windows 10/11) & Impulse Forge (Acoustic Editor · Windows 10/11)',
+    docsHref:'#docs-suite',
+    req:'Impulse Smith Suite is the shared installer and workflow for Impulse Anvil (VST3 · Windows 10/11) and Impulse Forge (Acoustic Editor · Windows 10/11). Licenses are purchased separately for each app.',
     img:'impulse-forge-hero.png'
   });
+
 
   const tipsBand = `
   <section class="band-dark">
@@ -1541,15 +1542,17 @@
           <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
         </div>
       </div>
-      <div class="card">
-        <h3>Get the Suite</h3>
-        <p class="muted">One workflow. Two tools. From raw audio and rooms to finished IRs.</p>
+                  <div class="card">
+        <h3>Install the Suite</h3>
+        <p class="muted">Impulse Smith Suite is the shared installer that sets up both Impulse Anvil and Impulse Forge in demo mode.</p>
+        <p class="note">Licenses for Anvil and Forge are purchased separately. There is no combined “bundle” license – Impulse Smith is the name of the installer and workflow, not a separate product.</p>
         <div class="hr"></div>
         <div class="cta-row">
-          <a class="btn primary" href="#TODO-buy-smith" target="_blank" rel="noopener">Buy Impulse Smith</a>
-          <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Try Demo</a>
+          <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download Installer</a>
+          <a class="btn ghost" href="#" onclick="loadFeed('downloads');return false;">More about installation</a>
         </div>
       </div>
+
     </div>
   </section>`;
 
@@ -1572,7 +1575,8 @@
     </div>
   </section>`;
 
-  return hero + tipsBand + videos + pricing + matrix + tiles + demo + related;
+    return hero + tipsBand + videos + tiles + demo + related;
+
 }
 
 
@@ -2537,6 +2541,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
