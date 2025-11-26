@@ -649,21 +649,7 @@
   }
   </script>
 
-  <!-- Product JSON-LD: Impulse Smith (bundle) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Product",
-    "name":"Impulse Smith",
-    "description":"Bundle of Impulse Anvil (VST3) and Impulse Forge (Acoustic Editor) for building, flying through and baking custom spaces.",
-    "offers":{
-      "@type":"AggregateOffer",
-      "lowPrice":"99",
-      "highPrice":"129",
-      "priceCurrency":"EUR"
-    }
-  }
-  </script>
+  
 
 
 </head>
@@ -691,7 +677,7 @@
         <a href="#" onclick="loadFeed('impulse');closeDropdowns();return false;">Impulse (All)</a>
         <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil (VST3)</a>
         <a href="#" onclick="loadFeed('forge');closeDropdowns();return false;">Impulse Forge (Acoustic Editor)</a>
-        <a href="#" onclick="loadFeed('smith');closeDropdowns();return false;">Impulse Smith (Bundle)</a>
+        <a href="#" onclick="loadFeed('smith');closeDropdowns();return false;">Impulse Smith Suite (Installer)</a>
       </div>
     </li>
 
@@ -1452,52 +1438,51 @@
     </div>
   </section>`;
 
-        const pricing = pricingGrid('Bundle Pricing – Impulse Smith (windows only)', [
-        {
-          name:'Basic Bundle', badge:'Best value', price:99,
-          subtitle:'Anvil Basic + Forge Full',
-                    points:[
-            'Impulse Anvil Basic (VST3)',
-            'Impulse Forge Full (standalone)',
-            'Time Morph with full curve set in Anvil',
-            'Bake rooms in Forge to high-quality WAV IRs',
-            'Great for starting IR creators'
-          ],
+                const packs = `
+  <section>
+    <h2>Included IR Packs</h2>
+    <p class="muted">The Suite installer includes demo content immediately. Bonus packs are included with the corresponding Impulse Anvil license tier.</p>
 
-          buyHref:'#TODO-buy-smith-basic',
-          demoHref:IMPULSE_SUITE_DOWNLOAD
-        },
-        {
-          name:'Pro Bundle', price:129, popular:true,
-          subtitle:'Full creative workstation',
-          points:[
-            'Impulse Anvil Pro (VST3)',
-            'Impulse Forge Full (standalone)',
-            'Spectral + time morph, Color ×2, full Fractal depth',
-            'Field recordings, rooms & FX chains baked and morphed',
-            'Ideal for sound designers & sample creators'
-          ],
-          buyHref:'#TODO-buy-smith-pro',
-          demoHref:IMPULSE_SUITE_DOWNLOAD
-        }
-      ]);
+    <div class="grid">
+      <div class="card">
+        <h3>Demo included</h3>
+        <ul class="list">
+          <li><strong>ABSTRACT SPACES</strong> IR Pack <span class="badge">31 IRs</span></li>
+        </ul>
+        <p class="note">Available in Demo mode right away.</p>
+      </div>
 
+      <div class="card">
+        <h3>Impulse Anvil Basic · Bonus Packs</h3>
+        <ul class="list">
+          <li><strong>HOME PACK</strong></li>
+          <li><strong>ARTIFICIAL PACK</strong> <span class="badge">+29</span></li>
+        </ul>
+        <p class="note">Included with an Impulse Anvil Basic license.</p>
+      </div>
 
-        const matrix = featureMatrix('At a glance', ['Basic Bundle','Pro Bundle'], [
-        { name:'Anvil tier',              cells:['Basic','Pro'] },
-        { name:'Forge tier',              cells:['Full','Full'] },
-        { name:'Morph modes (Anvil)',     cells:['Time','Time + Spectral'] },
-        { name:'Curves (Anvil)',          cells:['Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
-        { name:'Color / Fractal (Anvil)', cells:['1× Color per IR, no Fractal','2× Color per IR + full Fractal depth'] },
-        { name:'Export / Bake',           cells:['Anvil bake + Forge bake','Anvil bake + Forge bake'] },
-        { name:'Best for',                cells:['Producers exploring IR design','Heavy sound design, IR packs & libraries'] }
-      ]);
+      <div class="card">
+        <h3>Impulse Anvil Pro · Extra Packs</h3>
+        <p class="muted">Everything in Basic, plus:</p>
+        <ul class="list">
+          <li><strong>FABRIC MAGIC</strong></li>
+          <li><strong>HUMANOID</strong></li>
+          <li><strong>PHASE</strong></li>
+        </ul>
+        <p class="note">Included with an Impulse Anvil Pro license.</p>
+      </div>
+    </div>
+
+    <p class="note"><strong>Important:</strong> Impulse Anvil and Impulse Forge are purchased and licensed separately. “Impulse Smith Suite” is the installer + workflow — not a bundle product.</p>
+  </section>`;
 
 
-        const demo = demoSection([
-        { name:'Anvil', detail:'Perpetual demo. Short periodic mute; export limited and some features locked compared to full versions.' },
+
+                const demo = demoSection([
+        { name:'Anvil', detail:'Perpetual demo. Short periodic mute; export limited and some features locked compared to full versions. Includes the ABSTRACT SPACES IR pack (31 IRs).' },
         { name:'Forge', detail:'Full editor and live listening; export / bake to WAV is disabled in the demo.' }
       ]);
+
 
 
   const tiles = `
@@ -1575,7 +1560,8 @@
     </div>
   </section>`;
 
-    return hero + tipsBand + videos + tiles + demo + related;
+          return hero + tipsBand + videos + tiles + packs + demo + related;
+
 
 }
 
@@ -1838,24 +1824,27 @@
       ]);
 
 
-      const related = `
+            const related = `
       <section>
-        <h2>Part of the Impulse Smith bundle</h2>
+        <h2>Impulse Smith Suite workflow</h2>
         <div class="grid">
           <div class="card">
-            <h3>Impulse Smith</h3>
-            <p class="muted">Bundle including Impulse Anvil (VST3) and Impulse Forge (Acoustic Editor).</p>
-            <div class="hr"></div>
-            <a class="btn" href="#" onclick="loadFeed('impulse');return false;">View Impulse Smith bundle</a>
-          </div>
-          <div class="card">
             <h3>Impulse Forge</h3>
-            <p class="muted">Design the rooms and spaces that feed your Impulse Anvil IRs.</p>
+            <p class="muted">Design rooms and spaces, then bake them to IRs you can load in Anvil.</p>
             <div class="hr"></div>
             <a class="btn" href="#" onclick="loadFeed('forge');return false;">Go to Impulse Forge</a>
           </div>
+
+          <div class="card">
+            <h3>Impulse Smith Suite (Installer)</h3>
+            <p class="muted">Single Windows installer that installs Anvil + Forge in demo mode.</p>
+            <div class="hr"></div>
+            <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download for Windows</a>
+          </div>
         </div>
+        <p class="note"><strong>Licensing:</strong> Anvil and Forge are purchased separately — the Suite is not sold as a bundle.</p>
       </section>`;
+
 
       // order: hero / intro / first dark band / pricing / matrix / anatomy (dark) / demo / related
       return hero + anvilIntro + anvilBand + pricing + matrix + anatomy + demo + related;
@@ -2045,10 +2034,13 @@
         <h2>Part of the Impulse Smith ecosystem</h2>
         <div class="grid">
           <div class="card">
-            <h3>Impulse Smith Bundle</h3>
-            <p class="muted">Impulse Forge is included in the Impulse Smith bundle alongside Impulse Anvil.</p>
-            <div class="hr"></div>
-            <a class="btn" href="#" onclick="loadFeed('impulse');return false;">View Impulse Smith bundle</a>
+            <div class="card">
+  <h3>Impulse Smith Suite (Installer)</h3>
+  <p class="muted">Single Windows installer that installs Anvil + Forge in demo mode.</p>
+  <div class="hr"></div>
+  <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download for Windows</a>
+</div>
+
           </div>
           <div class="card">
             <h3>Impulse Anvil</h3>
@@ -2067,7 +2059,8 @@
             const hero = `
       <section id="docs">
         <h2>Docs &amp; FAQ – Impulse Smith Suite</h2>
-        <p>Quick starts, common questions and a plain-language explanation of impulse responses for Impulse Anvil, Impulse Forge and the Impulse Smith bundle.</p>
+       <p>Quick starts, common questions and a plain-language explanation of impulse responses for Impulse Anvil, Impulse Forge and the Impulse Smith Suite workflow.</p>
+
         <div class="grid">
           <div class="card">
             <h3>Impulse Anvil</h3>
@@ -2541,6 +2534,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
