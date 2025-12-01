@@ -2136,6 +2136,7 @@
       <a class="btn" href="#" onclick="document.getElementById('forge-spawn')?.scrollIntoView({behavior:'smooth'}); return false;">Spawning & OBJ Import</a>
       <a class="btn" href="#" onclick="document.getElementById('forge-levels')?.scrollIntoView({behavior:'smooth'}); return false;">Save / Load / New Level</a>
     </div>
+
     <p class="note" style="margin-top:10px">
       Forge has two modes: <strong>Exploration</strong> (fly, listen, bake/capture acoustics) and <strong>Build</strong> (place & edit geometry, import meshes).
       Toggle modes using the <strong>big cube button</strong> bottom-left or press <strong>Tab</strong>.
@@ -2167,6 +2168,20 @@
 
         <p class="note">
           Your track may become <strong>inaudible in the DAW</strong>—that’s expected. The signal is now routed into the acoustic editor for in-room preview.
+        </p>
+
+        <div class="hr"></div>
+
+        <p><strong>Bridge limitation (important)</strong></p>
+        <ul class="list">
+          <li>Impulse Forge supports only <strong>one live bridge connection</strong> at a time.</li>
+          <li>You <strong>cannot</strong> open two editors at the same time or route two tracks/instruments through two separate plugin instances.</li>
+          <li>Never use multiple Anvils for one editor, and do not attempt to run multiple editors in parallel.</li>
+        </ul>
+
+        <p class="note">
+          Want multiple tracks inside one editor? Create a <strong>group/bus track</strong> and route/send your instruments into that group,
+          then insert <strong>one</strong> Impulse Forge on the group track.
         </p>
       </div>
 
@@ -2277,6 +2292,13 @@
           <li><strong>Move / Drag</strong> (1)</li>
           <li><strong>Rotate</strong> (2)</li>
           <li><strong>Scale</strong> (3)</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Gizmo customization</strong></p>
+        <ul class="list">
+          <li>You can switch the gizmo location between <strong>Centered</strong> and <strong>Object Pivot</strong>.</li>
+          <li>This is in the dropdown arrow <strong>below</strong> the <strong>Local / World</strong> toggle (next to snapping).</li>
+          <li>You can also adjust the gizmo <strong>thickness</strong> and <strong>size</strong> to your liking.</li>
         </ul>
       </div>
 
@@ -2402,10 +2424,17 @@
         <div class="hr"></div>
 
         <p><strong>Import .OBJ meshes</strong></p>
+        <ul class="list">
+          <li>In the Objects panel, click <strong>Import</strong> (right side) to list your packed OBJs.</li>
+          <li>OBJs spawn in the <strong>same click-to-place manner</strong> as all other objects (click to enable spawning, then left-click to place).</li>
+          <li>If you add new OBJs and don’t see them: <strong>toggle Import off/on</strong> to refresh the import list.</li>
+        </ul>
+
         <p>
-          In the Objects panel, click <strong>Import</strong> (right side). This lists all OBJs in:
+          Import folder location:
           <code>C:\\Users\\User\\Documents\\ImpulseForgeImports</code>
         </p>
+
         <ul class="list">
           <li>Click an imported object to spawn it.</li>
           <li>If it seems invisible (too small/large), adjust the <strong>Scale</strong> value below Import, then click the object again to re-import at that scale.</li>
@@ -2430,6 +2459,7 @@
           <li>Click <strong>Volume Array</strong>.</li>
           <li>Choose how many <strong>steps</strong> it should perform.</li>
           <li>Use <strong>Increment Transform</strong> to define the change between each step.</li>
+          <li>You can toggle whether the array spawns in <strong>World</strong> space or <strong>Local</strong> space.</li>
         </ol>
         <p class="note">
           Example: set <strong>Z rotation</strong> to <strong>5°</strong> to add 5° per step, creating fast repeating structures and patterns.
@@ -2482,6 +2512,7 @@
     </div>
   </section>
 </section>`;
+
 
 
 
@@ -2867,6 +2898,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
