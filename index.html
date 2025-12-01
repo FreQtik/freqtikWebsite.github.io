@@ -1689,7 +1689,7 @@
           name:'Basic', price:39, subtitle:'Core morph & bake',
           points:[
             'Time Morph engine',
-            'Morph curves + K shaping',
+            'Live Morph + Bake Morph export',
             '1 Color stripe per IR',
             'Per-IR gain & time stretch',
             'Bake morphed IRs to WAV'
@@ -1701,7 +1701,7 @@
           name:'Pro', price:79, subtitle:'Full spectral & fractal toolkit', popular:true,
           points:[
             'Time + Spectral morph modes',
-            'All curves with K control',
+            'Spectral morph modes (Pro)',
             '2 Color stripes per IR',
             'Fractal depth per slot'
           ],
@@ -1713,7 +1713,6 @@
 
             const matrix = featureMatrix('Feature comparison (Impulse Anvil)', ['Demo','Basic','Pro'], [
         { name:'Morph modes',        cells:['Time','Time','Time + Spectral'] },
-        { name:'Morph curves & K',   cells:['Linear only','Linear, Exp, Log, S, Power (+K)','Linear, Exp, Log, S, Power (+K)'] },
         { name:'Live Morph',         cells:['✓','✓','✓'] },
         { name:'Color stripes per IR', cells:['×1','×1','×2'] },
         { name:'Fractal depth',      cells:['—','—','✓'] },
@@ -2093,32 +2092,345 @@
 
 
             const anvilQuickstart = `
-      <section id="docs-anvil">
-        <h2>Impulse Anvil – Quickstart</h2>
-        <div class="cols">
-          <div>
-            <ol class="list">
-              <li><strong>Install the suite.</strong> Run the Impulse Smith installer on Windows 10/11 (64-bit). It installs Impulse Anvil as a VST3 plugin plus the shared content folders under <code>C:\\ProgramData\\FreQtik</code>.</li>
-              <li><strong>Insert Anvil like any reverb.</strong> In your DAW, load the VST3 version of Impulse Anvil on a send, bus or insert where you would normally place a convolution reverb or cab sim.</li>
-              <li><strong>Load IRs into slot A (and B).</strong> Drop IRs from the built-in Anvil library or load any <code>.wav</code> file – third-party IR packs, your own recordings, Impulse Forge bakes, even shaped noise. A and B are your two “source spaces”.</li>
-              <li><strong>Set levels &amp; mix.</strong> Use the <strong>Dry/Wet</strong> controls and optional <strong>Normalize</strong> switch to get a healthy level. Anvil is a full convolution engine, so you can already use it as your main reverb/cab loader at this point.</li>
-              <li><strong>Morph between A and B.</strong> Enable <strong>Morph</strong>, choose a curve and drag the Morph knob to slide between the two IRs. In <strong>Pro</strong>, you can also use <strong>Spectral</strong> Morph for more frequency-focused transitions and shape the response with the K control.</li>
-              <li><strong>Add Color stripes.</strong> Each Color stripe layers an additional processed copy of the IR on top of the original, with its own <strong>time-stretch (0.5×–2.0×)</strong>, <strong>start delay</strong> and <strong>gain</strong>. Overlaps can cancel, reinforce or create new artefacts – great for making certain bands bloom or step out of the way.</li>
-              <li><strong>Increase density with Fractal (Pro).</strong> Fractal depth takes the full current IR (including Color and Morph) and recursively reprocesses it for each depth step, adding complexity and thickness without turning everything into mush.</li>
-              <li><strong>Bake when it’s right.</strong> When you hit a sound you love, use <strong>Bake</strong> to export the current IR as a high-quality WAV file. You can reuse it directly inside Anvil or drop it into any other convolution reverb, cab sim or sampler you own.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h3>Demo vs full &amp; performance tips</h3>
+<section id="docs-anvil">
+  <h2>Impulse Anvil – Documentation</h2>
+  <p class="muted">VST3 plugin · Windows 10/11 · 64-bit</p>
+
+  <div class="card" style="margin-top:14px">
+    <h3>Jump to</h3>
+    <div class="flex-container" style="justify-content:flex-start; gap:10px; flex-wrap:wrap; margin-top:10px">
+      <a class="btn" href="#" onclick="document.getElementById('anvil-quickstart')?.scrollIntoView({behavior:'smooth'}); return false;">Quickstart</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-global')?.scrollIntoView({behavior:'smooth'}); return false;">Global Controls</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-bridge')?.scrollIntoView({behavior:'smooth'}); return false;">Forge Bridge</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-bake')?.scrollIntoView({behavior:'smooth'}); return false;">Bake / Export</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-slots')?.scrollIntoView({behavior:'smooth'}); return false;">IR A / IR B</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-color')?.scrollIntoView({behavior:'smooth'}); return false;">Color Stripes</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-fractal')?.scrollIntoView({behavior:'smooth'}); return false;">Fractal Depth</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-morph')?.scrollIntoView({behavior:'smooth'}); return false;">Live Morph Modes</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-workflow')?.scrollIntoView({behavior:'smooth'}); return false;">Creative Workflow</a>
+      <a class="btn" href="#" onclick="document.getElementById('anvil-performance')?.scrollIntoView({behavior:'smooth'}); return false;">Performance Tips</a>
+    </div>
+
+    <p class="note" style="margin-top:10px">
+      <strong>Impulse Anvil is a forge.</strong> It doesn’t “automate like an FX” — it <strong>rebuilds the impulse response</strong> whenever you tweak it.
+      When it’s right, you <strong>bake/export</strong> a new WAV IR you can use anywhere.
+    </p>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- 1) QUICKSTART -->
+  <section id="anvil-quickstart" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>1) Quickstart (first 2 minutes)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <ol class="list">
+          <li><strong>Install the suite.</strong> Run the Impulse Smith installer (Windows 10/11, 64-bit). Shared content installs under <code>C:\\ProgramData\\FreQtik</code>.</li>
+          <li><strong>Insert Anvil.</strong> Load the VST3 on a send or insert like any convolution reverb / IR loader.</li>
+          <li><strong>Load IR A (and IR B).</strong> Click <strong>Load IR A</strong> / <strong>Load IR B</strong> and pick:
             <ul class="list">
-              <li><strong>Demo:</strong> Time Morph only, 1 Color stripe per IR, no Fractal, no export and a short periodic mute during playback.</li>
-              <li><strong>Basic / Pro:</strong> Unlock export; Pro adds Spectral Morph, a second Color stripe and Fractal depth.</li>
-              <li>If you hear crackles while dragging controls, you are asking Anvil to rebuild long IRs in real time. Temporarily raise your audio buffer while tweaking, then lower it again once you’ve baked or found your setting.</li>
+              <li><strong>Load from preset</strong> (built-in / baked IRs), or</li>
+              <li><strong>Load from file</strong> (any WAV IR you own).</li>
             </ul>
-            <p class="note">Impulse Anvil is a <strong>VST3-only, Windows-only</strong> plugin.</p>
-          </div>
-        </div>
-      </section>`;
+          </li>
+          <li><strong>Set safe levels.</strong> Use <strong>Input</strong> (incoming gain) and <strong>Wet Level</strong> (effect output). Optional: enable <strong>Normalize</strong> (see notes below).</li>
+          <li><strong>Enable reverb.</strong> Turn <strong>Use Anvil</strong> on to hear the convolution engine processing your signal.</li>
+          <li><strong>Morph &amp; shape.</strong> Enable <strong>Morph</strong> and move the <strong>Morph</strong> knob to blend A and B. Add <strong>Color</strong> and <strong>Fractal</strong> for richer, stranger spaces.</li>
+          <li><strong>Bake/export when it’s right.</strong> Click <strong>Bake Morph</strong> to write the current result as a WAV IR you can reuse anywhere.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>Safety notes (recommended)</h3>
+        <ul class="list">
+          <li><strong>Normalize can jump in loudness.</strong> Before enabling it, lower <strong>Wet Level</strong> to play safe.</li>
+          <li><strong>Longer IR = more CPU.</strong> Be intentional with IR length, especially if you stack Color/Fractal and spectral morphing.</li>
+          <li><strong>Forge Bridge needs 48 kHz.</strong> Only relevant if you connect to Impulse Forge.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 2) GLOBAL CONTROLS -->
+  <section id="anvil-global" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>2) Global Controls (top-left)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <ul class="list">
+          <li><strong>Bypass</strong> — bypasses the entire effect.</li>
+          <li><strong>Wet Only</strong> — removes the dry path (useful for send FX). Also acts as the <strong>bridge switch</strong> when connecting to Forge (details below).</li>
+          <li><strong>Normalize</strong> — automatically normalizes loaded/processed IRs. <strong>Tip:</strong> reduce wet output before enabling to avoid sudden loudness jumps.</li>
+          <li><strong>Use Anvil</strong> — enables the internal convolution engine. If it’s off, you won’t hear reverb (but you can still bake/process IRs and/or bridge to Forge).</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <p><strong>Metering &amp; level</strong></p>
+        <ul class="list">
+          <li><strong>Input</strong> — controls incoming loudness (what you feed into the reverb).</li>
+          <li><strong>Wet Level</strong> — controls the effect output loudness.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Rule of thumb</h3>
+        <p>Think of Anvil as a <strong>reverb factory</strong>:</p>
+        <ul class="list">
+          <li>Load IRs → shape/morph → bake/export → reuse forever.</li>
+          <li>You can still use it as a normal convolution reverb, but the superpower is <strong>building new IRs</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 3) IMPULSE FORGE BRIDGE -->
+  <section id="anvil-bridge" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>3) Impulse Forge Bridge (live audio into the editor)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Sample rate requirement</strong></p>
+        <ul class="list">
+          <li>The bridge works only in <strong>48 kHz</strong> projects.</li>
+          <li>If you don’t use Forge, you’re not bound to 48 kHz.</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Bridge configuration (must match exactly)</strong></p>
+        <ol class="list">
+          <li>Set <strong>Wet Only</strong> to <strong>true</strong>.</li>
+          <li>Set <strong>Use Anvil</strong> to <strong>false</strong>.</li>
+          <li>Make sure <strong>IR A</strong>, <strong>IR B</strong>, and <strong>Morph</strong> are <strong>off</strong>.</li>
+          <li>Click <strong>Impulse Forge</strong> (top-right) to launch the editor.</li>
+        </ol>
+
+        <p class="note">
+          When the bridge is active, the track may go <strong>silent in the DAW</strong> — that’s normal. Your signal is being routed into Impulse Forge for live preview.
+          If you don’t hear audio inside the editor, make sure your DAW is playing. If needed: close the editor and repeat the steps.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Important limitations</h3>
+        <ul class="list">
+          <li><strong>Only one bridge at a time.</strong> Don’t open two editors and don’t connect two plugins at once.</li>
+          <li><strong>One editor, one input.</strong> If you want multiple tracks in one room, route them to a <strong>group bus</strong>, then place Anvil on that bus and enable the bridge there.</li>
+          <li>Don’t run multiple Anvils “bridging” into one editor simultaneously.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 4) BAKE / EXPORT -->
+  <section id="anvil-bake" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>4) Bake / Export (save your forged IRs as WAV)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Bake Morph</strong> writes what you currently hear (including morphing mode, slot stretch, colors, fractal and normalization state) to a WAV file.</p>
+
+        <p style="margin-top:10px"><strong>Export only IR A or only IR B</strong></p>
+        <ol class="list">
+          <li>Enable <strong>Morph</strong>.</li>
+          <li>Turn the Morph knob fully to <strong>A</strong> or fully to <strong>B</strong>.</li>
+          <li>If you want to be extra safe, re-load the IR you want to export (A or B), then set the knob again.</li>
+          <li>Click <strong>Bake Morph</strong>.</li>
+        </ol>
+
+        <p class="note">
+          Your baked files are directly accessible in presets (e.g. <strong>Morphed</strong> / <strong>Baked</strong>), and also available via <strong>Load from file</strong>.
+          Using “Load from file” shows you the folder location so you can rename, organize or delete your bakes (and you can also drop your favourite external IRs into that folder for fast access).
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Morph stacking (advanced)</h3>
+        <p>If you bake a morph, you can immediately load that baked file and morph it again.</p>
+        <ul class="list">
+          <li>Forge A+B → bake → load as a new IR → morph again.</li>
+          <li>Stacking often unveils new textures, sweeps and artifacts that don’t exist in either source IR.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 5) IR A / IR B -->
+  <section id="anvil-slots" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>5) IR A / IR B (source slots)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <ul class="list">
+          <li><strong>Solo A / Solo B</strong> — audition one slot while you fine-tune it.</li>
+          <li><strong>Per-slot Gain</strong> — balances A and B before morphing (best used with Normalize off).</li>
+          <li><strong>Time Stretch</strong> — stretch the IR (roughly <strong>0.5×</strong> to <strong>2×</strong>) to reshape tone:
+            <ul class="list">
+              <li>Longer usually feels <strong>darker</strong> / more “cinematic”.</li>
+              <li>Shorter usually feels <strong>brighter</strong> / tighter.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p class="note">
+          If <strong>Normalize</strong> is enabled, your per-slot gain may feel less influential because the IR is already being pushed toward a consistent loudness.
+          If you want manual balancing, disable Normalize.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Design mindset</h3>
+        <p>IR A is your “base reality”. IR B is the counterweight that pulls your sound into a new world.</p>
+        <p class="muted">Treat them like two rooms you’re welding together.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 6) COLOR STRIPES -->
+  <section id="anvil-color" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>6) Color Stripes (layered self-modulation)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p>Each slot includes two Color stripes. A Color stripe layers a processed copy of the IR on top of itself.</p>
+        <ul class="list">
+          <li><strong>Enable</strong> the Color stripe checkbox.</li>
+          <li><strong>Color Time</strong> — time-stretch that layer only.</li>
+          <li><strong>Color Delay</strong> — tiny pre-delay to shift the layer in time (great for phasey textures).</li>
+          <li><strong>Color Gain</strong> — sets how present that layer is in the final IR.</li>
+        </ul>
+
+        <p class="note">
+          Layering can reinforce or cancel frequencies, creating sweeps, textures, and “movement” without any modulation plugin —
+          it’s the IR interacting with its own layered version.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Practical example</h3>
+        <ul class="list">
+          <li>Set the base IR to <strong>0.5×</strong> (tighter/cleaner).</li>
+          <li>Add a Color stripe at <strong>2×</strong> but <strong>very low gain</strong>.</li>
+          <li>Result: perceived longer tail + depth, while keeping the initial detail crisp.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 7) FRACTAL DEPTH -->
+  <section id="anvil-fractal" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>7) Fractal Depth (recursive layering)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Fractal Depth</strong> generates additional layers by repeatedly re-processing the previous layer and summing it into the final IR.</p>
+        <ul class="list">
+          <li><strong>Depth 1–2:</strong> subtle density, smoother tails, “higher resolution” feeling.</li>
+          <li><strong>Depth 3–4:</strong> richer, thicker, more abstract spaces; artifacts and textures can appear (often in a good way).</li>
+          <li>Because each step is derived from the last, later layers can become progressively more stretched/offset.</li>
+        </ul>
+
+        <p class="note">
+          Fractal depth can be magical — but it’s also CPU-heavy and will be included when you bake/export.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Under the hood (plain truth)</h3>
+        <p class="muted">Fractal does: <strong>base IR + layer1 + layer2 + ...</strong> where each new layer is created from the previous layer, alternating Color 1 and Color 2 settings.</p>
+        <p class="muted">It’s recursion, but summed into a single WAV IR you can carry anywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 8) LIVE MORPHING -->
+  <section id="anvil-morph" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>8) Live Morphing (center section)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p>The big Morph knob blends <strong>IR A</strong> and <strong>IR B</strong> into one newly forged IR.</p>
+        <ul class="list">
+          <li><strong>Timed Morph</strong> — a clean time-domain blend (most predictable).</li>
+          <li><strong>Spectral Morph</strong> — FFT-based morphing (often feels like “tone/space morphing”).</li>
+          <li><strong>Spectral Band Swap</strong> — alternating frequency bands trade places across the morph.</li>
+          <li><strong>Spectral ZigZag</strong> — a more “striped”, dramatic band mask that flips across the morph.</li>
+        </ul>
+
+        <p class="note">
+          Spectral modes usually cost more CPU. If you push hard (long IRs + spectral + colors + fractal), temporarily increase your audio buffer while forging.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Mode behaviour (in practice)</h3>
+        <ul class="list">
+          <li><strong>Time Morph:</strong> smooth and transparent; great for “real room” blends.</li>
+          <li><strong>Spectral:</strong> can feel more synthetic or “impossible” (often worth it).</li>
+          <li><strong>BandSwap / ZigZag:</strong> adds texture and character; can produce phasey, hybrid results.</li>
+        </ul>
+        <p class="muted">If a spectral mode produces an essentially silent result, the engine falls back to Time Morph.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 9) CREATIVE WORKFLOW -->
+  <section id="anvil-workflow" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>9) Creative Workflow (how to get “unheard” IRs)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>You’re not limited to “room” IRs.</strong> Any WAV can become a texture source.</p>
+        <ul class="list">
+          <li>Morph a tiny space with a huge space.</li>
+          <li>Combine a clean IR with a noisy field recording for texture.</li>
+          <li>Use nature noise (wind, water, birds, street noise, fabric rustling) as a complex “filter fingerprint”.</li>
+        </ul>
+
+        <p class="note">
+          Noise is powerful because it contains countless micro-sources colliding and filtering each other — perfect for creating organic textures when imprinted on your audio.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Best habit</h3>
+        <p>Whenever you hit gold: <strong>Bake it</strong>.</p>
+        <p class="muted">Your IR library becomes your signature sound — portable, recall-safe, and usable in any convolution tool.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 10) PERFORMANCE -->
+  <section id="anvil-performance" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>10) Performance tips</h3>
+    <ul class="list">
+      <li><strong>Long IRs cost more.</strong> Longer tails = more processing and heavier spectral work.</li>
+      <li><strong>Heavy forging = raise buffer.</strong> If you hear crackles while tweaking, increase your DAW audio buffer size temporarily.</li>
+      <li><strong>Then bake.</strong> Once it’s baked, it becomes a normal IR you can load anywhere — no more heavy rebuilding needed.</li>
+    </ul>
+
+    <p class="note">Impulse Anvil is <strong>Windows-only</strong> and <strong>VST3-only</strong>.</p>
+  </section>
+</section>`;
+
 
 
             const forgeQuickstart = `
@@ -2898,6 +3210,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
