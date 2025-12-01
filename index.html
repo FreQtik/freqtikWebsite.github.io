@@ -2122,33 +2122,367 @@
 
 
             const forgeQuickstart = `
-      <section id="docs-forge">
-        <h2>Impulse Forge – Quickstart</h2>
-        <div class="cols">
-          <div>
-            <ol class="list">
-              <li><strong>Launch Forge.</strong> Start by clicking Impulse Forge in your VST3.</li>
-              <li><strong>Understand the two modes.</strong> Use <strong>Explore</strong> mode to fly or walk the level and listen. Switch to <strong>Build</strong> mode to select, move, rotate and scale objects, assign acoustic materials, create groups and spawn grouped structures.</li>
-              <li><strong>Build your space.</strong> Add and edit blocks and shapes to form rooms, corridors or complex structures. At any time you can save your level, load a previous one or click <strong>New</strong> to clear the scene back to a single cube.</li>
-              <li><strong>Feed audio from Impulse Anvil.</strong> Insert Impulse Anvil on a track or bus in your DAW. In Anvil, disable <strong>Use Anvil</strong>, enable <strong>Only wet</strong> and click the <strong>Impulse Forge</strong> button to launch the editor. Anvil will go quiet in the DAW while the editor is closed – that’s normal, the signal is being routed into Forge. Forge listens to a <strong>single input</strong>, so to send multiple instruments, route them to a group or your master first.</li>
-              <li><strong>Set up a bake.</strong> In Explore mode, move to the listening position you care about. In the Bake panel, choose <strong>mono or stereo</strong>, estimate how long the reverb tail should be and enter that length in seconds. Give the IR a clear name.</li>
-              <li><strong>Bake the room.</strong> Mute any unrelated tracks, wait for silence, then click <strong>Bake</strong>. Forge fires a calibrated noise burst and records the room’s response as a 32-bit, 48 kHz WAV file. The result is immediately available to Impulse Anvil as a preset and can also be loaded from disk as a regular IR file.</li>
-              <li><strong>Use the IR in your DAW.</strong> Back in Anvil, load the baked IR in slot A or B, or drop the WAV into any other convolution reverb or IR loader. From there you can morph, colour and bake again just like any other IR.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h3>Editing tools &amp; imports</h3>
-            <ul class="list">
-              <li><strong>Snapping &amp; precision.</strong> Toggle local and global snapping to keep rooms aligned. Undo/redo are available while building.</li>
-              <li><strong>Level files.</strong> Save and load levels to keep different room designs. Use <strong>New</strong> to start over with a single base cube.</li>
-              <li><strong>Import custom meshes.</strong> Create models in any 3D tool (e.g. Blender), export as <code>.obj</code> and place them in <code>Documents\\ImpulseForgeImports</code>. Forge lists them in the import menu – adjust the import scale if a mesh appears too small, too large or invisible.</li>
-              <li><strong>Built-in shapes.</strong> You don’t have to model everything: you can build entire spaces from the supplied blocks and shapes, then refine only key assets in an external 3D tool.</li>
-              <li><strong>Demo vs full.</strong> The demo gives you the full editor, live listening and the Anvil bridge; baking/exporting IRs to disk is disabled until you unlock the full license.</li>
-            </ul>
-            <p class="note">Impulse Forge is a <strong>Windows-only standalone</strong> acoustic editor.</p>
-          </div>
-        </div>
-      </section>`;
+<section id="docs-forge">
+  <h2>Impulse Forge – Documentation</h2>
+  <p class="muted">Acoustic Editor · Windows 10/11 · 64-bit</p>
+
+  <div class="card" style="margin-top:14px">
+    <h3>Jump to</h3>
+    <div class="flex-container" style="justify-content:flex-start; gap:10px; flex-wrap:wrap; margin-top:10px">
+      <a class="btn" href="#" onclick="document.getElementById('forge-setup')?.scrollIntoView({behavior:'smooth'}); return false;">Setup (DAW Bridge)</a>
+      <a class="btn" href="#" onclick="document.getElementById('forge-explore')?.scrollIntoView({behavior:'smooth'}); return false;">Exploration Mode</a>
+      <a class="btn" href="#" onclick="document.getElementById('forge-build')?.scrollIntoView({behavior:'smooth'}); return false;">Build Mode</a>
+      <a class="btn" href="#" onclick="document.getElementById('forge-selection')?.scrollIntoView({behavior:'smooth'}); return false;">Selection & Materials</a>
+      <a class="btn" href="#" onclick="document.getElementById('forge-spawn')?.scrollIntoView({behavior:'smooth'}); return false;">Spawning & OBJ Import</a>
+      <a class="btn" href="#" onclick="document.getElementById('forge-levels')?.scrollIntoView({behavior:'smooth'}); return false;">Save / Load / New Level</a>
+    </div>
+    <p class="note" style="margin-top:10px">
+      Forge has two modes: <strong>Exploration</strong> (fly, listen, bake/capture acoustics) and <strong>Build</strong> (place & edit geometry, import meshes).
+      Toggle modes using the <strong>big cube button</strong> bottom-left or press <strong>Tab</strong>.
+    </p>
+  </div>
+
+  <div class="hr"></div>
+
+  <!-- 1) SETUP -->
+  <section id="forge-setup" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>1) Setup: Live DAW Bridge (Preview audio inside Forge)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>DAW project settings</strong></p>
+        <ul class="list">
+          <li>Set your project sample rate to <strong>48 kHz</strong>.</li>
+          <li>Any bit depth is fine.</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Insert Impulse Forge (bridge configuration)</strong></p>
+        <ol class="list">
+          <li>Drop the plugin on the track you want to preview.</li>
+          <li>Set <strong>Wet Only</strong> to <strong>true</strong>.</li>
+          <li>Set <strong>Use Anvil</strong> to <strong>false</strong>.</li>
+          <li>Make sure <strong>A</strong>, <strong>B</strong>, and <strong>Morph</strong> are <strong>deactivated</strong>.</li>
+          <li><strong>Important:</strong> The bridge only works when <strong>no reverb is toggled</strong>.</li>
+        </ol>
+
+        <p class="note">
+          Your track may become <strong>inaudible in the DAW</strong>—that’s expected. The signal is now routed into the acoustic editor for in-room preview.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Open the editor</h3>
+        <ol class="list">
+          <li>Click the <strong>Impulse Forge</strong> button on the <strong>top-right</strong> of the plugin.</li>
+          <li>The editor opens. After a moment, you should hear your audio being affected by the loaded level.</li>
+        </ol>
+
+        <div class="hr"></div>
+
+        <h3>Troubleshooting (no audio)</h3>
+        <ul class="list">
+          <li>Make sure your <strong>DAW is playing</strong>.</li>
+          <li>If you still don’t hear audio: close the editor and repeat the setup steps.</li>
+        </ul>
+
+        <p class="note">If you hear audio coming from inside the editor, the <strong>Live Bridge</strong> is active.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 2) EXPLORATION -->
+  <section id="forge-explore" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>2) Getting Started: Exploration Mode</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>What it’s for</strong></p>
+        <ul class="list">
+          <li>Fly around and listen to the space in real time.</li>
+          <li>Find a reverb/room sound you love.</li>
+          <li><strong>Bake</strong> (capture) that acoustics as an impulse response (IR).</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Controls</strong></p>
+        <ul class="list">
+          <li><strong>WASD</strong> — move</li>
+          <li><strong>Q / E</strong> — fly down / up</li>
+          <li><strong>Hold Right Click</strong> — move the camera while navigating</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Move inside geometry</strong></p>
+        <p>
+          You can move not only around geometry, but also <strong>inside</strong> it. Entering placed geometry turns it into a “room” itself.
+          For example: fly into a thin wall → it becomes invisible → now you hear how the inside of the wall sounds.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Baking / Exporting a Room (Capture an IR)</h3>
+        <p>When you’ve found a reverb you like, stop and look at the <strong>Bake</strong> section:</p>
+        <ol class="list">
+          <li><strong>Enable “Mute”</strong> so the editor output becomes silent (clean recording).</li>
+          <li>Choose <strong>Mono</strong> or <strong>Stereo</strong> IR.</li>
+          <li>Type the <strong>reverb length</strong> (seconds) of your current reverb tail.</li>
+          <li>Give it a <strong>clear name</strong>.</li>
+          <li>Press <strong>Bake</strong>. You’ll hear a noise burst and get a confirmation when it’s successful.</li>
+        </ol>
+
+        <p class="note">
+          Tip: briefly unmute/mute to hear mostly the tail, then estimate the seconds. It doesn’t have to be perfect — but don’t make it unnecessarily long (longer IRs = more CPU on playback).
+        </p>
+
+        <div class="hr"></div>
+
+        <h3>What gets written to disk</h3>
+        <p>This bake writes a <strong>48 kHz / 32-bit WAV</strong> impulse response file — your room is saved permanently.</p>
+
+        <div class="hr"></div>
+
+        <h3>Loading your baked IR in Anvil</h3>
+        <ul class="list">
+          <li><strong>Load IR A</strong> → choose <strong>Load from file</strong> (second option).</li>
+          <li>Or: <strong>Load from preset</strong> → <strong>Baked</strong> → choose your preset.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:10px">That’s it for Exploration Mode — have fun exploring. Next: Build Mode (Editing).</p>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 3) BUILD MODE -->
+  <section id="forge-build" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>3) Build Mode: Transform Basics (Manipulating Geometry)</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Default spawn</strong></p>
+        <p>When loading Impulse Forge you will always spawn in the <strong>Default Level</strong>.</p>
+        <p>In <strong>Build Mode</strong>, you can still fly around — and <strong>left-click geometry</strong> to select it.</p>
+
+        <p style="margin-top:10px"><strong>The Transform Gizmo</strong></p>
+        <ul class="list">
+          <li><strong>X (Red):</strong> front / back</li>
+          <li><strong>Y (Green):</strong> left / right</li>
+          <li><strong>Z (Blue):</strong> up / down</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>Transform modes</strong></p>
+        <p>Found at the top-middle of the editor in Build Mode (or via shortcuts):</p>
+        <ul class="list">
+          <li><strong>Move / Drag</strong> (1)</li>
+          <li><strong>Rotate</strong> (2)</li>
+          <li><strong>Scale</strong> (3)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Move / Drag</h3>
+        <ol class="list">
+          <li>Select an object.</li>
+          <li>Hover the gizmo axis you want to transform (the axis becomes slightly thicker).</li>
+          <li><strong>Click and release</strong> to start dragging.</li>
+          <li><strong>Click again</strong> to end the drag.</li>
+        </ol>
+        <p class="note">Click between two axes in Move mode to drag on both axes at once (planar move). Distance snapping can be set per axis.</p>
+
+        <div class="hr"></div>
+
+        <h3>Rotate</h3>
+        <p>Same principle: click/release the axis, then move your mouse gently to rotate. Angle snapping can be set per axis.</p>
+
+        <div class="hr"></div>
+
+        <h3>Scale</h3>
+        <p>Same principle: click/release the axis, then move your mouse gently to scale. Scale snapping can be set per axis.</p>
+
+        <div class="hr"></div>
+
+        <h3>Snapping</h3>
+        <ul class="list">
+          <li>Snapping is enabled by default while transforming.</li>
+          <li>Click the little arrow below snapping to open snapping options.</li>
+          <li>Adjust snap amounts to fit your models/workflow, or turn snapping off for free transforms.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>World vs Local Space</h3>
+        <p>
+          Use the <strong>World / Local</strong> switch (top, next to transform modes):
+          <strong>World</strong> transforms along fixed world axes, while <strong>Local</strong> transforms relative to the object’s rotation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 4) SELECTION -->
+  <section id="forge-selection" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>4) Selected Geometry: Acoustic Materials & Editor Functions</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Acoustic Material (surface settings)</strong></p>
+        <p>When an object is selected, the Selection UI shows acoustic surface options:</p>
+        <ul class="list">
+          <li><strong>Absorption</strong> (Low / Mid / High): how much of each band is absorbed.</li>
+          <li><strong>Transmission</strong> (Low / Mid / High): how much passes through the wall.</li>
+          <li><strong>Scatter</strong>: how much the surface diffuses sound.</li>
+        </ul>
+        <p class="note">Values range from <strong>0 to 1</strong>. You can choose presets (Wood, Curtain, Glass, Concrete, Ceramic, etc.) or dial in custom values.</p>
+
+        <p style="margin-top:10px"><strong>Visual feedback (color mapping)</strong></p>
+        <p>
+          Acoustic parameters map to object color — change values and the geometry color changes to reflect acoustic behavior.
+          This makes materials much easier to differentiate at a glance.
+        </p>
+
+        <p class="note">
+          Tip: In the Default Level, if you want to change values of existing walls, choose a <strong>preset first</strong> before adjusting individual values.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Selection shortcuts</h3>
+        <ul class="list">
+          <li><strong>ESC</strong> — unselect</li>
+          <li><strong>Shift + Click</strong> — add/remove objects from selection</li>
+          <li>With multiple selected objects, acoustic changes apply to <strong>all</strong> of them.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>Editing</h3>
+        <ul class="list">
+          <li><strong>Delete</strong> (Ctrl + R / Del) — delete selection</li>
+          <li><strong>Duplicate</strong> (Shift + Space) — instantly duplicate and group the selection</li>
+          <li><strong>Group / Ungroup</strong> — transform multiple objects as one</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>Undo / Redo</h3>
+        <ul class="list">
+          <li><strong>Undo:</strong> Shift + Z</li>
+          <li><strong>Redo:</strong> Shift + Y</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>World Transform (top bar)</h3>
+        <p class="note">
+          You can use World Transform for quick numeric changes — but be aware: these changes are <strong>not undo/redo-able</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 5) SPAWNING -->
+  <section id="forge-spawn" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>5) Spawning Objects, Importing OBJs & Spawn Tools</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Spawning objects</strong></p>
+        <ol class="list">
+          <li>In Build Mode, bottom-center of the editor, open the <strong>Objects</strong> section.</li>
+          <li>Click an object once to enable spawning.</li>
+          <li>Hover anywhere in the editor and <strong>left-click</strong> to place it (as many as you like).</li>
+          <li>Press <strong>ESC</strong> to stop spawning.</li>
+        </ol>
+
+        <div class="hr"></div>
+
+        <p><strong>Import .OBJ meshes</strong></p>
+        <p>
+          In the Objects panel, click <strong>Import</strong> (right side). This lists all OBJs in:
+          <code>C:\\Users\\User\\Documents\\ImpulseForgeImports</code>
+        </p>
+        <ul class="list">
+          <li>Click an imported object to spawn it.</li>
+          <li>If it seems invisible (too small/large), adjust the <strong>Scale</strong> value below Import, then click the object again to re-import at that scale.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Spawn Materials</h3>
+        <p>
+          On the top panel (left of the transform section), open <strong>Spawn Material</strong>.
+          Set the material you want applied to newly spawned objects so they spawn with the correct acoustic settings right away.
+        </p>
+
+        <div class="hr"></div>
+
+        <h3>Spawn Array (build faster)</h3>
+        <p>
+          Left of Spawn Materials you’ll find <strong>Spawn Array</strong>. This lets you spawn multiple objects from one selected object.
+        </p>
+        <ol class="list">
+          <li>Place an object (e.g., a cube) and select it.</li>
+          <li>Click <strong>Volume Array</strong>.</li>
+          <li>Choose how many <strong>steps</strong> it should perform.</li>
+          <li>Use <strong>Increment Transform</strong> to define the change between each step.</li>
+        </ol>
+        <p class="note">
+          Example: set <strong>Z rotation</strong> to <strong>5°</strong> to add 5° per step, creating fast repeating structures and patterns.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- 6) LEVELS -->
+  <section id="forge-levels" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
+    <h3>6) Save / Load / New Level</h3>
+
+    <div class="cols" style="margin-top:10px">
+      <div>
+        <p><strong>Default Level rules</strong></p>
+        <ul class="list">
+          <li>Forge always launches in the <strong>Default Level</strong>.</li>
+          <li>Default Level geometry is <strong>not saved</strong> unless you modified its <strong>acoustic values</strong>.</li>
+        </ul>
+
+        <p style="margin-top:10px"><strong>New Level</strong></p>
+        <p>
+          Clicking <strong>New Level</strong> erases all default geometry, so you end up only with geometry you have placed.
+          You can still build inside the Default Level and Save — it just won’t include default models unless you modified them acoustically.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Saving</h3>
+        <ol class="list">
+          <li>Click <strong>Save</strong>.</li>
+          <li>Enter a name for your current level.</li>
+          <li>Click <strong>Save</strong> to confirm.</li>
+        </ol>
+
+        <div class="hr"></div>
+
+        <h3>Loading</h3>
+        <ol class="list">
+          <li>Click <strong>Load</strong>.</li>
+          <li>Select your level from the list to load it into place.</li>
+        </ol>
+
+        <p class="note">
+          For a clean load of a level you created: click <strong>New Level</strong> first, then <strong>Load</strong> your level.
+        </p>
+      </div>
+    </div>
+  </section>
+</section>`;
+
 
 
       const suiteFaq = `
@@ -2533,6 +2867,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
