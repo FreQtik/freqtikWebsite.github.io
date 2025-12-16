@@ -152,12 +152,73 @@
     }
     .flex-container a:hover { border-bottom:1px solid var(--text); }
     .social-icon { width:20px; height:20px; }
+/* INCLUDED APPS: image left + no cropping */
+.apps-grid{
+  display:grid;
+  gap:18px;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+@media (max-width:900px){
+  .apps-grid{ grid-template-columns: 1fr; }
+}
+
+.app-tile{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+}
+
+.app-tile--wide{
+  grid-column: 1 / -1;
+}
+
+.app-tile__media{
+  flex:0 0 180px;
+  max-width:180px;
+  border:1px solid var(--line);
+  border-radius: var(--rad);
+  background:#fff;
+  box-shadow:0 2px 10px var(--shadow);
+  padding:10px;
+}
+
+.app-tile__media img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+
+.app-tile__body{
+  min-width:0;
+  flex:1;
+}
 
     /* PRODUCT UI */
-    .hero {
-      display:grid; gap:32px; align-items:center;
-      grid-template-columns: minmax(0,2fr) minmax(0,1.4fr);
-    }
+    .hero{
+  display:grid;
+  gap:32px;
+  align-items:center;
+
+  /* Image left, copy right (desktop) */
+  grid-template-columns: minmax(0,1.4fr) minmax(0,2fr);
+  grid-template-areas: "media copy";
+}
+
+.hero-art{ grid-area: media; }
+.hero-copy{ grid-area: copy; }
+
+/* Mobile: keep copy first, image second */
+@media (max-width:600px){
+  .hero{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "media";
+  }
+}
+
     .hero-art .card img {
       display:block;
       width:100%;
@@ -774,11 +835,18 @@
   return `
   <section id="${opts.id}">
     <div class="hero">
-      <div>
+      <div class="hero-art">
+        <div class="card">
+          <img src="${opts.img}" alt="${opts.title} UI preview" loading="lazy">
+        </div>
+      </div>
+
+      <div class="hero-copy">
         <span class="kicker">${opts.kicker}</span>
         <h1>${opts.title}</h1>
         <p class="tagline">${opts.tagline}</p>
-                <div class="cta-row">
+
+        <div class="cta-row">
           ${opts.buyHref && opts.priceFrom ? `
           <a class="btn primary"
              href="${opts.buyHref}"
@@ -787,6 +855,7 @@
              aria-label="Buy ${opts.title}">
             Buy from €${opts.priceFrom}
           </a>` : ''}
+
           <a class="btn"
              href="${opts.demoHref}"
              target="_blank"
@@ -794,19 +863,16 @@
              aria-label="${opts.secondaryCtaLabel || ('Try ' + opts.title + ' demo')}">
             ${opts.secondaryCtaLabel || 'Try Demo'}
           </a>
+
           ${opts.docsHref ? `<a class="btn ghost" href="${opts.docsHref}" onclick="loadFeed('docs');">Docs</a>` : ''}
         </div>
 
         <p class="note">${opts.req}</p>
       </div>
-      <div class="hero-art">
-        <div class="card">
-          <img src="${opts.img}" alt="${opts.title} UI preview">
-        </div>
-      </div>
     </div>
   </section>`;
 }
+
 
 
     function pricingGrid(title, plans){
@@ -1488,58 +1554,72 @@
   const tiles = `
   <section>
     <h2>Included Apps</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Impulse Anvil <span class="badge">VST3 · Windows</span></h3>
-        <div class="media-pane" style="margin-bottom:10px;">
-          <img src="anvilProductImage.png" alt="Impulse Anvil" onerror="this.closest('.media-pane').classList.add('media-hide')">
-        </div>
-        <p class="muted">IR morphing, colouring, Fractal depth and bake-to-WAV directly inside your DAW.</p>
-        <div class="hr"></div>
-        <ul class="list">
-          <li>Dual A/B slots for IRs you already own.</li>
-          <li>Time and spectral morph modes with curve shaping.</li>
-          <li>Colour Stripes + Fractal depth for alive, evolving spaces.</li>
-          <li>Bake your results as portable WAV IRs.</li>
-        </ul>
-        <div class="hr"></div>
-        <div class="cta-row">
-          <a class="btn" href="#" onclick="loadFeed('anvil');return false;">See Anvil</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Impulse Forge <span class="badge">Acoustic Editor · Windows</span></h3>
-        <div class="media-pane" style="margin-bottom:10px;">
-          <img src="ImpulseForgeProductImage.png" alt="Impulse Forge" onerror="this.closest('.media-pane').classList.add('media-hide')">
-        </div>
-        <p class="muted">Build rooms, fly through them, feed them from your DAW and bake their acoustics.</p>
-        <div class="hr"></div>
-        <ul class="list">
-          <li>Geometry-based acoustic sandbox with snapping and grouping.</li>
-          <li>Acoustic materials with absorption, transmission and scattering.</li>
-          <li>.OBJ import from any 3D tool for custom spaces.</li>
-                    <li>Live input from Impulse Anvil via the VST3 bridge.</li>
-          <li>Bake to high-quality WAV IRs.</li>
-        </ul>
 
-        <div class="hr"></div>
-        <div class="cta-row">
-          <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
+    <div class="apps-grid">
+      <div class="card app-tile">
+        <div class="app-tile__media">
+          <img src="anvilProductImage.png" alt="Impulse Anvil" loading="lazy">
         </div>
-      </div>
-                  <div class="card">
-        <h3>Install the Suite</h3>
-        <p class="muted">Impulse Smith Suite is the shared installer that sets up both Impulse Anvil and Impulse Forge in demo mode.</p>
-        <p class="note">Licenses for Anvil and Forge are purchased separately. There is no combined “bundle” license – Impulse Smith is the name of the installer and workflow, not a separate product.</p>
-        <div class="hr"></div>
-        <div class="cta-row">
-          <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download Installer</a>
-          <a class="btn ghost" href="#" onclick="loadFeed('downloads');return false;">More about installation</a>
+
+        <div class="app-tile__body">
+          <h3>Impulse Anvil <span class="badge">VST3 · Windows</span></h3>
+          <p class="muted">IR morphing, colouring, Fractal depth and bake-to-WAV directly inside your DAW.</p>
+          <div class="hr"></div>
+          <ul class="list">
+            <li>Dual A/B slots for IRs you already own.</li>
+            <li>Time and spectral morph modes with curve shaping.</li>
+            <li>Colour Stripes + Fractal depth for alive, evolving spaces.</li>
+            <li>Bake your results as portable WAV IRs.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="cta-row">
+            <a class="btn" href="#" onclick="loadFeed('anvil');return false;">See Anvil</a>
+          </div>
         </div>
       </div>
 
+      <div class="card app-tile">
+        <div class="app-tile__media">
+          <img src="ImpulseForgeProductImage.png" alt="Impulse Forge" loading="lazy">
+        </div>
+
+        <div class="app-tile__body">
+          <h3>Impulse Forge <span class="badge">Acoustic Editor · Windows</span></h3>
+          <p class="muted">Build rooms, fly through them, feed them from your DAW and bake their acoustics.</p>
+          <div class="hr"></div>
+          <ul class="list">
+            <li>Geometry-based acoustic sandbox with snapping and grouping.</li>
+            <li>Acoustic materials with absorption, transmission and scattering.</li>
+            <li>.OBJ import from any 3D tool for custom spaces.</li>
+            <li>Live input from Impulse Anvil via the VST3 bridge.</li>
+            <li>Bake to high-quality WAV IRs.</li>
+          </ul>
+          <div class="hr"></div>
+          <div class="cta-row">
+            <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card app-tile app-tile--wide">
+        <div class="app-tile__media">
+          <img src="ImpulseSmithSuite.png" alt="Impulse Smith Suite" loading="lazy">
+        </div>
+
+        <div class="app-tile__body">
+          <h3>Install the Suite</h3>
+          <p class="muted">Impulse Smith Suite is the shared installer that sets up both Impulse Anvil and Impulse Forge in demo mode.</p>
+          <p class="note">Licenses for Anvil and Forge are purchased separately. There is no combined “bundle” license – Impulse Smith is the name of the installer and workflow, not a separate product.</p>
+          <div class="hr"></div>
+          <div class="cta-row">
+            <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download Installer</a>
+            <a class="btn ghost" href="#" onclick="loadFeed('downloads');return false;">More about installation</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>`;
+
 
   const related = `
   <section>
@@ -3210,6 +3290,7 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
+
 
 
 
