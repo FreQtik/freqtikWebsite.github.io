@@ -142,7 +142,7 @@
     section h2 { margin-bottom:20px; font-size:32px; border-bottom:1px solid var(--line); padding-bottom:5px; }
     section p, section ul { font-size:16px; line-height:1.65; color:var(--text); }
     section small { color:var(--muted); }
-    section ul { list-style:inside; }
+    section ul { list-style: disc; list-style-position: outside; padding-left: 1.15em; }
     .flex-container {
       display:flex; gap:20px; flex-wrap:wrap; justify-content:center; margin-top:20px;
     }
@@ -209,17 +209,29 @@
 .hero-art{ grid-area: media; }
 .hero-copy{ grid-area: copy; }
 
-/* Mobile: keep copy first, image second */
+/* Mobile: stack tiles vertically (image on top, copy below) */
+@media (max-width:700px){
+  .app-tile{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .app-tile__media{
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+}
+
+/* Mobile: image on top, copy below */
 @media (max-width:600px){
   .hero{
     grid-template-columns: 1fr;
     grid-template-areas:
-      "copy"
-      "media";
+      "media"
+      "copy";
   }
 }
 
-    .hero-art .card img {
+.hero-art .card img {
       display:block;
       width:100%;
       height:auto;
@@ -262,7 +274,7 @@
     .kicker { text-transform:uppercase; letter-spacing:.12em; font-weight:800; font-size:12px; color:#333; }
     .note { font-size:13px; color:var(--muted); margin-top:8px; }
     .cols { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    .list { margin-top:8px; }
+    .list { margin-top:8px; list-style: disc; list-style-position: outside; padding-left: 1.15em; }
     .list li { margin:6px 0; }
     .hr { height:1px; background:var(--line); margin:18px 0; }
     .tiny { font-size:12px; color:var(--muted); }
@@ -1434,12 +1446,12 @@
         </article>
 
         <article class="anvil-slide">
-          <h3>Lerp Bake: rooms that evolve over time</h3>
-          <p>Instead of printing a single morph position, <strong>Lerp Bake</strong> exports one IR that starts like A and gradually becomes B across the decay — ideal for “room transitions” you can trigger with a single convolution.</p>
+          <h3>Lerp Bake: evolving rooms in one IR</h3>
+          <p><strong>Lerp Bake</strong> prints a single WAV IR that begins as A and gradually becomes B across the decay. The result is an evolving “moving room” with head‑turning complexity — designed to go beyond your imagination, yet still usable in a single convolution instance.</p>
           <ul class="list">
-            <li><strong>Early reflections stay stable:</strong> the first ~60 ms stays at A, then the tail crossfades toward B using your Curve + K settings.</li>
-            <li><strong>Edge case — B shorter than A:</strong> the baked IR uses the <em>longer</em> length of A/B. If B ends earlier, the late tail will trend toward silence once the curve reaches B (because there’s no B data beyond its end).</li>
-            <li><strong>Common pitfalls to avoid:</strong> match decay lengths with Stretch A/B, enable <em>Align Peaks</em> if transients don’t line up, and gain‑match or normalize before export.</li>
+            <li><strong>Designed for clarity:</strong> the first ~60 ms stays at A, while the late tail transitions A→B with your Curve Type + K.</li>
+            <li><strong>Bakeable means stackable:</strong> because the output is a standard IR, you can re‑load it, layer it, and stack multiple lerped rooms (multiple instances) for genuinely new spaces.</li>
+            <li><strong>Pro tips (predictable results):</strong> use Stretch A/B to match decay lengths; enable Align Peaks for tight transients; if B is shorter than A, the far tail will naturally thin out once B runs out — stretch B or shorten A if you want the tail fully “occupied.”</li>
           </ul>
         </article>
 
