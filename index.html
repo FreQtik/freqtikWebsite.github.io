@@ -1434,12 +1434,12 @@
         </article>
 
         <article class="anvil-slide">
-          <h3>Bake your wildest FX chains</h3>
-          <p>Have an insane effect chain that eats CPU, but you’re not ready to print it? Bake it into an IR.</p>
+          <h3>Lerp Bake: rooms that evolve over time</h3>
+          <p>Instead of printing a single morph position, <strong>Lerp Bake</strong> exports one IR that starts like A and gradually becomes B across the decay — ideal for “room transitions” you can trigger with a single convolution.</p>
           <ul class="list">
-            <li>Send a short burst of white/pink noise or a percussive hit through the chain at 100% wet.</li>
-            <li>Capture the full tail, export that audio and drop it into Anvil.</li>
-            <li>Now that whole chain is a portable IR you can morph, EQ and use anywhere – without the CPU bill.</li>
+            <li><strong>Early reflections stay stable:</strong> the first ~60 ms stays at A, then the tail crossfades toward B using your Curve + K settings.</li>
+            <li><strong>Edge case — B shorter than A:</strong> the baked IR uses the <em>longer</em> length of A/B. If B ends earlier, the late tail will trend toward silence once the curve reaches B (because there’s no B data beyond its end).</li>
+            <li><strong>Common pitfalls to avoid:</strong> match decay lengths with Stretch A/B, enable <em>Align Peaks</em> if transients don’t line up, and gain‑match or normalize before export.</li>
           </ul>
         </article>
 
@@ -1493,12 +1493,12 @@
         </div>
       </div>
       <div class="card">
-        <h3>Bake your FX chains</h3>
-        <p class="muted">Turn a huge FX chain into a single IR and free your CPU – then morph it anyway.</p>
+        <h3>Lerp Bake (A→B over time)</h3>
+        <p class="muted">Export one IR that transitions from A to B across its decay — useful for evolving spaces without host automation.</p>
         <div class="hr"></div>
         <div class="media-pane">
           <!-- TODO: replace VIDEO_ID_3 with your real YouTube ID -->
-          <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID_3" loading="lazy" title="Baking FX chains into IRs" allowfullscreen></iframe>
+          <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID_3" loading="lazy" title="Lerp Bake (A→B over time)" allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -1545,7 +1545,7 @@
 
 
                 const demo = demoSection([
-        { name:'Anvil', detail:'Perpetual demo. Short periodic mute; export limited and some features locked compared to full versions. Includes the ABSTRACT SPACES IR pack (31 IRs).' },
+        { name:'Anvil', detail:'Perpetual demo. Every ~40 seconds, playback switches to a very quiet filtered-noise indicator for ~5 seconds (so you can tell the bus is alive). Time Morph only (Linear curve), 1 Color stripe per IR, no Fractal, no export. Includes the ABSTRACT SPACES IR pack (31 IRs).' },
         { name:'Forge', detail:'Full editor and live listening; export / bake to WAV is disabled in the demo.' }
       ]);
 
@@ -1567,9 +1567,9 @@
           <div class="hr"></div>
           <ul class="list">
             <li>Dual A/B slots for IRs you already own.</li>
-            <li>Time and spectral morph modes with curve shaping.</li>
-            <li>Colour Stripes + Fractal depth for alive, evolving spaces.</li>
-            <li>Bake your results as portable WAV IRs.</li>
+            <li>Time Morph with curve shaping (all tiers); Spectral morph modes are <strong>Pro</strong>.</li>
+            <li>Colour Stripes (C1) for tonal shaping; <strong>Pro</strong> adds C2 + Fractal depth.</li>
+            <li>Bake morphed IRs to WAV (Basic/Pro) and Lerp Bake A→B over time (Pro).</li>
           </ul>
           <div class="hr"></div>
           <div class="cta-row">
@@ -1676,7 +1676,7 @@
             <p><strong>Impulse Responses are amazing.</strong> They’re like a “photo” of how a space or effect reacts to sound.</p>
             <p>Imagine you clap your hands in a room. You hear the first hit, then all the reflections and reverb as the sound dies away. If you record that clap and the whole decay very cleanly, you’ve basically captured the <strong>fingerprint of that room</strong>.</p>
             <p>Convolution reverb takes that fingerprint and <strong>stamps it onto any sound you want</strong>. Play a dry vocal through a cathedral IR and it feels like the singer is really in that cathedral. Do the same with a tiny bathroom IR and suddenly it sounds like they’re in a tiled box.</p>
-            <p>But it doesn’t have to be “rooms”. If you record things like ice cracks, traffic, fabric rustling or wild FX chains and turn them into IRs, they become <strong>insanely complex filters and textures</strong> you can morph and reuse everywhere.</p>
+            <p>But it doesn’t have to be “rooms”. If you record things like ice cracks, traffic, fabric rustling or resonant objects and turn them into IRs, they become <strong>insanely complex filters and textures</strong> you can morph and reuse everywhere.</p>
             <p class="note">Impulse Anvil exists to make that whole process fun: record, build, bake, morph – and end up with IRs nobody else has.</p>
           </div>
         </div>
@@ -1768,7 +1768,7 @@
         {
           name:'Basic', price:39, subtitle:'Core morph & bake',
           points:[
-            'Time Morph engine',
+            'Time Morph engine + curve shaping',
             'Live Morph + Bake Morph export',
             '1 Color stripe per IR',
             'Per-IR gain & time stretch',
@@ -1781,8 +1781,9 @@
           name:'Pro', price:79, subtitle:'Full spectral & fractal toolkit', popular:true,
           points:[
             'Time + Spectral morph modes',
-            'Spectral morph modes (Pro)',
-            '2 Color stripes per IR',
+            'Curve shaping (Linear / Exp / Log / S‑Curve / Power)',
+            'Lerp Bake (A→B over time) + Lerp Preview',
+            '2 Color stripes per IR (C1 + C2)',
             'Fractal depth per slot'
           ],
           buyHref:'#TODO-buy-anvil-pro',
@@ -1798,8 +1799,9 @@
         { name:'Fractal depth',      cells:['—','—','✓'] },
         { name:'Per-IR stretch & gain', cells:['✓','✓','✓'] },
         { name:'Bake / Export IR',   cells:['—','✓','✓'] },
+        { name:'Lerp Bake (A→B over time)', cells:['—','—','✓'] },
         { name:'Spectral morph modes', cells:['—','—','✓'] },
-        { name:'Demo mute / watermark', cells:['Periodic short mute','—','—'] }
+        { name:'Demo indicator', cells:['Periodic quiet filtered noise (~5s / ~40s)','—','—'] }
       ]);
 
 
@@ -1897,7 +1899,7 @@
             const demo = demoSection([
         {
           name:'Anvil',
-          detail:'Perpetual demo with short periodic mute during playback. Time Morph only, 1 Color stripe per IR, no Fractal, no export.'
+          detail:'Perpetual demo with a periodic quiet noise indicator (~5s every ~40s). Time Morph only (Linear curve), 1 Color stripe per IR, no Fractal, no export.'
         }
       ]);
 
@@ -2948,16 +2950,16 @@
             <ul class="list">
               <li>a real room, tunnel or stairwell,</li>
               <li>a guitar cab and microphone chain,</li>
-              <li>a hardware FX box, pedalboard or plugin chain,</li>
+              <li>a resonant object or instrument body,</li>
               <li>or even a noisy field recording you’ve shaped on purpose.</li>
             </ul>
-            <p>When you convolve another sound with that IR, you’re effectively playing your new sound <em>through</em> that room, chain or texture.</p>
+            <p>When you convolve another sound with that IR, you’re effectively playing your new sound <em>through</em> that space, resonance or texture.</p>
           </div>
           <div class="card">
             <h3>Creative IR ideas</h3>
             <ul class="list">
               <li>Turn “bad” recordings into <strong>beautiful filters</strong> – pops, clicks, rustling fabric, city noise, ice cracking.</li>
-              <li>Record CPU-heavy FX chains once as a short noise burst, bake the result and re-use it as a light-weight IR anywhere.</li>
+              <li>Create evolving spaces with <strong>Lerp Bake (Pro)</strong>: print A→B transitions into a single IR you can use in any convolver.</li>
               <li>Capture real-world gestures: a footstep in frozen grass, sliding over dirt, wind through weeds – the motion becomes your reverb tail.</li>
               
             </ul>
@@ -3290,34 +3292,3 @@ window.addEventListener('hashchange', () => {
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
