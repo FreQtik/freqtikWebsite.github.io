@@ -661,6 +661,40 @@
         grid-template-columns:1fr;
       }
     }
+  
+    /* Micro Mouse Trainer embed */
+    .micro-game-section {
+      max-width: min(1400px, calc(100vw - 24px));
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .micro-game-copy {
+      max-width: 900px;
+      margin-bottom: 18px;
+    }
+    .micro-game-shell {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--rad);
+      box-shadow: 0 10px 28px var(--shadow);
+      background: #020617;
+      overflow: hidden;
+    }
+    .micro-game-frame {
+      display: block;
+      width: 100%;
+      height: min(92vh, 960px);
+      min-height: 760px;
+      border: 0;
+      background: #020617;
+    }
+    @media (max-width: 700px) {
+      .micro-game-frame {
+        height: 86vh;
+        min-height: 720px;
+      }
+    }
+
   </style>
 
   <!-- Organization JSON-LD -->
@@ -766,6 +800,7 @@
 
         <a href="#" onclick="loadFeed('ltb');closeDropdowns();return false;">Games · Learning to Bear</a>
         <a href="#" onclick="loadFeed('aim');closeDropdowns();return false;">Games · Aim Trainer Bee Pro</a>
+        <a href="#" onclick="loadFeed('microgame');closeDropdowns();return false;">Games · Micro Mouse Trainer</a>
         <a href="aimgame.html" onclick="closeDropdowns()">Games · UFO Clicker</a>
 
         <a href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
@@ -3038,6 +3073,27 @@
             setTimeout(()=>fetchSteam(feed,id),0);
             break;
           }
+
+          case 'microgame':
+            html = `<section id="microgame" class="depth-effect micro-game-section">
+              <h2>Micro Mouse Star Trainer</h2>
+              <div class="micro-game-copy">
+                <p>Train mouse micro-control directly in the browser: star layouts, ring drills, circle reps, depth training, timing, accuracy, weakness reports, and focused follow-up drills.</p>
+                <p class="note">The game is embedded from <code>micro_mouse_star_trainer_circle_reps_depth.html</code>. Upload that file next to this <code>index.html</code> in the repository root.</p>
+              </div>
+              <div class="micro-game-shell">
+                <iframe class="micro-game-frame"
+                        src="micro_mouse_star_trainer_circle_reps_depth.html"
+                        title="Micro Mouse Star Trainer"
+                        loading="eager"
+                        allow="fullscreen"></iframe>
+              </div>
+              <p class="note" style="margin-top:16px;">
+                If the game does not load, open it directly here:
+                <a href="micro_mouse_star_trainer_circle_reps_depth.html" target="_blank" rel="noopener">Micro Mouse Star Trainer</a>.
+              </p>
+            </section>`;
+            break;
 
           case 'youtube':
             html = `<section id="youtube" class="depth-effect">
