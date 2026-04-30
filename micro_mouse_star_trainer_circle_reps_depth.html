@@ -1,0 +1,2502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Micro Mouse Star Trainer</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: rgba(15, 23, 42, 0.74);
+      --panel-2: rgba(255, 255, 255, 0.055);
+      --line: rgba(255, 255, 255, 0.11);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --soft: #cbd5e1;
+      --orange: #fb923c;
+      --orange-2: #fdba74;
+      --green: #22c55e;
+      --danger: #ef4444;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius-xl: 28px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -8%, rgba(251, 146, 60, 0.24), transparent 32rem),
+        radial-gradient(circle at 92% 110%, rgba(34, 211, 238, 0.11), transparent 34rem),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+    }
+
+    .page {
+      position: relative;
+      width: min(1380px, calc(100vw - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(251, 146, 60, 0.22);
+      background: rgba(251, 146, 60, 0.12);
+      color: #fed7aa;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: #cbd5e1;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 370px;
+      gap: 22px;
+      flex: 1;
+    }
+
+    .arena-card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .arena-card { padding: 16px; }
+
+    .arena {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 560px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at center, rgba(251, 146, 60, 0.16), rgba(15, 23, 42, 0.96) 33%, #020617 79%);
+      user-select: none;
+    }
+
+    #gameSvg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hud {
+      pointer-events: none;
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+      z-index: 5;
+    }
+
+    .hud-box {
+      border: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.72);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 12px 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      max-width: 48%;
+    }
+
+    .hud-label,
+    .section-label {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.21em;
+      text-transform: uppercase;
+    }
+
+    .hud-value {
+      margin: 0;
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel { padding: 18px; }
+
+    .group { margin-top: 16px; }
+    .group:first-of-type { margin-top: 12px; }
+    .group-title {
+      margin: 0 0 8px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 14px;
+      font-weight: 800;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .pill:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.14); color: #fff; }
+    .pill.active { color: #0f172a; background: var(--orange); box-shadow: 0 12px 28px rgba(251, 146, 60, 0.18); }
+
+    .reset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 9px 14px;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.1);
+      font-weight: 800;
+    }
+
+    .note {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 18px;
+      padding: 13px;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 14px;
+      min-height: 100px;
+    }
+
+    .stat-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      margin: 6px 0 0;
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-sub {
+      margin: 8px 0 0;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .progress-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--orange);
+      transition: width 0.2s ease;
+    }
+
+    .target-hitbox { cursor: crosshair; touch-action: manipulation; }
+    .center-hitbox { cursor: pointer; touch-action: manipulation; }
+    .arena { touch-action: manipulation; }
+
+    .overlay {
+      position: absolute;
+      inset: 14px;
+      z-index: 10;
+      overflow-y: auto;
+      border: 1px solid rgba(251, 146, 60, 0.22);
+      border-radius: 24px;
+      background: rgba(2, 6, 23, 0.94);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.52);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      display: none;
+    }
+
+    .overlay.show { display: block; animation: pop 0.18s ease-out; }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .report-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .report-head h2 {
+      margin: 10px 0 6px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .score-badge {
+      min-width: 150px;
+      border-radius: 24px;
+      padding: 16px 18px;
+      color: #0f172a;
+      text-align: center;
+      background: var(--orange);
+    }
+
+    .score-badge span {
+      display: block;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .score-badge strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .report-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 18px;
+      padding: 12px;
+    }
+
+    .metric label {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 6px;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 14px;
+    }
+
+    .report-section {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.052);
+      border-radius: 20px;
+      padding: 14px;
+    }
+
+    .report-section h3 {
+      margin: 0 0 12px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .weakness {
+      border: 1px solid rgba(251, 146, 60, 0.16);
+      background: rgba(251, 146, 60, 0.075);
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .weakness:first-child { margin-top: 0; }
+
+    .weakness-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .weakness small {
+      display: block;
+      color: #fed7aa;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .weakness h4 {
+      margin: 4px 0 0;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .severity {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.55);
+      padding: 5px 10px;
+      color: #fed7aa;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: var(--orange);
+    }
+
+    .weakness p {
+      margin: 12px 0 0;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .tip {
+      margin-top: 12px;
+      border-radius: 14px;
+      background: rgba(2, 6, 23, 0.48);
+      padding: 11px;
+      color: #fff7ed !important;
+    }
+
+    .mini-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 105px 1fr 72px;
+      gap: 9px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .mini-row span:first-child {
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mini-row span:last-child {
+      color: #94a3b8;
+      text-align: right;
+    }
+
+    .mini-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    .mini-track i {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      min-width: 4%;
+    }
+
+    .slow-target {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      border-radius: 14px;
+      padding: 10px;
+      margin-top: 8px;
+      background: rgba(255, 255, 255, 0.045);
+      font-size: 13px;
+    }
+
+    .slow-target b {
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .slow-target small {
+      color: #94a3b8;
+      display: block;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .rank {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fed7aa;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .report-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .primary {
+      border-radius: 999px;
+      background: var(--orange);
+      color: #0f172a;
+      padding: 11px 16px;
+      font-weight: 900;
+    }
+
+    .secondary {
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      padding: 11px 16px;
+      font-weight: 900;
+    }
+
+
+    .train-issue {
+      margin-top: 12px;
+      width: 100%;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fb923c, #fdba74);
+      color: #0f172a;
+      padding: 11px 14px;
+      font-weight: 950;
+      box-shadow: 0 14px 34px rgba(251, 146, 60, 0.18);
+    }
+
+    .drill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(251, 146, 60, 0.22);
+      background: rgba(251, 146, 60, 0.12);
+      color: #fed7aa;
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .drill-card {
+      border: 1px solid rgba(251, 146, 60, 0.18);
+      background: rgba(251, 146, 60, 0.07);
+      border-radius: 20px;
+      padding: 14px;
+    }
+
+
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .range-row input[type="range"] {
+      width: 100%;
+      accent-color: var(--orange);
+    }
+    .mode-note {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+      padding: 13px;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    @media (max-width: 1050px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .side .panel:first-child, .side .panel:last-child { grid-column: 1 / -1; }
+      .arena { min-height: auto; }
+    }
+
+    @media (max-width: 760px) {
+      .page { width: min(100vw - 20px, 1380px); padding: 10px 0; }
+      .header, .report-head { flex-direction: column; }
+      .top-actions { justify-content: flex-start; }
+      .side { display: flex; }
+      .hud { flex-direction: column; align-items: stretch; }
+      .hud-box { max-width: none; }
+      .report-metrics { grid-template-columns: repeat(2, 1fr); }
+      .report-grid { grid-template-columns: 1fr; }
+      .mini-row { grid-template-columns: 92px 1fr 64px; }
+    }
+
+    @media (max-width: 500px) {
+      .stats-grid, .report-metrics { grid-template-columns: 1fr; }
+      .overlay { inset: 8px; padding: 14px; }
+      .arena-card { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <div class="eyebrow">⌖ Micro Mouse Trainer</div>
+        <h1>Star Click Arena</h1>
+        <p class="lead">
+          Click the orange center, strike the highlighted target, return to center, then continue.
+          After each run, the report identifies weak directions, distance control, rhythm, misses, and gives a specific drill tip.
+        </p>
+      </div>
+      <div class="top-actions">
+        <button class="pill active" data-layout-top="ring">Ring</button>
+        <button class="pill" data-layout-top="star">Star</button>
+        <button class="pill" data-layout-top="triple">Triple ring</button>
+        <button class="reset-btn" id="resetTop">↻ Reset</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <section class="arena-card">
+        <div class="arena" id="arena">
+          <svg id="gameSvg" viewBox="0 0 100 100" aria-label="Micro mouse trainer game board">
+            <defs>
+              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="1.4" result="coloredBlur"></feGaussianBlur>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+              </filter>
+              <radialGradient id="centerGradient" cx="50%" cy="38%" r="70%">
+                <stop offset="0%" stop-color="#fed7aa"></stop>
+                <stop offset="45%" stop-color="#fb923c"></stop>
+                <stop offset="100%" stop-color="#ea580c"></stop>
+              </radialGradient>
+            </defs>
+            <g id="ringsLayer"></g>
+            <g id="starLayer"></g>
+            <g id="guideLayer"></g>
+            <g id="targetsLayer"></g>
+            <g id="centerLayer"></g>
+          </svg>
+
+          <section class="overlay" id="reportOverlay" aria-live="polite"></section>
+
+          <div class="hud">
+            <div class="hud-box">
+              <p class="hud-label">Current task</p>
+              <p class="hud-value" id="currentTask">Press center to start</p>
+            </div>
+            <div class="hud-box">
+              <p class="hud-label">Feedback</p>
+              <p class="hud-value" id="feedback">Press the orange center to start.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="panel">
+          <p class="section-label">Setup</p>
+
+          <div class="group">
+            <p class="group-title">Layout</p>
+            <div class="buttons">
+              <button class="pill active" data-layout="ring">Ring</button>
+              <button class="pill" data-layout="star">Star</button>
+              <button class="pill" data-layout="triple">Triple</button>
+            </div>
+          </div>
+
+          <div class="group" id="targetCountGroup">
+            <p class="group-title">Targets</p>
+            <div class="buttons">
+              <button class="pill" data-count="12">12</button>
+              <button class="pill active" data-count="24">24</button>
+              <button class="pill" data-count="32">32</button>
+            </div>
+          </div>
+
+          <div class="group note" id="tripleNote" style="display:none">
+            Triple ring uses <b style="color:#fff">68 targets</b>: 12 inner, 24 middle, and 32 outer.
+          </div>
+
+          <div class="group">
+            <p class="group-title">Target size</p>
+            <div class="buttons">
+              <button class="pill" data-size="small">Small</button>
+              <button class="pill active" data-size="medium">Medium</button>
+              <button class="pill" data-size="big">Big</button>
+            </div>
+          </div>
+
+          <div class="group">
+            <p class="group-title">Circle scale</p>
+            <div class="buttons">
+              <button class="pill" data-scale="small">Small</button>
+              <button class="pill active" data-scale="medium">Medium</button>
+              <button class="pill" data-scale="big">Big</button>
+            </div>
+            <div class="note" style="margin-top:10px">Small circles train close micro-control. Large circles train longer mouse travel.</div>
+          </div>
+
+          <div class="group">
+            <p class="group-title">Target order</p>
+            <div class="buttons">
+              <button class="pill active" data-order="clockwise">Clockwise</button>
+              <button class="pill" data-order="counterclockwise">Counterclockwise</button>
+              <button class="pill" data-order="random">Random</button>
+            </div>
+          </div>
+
+          <div class="group" id="ringStrategyGroup" style="display:none">
+            <p class="group-title">Triple-ring behavior</p>
+            <div class="buttons">
+              <button class="pill active" data-ring-strategy="inside-out">Inside → outside</button>
+              <button class="pill" data-ring-strategy="outside-in">Outside → inside</button>
+              <button class="pill" data-ring-strategy="random">Random</button>
+            </div>
+          </div>
+
+          <div class="group">
+            <p class="group-title">Practice mode</p>
+            <div class="buttons">
+              <button class="pill active" data-practice="normal">Normal run</button>
+              <button class="pill" data-practice="circle">Circle reps</button>
+              <button class="pill" data-practice="depth">Depth reps</button>
+            </div>
+            <div class="mode-note" id="circlePracticeNote">
+              <b style="color:#fff">Circle reps:</b> one target repeats until you complete the chosen rep count, then the next target appears by your selected order.
+            </div>
+          </div>
+
+          <div class="group" id="circleRepOptions">
+            <p class="group-title">Circle reps settings</p>
+            <div class="buttons">
+              <button class="pill active" data-reps-per-target="3">3 per target</button>
+              <button class="pill" data-reps-per-target="5">5 per target</button>
+              <button class="pill" data-reps-per-target="10">10 per target</button>
+            </div>
+            <div class="buttons" style="margin-top:8px">
+              <button class="pill active" data-depth-direction="outside-in">Depth outside → inside</button>
+              <button class="pill" data-depth-direction="inside-out">Depth inside → outside</button>
+            </div>
+            <div class="range-row">
+              <input id="startAngleSlider" type="range" min="0" max="359" value="270" step="1" />
+              <span class="severity" id="startAngleValue">270°</span>
+            </div>
+            <div class="note" style="margin-top:10px">
+              Start position controls the first target angle. 270° is top, 0° is right, 90° is bottom, and 180° is left.
+            </div>
+          </div>
+
+        </section>
+
+        <section class="stats-grid">
+          <div class="stat">
+            <p class="stat-label">Score</p>
+            <p class="stat-value" id="scoreStat">0</p>
+            <p class="stat-sub">Speed × accuracy × difficulty</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">Time</p>
+            <p class="stat-value" id="timeStat">0:00.0</p>
+            <p class="stat-sub" id="timeSub">Timer starts on center</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">Accuracy</p>
+            <p class="stat-value" id="accuracyStat">100%</p>
+            <p class="stat-sub" id="accuracySub">0/0 valid clicks</p>
+          </div>
+          <div class="stat">
+            <p class="stat-label">Combo</p>
+            <p class="stat-value" id="comboStat">0</p>
+            <p class="stat-sub" id="comboSub">Best: 0</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div style="display:flex;justify-content:space-between;gap:16px;align-items:center">
+            <div>
+              <p class="section-label">Progress</p>
+              <p class="stat-value" style="margin-top:0" id="progressText">0/24</p>
+            </div>
+            <div style="text-align:right;color:#cbd5e1;font-size:14px">
+              <div>Clicks: <b style="color:#fff" id="clicksText">0</b></div>
+              <div>Misses: <b style="color:#fff" id="missesText">0</b></div>
+            </div>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="note" style="margin-top:14px" id="setupSummary"></div>
+        </section>
+
+        <section class="panel">
+          <p class="group-title">Analysis model</p>
+          <p class="lead" style="font-size:14px">
+            Each completed target stores acquisition time, center-return time, missed-click phase, target direction, and ring distance.
+            The post-run report converts that into weakness cards with drills.
+          </p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const TARGET_OPTIONS = [12, 24, 32];
+    const CENTER = { x: 50, y: 50 };
+    const SIZE_OPTIONS = { small: 0.72, medium: 1, big: 1.38 };
+    const CIRCLE_SCALE_OPTIONS = { small: 0.68, medium: 1, big: 1.12 };
+    const DRILL_REPS = 20;
+    const CIRCLE_REP_OPTIONS = [3, 5, 10];
+    const DEPTH_RADII = [38, 29, 18];
+    const EMPTY_MISS_BREAKDOWN = { target: 0, return: 0, wrongTarget: 0, background: 0, earlyCenter: 0 };
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    const state = {
+      layout: "ring",
+      targetCount: 24,
+      angleOrder: "clockwise",
+      ringStrategy: "inside-out",
+      targetSize: "medium",
+      circleScale: "medium",
+      practiceMode: "normal",
+      circleRepsPerTarget: 3,
+      circleStartAngle: 270,
+      depthDirection: "outside-in",
+      training: null,
+      seed: Date.now(),
+      phase: "idle",
+      currentIndex: 0,
+      startTime: null,
+      elapsedMs: 0,
+      targetHits: 0,
+      centerHits: 0,
+      misses: 0,
+      combo: 0,
+      bestCombo: 0,
+      pendingTargetId: null,
+      pendingStep: null,
+      targetStartedAt: null,
+      targetLockedAt: null,
+      runEvents: [],
+      currentTargetMisses: 0,
+      currentReturnMisses: 0,
+      missBreakdown: { ...EMPTY_MISS_BREAKDOWN },
+      lastRunStats: null,
+      feedback: "Press the orange center to start.",
+      timerId: null,
+      targets: []
+    };
+
+    const els = {
+      arena: document.getElementById("arena"),
+      svg: document.getElementById("gameSvg"),
+      ringsLayer: document.getElementById("ringsLayer"),
+      starLayer: document.getElementById("starLayer"),
+      guideLayer: document.getElementById("guideLayer"),
+      targetsLayer: document.getElementById("targetsLayer"),
+      centerLayer: document.getElementById("centerLayer"),
+      reportOverlay: document.getElementById("reportOverlay"),
+      currentTask: document.getElementById("currentTask"),
+      feedback: document.getElementById("feedback"),
+      scoreStat: document.getElementById("scoreStat"),
+      timeStat: document.getElementById("timeStat"),
+      timeSub: document.getElementById("timeSub"),
+      accuracyStat: document.getElementById("accuracyStat"),
+      accuracySub: document.getElementById("accuracySub"),
+      comboStat: document.getElementById("comboStat"),
+      comboSub: document.getElementById("comboSub"),
+      progressText: document.getElementById("progressText"),
+      clicksText: document.getElementById("clicksText"),
+      missesText: document.getElementById("missesText"),
+      progressFill: document.getElementById("progressFill"),
+      setupSummary: document.getElementById("setupSummary"),
+      targetCountGroup: document.getElementById("targetCountGroup"),
+      tripleNote: document.getElementById("tripleNote"),
+      ringStrategyGroup: document.getElementById("ringStrategyGroup"),
+      circleRepOptions: document.getElementById("circleRepOptions"),
+      circlePracticeNote: document.getElementById("circlePracticeNote"),
+      startAngleSlider: document.getElementById("startAngleSlider"),
+      startAngleValue: document.getElementById("startAngleValue")
+    };
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function formatTime(ms) {
+      const safe = Math.max(0, ms || 0);
+      const seconds = Math.floor(safe / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const remSeconds = seconds % 60;
+      const tenths = Math.floor((safe % 1000) / 100);
+      return minutes + ":" + String(remSeconds).padStart(2, "0") + "." + tenths;
+    }
+
+    function formatMs(ms) {
+      if (!Number.isFinite(ms)) return "0 ms";
+      if (ms >= 1000) return (ms / 1000).toFixed(2) + "s";
+      return Math.round(ms) + " ms";
+    }
+
+    function polarPoint(angleDeg, radius) {
+      const rad = (angleDeg * Math.PI) / 180;
+      return {
+        x: CENTER.x + Math.cos(rad) * radius,
+        y: CENTER.y + Math.sin(rad) * radius
+      };
+    }
+
+    function seededShuffle(items, seed = Date.now()) {
+      const result = [...items];
+      let s = seed % 2147483647;
+      if (s <= 0) s += 2147483646;
+      const random = () => {
+        s = (s * 16807) % 2147483647;
+        return (s - 1) / 2147483646;
+      };
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+
+    function readableOrder(value) {
+      if (value === "clockwise") return "Clockwise";
+      if (value === "counterclockwise") return "Counterclockwise";
+      if (value === "inside-out") return "Inside → outside";
+      if (value === "outside-in") return "Outside → inside";
+      return "Random";
+    }
+
+    function getBaseTargetSize(count) {
+      if (count === 12) return 3.2;
+      if (count === 24) return 2.65;
+      return 2.35;
+    }
+
+    function applyTargetSize(targets, targetSize) {
+      const multiplier = SIZE_OPTIONS[targetSize] || SIZE_OPTIONS.medium;
+      return targets.map((target) => ({
+        ...target,
+        size: target.baseSize * multiplier,
+        hitRadius: Math.max(target.baseSize * multiplier + 1.15, 2.35)
+      }));
+    }
+
+    function orderByAngle(targets, angleOrder, seed) {
+      if (angleOrder === "random") return seededShuffle(targets, seed + 17);
+      return [...targets].sort((a, b) => {
+        if (a.ringIndex !== b.ringIndex) return a.ringIndex - b.ringIndex;
+        return angleOrder === "counterclockwise" ? b.index - a.index : a.index - b.index;
+      });
+    }
+
+    function buildRingTargets(count, layout) {
+      return Array.from({ length: count }, (_, i) => {
+        const angle = -90 + (i * 360) / count;
+        const isStarInset = layout === "star" && i % 2 === 1;
+        const scale = CIRCLE_SCALE_OPTIONS[state.circleScale] || CIRCLE_SCALE_OPTIONS.medium;
+        const radius = (isStarInset ? 24 : 38) * scale;
+        return {
+          id: layout + "-" + i,
+          index: i,
+          label: (layout === "star" ? "Star" : "Ring") + " " + (i + 1),
+          ring: isStarInset ? "Inset" : "Outer",
+          ringIndex: 0,
+          radius,
+          baseSize: getBaseTargetSize(count),
+          points: count === 12 ? 125 : count === 24 ? 150 : 175,
+          angle,
+          ...polarPoint(angle, radius)
+        };
+      });
+    }
+
+    function buildTripleTargets() {
+      const scale = CIRCLE_SCALE_OPTIONS[state.circleScale] || CIRCLE_SCALE_OPTIONS.medium;
+      const rings = [
+        { ring: "Inner", count: 12, radius: 18 * scale, baseSize: 2.9, points: 130, ringIndex: 0 },
+        { ring: "Middle", count: 24, radius: 29 * scale, baseSize: 2.55, points: 150, ringIndex: 1 },
+        { ring: "Outer", count: 32, radius: 40 * scale, baseSize: 2.3, points: 180, ringIndex: 2 }
+      ];
+
+      return rings.flatMap((r) => Array.from({ length: r.count }, (_, i) => {
+        const offset = r.ringIndex % 2 === 0 ? -90 : -90 + 360 / r.count / 2;
+        const angle = offset + (i * 360) / r.count;
+        return {
+          id: r.ring + "-" + i,
+          index: i,
+          label: r.ring + " " + (i + 1),
+          ring: r.ring,
+          ringIndex: r.ringIndex,
+          radius: r.radius,
+          baseSize: r.baseSize,
+          points: r.points,
+          angle,
+          ...polarPoint(angle, r.radius)
+        };
+      }));
+    }
+
+    function orderTripleTargets(targets, ringStrategy, angleOrder, seed) {
+      if (ringStrategy === "random" && angleOrder === "random") return seededShuffle(targets, seed + 103);
+      const ringOrder = ringStrategy === "outside-in"
+        ? [2, 1, 0]
+        : ringStrategy === "random"
+          ? seededShuffle([0, 1, 2], seed + 211)
+          : [0, 1, 2];
+      return ringOrder.flatMap((ringIndex) =>
+        orderByAngle(targets.filter((target) => target.ringIndex === ringIndex), angleOrder, seed + ringIndex * 37)
+      );
+    }
+
+    function buildTargets() {
+      const raw = state.layout === "triple" ? buildTripleTargets() : buildRingTargets(state.targetCount, state.layout);
+      const sized = applyTargetSize(raw, state.targetSize);
+      return state.layout === "triple"
+        ? orderTripleTargets(sized, state.ringStrategy, state.angleOrder, state.seed)
+        : orderByAngle(sized, state.angleOrder, state.seed);
+    }
+
+    function calculateScore({ targetHits, centerHits, misses, elapsedMs, totalTargets, layout, targetCount, targetSize, bestCombo }) {
+      const totalClicks = targetHits + centerHits + misses;
+      const accuracy = totalClicks === 0 ? 1 : (targetHits + centerHits) / totalClicks;
+      const perfectClicks = Math.max(1, totalTargets * 2);
+      const layoutDifficulty = layout === "triple" ? 1.55 : layout === "star" ? 1.22 : 1;
+      const countDifficulty = targetCount === 32 ? 1.35 : targetCount === 24 ? 1.18 : 1;
+      const sizeDifficulty = targetSize === "small" ? 1.2 : targetSize === "big" ? 0.9 : 1;
+      const parMs = totalTargets * (layout === "triple" ? 850 : targetCount === 32 ? 760 : targetCount === 24 ? 820 : 950);
+      const speedBonus = Math.max(0, (parMs - elapsedMs) / 1000) * 42;
+      const clickEfficiency = clamp(perfectClicks / Math.max(perfectClicks, totalClicks), 0.35, 1);
+      const base = targetHits * 100 + centerHits * 30 + bestCombo * 12 + speedBonus;
+      const penalty = misses * 55;
+      return Math.max(0, Math.round((base - penalty) * accuracy * accuracy * clickEfficiency * layoutDifficulty * countDifficulty * sizeDifficulty));
+    }
+
+    function getScore(overrides = {}) {
+      return calculateScore({
+        targetHits: state.targetHits,
+        centerHits: state.centerHits,
+        misses: state.misses,
+        elapsedMs: state.elapsedMs,
+        totalTargets: state.targets.length,
+        layout: state.layout,
+        targetCount: state.targetCount,
+        targetSize: state.targetSize,
+        bestCombo: state.bestCombo,
+        ...overrides
+      });
+    }
+
+    function average(values) {
+      const clean = values.filter((value) => Number.isFinite(value));
+      return clean.length ? clean.reduce((sum, value) => sum + value, 0) / clean.length : 0;
+    }
+
+    function standardDeviation(values) {
+      const avg = average(values);
+      return values.length ? Math.sqrt(average(values.map((value) => (value - avg) ** 2))) : 0;
+    }
+
+    function sectorLabel(angle) {
+      const a = ((angle % 360) + 360) % 360;
+      if (a >= 337.5 || a < 22.5) return "Right";
+      if (a < 67.5) return "Bottom-right";
+      if (a < 112.5) return "Bottom";
+      if (a < 157.5) return "Bottom-left";
+      if (a < 202.5) return "Left";
+      if (a < 247.5) return "Top-left";
+      if (a < 292.5) return "Top";
+      return "Top-right";
+    }
+
+
+    function sectorToAngle(name) {
+      const map = {
+        "Right": 0,
+        "Bottom-right": 45,
+        "Bottom": 90,
+        "Bottom-left": 135,
+        "Left": 180,
+        "Top-left": 225,
+        "Top": 270,
+        "Top-right": 315
+      };
+      return map[name] ?? 0;
+    }
+
+    function baseRadiusForRing(name) {
+      if (name === "Inner") return 18;
+      if (name === "Middle") return 29;
+      if (name === "Inset" || name === "Close") return 24;
+      if (name === "Outer") return state.layout === "triple" ? 40 : 38;
+      return 38;
+    }
+
+
+    function orderedCircleIndices(count, angleOrder, seed) {
+      const indices = Array.from({ length: count }, (_, i) => i);
+      if (angleOrder === "random") return seededShuffle(indices, seed + 503);
+      if (angleOrder === "counterclockwise") return indices.reverse();
+      return indices;
+    }
+
+    function normalizedSliderAngle(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return 270;
+      return ((n % 360) + 360) % 360;
+    }
+
+    function createCirclePractice(kind = "circleReps", options = {}) {
+      const depthCount = kind === "circleDepth" ? 3 : 1;
+      const targetCount = options.targetCount || state.targetCount || 24;
+      const repsPerTarget = options.repsPerTarget || state.circleRepsPerTarget || 3;
+      const startAngle = normalizedSliderAngle(options.startAngle ?? state.circleStartAngle);
+      const angleOrder = options.angleOrder || state.angleOrder;
+      const depthDirection = options.depthDirection || state.depthDirection || "outside-in";
+      return createDrill(kind, {
+        title: kind === "circleDepth" ? "Depth circle reps" : "Circle reps",
+        focus: kind === "circleDepth" ? "Depth control across three distances" : "Repeated single-target consistency",
+        description: kind === "circleDepth"
+          ? `Each angle has 3 depths. Complete ${repsPerTarget} rep${repsPerTarget === 1 ? "" : "s"} at each depth, then advance ${readableOrder(angleOrder).toLowerCase()}.`
+          : `Complete ${repsPerTarget} rep${repsPerTarget === 1 ? "" : "s"} on one target before advancing ${readableOrder(angleOrder).toLowerCase()}.`,
+        reps: targetCount * repsPerTarget * depthCount,
+        repsPerTarget,
+        targetCount,
+        startAngle,
+        angleOrder,
+        depthDirection,
+        depthCount,
+        baseRadius: kind === "circleDepth" ? (depthDirection === "inside-out" ? 18 : 38) : 38,
+        targetSize: state.targetSize,
+        circleScale: state.circleScale
+      });
+    }
+
+    function buildCirclePracticeTarget(drill) {
+      const rep = drill.repsDone || 0;
+      const targetCount = drill.targetCount || state.targetCount || 24;
+      const repsPerTarget = drill.repsPerTarget || 3;
+      const depthCount = drill.kind === "circleDepth" ? 3 : 1;
+      const stepIndex = Math.floor(rep / repsPerTarget);
+      const repeatIndex = rep % repsPerTarget;
+      const angleStepIndex = Math.floor(stepIndex / depthCount) % targetCount;
+      const depthIndex = stepIndex % depthCount;
+      const ordered = orderedCircleIndices(targetCount, drill.angleOrder || state.angleOrder, drill.seed || state.seed);
+      const targetOrdinal = ordered[angleStepIndex] ?? 0;
+      const angle = normalizedSliderAngle(drill.startAngle) + (targetOrdinal * 360) / targetCount;
+      const depthRadii = drill.depthDirection === "inside-out" ? [18, 29, 38] : [38, 29, 18];
+      const baseRadius = drill.kind === "circleDepth" ? depthRadii[depthIndex] : 38;
+      const scale = CIRCLE_SCALE_OPTIONS[drill.circleScale || state.circleScale] || CIRCLE_SCALE_OPTIONS.medium;
+      const radius = baseRadius * scale;
+      const point = polarPoint(angle, radius);
+      const size = getBaseTargetSize(targetCount) * (SIZE_OPTIONS[drill.targetSize || state.targetSize] || SIZE_OPTIONS.medium);
+      const depthLabel = drill.kind === "circleDepth" ? ` · depth ${depthIndex + 1}/3` : "";
+      return [{
+        id: `${drill.kind}-${angleStepIndex}-${depthIndex}-${repeatIndex}-${rep}`,
+        index: targetOrdinal,
+        label: `${drill.kind === "circleDepth" ? "Depth" : "Circle"} ${angleStepIndex + 1}/${targetCount}${depthLabel} · rep ${repeatIndex + 1}/${repsPerTarget}`,
+        ring: drill.kind === "circleDepth" ? (baseRadius === 18 ? "Inner" : baseRadius === 29 ? "Middle" : "Outer") : "Circle",
+        ringIndex: drill.kind === "circleDepth" ? depthIndex : 0,
+        radius,
+        baseRadius,
+        baseSize: getBaseTargetSize(targetCount),
+        size,
+        hitRadius: Math.max(size + 1.15, 2.35),
+        points: drill.kind === "circleDepth" ? 185 : 160,
+        angle,
+        x: point.x,
+        y: point.y,
+        circleStep: angleStepIndex,
+        depthIndex,
+        repeatIndex
+      }];
+    }
+
+    function updateCirclePracticeControls() {
+      const slider = document.getElementById("startAngleSlider");
+      const label = document.getElementById("startAngleValue");
+      if (slider) slider.value = String(normalizedSliderAngle(state.circleStartAngle));
+      if (label) label.textContent = `${normalizedSliderAngle(state.circleStartAngle)}°`;
+    }
+
+    function createDrill(kind, options = {}) {
+      const titleMap = {
+        precision: "Precision leak drill",
+        return: "Center-return rhythm drill",
+        sector: "Directional sector drill",
+        distance: "Distance-control drill",
+        consistency: "Tempo consistency drill",
+        depth: "Star depth-switch drill",
+        circleReps: "Circle reps",
+        circleDepth: "Depth circle reps"
+      };
+      return {
+        kind,
+        title: options.title || titleMap[kind] || "Focused weakness drill",
+        focus: options.focus || "Focused improvement",
+        description: options.description || "Repeat the exact weakness pattern for 20 clean reps.",
+        reps: options.reps || DRILL_REPS,
+        repsDone: 0,
+        angle: Number.isFinite(options.angle) ? options.angle : 0,
+        baseRadius: Number.isFinite(options.baseRadius) ? options.baseRadius : 38,
+        altBaseRadius: Number.isFinite(options.altBaseRadius) ? options.altBaseRadius : null,
+        targetSize: options.targetSize || state.targetSize,
+        circleScale: options.circleScale || state.circleScale,
+        repsPerTarget: options.repsPerTarget,
+        targetCount: options.targetCount,
+        startAngle: options.startAngle,
+        angleOrder: options.angleOrder,
+        depthDirection: options.depthDirection,
+        depthCount: options.depthCount,
+        seed: options.seed || state.seed
+      };
+    }
+
+    function buildTrainingTargets() {
+      const drill = state.training || createDrill("precision");
+      if (drill.kind === "circleReps" || drill.kind === "circleDepth") return buildCirclePracticeTarget(drill);
+      const rep = drill.repsDone || 0;
+      const scale = CIRCLE_SCALE_OPTIONS[drill.circleScale || state.circleScale] || CIRCLE_SCALE_OPTIONS.medium;
+      const useAlt = drill.kind === "depth" && drill.altBaseRadius && rep % 2 === 1;
+      const baseRadius = useAlt ? drill.altBaseRadius : drill.baseRadius;
+      const radius = baseRadius * scale;
+      const angle = drill.angle;
+      const point = polarPoint(angle, radius);
+      const size = getBaseTargetSize(24) * (SIZE_OPTIONS[drill.targetSize || state.targetSize] || SIZE_OPTIONS.medium);
+      return [{
+        id: `drill-${drill.kind}-${rep}`,
+        index: 0,
+        label: `Drill rep ${rep + 1}`,
+        ring: useAlt ? "Close" : (drill.focus || "Drill"),
+        ringIndex: 0,
+        radius,
+        baseSize: getBaseTargetSize(24),
+        size,
+        hitRadius: Math.max(size + 1.15, 2.35),
+        points: 160,
+        angle,
+        x: point.x,
+        y: point.y
+      }];
+    }
+
+    function summarizeGroups(events, keyFn) {
+      const groups = events.reduce((acc, event) => {
+        const key = keyFn(event);
+        acc[key] = acc[key] || [];
+        acc[key].push(event);
+        return acc;
+      }, {});
+
+      return Object.entries(groups)
+        .map(([name, items]) => ({
+          name,
+          count: items.length,
+          avgTargetMs: average(items.map((item) => item.targetMs)),
+          avgReturnMs: average(items.map((item) => item.returnMs)),
+          avgTotalMs: average(items.map((item) => item.totalMs)),
+          missCount: items.reduce((sum, item) => sum + item.targetMisses + item.returnMisses, 0)
+        }))
+        .sort((a, b) => b.avgTotalMs - a.avgTotalMs);
+    }
+
+    function getTopWeaknesses(stats) {
+      const { accuracy, avgTargetMs, avgReturnMs, consistency, sectorRows, ringRows, events, missBreakdown, totalMisses, layout } = stats;
+      const weaknesses = [];
+      const avgTotalMs = average(events.map((event) => event.totalMs));
+      const worstSector = sectorRows[0];
+      const worstRing = ringRows[0];
+      const targetMisses = missBreakdown.target || 0;
+      const returnMisses = missBreakdown.return || 0;
+
+      if (accuracy < 94 || totalMisses > 0) {
+        weaknesses.push({
+          title: "Precision leaks",
+          severity: clamp((100 - accuracy) * 5 + totalMisses * 8, 20, 95),
+          evidence: `${accuracy.toFixed(1)}% accuracy with ${totalMisses} wasted click${totalMisses === 1 ? "" : "s"}.`,
+          tip: "Slow down the final 10% of the movement. Land on the target first, then click after the cursor has stopped drifting.",
+          drill: createDrill("precision", {
+            focus: "Precision control",
+            description: "One target, 20 reps. Goal: clean hits with zero wasted clicks.",
+            angle: worstSector ? sectorToAngle(worstSector.name) : 0,
+            baseRadius: worstRing ? baseRadiusForRing(worstRing.name) : 38,
+            targetSize: "small"
+          })
+        });
+      }
+
+      if (avgReturnMs > avgTargetMs * 0.72 || returnMisses > targetMisses) {
+        weaknesses.push({
+          title: "Center-return rhythm",
+          severity: clamp((avgReturnMs / Math.max(1, avgTargetMs)) * 50 + returnMisses * 8, 25, 95),
+          evidence: `Average return is ${formatMs(avgReturnMs)} vs ${formatMs(avgTargetMs)} target acquisition.`,
+          tip: "After every target, snap back using a straight line to the middle. Practice a smaller, repeatable wrist reset instead of re-aiming from scratch.",
+          drill: createDrill("return", {
+            focus: "Center-return rhythm",
+            description: "One fixed target, 20 reps. Goal: identical target-click → center-return rhythm.",
+            angle: 0,
+            baseRadius: 38
+          })
+        });
+      }
+
+      if (worstSector && worstSector.count >= 2 && worstSector.avgTotalMs > avgTotalMs * 1.14) {
+        const delta = worstSector.avgTotalMs - avgTotalMs;
+        weaknesses.push({
+          title: `${worstSector.name} sector lag`,
+          severity: clamp((delta / Math.max(1, avgTotalMs)) * 120 + worstSector.missCount * 8, 25, 92),
+          evidence: `${worstSector.name} averaged ${formatMs(worstSector.avgTotalMs)}, ${formatMs(delta)} slower than your run average.`,
+          tip: `Run a short drill that starts at center and only hits ${worstSector.name.toLowerCase()} targets. Keep your elbow stable and adjust sensitivity only after the line feels clean.`,
+          drill: createDrill("sector", {
+            title: `${worstSector.name} sector drill`,
+            focus: `${worstSector.name} sector`,
+            description: `Only ${worstSector.name.toLowerCase()} targets for 20 reps. Goal: remove directional lag.`,
+            angle: sectorToAngle(worstSector.name),
+            baseRadius: 38
+          })
+        });
+      }
+
+      if (worstRing && worstRing.count >= 2 && worstRing.avgTotalMs > avgTotalMs * 1.12) {
+        weaknesses.push({
+          title: `${worstRing.name} distance control`,
+          severity: clamp(((worstRing.avgTotalMs - avgTotalMs) / Math.max(1, avgTotalMs)) * 115 + worstRing.missCount * 8, 22, 90),
+          evidence: `${worstRing.name} targets averaged ${formatMs(worstRing.avgTotalMs)}.`,
+          tip: (worstRing.name === "Inner" || worstRing.name === "Inset")
+            ? "Use smaller finger movements for close targets. Overshooting near-center targets usually means the hand is using outer-target force."
+            : "For far targets, move decisively first, then micro-correct at the end. Avoid slow tracking across the whole distance.",
+          drill: createDrill("distance", {
+            title: `${worstRing.name} distance drill`,
+            focus: `${worstRing.name} distance`,
+            description: `Only ${worstRing.name.toLowerCase()}-distance targets for 20 reps. Goal: calibrate movement force.`,
+            angle: worstSector ? sectorToAngle(worstSector.name) : 0,
+            baseRadius: baseRadiusForRing(worstRing.name)
+          })
+        });
+      }
+
+      if (consistency > 0.34) {
+        weaknesses.push({
+          title: "Timing consistency",
+          severity: clamp(consistency * 140, 25, 90),
+          evidence: `Timing variance is high: ${(consistency * 100).toFixed(0)}% coefficient of variation.`,
+          tip: "Prioritize identical movement tempo over raw speed for one run. Make every target feel boring and repeatable.",
+          drill: createDrill("consistency", {
+            focus: "Tempo consistency",
+            description: "One target, 20 reps. Goal: keep every repetition at the same tempo.",
+            angle: 270,
+            baseRadius: 38
+          })
+        });
+      }
+
+      if (layout === "star" && events.length > 3) {
+        const switches = events.slice(1).map((event, index) => ({ event, radiusDelta: Math.abs(event.radius - events[index].radius) }));
+        const depthAvg = average(switches.filter((item) => item.radiusDelta > 8).map((item) => item.event.totalMs));
+        const stableAvg = average(switches.filter((item) => item.radiusDelta <= 8).map((item) => item.event.totalMs));
+        if (depthAvg && stableAvg && depthAvg > stableAvg * 1.15) {
+          weaknesses.push({
+            title: "Star depth switching",
+            severity: clamp(((depthAvg - stableAvg) / Math.max(1, stableAvg)) * 125, 25, 90),
+            evidence: `Outer/inner switches averaged ${formatMs(depthAvg)} vs ${formatMs(stableAvg)} on steadier moves.`,
+            tip: "Treat star mode as two distances: snap outer targets with arm/wrist, then use fingers for closer inset targets.",
+            drill: createDrill("depth", {
+              focus: "Outer/inner depth switching",
+              description: "Alternating far/close target for 20 reps. Goal: use different force levels deliberately.",
+              angle: 270,
+              baseRadius: 38,
+              altBaseRadius: 24
+            })
+          });
+        }
+      }
+
+      if (!weaknesses.length) {
+        weaknesses.push({
+          title: "No major weakness detected",
+          severity: 12,
+          evidence: "Your run was balanced across speed, accuracy, return rhythm, and direction control.",
+          tip: "Increase difficulty: use smaller targets, star layout, or random order while keeping the same accuracy standard.",
+          drill: createDrill("consistency", {
+            focus: "Advanced consistency",
+            description: "One target, 20 reps. Goal: preserve clean rhythm at higher difficulty.",
+            angle: 270,
+            baseRadius: 38,
+            targetSize: "small"
+          })
+        });
+      }
+
+      return weaknesses.sort((a, b) => b.severity - a.severity).slice(0, 4);
+    }
+
+    function analyzeRunStats({ finalScore, finalElapsedMs, finalCenterHits, finalBestCombo }) {
+      const events = state.runEvents || [];
+      const targetTimes = events.map((event) => event.targetMs);
+      const returnTimes = events.map((event) => event.returnMs);
+      const totalTimes = events.map((event) => event.totalMs);
+      const totalClicks = state.targetHits + finalCenterHits + state.misses;
+      const accuracy = totalClicks === 0 ? 100 : ((state.targetHits + finalCenterHits) / totalClicks) * 100;
+      const avgTargetMs = average(targetTimes);
+      const avgReturnMs = average(returnTimes);
+      const avgTotalMs = average(totalTimes);
+      const consistency = avgTotalMs ? standardDeviation(totalTimes) / avgTotalMs : 0;
+      const sectorRows = summarizeGroups(events, (event) => sectorLabel(event.angle));
+      const ringRows = summarizeGroups(events, (event) => event.ring || "Outer");
+
+      const slowestTargets = [...events]
+        .sort((a, b) => b.totalMs - a.totalMs)
+        .slice(0, 5)
+        .map((event) => ({
+          label: event.label,
+          sector: sectorLabel(event.angle),
+          totalMs: event.totalMs,
+          targetMs: event.targetMs,
+          returnMs: event.returnMs,
+          misses: event.targetMisses + event.returnMisses
+        }));
+
+      const base = {
+        score: finalScore,
+        elapsedMs: finalElapsedMs,
+        targetHits: state.targetHits,
+        centerHits: finalCenterHits,
+        misses: state.misses,
+        totalClicks,
+        accuracy,
+        bestCombo: finalBestCombo,
+        targetsPerMinute: finalElapsedMs ? events.length / (finalElapsedMs / 60000) : 0,
+        avgTargetMs,
+        avgReturnMs,
+        avgTotalMs,
+        fastestMs: totalTimes.length ? Math.min(...totalTimes) : 0,
+        slowestMs: totalTimes.length ? Math.max(...totalTimes) : 0,
+        consistency,
+        sectorRows,
+        ringRows,
+        slowestTargets,
+        missBreakdown: { ...state.missBreakdown },
+        setup: {
+          layout: state.layout,
+          targetCount: state.targetCount,
+          targetSize: state.targetSize,
+          circleScale: state.circleScale,
+          angleOrder: state.angleOrder,
+          ringStrategy: state.ringStrategy,
+          practiceMode: state.practiceMode,
+          trainingKind: state.training ? state.training.kind : null,
+          repsPerTarget: state.training?.repsPerTarget || state.circleRepsPerTarget,
+          startAngle: state.training?.startAngle ?? state.circleStartAngle,
+          depthDirection: state.training?.depthDirection || state.depthDirection
+        }
+      };
+
+      return {
+        ...base,
+        weaknesses: getTopWeaknesses({
+          accuracy,
+          avgTargetMs,
+          avgReturnMs,
+          consistency,
+          sectorRows,
+          ringRows,
+          events,
+          missBreakdown: base.missBreakdown,
+          totalMisses: state.misses,
+          layout: state.layout
+        })
+      };
+    }
+
+    function clearLayer(layer) {
+      while (layer.firstChild) layer.removeChild(layer.firstChild);
+    }
+
+    function svgEl(tag, attrs = {}) {
+      const el = document.createElementNS(SVG_NS, tag);
+      for (const [key, value] of Object.entries(attrs)) {
+        if (value !== undefined && value !== null) el.setAttribute(key, String(value));
+      }
+      return el;
+    }
+
+    function getCompletedIds() {
+      if (state.training) return new Set();
+      const completedCount = state.phase === "complete" ? state.targets.length : state.currentIndex;
+      return new Set(state.targets.slice(0, completedCount).map((target) => target.id));
+    }
+
+    function getTargetState(target, completedIds, activeTarget) {
+      if (completedIds.has(target.id)) return "complete";
+      if (state.phase === "center" && state.pendingTargetId === target.id) return "pending";
+      if (activeTarget && activeTarget.id === target.id) return "active";
+      return "idle";
+    }
+
+
+    function isPrimaryPointerAction(event) {
+      if (!event) return true;
+      if (event.pointerType === "mouse" && event.button !== 0) return false;
+      if (event.type && event.type.indexOf("mouse") >= 0 && event.button !== 0) return false;
+      if (typeof event.preventDefault === "function") event.preventDefault();
+      return true;
+    }
+
+    function handleArenaPointerDown(event) {
+      if (!isPrimaryPointerAction(event)) return;
+      registerMiss("Background miss.", "background");
+    }
+
+    function drawBoard() {
+      state.targets = state.training ? buildTrainingTargets() : buildTargets();
+
+      clearLayer(els.ringsLayer);
+      clearLayer(els.starLayer);
+      clearLayer(els.guideLayer);
+      clearLayer(els.targetsLayer);
+      clearLayer(els.centerLayer);
+
+      const scale = CIRCLE_SCALE_OPTIONS[state.training?.circleScale || state.circleScale] || CIRCLE_SCALE_OPTIONS.medium;
+      const radii = state.training
+        ? (state.training.kind === "circleDepth"
+            ? [18 * scale, 29 * scale, 38 * scale]
+            : state.training.kind === "circleReps"
+              ? [38 * scale]
+              : (state.training.kind === "depth" && state.training.altBaseRadius ? [state.training.altBaseRadius * scale, state.training.baseRadius * scale] : [state.training.baseRadius * scale]))
+        : state.layout === "triple" ? [18 * scale, 29 * scale, 40 * scale] : state.layout === "star" ? [24 * scale, 38 * scale] : [38 * scale];
+      radii.forEach((r) => {
+        els.ringsLayer.appendChild(svgEl("circle", {
+          cx: 50, cy: 50, r,
+          fill: "none",
+          stroke: "rgba(255,255,255,0.08)",
+          "stroke-width": 0.22
+        }));
+      });
+
+      if (!state.training && state.layout === "star" && state.targets.length) {
+        const points = state.targets.map((target) => `${target.x},${target.y}`).join(" ") + ` ${state.targets[0].x},${state.targets[0].y}`;
+        els.starLayer.appendChild(svgEl("polyline", {
+          points,
+          fill: "none",
+          stroke: "rgba(251,146,60,0.16)",
+          "stroke-width": 0.32,
+          "stroke-linejoin": "round"
+        }));
+      }
+
+      const guideTargets = state.layout === "triple"
+        ? state.targets.filter((target) => target.ring === "Outer" && target.index % 2 === 0)
+        : state.targets;
+
+      guideTargets.forEach((target) => {
+        els.guideLayer.appendChild(svgEl("line", {
+          x1: 50, y1: 50, x2: target.x, y2: target.y,
+          stroke: "rgba(255,255,255,0.08)",
+          "stroke-width": 0.18
+        }));
+      });
+
+      const completedIds = getCompletedIds();
+      const activeTarget = state.phase === "target" ? (state.training ? state.targets[0] : state.targets[state.currentIndex]) : null;
+
+      state.targets.forEach((target, i) => {
+        const targetState = getTargetState(target, completedIds, activeTarget);
+        const isActive = targetState === "active";
+        const isPending = targetState === "pending";
+        const completed = targetState === "complete";
+        const upcoming = state.phase === "target" && i === state.currentIndex + 1;
+        const isOrange = isActive || isPending;
+
+        const g = svgEl("g", { class: "target-hitbox" });
+        g.addEventListener("pointerdown", (event) => handleTargetClick(event, target));
+
+        g.appendChild(svgEl("circle", {
+          cx: target.x,
+          cy: target.y,
+          r: target.hitRadius,
+          fill: "transparent",
+          stroke: isOrange ? "rgba(251,146,60,0.95)" : completed ? "rgba(34,197,94,0.58)" : upcoming ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.16)",
+          "stroke-width": isOrange ? 0.5 : completed ? 0.34 : 0.22,
+          filter: isOrange ? "url(#softGlow)" : null
+        }));
+
+        g.appendChild(svgEl("circle", {
+          cx: target.x,
+          cy: target.y,
+          r: isOrange ? target.size : completed ? target.size * 0.84 : target.size * 0.58,
+          fill: isOrange ? "#fb923c" : completed ? "#22c55e" : "#e2e8f0",
+          opacity: isOrange ? 1 : completed ? 0.95 : 0.55
+        }));
+
+        if (isOrange) {
+          const text = svgEl("text", {
+            x: target.x,
+            y: target.y + 0.45,
+            "text-anchor": "middle",
+            fill: "#0f172a",
+            "font-size": 2.3,
+            "font-weight": 900
+          });
+          text.textContent = isPending ? "✓" : String(state.currentIndex + 1);
+          g.appendChild(text);
+        }
+
+        els.targetsLayer.appendChild(g);
+      });
+
+      const centerGroup = svgEl("g", { class: "center-hitbox" });
+      centerGroup.addEventListener("pointerdown", handleCenterClick);
+      const centerPulse = state.phase === "center" || state.phase === "idle" || state.phase === "complete";
+      centerGroup.appendChild(svgEl("circle", {
+        cx: 50, cy: 50,
+        r: centerPulse ? 7.25 : 5.8,
+        fill: "rgba(251,146,60,0.16)",
+        stroke: "rgba(251,146,60,0.72)",
+        "stroke-width": 0.55
+      }));
+      centerGroup.appendChild(svgEl("circle", {
+        cx: 50, cy: 50,
+        r: 4.55,
+        fill: "url(#centerGradient)",
+        filter: "url(#softGlow)"
+      }));
+      const centerText = svgEl("text", {
+        x: 50, y: 50.8,
+        "text-anchor": "middle",
+        fill: "#0f172a",
+        "font-size": 2.1,
+        "font-weight": 900
+      });
+      centerText.textContent = state.phase === "idle" ? "Start" : state.phase === "complete" ? "Again" : state.phase === "center" ? "Mid" : "";
+      centerGroup.appendChild(centerText);
+      els.centerLayer.appendChild(centerGroup);
+
+      updatePanel();
+    }
+
+    function updatePanel() {
+      const totalClicks = state.targetHits + state.centerHits + state.misses;
+      const successfulClicks = state.targetHits + state.centerHits;
+      const accuracy = totalClicks === 0 ? 100 : Math.round((successfulClicks / totalClicks) * 1000) / 10;
+      const score = getScore();
+      const progressTotal = state.training ? state.training.reps : state.targets.length;
+      const progressDone = state.training ? (state.training.repsDone || 0) : state.targetHits;
+      const progress = progressTotal ? Math.round((progressDone / progressTotal) * 100) : 0;
+      const activeTarget = state.phase === "target" ? (state.training ? state.targets[0] : state.targets[state.currentIndex]) : null;
+
+      els.scoreStat.textContent = score.toLocaleString();
+      els.timeStat.textContent = formatTime(state.elapsedMs);
+      els.timeSub.textContent = state.phase === "idle" ? "Timer starts on center" : "Live run timer";
+      els.accuracyStat.textContent = accuracy + "%";
+      els.accuracySub.textContent = `${successfulClicks}/${totalClicks || 0} valid clicks`;
+      els.comboStat.textContent = state.combo;
+      els.comboSub.textContent = "Best: " + state.bestCombo;
+      els.progressText.textContent = state.training ? `${state.training.repsDone || 0}/${state.training.reps}` : `${state.targetHits}/${state.targets.length}`;
+      els.clicksText.textContent = totalClicks;
+      els.missesText.textContent = state.misses;
+      els.progressFill.style.width = progress + "%";
+      els.feedback.textContent = state.feedback;
+
+      els.currentTask.textContent =
+        state.phase === "idle" ? (state.training ? `Press center to start ${state.training.title}` : "Press center to start") :
+        state.phase === "target" ? (state.training ? `${activeTarget ? activeTarget.label : "Focused target"} (${(state.training.repsDone || 0) + 1}/${state.training.reps})` : `Hit ${activeTarget ? activeTarget.label : ""}`) :
+        state.phase === "center" ? "Return to the orange center" :
+        state.training ? "Drill complete" : "Run complete";
+
+      if (state.training) {
+        els.setupSummary.innerHTML =
+          `<b style="color:#fff">Focused mode:</b> ${state.training.title}. ` +
+          `${state.training.description} Circle scale: ${state.training.circleScale}. Target size: ${state.training.targetSize}.` +
+          `${state.training.kind === "circleReps" || state.training.kind === "circleDepth" ? ` Start: ${normalizedSliderAngle(state.training.startAngle)}°. Reps per step: ${state.training.repsPerTarget}.` : ""}`;
+      } else {
+        els.setupSummary.innerHTML =
+          `<b style="color:#fff">Current setup:</b> ${state.layout === "triple" ? "Triple ring" : state.layout === "star" ? "Star" : "Ring"}, ` +
+          `${state.targetSize} targets, ${state.circleScale} circle scale, ${readableOrder(state.angleOrder).toLowerCase()} target order` +
+          `${state.layout === "triple" ? ", " + readableOrder(state.ringStrategy).toLowerCase() + " ring behavior" : ""}.`;
+      }
+
+      els.targetCountGroup.style.display = state.layout === "triple" ? "none" : "block";
+      els.tripleNote.style.display = state.layout === "triple" ? "block" : "none";
+      els.ringStrategyGroup.style.display = state.layout === "triple" ? "block" : "none";
+      if (els.circlePracticeNote) els.circlePracticeNote.style.display = "block";
+      if (els.circleRepOptions) els.circleRepOptions.style.display = "block";
+
+      setActiveButtons();
+    }
+
+    function setActiveButtons() {
+      document.querySelectorAll("[data-layout], [data-layout-top]").forEach((button) => {
+        const value = button.dataset.layout || button.dataset.layoutTop;
+        button.classList.toggle("active", value === state.layout);
+      });
+      document.querySelectorAll("[data-count]").forEach((button) => button.classList.toggle("active", Number(button.dataset.count) === state.targetCount));
+      document.querySelectorAll("[data-size]").forEach((button) => button.classList.toggle("active", button.dataset.size === state.targetSize));
+      document.querySelectorAll("[data-order]").forEach((button) => button.classList.toggle("active", button.dataset.order === state.angleOrder));
+      document.querySelectorAll("[data-scale]").forEach((button) => button.classList.toggle("active", button.dataset.scale === state.circleScale));
+      document.querySelectorAll("[data-ring-strategy]").forEach((button) => button.classList.toggle("active", button.dataset.ringStrategy === state.ringStrategy));
+      document.querySelectorAll("[data-practice]").forEach((button) => button.classList.toggle("active", button.dataset.practice === state.practiceMode));
+      document.querySelectorAll("[data-reps-per-target]").forEach((button) => button.classList.toggle("active", Number(button.dataset.repsPerTarget) === state.circleRepsPerTarget));
+      document.querySelectorAll("[data-depth-direction]").forEach((button) => button.classList.toggle("active", button.dataset.depthDirection === state.depthDirection));
+      updateCirclePracticeControls();
+    }
+
+    function applyGeometryPreference(nextConfig = {}, render = true) {
+      const keys = Object.keys(nextConfig);
+      const isGeometryOnly = keys.length > 0 && keys.every((key) => key === "targetSize" || key === "circleScale");
+      const hasLiveDrill = Boolean(state.training) && state.phase !== "complete";
+      if (!hasLiveDrill || !isGeometryOnly) return false;
+
+      if (nextConfig.targetSize) {
+        state.targetSize = nextConfig.targetSize;
+        state.training.targetSize = nextConfig.targetSize;
+      }
+      if (nextConfig.circleScale) {
+        state.circleScale = nextConfig.circleScale;
+        state.training.circleScale = nextConfig.circleScale;
+      }
+
+      state.targets = buildTrainingTargets();
+      state.feedback = `Drill adjusted live: ${state.training.targetSize} targets, ${state.training.circleScale} circle scale.`;
+      if (render) drawBoard();
+      return true;
+    }
+
+
+    function applyCirclePracticePreference(nextConfig = {}, render = true) {
+      const isCircleTraining = state.training && (state.training.kind === "circleReps" || state.training.kind === "circleDepth");
+      if (!isCircleTraining) return false;
+
+      if (Number.isFinite(nextConfig.repsPerTarget)) {
+        state.circleRepsPerTarget = nextConfig.repsPerTarget;
+        state.training.repsPerTarget = nextConfig.repsPerTarget;
+      }
+      if (Number.isFinite(nextConfig.startAngle)) {
+        state.circleStartAngle = normalizedSliderAngle(nextConfig.startAngle);
+        state.training.startAngle = state.circleStartAngle;
+      }
+      if (nextConfig.depthDirection) {
+        state.depthDirection = nextConfig.depthDirection;
+        state.training.depthDirection = nextConfig.depthDirection;
+      }
+      if (nextConfig.angleOrder) {
+        state.angleOrder = nextConfig.angleOrder;
+        state.training.angleOrder = nextConfig.angleOrder;
+      }
+
+      const depthCount = state.training.kind === "circleDepth" ? 3 : 1;
+      state.training.reps = (state.training.targetCount || state.targetCount) * (state.training.repsPerTarget || 3) * depthCount;
+      state.training.description = state.training.kind === "circleDepth"
+        ? `Each angle has 3 depths. Complete ${state.training.repsPerTarget} reps at each depth, then advance ${readableOrder(state.training.angleOrder).toLowerCase()}.`
+        : `Complete ${state.training.repsPerTarget} reps on one target before advancing ${readableOrder(state.training.angleOrder).toLowerCase()}.`;
+      if (state.training.repsDone >= state.training.reps) state.training.repsDone = Math.max(0, state.training.reps - 1);
+      state.targets = buildTrainingTargets();
+      state.feedback = `Circle practice updated live: ${state.training.repsPerTarget} reps, start ${normalizedSliderAngle(state.training.startAngle)}°.`;
+      if (render) drawBoard();
+      return true;
+    }
+
+    function loadCirclePractice(kind = "circleReps") {
+      const drill = createCirclePractice(kind, {
+        repsPerTarget: state.circleRepsPerTarget,
+        startAngle: state.circleStartAngle,
+        angleOrder: state.angleOrder,
+        depthDirection: state.depthDirection,
+        targetCount: state.targetCount
+      });
+      state.practiceMode = kind === "circleDepth" ? "depth" : "circle";
+      loadDrill(drill);
+      state.practiceMode = kind === "circleDepth" ? "depth" : "circle";
+      state.feedback = `${drill.title} loaded. Press the orange center to start.`;
+      setActiveButtons();
+    }
+
+    function resetGame(nextConfig = {}) {
+      stopTimer();
+      Object.assign(state, {
+        phase: "idle",
+        currentIndex: 0,
+        startTime: null,
+        elapsedMs: 0,
+        targetHits: 0,
+        centerHits: 0,
+        misses: 0,
+        combo: 0,
+        bestCombo: 0,
+        pendingTargetId: null,
+        pendingStep: null,
+        targetStartedAt: null,
+        targetLockedAt: null,
+        practiceMode: "normal",
+        training: null,
+        runEvents: [],
+        currentTargetMisses: 0,
+        currentReturnMisses: 0,
+        missBreakdown: { ...EMPTY_MISS_BREAKDOWN },
+        lastRunStats: null,
+        seed: Date.now(),
+        feedback: "Press the orange center to start."
+      });
+      Object.assign(state, nextConfig);
+      els.reportOverlay.classList.remove("show");
+      drawBoard();
+    }
+
+    function startTimer() {
+      stopTimer();
+      state.timerId = setInterval(() => {
+        state.elapsedMs = Date.now() - state.startTime;
+        updatePanel();
+      }, 74);
+    }
+
+    function stopTimer() {
+      if (state.timerId) clearInterval(state.timerId);
+      state.timerId = null;
+    }
+
+    function startGame(event) {
+      event.stopPropagation();
+      const now = Date.now();
+      Object.assign(state, {
+        seed: now,
+        startTime: now,
+        targetStartedAt: now,
+        targetLockedAt: null,
+        elapsedMs: 0,
+        phase: "target",
+        currentIndex: 0,
+        targetHits: 0,
+        centerHits: 0,
+        misses: 0,
+        combo: 0,
+        bestCombo: 0,
+        pendingTargetId: null,
+        pendingStep: null,
+        runEvents: [],
+        currentTargetMisses: 0,
+        currentReturnMisses: 0,
+        missBreakdown: { ...EMPTY_MISS_BREAKDOWN },
+        lastRunStats: null,
+        feedback: "Go: hit the highlighted target, then return to center."
+      });
+      if (state.training) {
+        state.training = { ...state.training, repsDone: 0, startedAt: now, completed: false };
+      }
+      els.reportOverlay.classList.remove("show");
+      state.targets = state.training ? buildTrainingTargets() : buildTargets();
+      startTimer();
+      drawBoard();
+    }
+
+    function registerHit(points, message) {
+      state.combo += 1;
+      state.bestCombo = Math.max(state.bestCombo, state.combo);
+      state.feedback = `${message} +${points} pts`;
+    }
+
+    function registerMiss(reason = "Miss.", category = "background") {
+      if (state.phase === "idle" || state.phase === "complete") return;
+      const bucket = state.phase === "center" ? "return" : "target";
+      state.misses += 1;
+      if (bucket === "return") state.currentReturnMisses += 1;
+      else state.currentTargetMisses += 1;
+      state.missBreakdown[bucket] = (state.missBreakdown[bucket] || 0) + 1;
+      state.missBreakdown[category] = (state.missBreakdown[category] || 0) + 1;
+      state.combo = 0;
+      state.feedback = `${reason} Combo reset.`;
+      updatePanel();
+    }
+
+    function handleTargetClick(event, target) {
+      if (!isPrimaryPointerAction(event)) return;
+      event.stopPropagation();
+      const activeTarget = state.phase === "target" ? (state.training ? state.targets[0] : state.targets[state.currentIndex]) : null;
+
+      if (state.phase !== "target" || !activeTarget || activeTarget.id !== target.id) {
+        registerMiss("Wrong target.", "wrongTarget");
+        return;
+      }
+
+      const now = Date.now();
+      const targetMs = now - (state.targetStartedAt || state.startTime || now);
+      state.pendingStep = {
+        sequence: state.currentIndex + 1,
+        targetId: target.id,
+        label: target.label,
+        ring: target.ring,
+        radius: target.radius,
+        angle: target.angle,
+        x: target.x,
+        y: target.y,
+        points: target.points,
+        targetMs,
+        targetMisses: state.currentTargetMisses
+      };
+
+      state.targetHits += 1;
+      state.pendingTargetId = target.id;
+      state.targetLockedAt = now;
+      state.currentReturnMisses = 0;
+      registerHit(target.points, "Target locked. Return to center to confirm.");
+      state.phase = "center";
+      drawBoard();
+    }
+
+    function handleCenterClick(event) {
+      if (!isPrimaryPointerAction(event)) return;
+      event.stopPropagation();
+
+      if (state.phase === "idle" || state.phase === "complete") {
+        startGame(event);
+        return;
+      }
+
+      if (state.phase !== "center") {
+        registerMiss("Center is only valid after a target.", "earlyCenter");
+        return;
+      }
+
+      const now = Date.now();
+      const returnMs = now - (state.targetLockedAt || now);
+      if (state.pendingStep) {
+        state.runEvents.push({
+          ...state.pendingStep,
+          returnMs,
+          returnMisses: state.currentReturnMisses,
+          totalMs: state.pendingStep.targetMs + returnMs
+        });
+      }
+
+      state.centerHits += 1;
+      state.pendingTargetId = null;
+      state.pendingStep = null;
+      state.targetLockedAt = null;
+      state.currentTargetMisses = 0;
+      state.currentReturnMisses = 0;
+      registerHit(30, "Center return confirmed. Target complete.");
+
+      if (state.training) {
+        state.training.repsDone = (state.training.repsDone || 0) + 1;
+        if (state.training.repsDone >= state.training.reps) {
+          const finalElapsedMs = now - state.startTime;
+          state.currentIndex = 0;
+          state.elapsedMs = finalElapsedMs;
+          const finalScore = getScore({ centerHits: state.centerHits, elapsedMs: finalElapsedMs, bestCombo: state.bestCombo });
+          state.lastRunStats = analyzeRunStats({
+            finalScore,
+            finalElapsedMs,
+            finalCenterHits: state.centerHits,
+            finalBestCombo: state.bestCombo
+          });
+          state.phase = "complete";
+          state.training.completed = true;
+          state.feedback = "Focused drill complete. Review the drill report or repeat it.";
+          stopTimer();
+          drawBoard();
+          showDrillReport();
+          return;
+        }
+        state.currentIndex = 0;
+        state.targetStartedAt = now;
+        state.phase = "target";
+        state.feedback = state.training.kind === "circleReps" || state.training.kind === "circleDepth"
+          ? `${state.training.title}: ${state.training.repsDone + 1}/${state.training.reps}. Continue the sequence.`
+          : `Rep ${state.training.repsDone + 1}/${state.training.reps}: repeat the same weakness pattern.`;
+        drawBoard();
+        return;
+      }
+
+      if (state.currentIndex + 1 >= state.targets.length) {
+        const finalElapsedMs = now - state.startTime;
+        state.currentIndex = state.targets.length;
+        state.elapsedMs = finalElapsedMs;
+        const finalScore = getScore({ centerHits: state.centerHits, elapsedMs: finalElapsedMs, bestCombo: state.bestCombo });
+        state.lastRunStats = analyzeRunStats({
+          finalScore,
+          finalElapsedMs,
+          finalCenterHits: state.centerHits,
+          finalBestCombo: state.bestCombo
+        });
+        state.phase = "complete";
+        state.feedback = "Run complete. Review your weakness report, then press center to run it back.";
+        stopTimer();
+        drawBoard();
+        showReport();
+        return;
+      }
+
+      state.currentIndex += 1;
+      state.targetStartedAt = now;
+      state.phase = "target";
+      drawBoard();
+    }
+
+    function showReport() {
+      const stats = state.lastRunStats;
+      if (!stats) return;
+      const phaseMax = Math.max(stats.avgTargetMs, stats.avgReturnMs, 1);
+      const sectorMax = Math.max(1, ...stats.sectorRows.map((row) => row.avgTotalMs));
+      const ringMax = Math.max(1, ...stats.ringRows.map((row) => row.avgTotalMs));
+
+      const metric = (label, value, sub) => `
+        <div class="metric">
+          <label>${label}</label>
+          <strong>${value}</strong>
+          <span>${sub}</span>
+        </div>
+      `;
+
+      const miniRow = (label, value, max, detail) => `
+        <div class="mini-row">
+          <span>${label}</span>
+          <div class="mini-track"><i style="width:${max ? clamp((value / max) * 100, 4, 100) : 4}%"></i></div>
+          <span>${detail}</span>
+        </div>
+      `;
+
+      const weaknessHtml = stats.weaknesses.map((weakness, index) => `
+        <article class="weakness">
+          <div class="weakness-top">
+            <div>
+              <small>Weakness #${index + 1}</small>
+              <h4>${weakness.title}</h4>
+            </div>
+            <span class="severity">${Math.round(weakness.severity)}%</span>
+          </div>
+          <div class="bar"><i style="width:${clamp(weakness.severity, 0, 100)}%"></i></div>
+          <p>${weakness.evidence}</p>
+          <p class="tip"><b>Drill tip:</b> ${weakness.tip}</p>
+          <button class="train-issue" data-drill-index="${index}">Train this exact issue · 20 reps</button>
+        </article>
+      `).join("");
+
+      const sectorHtml = stats.sectorRows.length
+        ? stats.sectorRows.slice(0, 6).map((row) => miniRow(row.name, row.avgTotalMs, sectorMax, `${formatMs(row.avgTotalMs)} · ${row.count}x`)).join("")
+        : `<p style="color:#94a3b8;font-size:13px">Complete a run to collect directional data.</p>`;
+
+      const ringHtml = stats.ringRows.length
+        ? stats.ringRows.map((row) => miniRow(row.name, row.avgTotalMs, ringMax, `${formatMs(row.avgTotalMs)} · ${row.count}x`)).join("")
+        : `<p style="color:#94a3b8;font-size:13px">Complete a run to collect distance data.</p>`;
+
+      const slowestHtml = stats.slowestTargets.length
+        ? stats.slowestTargets.map((target, index) => `
+          <div class="slow-target">
+            <span class="rank">${index + 1}</span>
+            <div>
+              <b>${target.label} · ${target.sector}</b>
+              <small>Acquire ${formatMs(target.targetMs)} · return ${formatMs(target.returnMs)} · misses ${target.misses}</small>
+            </div>
+            <b style="color:#fed7aa">${formatMs(target.totalMs)}</b>
+          </div>
+        `).join("")
+        : `<p style="color:#94a3b8;font-size:13px">No slow-target data yet.</p>`;
+
+      els.reportOverlay.innerHTML = `
+        <div class="report-head">
+          <div>
+            <div class="eyebrow">▥ Performance report</div>
+            <h2>Weakness analysis</h2>
+            <p class="lead">This report separates target acquisition, center-return control, directional weakness, distance control, consistency, and missed-click behavior.</p>
+          </div>
+          <div class="score-badge">
+            <span>Final score</span>
+            <strong>${stats.score.toLocaleString()}</strong>
+          </div>
+        </div>
+
+        <div class="report-metrics">
+          ${metric("Time", formatTime(stats.elapsedMs), `${stats.targetsPerMinute.toFixed(1)} targets/min`)}
+          ${metric("Accuracy", `${stats.accuracy.toFixed(1)}%`, `${stats.misses} missed click${stats.misses === 1 ? "" : "s"}`)}
+          ${metric("Target speed", formatMs(stats.avgTargetMs), "Average center → target")}
+          ${metric("Return speed", formatMs(stats.avgReturnMs), "Average target → center")}
+          ${metric("Best combo", stats.bestCombo, `${stats.totalClicks} total clicks`)}
+          ${metric("Fastest rep", formatMs(stats.fastestMs), "Target + return")}
+          ${metric("Slowest rep", formatMs(stats.slowestMs), "Target + return")}
+          ${metric("Consistency", `${(stats.consistency * 100).toFixed(0)}%`, "Lower is steadier")}
+        </div>
+
+        <div class="report-grid">
+          <section class="report-section">
+            <h3>Priority weaknesses</h3>
+            ${weaknessHtml}
+          </section>
+
+          <section style="display:flex;flex-direction:column;gap:14px">
+            <div class="report-section">
+              <h3>Movement phase split</h3>
+              <div class="mini-rows">
+                ${miniRow("Acquire target", stats.avgTargetMs, phaseMax, formatMs(stats.avgTargetMs))}
+                ${miniRow("Return center", stats.avgReturnMs, phaseMax, formatMs(stats.avgReturnMs))}
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px;color:#cbd5e1;font-size:12px">
+                <div class="note"><b style="color:#fff;display:block">${stats.missBreakdown.target}</b> target-phase misses</div>
+                <div class="note"><b style="color:#fff;display:block">${stats.missBreakdown.return}</b> return-phase misses</div>
+                <div class="note"><b style="color:#fff;display:block">${stats.missBreakdown.earlyCenter}</b> early center clicks</div>
+              </div>
+            </div>
+
+            <div class="report-section">
+              <h3>Directional heat</h3>
+              <div class="mini-rows">${sectorHtml}</div>
+            </div>
+
+            <div class="report-section">
+              <h3>Ring / distance control</h3>
+              <div class="mini-rows">${ringHtml}</div>
+            </div>
+          </section>
+        </div>
+
+        <div class="report-grid" style="margin-top:14px">
+          <section class="report-section">
+            <h3>Slowest targets</h3>
+            ${slowestHtml}
+          </section>
+
+          <section class="report-section">
+            <h3>Run setup</h3>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;color:#cbd5e1;font-size:13px">
+              <div class="note"><b style="color:#fff;display:block">Layout</b>${stats.setup.layout === "triple" ? "Triple ring" : stats.setup.layout === "star" ? "Star" : "Ring"}</div>
+              <div class="note"><b style="color:#fff;display:block">Target size</b>${stats.setup.targetSize}</div>
+              <div class="note"><b style="color:#fff;display:block">Circle scale</b>${stats.setup.circleScale}</div>
+              <div class="note"><b style="color:#fff;display:block">Target order</b>${readableOrder(stats.setup.angleOrder)}</div>
+              <div class="note"><b style="color:#fff;display:block">Ring behavior</b>${stats.setup.layout === "triple" ? readableOrder(stats.setup.ringStrategy) : "Single path"}</div>
+            </div>
+            <p class="note" style="margin-top:12px">
+              <b style="color:#fed7aa">Recommended next run:</b>
+              repeat the same setup once to confirm the weakness. Then isolate the top weakness with a shorter target count or bigger targets before returning to the harder setup.
+            </p>
+          </section>
+        </div>
+
+        <div class="report-actions">
+          <button class="secondary" id="closeReport">View board</button>
+          <button class="primary" id="runAgain">Run again</button>
+        </div>
+      `;
+
+      document.getElementById("closeReport").addEventListener("click", () => els.reportOverlay.classList.remove("show"));
+      document.getElementById("runAgain").addEventListener("click", () => resetGame());
+      document.querySelectorAll(".train-issue").forEach((button) => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.drillIndex);
+          const weakness = stats.weaknesses[index];
+          if (weakness && weakness.drill) loadDrill(weakness.drill);
+        });
+      });
+      els.reportOverlay.classList.add("show");
+    }
+
+
+    function loadDrill(drill) {
+      stopTimer();
+      const loaded = {
+        ...drill,
+        reps: drill.reps || DRILL_REPS,
+        repsDone: 0,
+        targetSize: drill.targetSize || state.targetSize,
+        circleScale: drill.circleScale || state.circleScale,
+        startedAt: null,
+        completed: false
+      };
+      Object.assign(state, {
+        practiceMode: loaded.kind === "circleDepth" ? "depth" : loaded.kind === "circleReps" ? "circle" : state.practiceMode,
+        training: loaded,
+        targetSize: loaded.targetSize,
+        circleScale: loaded.circleScale,
+        circleRepsPerTarget: loaded.repsPerTarget || state.circleRepsPerTarget,
+        circleStartAngle: Number.isFinite(loaded.startAngle) ? normalizedSliderAngle(loaded.startAngle) : state.circleStartAngle,
+        depthDirection: loaded.depthDirection || state.depthDirection,
+        phase: "idle",
+        currentIndex: 0,
+        startTime: null,
+        elapsedMs: 0,
+        targetHits: 0,
+        centerHits: 0,
+        misses: 0,
+        combo: 0,
+        bestCombo: 0,
+        pendingTargetId: null,
+        pendingStep: null,
+        targetStartedAt: null,
+        targetLockedAt: null,
+        runEvents: [],
+        currentTargetMisses: 0,
+        currentReturnMisses: 0,
+        missBreakdown: { ...EMPTY_MISS_BREAKDOWN },
+        lastRunStats: null,
+        feedback: `${loaded.title} loaded. Press the orange center to start ${loaded.reps} reps.`
+      });
+      els.reportOverlay.classList.remove("show");
+      drawBoard();
+    }
+
+    function showDrillReport() {
+      const stats = state.lastRunStats;
+      const drill = state.training;
+      if (!stats || !drill) return;
+
+      const cleanRun = stats.misses === 0;
+      const avgRep = stats.avgTotalMs;
+      const nextAdvice = cleanRun
+        ? "Clean drill. Repeat once with smaller targets or a smaller circle scale to make the same weakness harder."
+        : "Repeat this exact drill until you can finish with zero wasted clicks. Do not increase speed until accuracy is stable.";
+
+      const metric = (label, value, sub) => `
+        <div class="metric">
+          <label>${label}</label>
+          <strong>${value}</strong>
+          <span>${sub}</span>
+        </div>
+      `;
+
+      const slowestHtml = stats.slowestTargets.length
+        ? stats.slowestTargets.slice(0, 5).map((target, index) => `
+          <div class="slow-target">
+            <span class="rank">${index + 1}</span>
+            <div>
+              <b>${target.label} · ${target.sector}</b>
+              <small>Acquire ${formatMs(target.targetMs)} · return ${formatMs(target.returnMs)} · misses ${target.misses}</small>
+            </div>
+            <b style="color:#fed7aa">${formatMs(target.totalMs)}</b>
+          </div>
+        `).join("")
+        : `<p style="color:#94a3b8;font-size:13px">No rep data captured.</p>`;
+
+      els.reportOverlay.innerHTML = `
+        <div class="report-head">
+          <div>
+            <div class="drill-pill">Focused training complete</div>
+            <h2>${drill.title}</h2>
+            <p class="lead">${drill.description}</p>
+          </div>
+          <div class="score-badge">
+            <span>Drill score</span>
+            <strong>${stats.score.toLocaleString()}</strong>
+          </div>
+        </div>
+
+        <div class="report-metrics">
+          ${metric("Reps", `${drill.repsDone}/${drill.reps}`, "Focused repetitions")}
+          ${metric("Accuracy", `${stats.accuracy.toFixed(1)}%`, `${stats.misses} wasted click${stats.misses === 1 ? "" : "s"}`)}
+          ${metric("Avg rep", formatMs(avgRep), "Target + center return")}
+          ${metric("Return speed", formatMs(stats.avgReturnMs), "Target → center")}
+          ${metric("Best combo", stats.bestCombo, `${stats.totalClicks} total clicks`)}
+          ${metric("Consistency", `${(stats.consistency * 100).toFixed(0)}%`, "Lower is steadier")}
+          ${metric("Fastest rep", formatMs(stats.fastestMs), "Best repetition")}
+          ${metric("Slowest rep", formatMs(stats.slowestMs), "Worst repetition")}
+        </div>
+
+        <div class="report-grid">
+          <section class="report-section">
+            <h3>Training diagnosis</h3>
+            <div class="drill-card">
+              <div class="weakness-top">
+                <div>
+                  <small style="color:#fed7aa;font-weight:900;letter-spacing:.18em;text-transform:uppercase">Focus</small>
+                  <h4 style="margin:4px 0 0;color:#fff">${drill.focus}</h4>
+                </div>
+                <span class="severity">${cleanRun ? "Clean" : "Repeat"}</span>
+              </div>
+              <p class="tip"><b>Next step:</b> ${nextAdvice}</p>
+              <p style="color:#cbd5e1;font-size:13px;line-height:1.55">
+                This focused mode isolates the selected pattern instead of training the whole game at once. Keep it until your misses disappear and your rep times become consistent.
+              </p>
+            </div>
+          </section>
+
+          <section class="report-section">
+            <h3>Slowest drill reps</h3>
+            ${slowestHtml}
+          </section>
+        </div>
+
+        <div class="report-actions">
+          <button class="secondary" id="normalMode">Back to normal game</button>
+          <button class="primary" id="repeatDrill">Repeat this drill</button>
+        </div>
+      `;
+
+      document.getElementById("normalMode").addEventListener("click", () => resetGame());
+      document.getElementById("repeatDrill").addEventListener("click", () => loadDrill({ ...drill, repsDone: 0, completed: false }));
+      els.reportOverlay.classList.add("show");
+    }
+
+    els.arena.addEventListener("pointerdown", handleArenaPointerDown);
+
+    document.querySelectorAll("[data-layout], [data-layout-top]").forEach((button) => {
+      button.addEventListener("click", () => resetGame({ layout: button.dataset.layout || button.dataset.layoutTop }));
+    });
+    document.querySelectorAll("[data-count]").forEach((button) => {
+      button.addEventListener("click", () => resetGame({ targetCount: Number(button.dataset.count) }));
+    });
+    document.querySelectorAll("[data-size]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const config = { targetSize: button.dataset.size };
+        if (!applyGeometryPreference(config)) resetGame(config);
+      });
+    });
+    document.querySelectorAll("[data-order]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const order = button.dataset.order;
+        if (!applyCirclePracticePreference({ angleOrder: order })) resetGame({ angleOrder: order });
+      });
+    });
+    document.querySelectorAll("[data-scale]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const config = { circleScale: button.dataset.scale };
+        if (!applyGeometryPreference(config)) resetGame(config);
+      });
+    });
+    document.querySelectorAll("[data-ring-strategy]").forEach((button) => {
+      button.addEventListener("click", () => resetGame({ ringStrategy: button.dataset.ringStrategy }));
+    });
+
+    document.querySelectorAll("[data-practice]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.practice;
+        if (mode === "normal") resetGame({ practiceMode: "normal" });
+        if (mode === "circle") loadCirclePractice("circleReps");
+        if (mode === "depth") loadCirclePractice("circleDepth");
+      });
+    });
+    document.querySelectorAll("[data-reps-per-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const reps = Number(button.dataset.repsPerTarget);
+        state.circleRepsPerTarget = reps;
+        if (!applyCirclePracticePreference({ repsPerTarget: reps })) {
+          setActiveButtons();
+          updatePanel();
+        }
+      });
+    });
+    document.querySelectorAll("[data-depth-direction]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.depthDirection = button.dataset.depthDirection;
+        if (!applyCirclePracticePreference({ depthDirection: state.depthDirection })) {
+          setActiveButtons();
+          updatePanel();
+        }
+      });
+    });
+    document.getElementById("startAngleSlider").addEventListener("input", (event) => {
+      const angle = normalizedSliderAngle(event.target.value);
+      state.circleStartAngle = angle;
+      if (!applyCirclePracticePreference({ startAngle: angle }, false)) {
+        updateCirclePracticeControls();
+      }
+      drawBoard();
+    });
+    document.getElementById("resetTop").addEventListener("click", () => resetGame());
+
+    function runSelfTests() {
+      const previous = { ...state };
+      Object.assign(state, { layout: "ring", targetCount: 12, angleOrder: "clockwise", ringStrategy: "inside-out", targetSize: "medium", seed: 1 });
+      const ring12 = buildTargets();
+      console.assert(ring12.length === 12, "ring layout should build exactly 12 targets");
+      console.assert(Math.round(ring12[0].x) === 50 && Math.round(ring12[0].y) === 12, "first clockwise ring target should be at the top");
+
+      Object.assign(state, { angleOrder: "counterclockwise" });
+      const counter12 = buildTargets();
+      console.assert(counter12[1].index === 11, "counterclockwise ring order should move backwards from the top target");
+
+      Object.assign(state, { layout: "star", targetCount: 24, angleOrder: "clockwise" });
+      const star24 = buildTargets();
+      console.assert(star24.length === 24, "star layout should keep selected target count");
+      console.assert(star24[0].radius > star24[1].radius, "star layout should alternate outer and inner targets");
+
+      Object.assign(state, { layout: "ring", targetCount: 12, circleScale: "big", angleOrder: "clockwise" });
+      const bigScale = buildTargets();
+      console.assert(bigScale[0].radius > ring12[0].radius, "circle scale should use big scale option to push targets farther apart");
+
+      Object.assign(state, { layout: "ring", targetCount: 12, circleScale: "small", angleOrder: "clockwise" });
+      const smallScale = buildTargets();
+      console.assert(smallScale[0].radius < ring12[0].radius, "circle scale should use small scale option to pull targets closer together");
+
+      console.assert(isPrimaryPointerAction({ pointerType: "mouse", button: 0, type: "pointerdown", preventDefault() {} }) === true, "primary mouse down should count immediately");
+      console.assert(isPrimaryPointerAction({ pointerType: "mouse", button: 2, type: "pointerdown", preventDefault() {} }) === false, "secondary mouse button should not count as a hit");
+
+      Object.assign(state, {
+        training: createDrill("sector", { targetSize: "medium", circleScale: "medium", angle: 45, baseRadius: 38 }),
+        phase: "target",
+        targetSize: "medium",
+        circleScale: "medium",
+        targetHits: 7,
+        centerHits: 7,
+        misses: 1
+      });
+      const preserved = applyGeometryPreference({ targetSize: "small", circleScale: "big" }, false);
+      console.assert(preserved === true, "geometry changes should be applied live during a drill");
+      console.assert(state.training !== null && state.targetHits === 7 && state.centerHits === 7 && state.misses === 1, "live drill geometry changes should not reset drill progress");
+      console.assert(state.training.targetSize === "small" && state.training.circleScale === "big", "live drill geometry changes should update the current drill target and circle scale");
+
+      Object.assign(state, { layout: "triple", training: null, phase: "idle", circleScale: "medium", angleOrder: "clockwise", ringStrategy: "inside-out" });
+      const tripleInside = buildTargets();
+      console.assert(tripleInside.length === 68, "triple layout should build 68 targets");
+      console.assert(tripleInside[0].ring === "Inner" && tripleInside[12].ring === "Middle", "inside-out should finish inner before middle");
+
+
+
+      Object.assign(state, { targetCount: 12, angleOrder: "clockwise", circleRepsPerTarget: 3, circleStartAngle: 270, depthDirection: "outside-in", targetSize: "medium", circleScale: "medium", seed: 1 });
+      state.training = createCirclePractice("circleReps", { targetCount: 12, repsPerTarget: 3, startAngle: 270, angleOrder: "clockwise" });
+      const circleTargetA = buildTrainingTargets()[0];
+      state.training.repsDone = 2;
+      const circleTargetB = buildTrainingTargets()[0];
+      state.training.repsDone = 3;
+      const circleTargetC = buildTrainingTargets()[0];
+      console.assert(circleTargetA.angle === circleTargetB.angle, "circle reps should keep the same target until reps are complete");
+      console.assert(circleTargetC.angle !== circleTargetA.angle, "circle reps should advance after selected repeat count");
+
+      state.training = createCirclePractice("circleDepth", { targetCount: 12, repsPerTarget: 1, startAngle: 270, angleOrder: "clockwise", depthDirection: "outside-in" });
+      const depthOne = buildTrainingTargets()[0];
+      state.training.repsDone = 1;
+      const depthTwo = buildTrainingTargets()[0];
+      state.training.repsDone = 2;
+      const depthThree = buildTrainingTargets()[0];
+      console.assert(depthOne.angle === depthTwo.angle && depthTwo.angle === depthThree.angle, "depth reps should keep the same angle for three depths");
+      console.assert(depthOne.radius > depthTwo.radius && depthTwo.radius > depthThree.radius, "outside-in depth reps should move closer each depth");
+      Object.assign(state, previous);
+    }
+
+    runSelfTests();
+    drawBoard();
+  </script>
+</body>
+</html>
