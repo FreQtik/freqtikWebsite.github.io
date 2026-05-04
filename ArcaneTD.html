@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mirror Lane: 2026 Pro Tower Defense</title>
+  <title>BoonTD Wars</title>
   <style>
     :root {
       color-scheme: dark;
@@ -889,7 +889,449 @@ button:hover { transform: none !important; }
   .subtitle { display:none; }
 }
 
-  </style>
+  
+
+/* Final usability polish: visible headers, stable card tooltips, canvas controls */
+.canvas-wrap { position: relative; }
+.canvas-controls {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 8;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  pointer-events: auto;
+}
+.canvas-icon {
+  min-width: 44px;
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  font-size: .86rem;
+  line-height: 1;
+  box-shadow: 0 12px 32px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.canvas-pause-label {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(250,204,21,.30);
+  background: rgba(2,6,23,.82);
+  color: #fde68a;
+  font-weight: 1000;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .74rem;
+}
+.canvas-pause-label.show { display: block; }
+.left-col > .panel-header h2 {
+  color: #86efac !important;
+  font-size: 1.05rem !important;
+  letter-spacing: .12em;
+}
+.right-col .panel:first-child .section:first-child .section-title {
+  color: #86efac !important;
+  font-size: 1.08rem !important;
+  letter-spacing: .12em;
+}
+.tower-card.rarity-common { border-color: rgba(148,163,184,.18); }
+.tower-card.rarity-rare { border-color: rgba(96,165,250,.48) !important; box-shadow: inset 0 0 0 1px rgba(96,165,250,.13); }
+.tower-card.rarity-epic { border-color: rgba(192,132,252,.52) !important; box-shadow: inset 0 0 0 1px rgba(192,132,252,.16); }
+.tower-card.rarity-legendary { border-color: rgba(245,158,11,.58) !important; box-shadow: inset 0 0 0 1px rgba(245,158,11,.18); }
+.tower-card .rarity-label { text-transform: uppercase; letter-spacing: .08em; }
+.tower-card .card-meta, .contract-card .card-meta, .item-card .card-meta {
+  position: absolute !important;
+  left: 10px;
+  right: 10px;
+  top: calc(100% - 4px);
+  z-index: 30;
+  display: none;
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  margin-top: 0 !important;
+  padding: 10px 11px;
+  border: 1px solid rgba(125,211,252,.20);
+  border-radius: 14px;
+  background: rgba(2,6,23,.96);
+  color: #cbd5e1;
+  box-shadow: 0 18px 44px rgba(0,0,0,.42);
+  pointer-events: none;
+}
+.tower-card:hover .card-meta, .tower-card.selected .card-meta, .tower-card:focus-within .card-meta,
+.contract-card:hover .card-meta, .contract-card:focus-within .card-meta,
+.item-card:hover .card-meta, .item-card:focus-within .card-meta { display: block; }
+.cards, .send-cards, .item-list, .panel-body, .canvas-panel { overflow: visible; }
+.tower-card.locked:hover .card-meta { display: block; }
+@media (max-width: 900px) {
+  .canvas-controls { left: 8px; top: 8px; gap: 6px; }
+  .canvas-icon { min-width: 36px; min-height: 32px; padding: 7px 9px; font-size: .78rem; }
+  .canvas-pause-label { top: 8px; font-size: .68rem; }
+}
+
+  
+
+/* BoonTD Wars final UI pass */
+:root {
+  --rarity-common: #cbd5e1;
+  --rarity-rare: #60a5fa;
+  --rarity-epic: #c084fc;
+  --rarity-legendary: #f59e0b;
+}
+.subtitle:empty { display:none; }
+.canvas-vendor-chance {
+  position:absolute; right:14px; top:14px; z-index:8;
+  padding:8px 12px; border-radius:999px;
+  border:1px solid rgba(250,204,21,.28);
+  background:rgba(2,6,23,.82); color:#fde68a;
+  font-weight:1000; font-size:.76rem;
+  box-shadow:0 12px 32px rgba(0,0,0,.32);
+}
+.right-col > section.panel:nth-child(2) .stat-grid { grid-template-columns:1fr; }
+.right-col > section.panel:nth-child(2) .stat-grid .stat:not(:first-child),
+.right-col > section.panel:nth-child(2) .section { display:none !important; }
+.right-col > section.panel:nth-child(2) .panel-header h2 { color:#86efac !important; font-size:1.08rem !important; }
+.tower-card, .contract-card, .item-card { overflow:hidden; }
+.tower-card .card-title::after, .item-card .card-title::after, .contract-card .card-title::after { content:"" !important; }
+.tower-card .card-meta, .contract-card .card-meta {
+  position:static !important; display:none !important; max-height:none !important; opacity:1 !important;
+  padding:8px 0 0 !important; border:0 !important; background:transparent !important; box-shadow:none !important;
+  font-size:.79rem; line-height:1.32; pointer-events:auto !important;
+}
+.tower-card:hover .card-meta, .tower-card.selected .card-meta, .tower-card:focus-within .card-meta,
+.contract-card:hover .card-meta, .contract-card:focus-within .card-meta { display:block !important; }
+.tower-card.rarity-common .card-meta { color:var(--rarity-common); }
+.tower-card.rarity-rare .card-meta { color:var(--rarity-rare); }
+.tower-card.rarity-epic .card-meta { color:var(--rarity-epic); }
+.tower-card.rarity-legendary .card-meta { color:var(--rarity-legendary); }
+.tower-card.rarity-common { background:linear-gradient(180deg,rgba(15,23,42,.76),rgba(2,6,23,.52)); }
+.tower-card.rarity-rare { background:linear-gradient(180deg,rgba(30,64,175,.20),rgba(2,6,23,.55)); }
+.tower-card.rarity-epic { background:linear-gradient(180deg,rgba(126,34,206,.20),rgba(2,6,23,.55)); }
+.tower-card.rarity-legendary { background:linear-gradient(180deg,rgba(180,83,9,.22),rgba(2,6,23,.55)); }
+.rarity-pill { font-weight:1000; letter-spacing:.10em; text-transform:uppercase; margin-right:auto; }
+.rarity-pill.common { color:var(--rarity-common); }
+.rarity-pill.rare { color:var(--rarity-rare); }
+.rarity-pill.epic { color:var(--rarity-epic); }
+.rarity-pill.legendary { color:var(--rarity-legendary); }
+.item-card .card-meta, .vendor-offer .card-meta {
+  position:static !important; display:block !important; max-height:none !important; opacity:1 !important;
+  padding:8px 0 0 !important; border:0 !important; background:transparent !important; box-shadow:none !important;
+  line-height:1.32; font-size:.82rem; pointer-events:auto !important;
+}
+.item-card.rarity-common { border-color:rgba(203,213,225,.24); background:linear-gradient(180deg,rgba(148,163,184,.08),rgba(2,6,23,.52)); }
+.item-card.rarity-rare { border-color:rgba(96,165,250,.42); background:linear-gradient(180deg,rgba(37,99,235,.16),rgba(2,6,23,.54)); }
+.item-card.rarity-epic { border-color:rgba(192,132,252,.46); background:linear-gradient(180deg,rgba(126,34,206,.17),rgba(2,6,23,.54)); }
+.item-card.rarity-legendary { border-color:rgba(245,158,11,.50); background:linear-gradient(180deg,rgba(180,83,9,.20),rgba(2,6,23,.54)); }
+.item-card.rarity-common .card-meta { color:var(--rarity-common); }
+.item-card.rarity-rare .card-meta { color:var(--rarity-rare); }
+.item-card.rarity-epic .card-meta { color:var(--rarity-epic); }
+.item-card.rarity-legendary .card-meta { color:var(--rarity-legendary); }
+.vendor-offer, .shop-item-card { display:flex; flex-direction:column; min-height:168px; }
+.vendor-offer .buy-line, .shop-item-card .buy-line { margin-top:auto; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:end; justify-items:end; }
+.vendor-offer .price-stack, .shop-item-card .price-stack { display:flex; flex-direction:column; align-items:flex-end; gap:3px; }
+.vendor-offer .vendor-price, .shop-item-card .vendor-price { font-size:1.05rem; }
+.difficulty-grid { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+.difficulty-grid .passive { min-height:78px; display:grid; place-items:center; text-align:center; font-size:1.25rem; }
+.difficulty-grid .passive strong { margin:0; }
+.difficulty-grid .passive span { display:none !important; }
+.passive-grid:not(.difficulty-grid) .passive { min-height:118px; display:grid; grid-template-columns:54px 1fr; gap:10px; align-items:center; }
+.passive-symbol { font-size:2.05rem; text-align:center; filter:drop-shadow(0 0 16px currentColor); }
+.passive-copy span { display:none; }
+.passive.selected .passive-copy span { display:block; margin-top:6px; }
+.passive .unlock-line { display:none !important; }
+.selected-topline { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.icon-btn { width:34px; height:34px; padding:0; border-radius:12px; display:grid; place-items:center; font-size:1rem; }
+.selected-topline .tower-name-line { flex:1; margin:0; }
+.inventory-under-stats { margin-top:10px; }
+.merge-inline-row { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.merge-inline-row button { flex:1; }
+.merge-inline-row .muted { font-size:.78rem; }
+@media (max-width:900px){ .difficulty-grid{ grid-template-columns:1fr 1fr !important;} .canvas-vendor-chance{right:8px; top:8px; font-size:.68rem;} }
+
+
+
+/* Streamlined run setup + canvas HUD update */
+.hud-strip { display: none !important; }
+.run-setup-card { width: min(1120px, calc(100vw - 30px)); }
+.run-setup-play-row { display: flex; justify-content: center; align-items: center; margin: 0 0 18px; }
+.run-setup-play-row .main-play { min-width: 220px; font-size: 1.08rem; padding: 15px 24px; }
+.run-passive-layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; align-items: stretch; }
+.run-passive-layout #passiveGrid { margin-top: 0; }
+.passive-detail {
+  min-height: 220px;
+  border: 1px solid rgba(125,211,252,.24);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(15,23,42,.86), rgba(2,6,23,.60));
+  padding: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  position: sticky;
+  top: 12px;
+}
+.passive-detail .detail-symbol { font-size: 3rem; line-height: 1; margin-bottom: 10px; filter: drop-shadow(0 0 20px currentColor); }
+.passive-detail h3 { margin: 0 0 8px; font-size: 1.18rem; letter-spacing: -.03em; }
+.passive-detail p { margin: 0; color: var(--soft); line-height: 1.45; }
+.passive-detail .detail-note { margin-top: 12px; color: #fde68a; font-size: .82rem; font-weight: 900; }
+.passive-grid:not(.difficulty-grid) .passive .passive-copy span { display: none !important; }
+.passive-grid:not(.difficulty-grid) .passive.selected { box-shadow: inset 0 0 0 2px rgba(255,255,255,.10), 0 16px 46px rgba(0,0,0,.28); }
+.difficulty-grid .passive strong { font-size: 1.35rem; letter-spacing: .04em; }
+.right-col > section.panel:first-child > .panel-header { display: none !important; }
+.right-col > section.panel:first-child .panel-body { padding-top: 18px; }
+#towerCards {
+  border: 1px solid rgba(134,239,172,.42);
+  border-radius: 24px;
+  padding: 10px;
+  background: linear-gradient(180deg, rgba(22,101,52,.12), rgba(2,6,23,.24));
+  box-shadow: inset 0 0 0 1px rgba(134,239,172,.08), 0 16px 42px rgba(0,0,0,.22);
+}
+.canvas-match-hud {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 44px 150px 44px;
+  align-items: start;
+  gap: 8px;
+  pointer-events: none;
+}
+.life-orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 1000;
+  color: #f8fbff;
+  border: 1px solid rgba(134,239,172,.42);
+  background: radial-gradient(circle at 50% 20%, rgba(134,239,172,.26), rgba(2,6,23,.88));
+  box-shadow: 0 12px 30px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.enemy-life { border-color: rgba(216,180,254,.42); background: radial-gradient(circle at 50% 20%, rgba(216,180,254,.25), rgba(2,6,23,.88)); }
+.wave-dome {
+  min-height: 62px;
+  padding: 9px 14px 12px;
+  text-align: center;
+  border: 1px solid rgba(125,211,252,.30);
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(180deg, rgba(8,47,73,.92), rgba(2,6,23,.86));
+  box-shadow: 0 16px 40px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.07);
+}
+.wave-number { font-size: .72rem; color: #bae6fd; text-transform: uppercase; letter-spacing: .08em; font-weight: 1000; }
+.wave-number strong { color: #fff; font-size: .95rem; }
+.wave-timer { margin-top: 3px; color: #fde68a; font-weight: 1000; font-size: 1.08rem; }
+.canvas-pause-label { top: 78px !important; }
+.canvas-controls #startWaveBtn[style*="display: none"] { pointer-events: none; }
+@media (max-width: 900px) {
+  .run-passive-layout { grid-template-columns: 1fr; }
+  .passive-detail { position: static; min-height: 150px; }
+  .canvas-match-hud { top: 48px; grid-template-columns: 36px 122px 36px; gap: 5px; }
+  .life-orb { width: 36px; height: 36px; font-size: .82rem; }
+  .wave-dome { min-height: 52px; padding: 7px 10px 10px; }
+  .wave-timer { font-size: .92rem; }
+}
+
+
+
+/* RTS command-dock + enlarged game layout patch */
+.app { width: min(1780px, calc(100vw - 12px)) !important; padding-top: 10px !important; }
+.shell { grid-template-columns: 300px minmax(1100px, 1fr) !important; gap: 12px !important; align-items: start; }
+.right-col { display: none !important; }
+.canvas-panel { padding: 10px !important; }
+.canvas-wrap { width: 100%; }
+canvas { width: 100% !important; max-height: calc(100vh - 145px); object-fit: contain; }
+.quick-send { display: none !important; }
+#startWaveBtn { display: none !important; }
+.canvas-controls { top: 12px !important; }
+.canvas-controls #shopBtn { min-width: 92px; }
+.canvas-economy-hud {
+  position: absolute;
+  top: 8.5%;
+  left: 25%;
+  transform: translateX(-50%);
+  z-index: 9;
+  min-width: 220px;
+  text-align: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(250,204,21,.32);
+  background: rgba(2,6,23,.84);
+  color: #fde68a;
+  box-shadow: 0 14px 38px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.06);
+  pointer-events: none;
+}
+.canvas-economy-hud strong { font-size: 1.22rem; letter-spacing: -.03em; }
+.canvas-economy-hud span { color: #fef3c7; font-weight: 900; margin-left: 8px; }
+.canvas-start-sphere {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+  width: 118px;
+  height: 118px;
+  border-radius: 999px;
+  display: none;
+  place-items: center;
+  text-align: center;
+  border: 2px solid rgba(134,239,172,.72);
+  background: radial-gradient(circle at 45% 25%, rgba(134,239,172,.34), rgba(5,46,22,.92) 64%, rgba(2,6,23,.96));
+  color: #ecfdf5;
+  font-size: 1.22rem;
+  font-weight: 1100;
+  letter-spacing: .08em;
+  box-shadow: 0 0 48px rgba(34,197,94,.22), 0 24px 70px rgba(0,0,0,.48), inset 0 2px 0 rgba(255,255,255,.12);
+}
+.canvas-start-sphere.show { display: grid; }
+.canvas-start-sphere:disabled { opacity: .38; filter: grayscale(.4); }
+.game-action-buttons {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 14;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  border: 1px solid rgba(125,211,252,.20);
+  border-radius: 999px;
+  background: rgba(2,6,23,.82);
+  box-shadow: 0 18px 52px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.game-action-buttons button {
+  border-radius: 999px;
+  padding: 9px 13px;
+  font-size: .78rem;
+  min-width: 80px;
+}
+.game-action-buttons button.active { outline: 2px solid rgba(134,239,172,.58); background: linear-gradient(180deg,#15803d,#14532d); }
+.game-command-panel {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 66px;
+  z-index: 13;
+  display: none;
+  border: 1px solid rgba(134,239,172,.34);
+  border-radius: 24px;
+  padding: 12px;
+  background: linear-gradient(180deg, rgba(5,15,28,.96), rgba(2,6,23,.94));
+  box-shadow: 0 26px 80px rgba(0,0,0,.50), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.game-command-panel.show { display: block; }
+.command-panel-head { display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-bottom: 10px; }
+.command-panel-head strong { color:#86efac; text-transform:uppercase; letter-spacing:.12em; font-size:.78rem; }
+.command-panel-content {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 2px 4px 8px;
+  scroll-snap-type: x proximity;
+}
+.command-panel-content > * { min-width: 235px; scroll-snap-align: start; }
+.command-panel-content .tabs { min-width: 260px; align-self: stretch; }
+.command-panel-content .tower-card,
+.command-panel-content .contract-card,
+.command-panel-content .upgrade-card,
+.command-panel-content .item-card { min-width: 235px; max-width: 260px; }
+.command-panel-content .selected-empty { min-width: 280px; }
+.command-panel-close { padding: 6px 9px; box-shadow:none; }
+.dps-meter {
+  position: absolute;
+  right: 14px;
+  top: 58px;
+  z-index: 15;
+  width: min(310px, calc(100% - 28px));
+  display: none;
+  border: 1px solid rgba(125,211,252,.26);
+  border-radius: 20px;
+  background: rgba(2,6,23,.88);
+  box-shadow: 0 20px 62px rgba(0,0,0,.46);
+  padding: 11px;
+}
+.dps-meter.show { display: block; }
+.dps-meter h3 { margin:0 0 7px; font-size:.86rem; color:#bae6fd; letter-spacing:.08em; text-transform:uppercase; }
+.dps-meter-row { display:flex; justify-content:space-between; gap:8px; color:#cbd5e1; font-size:.78rem; padding:4px 0; border-top:1px solid rgba(148,163,184,.10); }
+.dps-meter-total { color:#fde68a; font-weight:1000; }
+.keybind-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
+.keybind-card { border:1px solid rgba(148,163,184,.14); border-radius:16px; padding:10px; background:rgba(2,6,23,.36); }
+.keybind-card label { display:block; color:var(--muted); font-size:.68rem; font-weight:1000; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+.keybind-card input { width:100%; border:1px solid rgba(148,163,184,.22); border-radius:12px; padding:8px 9px; background:rgba(15,23,42,.78); color:#f8fbff; font-weight:900; text-align:center; }
+.run-setup-top-actions { display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:12px; }
+.run-setup-top-actions .main-play { margin-left:auto; }
+.locked-detail-button { margin-top:12px; width:100%; }
+@media (max-width: 1400px) {
+  .shell { grid-template-columns: 1fr !important; }
+  .left-col { display: none !important; }
+  canvas { max-height: none; }
+}
+@media (max-width: 900px) {
+  .game-action-buttons { left:8px; right:8px; bottom:8px; transform:none; overflow-x:auto; justify-content:flex-start; }
+  .game-action-buttons button { min-width: 74px; padding:8px 10px; }
+  .game-command-panel { left:8px; right:8px; bottom:58px; }
+  .canvas-start-sphere { width:88px; height:88px; font-size:.95rem; }
+  .canvas-economy-hud { top:12%; min-width: 170px; padding:6px 10px; }
+  .canvas-economy-hud strong { font-size:1rem; }
+}
+
+
+/* Professional gameplay-fix patch: stable hover, start button, rarity/buy rows */
+.canvas-start-sphere,
+.canvas-start-sphere:hover,
+.canvas-start-sphere:focus,
+.canvas-start-sphere:active {
+  transform: translate(-50%, -50%) !important;
+  left: 50% !important;
+  top: 54% !important;
+}
+.canvas-start-sphere:hover { filter: brightness(1.12); }
+.canvas-start-sphere:active { filter: brightness(1.18); }
+.tower-card:hover, .contract-card:hover, .item-card:hover,
+.tower-card.selected, .contract-card.selected {
+  transform: none !important;
+}
+.tower-card .card-meta,
+.contract-card .card-meta {
+  display: block !important;
+  position: static !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  margin-top: 7px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: auto !important;
+}
+.buy-line {
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  justify-items: stretch !important;
+}
+.buy-line .buy-rarity {
+  justify-self: start !important;
+  align-self: center !important;
+  margin-right: 8px !important;
+}
+.buy-line .price-stack {
+  justify-self: end !important;
+  align-items: flex-end !important;
+}
+.dps-meter { width: min(380px, calc(100% - 28px)); }
+.dps-meter-row span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dps-meter-row b { white-space:nowrap; }
+
+</style>
 </head>
 <body>
 
@@ -897,7 +1339,7 @@ button:hover { transform: none !important; }
     <div class="main-menu">
       <div class="main-hero">
         <div>
-          <h2>Mirror Lane Profile</h2>
+          <h2>BoonTD Wars</h2>
           <p>Press Play, place towers, beat waves. Achievements unlock permanent toys later — they are optional.</p>
         </div>
         <button class="primary main-play" id="mainPlayBtn">Play Run</button>
@@ -909,15 +1351,12 @@ button:hover { transform: none !important; }
   <div class="app">
     <header class="topbar">
       <div>
-        <h1>Mirror Lane: Pro Defense</h1>
-        <p class="subtitle">A polished mirrored-lane tower defense run. Build a compact defense, pressure the AI lane, chase perfect-wave streaks, merge towers, collect loot, and snowball through fast, rewarding waves.</p>
+        <h1>BoonTD Wars</h1>
+        <p class="subtitle"></p>
       </div>
       <div class="top-actions">
-        <button id="pauseBtn" class="ghost">Pause</button>
-        <button id="startWaveBtn" class="primary">Start Next Wave</button>
         <button id="tutorialBtn" class="ghost">Tutorial</button>
         <button id="progressBtn" class="progress-btn">Achievements</button>
-        <button id="shopBtn" class="gold-btn">Item Workshop</button>
         <button id="newGameBtn" class="danger">New Run</button>
       </div>
     </header>
@@ -932,18 +1371,35 @@ button:hover { transform: none !important; }
         <div class="hud-strip">
           <div class="pill">Lives <strong id="lifeText">30</strong></div>
           <div class="pill">Gold <strong id="goldText">0</strong> <span class="mini-income">+<strong id="incomeInlineText">0</strong>/wave</span></div>
-          <div class="pill">AI Lives <strong id="aiLifeText">30</strong></div>
+          <div class="pill">Enemy Lives <strong id="aiLifeText">30</strong></div>
           <div class="pill">Wave <strong id="waveText">0</strong></div>
           <div class="pill">Next wave <strong id="timerText">--</strong></div>
         </div>
-        <canvas id="game" width="1248" height="720" aria-label="Mirror Lane Tower Defense board"></canvas>
+        <div class="canvas-wrap">
+          <canvas id="game" width="1248" height="720" aria-label="Mirror Lane Tower Defense board"></canvas>
+          <div class="canvas-controls" aria-label="Game controls">
+            <button id="shopBtn" class="canvas-icon gold-btn" title="Open Items">💰 Items</button>
+            <button id="pauseBtn" class="canvas-icon ghost" title="Pause / resume">⏸</button>
+            <button id="startWaveBtn" class="canvas-icon primary" title="Start next wave">▶ Wave</button>
+          </div>
+          <div id="canvasPauseLabel" class="canvas-pause-label" aria-live="polite">Paused</div>
+          <div id="canvasMatchHud" class="canvas-match-hud" aria-live="polite">
+            <div class="life-orb player-life" id="canvasPlayerLife">30</div>
+            <div class="wave-dome">
+              <div class="wave-number">Wave <strong id="canvasWaveNumber">0</strong></div>
+              <div class="wave-timer" id="canvasTimerText">Ready</div>
+            </div>
+            <div class="life-orb enemy-life" id="canvasEnemyLife">30</div>
+          </div>
+          <div id="canvasVendorChance" class="canvas-vendor-chance">Vendor 10%</div>
+        </div>
         <div class="msg" id="message">Choose a passive to begin.</div>
-        <section class="quick-send" aria-label="Send pressure to AI">
+        <section class="quick-send" aria-label="Send units">
           <div class="quick-send-head">
-            <h2>Send pressure to AI</h2>
+            <h2>SEND UNITS</h2>
             <div class="tabs" style="margin:0; min-width:260px">
-              <button class="tab active" id="queuedTab">Next wave</button>
-              <button class="tab" id="directTab">Direct aura units</button>
+              <button class="tab active" id="queuedTab">On Wave</button>
+              <button class="tab" id="directTab">Instant</button>
             </div>
             <button class="ghost compact" id="waveLabBtn" title="Jump to permanent wave-unit upgrades.">Wave Lab</button>
             <button class="gold-btn compact" id="autoSendBtn" title="Automatically spend affordable gold on random legal sends.">Auto Send</button>
@@ -960,7 +1416,7 @@ button:hover { transform: none !important; }
             <div class="send-upgrade-head">
               <div>
                 <div class="section-title">Wave unit lab</div>
-                <p class="setup-hint">Permanent upgrades apply to every unit you send at the AI lane: queued packs, direct aura units, taunts, and invisible units.</p>
+                <p class="setup-hint">Permanent upgrades apply to every unit you send at the AI lane: queued packs, instant units, taunts, and invisible units.</p>
               </div>
             </div>
             <div class="upgrade-cards" id="sendUpgradeCards"></div>
@@ -996,12 +1452,12 @@ button:hover { transform: none !important; }
         </section>
 
         <section class="panel">
-          <div class="panel-header"><h2>Run intelligence</h2></div>
+          <div class="panel-header"><h2>Passive</h2></div>
           <div class="panel-body">
             <div class="stat-grid">
               <div class="stat"><small>Passive</small><strong id="passiveText">None</strong></div>
               <div class="stat"><small>Difficulty</small><strong id="difficultyText">Normal</strong></div>
-              <div class="stat"><small>Selected relocate</small><strong id="replaceText">Ready</strong></div>
+              <div class="stat"><small>Selected replace</small><strong id="replaceText">Ready</strong></div>
               <div class="stat"><small>Inventory</small><strong id="inventoryText">0 Items</strong></div>
               <div class="stat"><small>Income</small><strong id="incomeText">0g</strong></div>
               <div class="stat"><small>Streak</small><strong id="streakText">0x</strong></div>
@@ -1051,7 +1507,7 @@ button:hover { transform: none !important; }
     <div class="modal shop-modal">
       <div class="modal-head">
         <div>
-          <h2>Item Workshop</h2>
+          <h2>Items</h2>
           <p>Buy common items directly, craft two matching commons into improved rares, or consume recipe ingredients to forge powerful epic and legendary items. Equipped items count as busy, so unequip them before crafting.</p>
         </div>
         <button class="ghost" id="closeShopModal">Close</button>
@@ -1092,13 +1548,17 @@ button:hover { transform: none !important; }
   <div class="loot-toasts" id="lootToasts" aria-live="polite" aria-label="Item rewards"></div>
 
   <div class="start-backdrop" id="startModal">
-    <div class="start-card">
-      <h2>Choose your run</h2>
-      <p>Pick difficulty, choose one unlocked passive, then place towers. You can ignore advanced systems until you want them.</p>
+    <div class="start-card run-setup-card">
+      <div class="run-setup-play-row">
+        <button class="primary main-play" id="startRunConfirmBtn">Play Run</button>
+      </div>
       <div class="setup-label">Difficulty</div>
       <div class="passive-grid difficulty-grid" id="difficultyGrid"></div>
       <div class="setup-label">Passive</div>
-      <div class="passive-grid" id="passiveGrid"></div>
+      <div class="run-passive-layout">
+        <div class="passive-grid" id="passiveGrid"></div>
+        <aside class="passive-detail" id="passiveDetail" aria-live="polite"></aside>
+      </div>
     </div>
   </div>
 
@@ -1149,7 +1609,7 @@ button:hover { transform: none !important; }
   const REPLACE_CD = 45;
   const PORTAL_CD = 30;
   const MAX_LEVEL = 3;
-  const MAX_GRADE = 5;
+  const MAX_GRADE = 3;
   const ATTACK_SLOTS = 5;
   const ATTACK_SLOT_Y = BOARD_Y + BOARD_H + 54;
   const TOWER_REPAIR_CD = 7;
@@ -1242,6 +1702,10 @@ button:hover { transform: none !important; }
       name: "Blast Mine Foundry", icon: "🔥✸", cost: 10, color: "#fb7185", range: 132, damage: 54, attackSpeed: 0.72,
       role: "Fusion / delayed explosive burn", ability: "Unlocked fusion of Ash Mortar + Mine Layer. Attaches mines that explode harder against burning enemies."
     },
+    damageBank: {
+      name: "Vault Obelisk", icon: "◫", cost: 9, color: "#a78bfa", range: 150, damage: 22, attackSpeed: 1.05,
+      role: "Stored damage / focus burst", ability: "Stores its attack damage instead of dealing it. Select it or use focus fire to release the stored hit into a priority target."
+    },
     detector: {
       name: "Sentry Lens", icon: "◉", cost: 75, color: "#7dd3fc", range: 170, damage: 8, attackSpeed: 1.15, detector: true,
       role: "Detector / anti-invisible", ability: "Manual detector unlocked after any tower reaches Grade II. Reveals invisible enemies inside its field so your defense towers can target them."
@@ -1284,7 +1748,7 @@ button:hover { transform: none !important; }
     { type: "volt", weight: 15 }, { type: "blade", weight: 14 }, { type: "needle", weight: 14 },
     { type: "cryo", weight: 12 }, { type: "venom", weight: 12 }, { type: "mortar", weight: 10 },
     { type: "mine", weight: 10 }, { type: "shockwave", weight: 9 }, { type: "tentacle", weight: 8 },
-    { type: "arc", weight: 7 }, { type: "ballista", weight: 7 }, { type: "lightningShield", weight: 7 }, { type: "fireTrap", weight: 6 }, { type: "relay", weight: 7 }, { type: "gold", weight: 4 }, { type: "portal", weight: 3 }, { type: "frostNeedleHybrid", weight: 4, unlock: "fusionFrostNeedle" }, { type: "stormRelayHybrid", weight: 3, unlock: "fusionStormRelay" }, { type: "blastMineHybrid", weight: 3, unlock: "fusionBlastMine" }
+    { type: "arc", weight: 7 }, { type: "ballista", weight: 7 }, { type: "lightningShield", weight: 7 }, { type: "damageBank", weight: 6 }, { type: "fireTrap", weight: 6 }, { type: "relay", weight: 7 }, { type: "gold", weight: 4 }, { type: "portal", weight: 3 }, { type: "frostNeedleHybrid", weight: 4, unlock: "fusionFrostNeedle" }, { type: "stormRelayHybrid", weight: 3, unlock: "fusionStormRelay" }, { type: "blastMineHybrid", weight: 3, unlock: "fusionBlastMine" }
   ];
   const offensiveAssaultRandomPool = [
     { type: "dart", weight: 28 }, { type: "towerSlow", weight: 20 }, { type: "blizzard", weight: 18 },
@@ -1369,7 +1833,11 @@ button:hover { transform: none !important; }
     titanClaws: { name: "Titan Claws", icon: "⟁", rarity: "epic", desc: "+125 flat attack damage.", effects: { flatDamage: 125 } },
     echoPrism: { name: "Echo Prism", icon: "⌬", rarity: "epic", desc: "+1 target and +10% attack speed.", effects: { extraTargets: 1, attackSpeedPct: 0.10 } },
     guardianPlate: { name: "Guardian Plate", icon: "▰", rarity: "epic", desc: "+120% tower health and nearby towers gain +8% damage.", effects: { healthPct: 1.20, auraDmgPct: 0.08, auraRange: 125 } },
-    mysticalBeam: { name: "Mystical Beam", icon: "▰", rarity: "legendary", desc: "Links to same item within range. Beam slows by 20% and deals fast low damage. Also grants +8% attack speed.", effects: { beam: true, attackSpeedPct: 0.08 } },
+    mysticalBeam: { name: "Mystical Beam", icon: "▰", rarity: "rare", desc: "Links to another Mystical Beam in range. The beam slows and burns enemies crossing it.", effects: { beam: true, attackSpeedPct: 0.08 } },
+    wideProjectiles: { name: "Weighted Fletching", icon: "↔", rarity: "rare", desc: "Flying projectiles gain a wider hit radius, making Ballista and Shockwave-style shots more forgiving.", effects: { projectileHitBonus: 8 } },
+    growingProjectiles: { name: "Growing Arrowhead", icon: "◆", rarity: "epic", desc: "Flying projectiles grow while travelling, up to double size and hit range.", effects: { projectileGrow: true, projectileHitBonus: 3 } },
+    meleeQuake: { name: "Quake Knuckles", icon: "◉", rarity: "rare", desc: "Melee towers release an AoE shockwave every 5 hits, damaging nearby enemies.", effects: { meleeShockwave: true } },
+    soulCollector: { name: "Soulcollector", icon: "☽", rarity: "epic", desc: "Collects 30 deaths in range, then calls down a deadly 4-second beam on the current target area.", effects: { soulCollector: true } },
     dragonLens: { name: "Dragon Lens", icon: "🐉", rarity: "legendary", desc: "Legendary: +1 target and 50% splash damage.", effects: { extraTargets: 1, splashRadius: 72, splashPct: 0.50 } },
     nullCrown: { name: "Null Crown", icon: "♛", rarity: "legendary", desc: "Legendary: stun hits and exposes nearby enemies.", effects: { stunChance: 0.12, stunDur: 0.36, auraVulnPct: 0.10, auraRange: 150 } },
     phoenixFeather: { name: "Phoenix Feather", icon: "🪶", rarity: "legendary", desc: "Legendary: +34% damage, +34% attack speed, and +60% tower health.", effects: { damagePct: 0.34, attackSpeedPct: 0.34, healthPct: 0.60 } },
@@ -1443,9 +1911,9 @@ button:hover { transform: none !important; }
       desc: "Defense building returns to the old pure-random behavior: you buy random rolls instead of choosing from visible drafts."
     },
     seller: {
-      name: "Big Seller",
-      short: "Big Seller",
-      desc: "Traveling Vendors offer 3 additional items, for 6 shop choices total."
+      name: "Personal Vendor",
+      short: "Vendor+",
+      desc: "Your personal vendor offers more items, has a better chance to show rare gear, and refreshes its inventory every wave."
     },
     keepsake: {
       name: "Lucky Keepsake",
@@ -1456,22 +1924,22 @@ button:hover { transform: none !important; }
 
   const difficultyDefs = {
     apprentice: {
-      name: "Apprentice", short: "Apprentice", badge: "Learning", desc: "Lower AI pressure and lighter counterattacks. Good for testing builds.",
+      name: "EASY", short: "EASY", badge: "", desc: "",
       aiLives: 25, aiStartGold: 18, aiEconomy: 0.85, aiBuildRate: 0.85, aiDamage: 0.95, aiAspd: 0.95,
       aiPressure: 0.85, playerWavePower: 0.90, aiNeutralPower: 0.88, aiIncomingPower: 1.05, aiStarterExtra: 0, aiStarterLevel: 1
     },
     normal: {
-      name: "Strategist", short: "Strategist", badge: "Default", desc: "Balanced AI with better defense than the early prototype.",
+      name: "MEDIUM", short: "MEDIUM", badge: "", desc: "",
       aiLives: 35, aiStartGold: 28, aiEconomy: 1.10, aiBuildRate: 1.15, aiDamage: 1.10, aiAspd: 1.05,
       aiPressure: 1.08, playerWavePower: 1.00, aiNeutralPower: 0.80, aiIncomingPower: 0.95, aiStarterExtra: 1, aiStarterLevel: 1
     },
     rival: {
-      name: "Rival", short: "Rival", badge: "Hard", desc: "AI gets more lives, faster build tempo, stronger towers, and more pressure sends.",
+      name: "HARD", short: "HARD", badge: "", desc: "",
       aiLives: 50, aiStartGold: 38, aiEconomy: 1.45, aiBuildRate: 1.50, aiDamage: 1.30, aiAspd: 1.15,
       aiPressure: 1.35, playerWavePower: 1.15, aiNeutralPower: 0.70, aiIncomingPower: 0.82, aiStarterExtra: 2, aiStarterLevel: 2
     },
     nightmare: {
-      name: "Nightmare", short: "Nightmare", badge: "Brutal", desc: "The AI is heavily fortified and sends punishing counter-pressure. Intended for optimized builds.",
+      name: "EXTREME", short: "EXTREME", badge: "", desc: "",
       aiLives: 70, aiStartGold: 54, aiEconomy: 1.85, aiBuildRate: 1.95, aiDamage: 1.58, aiAspd: 1.25,
       aiPressure: 1.75, playerWavePower: 1.32, aiNeutralPower: 0.62, aiIncomingPower: 0.70, aiStarterExtra: 4, aiStarterLevel: 2
     }
@@ -1498,7 +1966,7 @@ button:hover { transform: none !important; }
     fusionBlastMine: { kind: "Tower fusion", title: "Blast Mine Foundry", cost: 75, desc: "Unlocks the Mortar + Mine exotic. Delayed explosives get burn-scaling personality." },
     itemStormHeart: { kind: "Exotic item", title: "Storm Heart", cost: 55, desc: "Adds Storm Heart to boss drops, vendors, and Lucky Keepsake starter rolls." },
     itemPhaseLens: { kind: "Exotic item", title: "Phase Lens", cost: 60, desc: "Adds Phase Lens to boss drops, vendors, and Lucky Keepsake starter rolls." },
-    recipeMonarchSigil: { kind: "Legendary recipe", title: "Monarch Sigil", cost: 110, desc: "Unlocks a prestige recipe for aura/support builds in the Item Workshop." }
+    recipeMonarchSigil: { kind: "Legendary recipe", title: "Monarch Sigil", cost: 110, desc: "Unlocks a prestige recipe for aura/support builds in the Items." }
   };
 
   const fusionDefs = {
@@ -1513,13 +1981,13 @@ button:hover { transform: none !important; }
     income1000: { title: "Industrial Engine", desc: "Reach 1000 income in a run.", reward: "+1 Mastery Point, +45 Vault Gold" },
     send100: { title: "War Logistics", desc: "Send 100 total units to the AI across all runs.", reward: "+1 Mastery Point, +30 Vault Gold" },
     noItemsWin: { title: "Pure Defense", desc: "Win a run without equipping any item.", reward: "+1 Mastery Point, +30 Vault Gold" },
-    grade5: { title: "Ascended Architect", desc: "Merge any tower to Grade V.", reward: "+1 Mastery Point, +30 Vault Gold" },
+    grade5: { title: "Ascended Architect", desc: "Merge any tower to Grade III.", reward: "+1 Mastery Point, +30 Vault Gold" },
     assault5: { title: "Siege Commander", desc: "Destroy 5 AI towers with assault towers in one fight.", reward: "+1 Mastery Point, +35 Vault Gold" },
     masterDifficulties: { title: "Mirror Master", desc: "Beat the AI on every difficulty.", reward: "+1 Mastery Point, +80 Vault Gold" },
     perfect5: { title: "Clean Execution", desc: "Reach a 5-wave perfect-clear streak.", reward: "+1 Mastery Point, +20 Vault Gold" },
     bossKill: { title: "Boss Cracker", desc: "Kill a boss enemy.", reward: "+1 Mastery Point, +25 Vault Gold" },
     craftLegendary: { title: "Mythic Artisan", desc: "Craft any legendary recipe.", reward: "+1 Mastery Point, +45 Vault Gold" },
-    buyCommon: { title: "Workshop Regular", desc: "Buy a common item from the Item Workshop.", reward: "+1 Mastery Point, +15 Vault Gold" },
+    buyCommon: { title: "Workshop Regular", desc: "Buy a common item from the Items.", reward: "+1 Mastery Point, +15 Vault Gold" },
     fireTrapBuild: { title: "Terrain Engineer", desc: "Build or roll a Fire Ground trap.", reward: "+1 Mastery Point, +20 Vault Gold" },
     detectorBuild: { title: "Revealing Lens", desc: "Build a Sentry Lens before invisible waves arrive.", reward: "+1 Mastery Point, +20 Vault Gold" },
     sendUpgrade5: { title: "Bio-Lab Pressure", desc: "Reach 5 total levels in the Wave Unit Lab.", reward: "+1 Mastery Point, +25 Vault Gold" },
@@ -1678,12 +2146,12 @@ button:hover { transform: none !important; }
   const tutorialSteps = [
     { title: "Start relaxed", body: "Press Play from the profile menu, choose a difficulty, then choose an unlocked passive. The profile screen is only for long-term progress; you can ignore it and just play.", target: "#mainPlayBtn", event: "startRun" },
     { title: "Place a tower", body: "Select one visible tower card, then click an empty tile on your left board. This is the first fun moment: one choice, one placement, immediate combat value.", target: "#game", event: "buildDefense" },
-    { title: "Read towers quickly", body: "Cards are compact on purpose. Hover or focus a card to see the detailed explanation. Towers cap at Level 3; after that, matching towers can merge up to Grade V.", target: "#towerCards", event: "buildDefense" },
+    { title: "Read towers quickly", body: "Cards are compact on purpose. Hover or focus a card to see the detailed explanation. Towers cap at Level 3; after that, matching towers can merge up to Grade III.", target: "#towerCards", event: "buildDefense" },
     { title: "Train and merge", body: "Select a tower to open its inspector. Train raises Level 1 → 2 → 3. Merge shows its gold cost and combines two matching Level 3 towers into a higher grade.", target: "#selectedPanel", event: "trainOrMerge" },
-    { title: "Items are optional power", body: "Open the Item Workshop when you want reliable upgrades. Buy commons, craft pairs, and equip items through a selected tower's item slots.", target: "#shopBtn", event: "openShop" },
+    { title: "Items are optional power", body: "Open Items when you want reliable upgrades. Buy commons, craft pairs, and equip items through a selected tower's item slots.", target: "#shopBtn", event: "openShop" },
     { title: "Launch waves", body: "Start the next wave whenever you are ready. Perfect clears build streak rewards. Invisible neutral waves start at Wave 12, with warnings before they arrive.", target: "#startWaveBtn", event: "startWave" },
     { title: "Send pressure", body: "Use queued sends to attack the AI on the next wave. Press Auto Send when you just want spare gold converted into pressure without thinking.", target: "#contractCards", event: "sendQueued" },
-    { title: "Active send units", body: "During a wave, switch to Direct aura units. They cost more, gain XP when nearby allies die, and become stronger if protected.", target: "#directTab", event: "sendDirect" },
+    { title: "Active send units", body: "During a wave, switch to Instant units. They cost more, gain XP when nearby allies die, and become stronger if protected.", target: "#directTab", event: "sendDirect" },
     { title: "Wave Unit Lab", body: "The Wave Lab button jumps to permanent run upgrades for your sent units: health, armor, regeneration, and invisibility after Wave 5.", target: "#waveLabBtn", event: "sendUpgrade" },
     { title: "Counters and assault", body: "Build Sentry Lens after a Grade II tower when invisible pressure appears. Later, assault towers attack the AI's towers; Repair Matrix and Tactical Shield keep your assault plan alive.", target: "#towerCards", event: "buildAssault" }
   ];
@@ -1748,6 +2216,7 @@ button:hover { transform: none !important; }
   let uiDirty = true;
   let activeContractTab = "queued";
   let pendingDifficulty = "normal";
+  let pendingPassive = "resonant";
   let profile = loadProfile();
   let tutorial = { active: false, step: 0 };
 
@@ -1770,6 +2239,7 @@ button:hover { transform: none !important; }
     incomeText: document.getElementById("incomeText"),
     streakText: document.getElementById("streakText"),
     vendorText: document.getElementById("vendorText"),
+    canvasVendorChance: document.getElementById("canvasVendorChance"),
     passiveText: document.getElementById("passiveText"),
     difficultyText: document.getElementById("difficultyText"),
     threatText: document.getElementById("threatText"),
@@ -1832,7 +2302,7 @@ button:hover { transform: none !important; }
       side,
       boardX,
       boardY: BOARD_Y,
-      label: side === "player" ? "Your Lane" : "AI Mirror Lane",
+      label: side === "player" ? "Your Lane" : "Enemy Lane",
       lives: START_LIVES,
       towers: [],
       enemies: [],
@@ -1898,13 +2368,14 @@ button:hover { transform: none !important; }
       vendorOffers: [],
       vendorPausedWas: false,
       lastDpsCheckWave: 0,
+      finalDpsAuditShown: false,
       log: [],
       player: makeLane("player"),
       ai: makeLane("ai"),
       lastThreat: "Stable"
     };
     s.ai.lives = diff.aiLives;
-    s.ai.label = `AI - ${diff.short}`;
+    s.ai.label = `${diff.short}`;
     return s;
   }
 
@@ -1942,6 +2413,32 @@ button:hover { transform: none !important; }
 
   function selectedBuildLabel() {
     return selectedBuildInfo().name;
+  }
+
+  const towerRarityOrder = { common: 0, rare: 1, epic: 2, legendary: 3 };
+  const towerRarityByType = {
+    volt: "common", blade: "common", needle: "common", venom: "common", fireTrap: "common",
+    cryo: "rare", mortar: "rare", mine: "rare", shockwave: "rare", ballista: "rare", lightningShield: "rare", relay: "rare", tentacle: "rare", detector: "rare",
+    arc: "epic", gold: "epic", portal: "epic", damageBank: "epic", frostNeedleHybrid: "epic", stormRelayHybrid: "epic", blastMineHybrid: "epic"
+  };
+
+  function towerRarity(type) {
+    return towerRarityByType[type] || "common";
+  }
+
+  function towerRaritySurcharge(type) {
+    return (towerRarityOrder[towerRarity(type)] || 0) * 10;
+  }
+
+  function towerBuildCost(type, base = randomBuildDefs.randomDefense.cost) {
+    return base + towerRaritySurcharge(type);
+  }
+
+  function towerBuildMeta(type, prefix = "") {
+    const def = towerDefs[type];
+    if (!def) return prefix || "Tower choice.";
+    const place = def.pathTrap ? "Place on a path cell." : def.detector ? "One active copy; reveals invisible units." : "Place on a free non-path tile.";
+    return `${prefix ? prefix + " " : ""}${def.role}: ${def.ability} ${place} Max Level ${MAX_LEVEL}; merge matching Level 3 towers up to Grade ${roman(MAX_GRADE)}.`;
   }
 
   function weightedRandom(pool) {
@@ -2115,7 +2612,7 @@ button:hover { transform: none !important; }
 
       <div class="fun-start">
         <div class="fun-step"><strong>1 · Build</strong><span>Pick one visible tower card, place it on your lane, then watch it fight.</span></div>
-        <div class="fun-step"><strong>2 · Upgrade</strong><span>Train to Level 3, then merge matching Level 3 towers up to Grade V.</span></div>
+        <div class="fun-step"><strong>2 · Upgrade</strong><span>Train to Level 3, then merge matching Level 3 towers up to Grade III.</span></div>
         <div class="fun-step"><strong>3 · Pressure</strong><span>Send units to the AI. Auto Send spends spare gold quickly; smart sends win faster.</span></div>
       </div>
 
@@ -2160,6 +2657,7 @@ button:hover { transform: none !important; }
   }
 
   function openRunSetup() {
+    if (!passiveUnlocked(pendingPassive)) pendingPassive = passiveUnlocked("resonant") ? "resonant" : Object.keys(passives).find(passiveUnlocked) || "resonant";
     renderPassiveChoices();
     if (el.mainMenu) el.mainMenu.classList.remove("show");
     if (el.startModal) el.startModal.classList.add("show");
@@ -2251,11 +2749,21 @@ button:hover { transform: none !important; }
     }).join("");
   }
 
+  function syncPauseButtons() {
+    const btn = document.getElementById("pauseBtn");
+    const label = document.getElementById("canvasPauseLabel");
+    if (btn) {
+      btn.textContent = state && state.paused ? "▶" : "⏸";
+      btn.title = state && state.paused ? "Resume" : "Pause";
+    }
+    if (label) label.classList.toggle("show", Boolean(state && state.paused && !state.gameOver));
+  }
+
   function bindEvents() {
     document.getElementById("pauseBtn").addEventListener("click", () => {
       if (!state.running || state.gameOver) return;
       state.paused = !state.paused;
-      document.getElementById("pauseBtn").textContent = state.paused ? "Resume" : "Pause";
+      syncPauseButtons();
       setMessage(state.paused ? "Paused." : "Resumed.");
     });
 
@@ -2292,7 +2800,9 @@ button:hover { transform: none !important; }
       const card = e.target.closest("[data-passive]");
       if (card) {
         if (!passiveUnlocked(card.dataset.passive)) return setMessage(`${passives[card.dataset.passive].name} is locked. Open Achievements/Profile and spend Mastery Points. ${nextPassiveUnlockText()}`);
-        startRun(card.dataset.passive, pendingDifficulty);
+        pendingPassive = card.dataset.passive || "resonant";
+        renderPassiveChoices();
+        setMessage(`${passives[pendingPassive].name} selected. Press Play Run to begin.`);
       }
     });
 
@@ -2352,6 +2862,11 @@ button:hover { transform: none !important; }
     if (el.autoSendBtn) el.autoSendBtn.addEventListener("click", autoSend);
     if (el.waveLabBtn) el.waveLabBtn.addEventListener("click", () => document.getElementById("waveLabSection")?.scrollIntoView({ behavior: "smooth", block: "center" }));
     if (el.mainPlayBtn) el.mainPlayBtn.addEventListener("click", openRunSetup);
+    const startRunConfirmBtn = document.getElementById("startRunConfirmBtn");
+    if (startRunConfirmBtn) startRunConfirmBtn.addEventListener("click", () => {
+      const key = passiveUnlocked(pendingPassive) ? pendingPassive : "resonant";
+      startRun(key, pendingDifficulty);
+    });
     if (el.mainMenuContent) el.mainMenuContent.addEventListener("click", e => { const p = e.target.closest("[data-unlock-passive]"); if (p) unlockPassive(p.dataset.unlockPassive); const c = e.target.closest("[data-unlock-content]"); if (c) unlockContent(c.dataset.unlockContent); });
 
     el.selectedPanel.addEventListener("click", e => {
@@ -2574,6 +3089,10 @@ button:hover { transform: none !important; }
     state.assaultTowerKillsThisFight = 0;
     state.wave += 1;
     const w = state.wave;
+    if (state.passive === "seller") {
+      state.vendorOffers = [];
+      log("Personal Vendor refreshed its item pool for this wave.");
+    }
     const diff = difficulty();
     if (hasNaturalInvisibleWave(w)) log(`Invisible wave active: Phantoms are mixed into this neutral wave. Sentry Lens reveals them.`);
     state.nextWave = Math.max(16, BASE_WAVE_INTERVAL - Math.floor(w / 6));
@@ -2691,7 +3210,7 @@ button:hover { transform: none !important; }
       return false;
     }
     if (tab === "direct" && !hasWaveUnitsAlive()) {
-      if (!quiet) setMessage("Direct aura units can only be sent while a wave is active on the field.");
+      if (!quiet) setMessage("Instant units can only be sent while a wave is active on the field.");
       return false;
     }
     return true;
@@ -2943,11 +3462,11 @@ button:hover { transform: none !important; }
       if (!pick) return setMessage("That selected tower is no longer available.");
       if (pick.used) return setMessage(`${towerDefs[pick.type].name} was already placed from your Selection draft.`);
       type = pick.type;
-      cost = randomBuildDefs.randomDefense.cost;
+      cost = towerBuildCost(type);
       consumesSelection = pick;
     } else if (buildKey.startsWith("selection_")) {
       type = rollRandomTower("defense");
-      cost = randomBuildDefs.randomDefense.cost;
+      cost = towerBuildCost(type);
       state.selectedBuild = "randomDefense";
     } else if (buildKey.startsWith("almost_")) {
       const idx = Number(buildKey.split("_")[1]);
@@ -2955,7 +3474,7 @@ button:hover { transform: none !important; }
       if (!pick) return setMessage("This round's tower choice is no longer available.");
       if (pick.used) return setMessage(`${towerDefs[pick.type].name} has already been built from this draft. Reroll or clear the wave for new choices.`);
       type = pick.type;
-      cost = randomBuildDefs.randomDefense.cost;
+      cost = towerBuildCost(type);
       consumesSelection = pick;
     } else if (choice.fixedType) {
       type = choice.fixedType;
@@ -3277,7 +3796,7 @@ button:hover { transform: none !important; }
     tower.itemIds = new Array(slotsForTower(tower)).fill(null);
     survivorItems.slice(0, tower.itemIds.length).forEach((id, i) => tower.itemIds[i] = id);
     tutorialEvent("trainOrMerge");
-    if (tower.grade >= 5) grantAchievement("grade5");
+    if (tower.grade >= MAX_GRADE) grantAchievement("grade5");
     log(`Merged into Grade ${roman(tower.grade)} ${towerDefs[tower.type].name}.`);
   }
 
@@ -3329,7 +3848,7 @@ button:hover { transform: none !important; }
       refreshTowerHp(pair.t);
       pair.t.itemIds = new Array(slotsForTower(pair.t)).fill(null);
       survivorItems.slice(0, pair.t.itemIds.length).forEach((id, i) => pair.t.itemIds[i] = id);
-      if (pair.t.grade >= 5) grantAchievement("grade5");
+      if (pair.t.grade >= MAX_GRADE) grantAchievement("grade5");
       merged++;
     }
     if (!merged) return setMessage("No affordable legal tower merges are available right now.");
@@ -3339,20 +3858,20 @@ button:hover { transform: none !important; }
   }
 
   function replaceTower(tower) {
-    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} relocation is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
+    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} replacement is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
     state.mode = "relocate";
     state.relocatingTowerId = tower.id;
-    setMessage(`Relocating ${towerDefs[tower.type].name}. ${tower.type === "fireTrap" ? "Click an empty path cell." : "Click an empty non-path tile."}`);
+    setMessage(`Replacing ${towerDefs[tower.type].name}. ${tower.type === "fireTrap" ? "Click an empty path cell." : "Click an empty non-path tile."}`);
   }
 
   function relocateTowerTo(tower, col, row) {
     const lane = state.player;
-    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} relocation is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
+    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} replacement is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
     if (isAttackTower(tower) && !towerDefs[tower.type].dualPlace) return setMessage("That assault tower can only relocate to another assault slot.");
-    if (tower.type === "fireTrap" && !lane.pathSet.has(`${col},${row}`)) return setMessage("Fire Ground relocation denied: choose an empty path cell on the lane.");
-    if (tower.type !== "fireTrap" && lane.pathSet.has(`${col},${row}`)) return setMessage("Relocation denied: choose a non-path tile.");
+    if (tower.type === "fireTrap" && !lane.pathSet.has(`${col},${row}`)) return setMessage("Fire Ground replacement denied: choose an empty path cell on the lane.");
+    if (tower.type !== "fireTrap" && lane.pathSet.has(`${col},${row}`)) return setMessage("Replacement denied: choose a non-path tile.");
     const occupied = getTowerAtCell(lane, col, row);
-    if (occupied && occupied.id !== tower.id) return setMessage("Relocation denied: that tile already has a tower.");
+    if (occupied && occupied.id !== tower.id) return setMessage("Replacement denied: that tile already has a tower.");
     const pos = cellCenter(lane, col, row);
     tower.col = col;
     tower.row = row;
@@ -3368,16 +3887,16 @@ button:hover { transform: none !important; }
     tower.replaceCd = tower.type === "repair" ? 5 : REPLACE_CD;
     state.mode = "select";
     state.relocatingTowerId = null;
-    log(`${towerDefs[tower.type].name} relocated.`);
-    setMessage(`${towerDefs[tower.type].name} relocated as-is. Cooldown started.`);
+    log(`${towerDefs[tower.type].name} replaced.`);
+    setMessage(`${towerDefs[tower.type].name} replaced as-is. Cooldown started.`);
   }
 
   function relocateAttackTowerTo(tower, slot) {
     const lane = state.player;
     if (!isAttackTower(tower)) return setMessage("Only assault towers can relocate to assault slots.");
-    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} relocation is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
+    if ((tower.replaceCd || 0) > 0) return setMessage(`${towerDefs[tower.type].name} replacement is cooling down for ${tower.replaceCd.toFixed(1)}s.`);
     const occupied = getTowerAtAttackSlot(lane, slot);
-    if (occupied && occupied.id !== tower.id) return setMessage("Relocation denied: that assault slot is occupied.");
+    if (occupied && occupied.id !== tower.id) return setMessage("Replacement denied: that assault slot is occupied.");
     const pos = attackSlotCenter(lane, slot);
     tower.attackSlot = slot;
     tower.col = slot;
@@ -3387,8 +3906,8 @@ button:hover { transform: none !important; }
     tower.replaceCd = tower.type === "repair" ? 5 : REPLACE_CD;
     state.mode = "select";
     state.relocatingTowerId = null;
-    log(`${towerDefs[tower.type].name} relocated to assault slot ${slot + 1}.`);
-    setMessage(`${towerDefs[tower.type].name} relocated as-is. Cooldown started.`);
+    log(`${towerDefs[tower.type].name} replaced to assault slot ${slot + 1}.`);
+    setMessage(`${towerDefs[tower.type].name} replaced as-is. Cooldown started.`);
   }
 
   function sellTower(tower) {
@@ -3613,6 +4132,16 @@ button:hover { transform: none !important; }
     enemy.mines = enemy.mines.filter(m => m.time > 0 && enemy.hp > 0);
   }
 
+  function projectileItemMods(tower) {
+    let hitBonus = 0, grow = false;
+    for (const item of equippedItems(tower)) {
+      const e = itemDefs[item.key].effects || {};
+      if (e.projectileHitBonus) hitBonus += e.projectileHitBonus;
+      if (e.projectileGrow) grow = true;
+    }
+    return { hitBonus, grow };
+  }
+
   function launchShockwave(lane, tower, target, stats) {
     const targetPos = enemyPos(lane, target);
     const dx = targetPos.x - tower.x;
@@ -3622,7 +4151,7 @@ button:hover { transform: none !important; }
     const duration = 2.0;
     lane.effects.push({
       type: "shockwave", x: tower.x, y: tower.y, vx: dx / len * speed, vy: dy / len * speed,
-      r: 18 + tower.grade * 2, damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
+      r: 18 + tower.grade * 2 + projectileItemMods(tower).hitBonus, baseR: 18 + tower.grade * 2 + projectileItemMods(tower).hitBonus, grow: projectileItemMods(tower).grow, damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
       color: towerDefs.shockwave.color
     });
     lane.shots.push({ x1: tower.x, y1: tower.y, x2: tower.x + dx / len * 34, y2: tower.y + dy / len * 34, color: towerDefs.shockwave.color, time: 0.18, width: 3 });
@@ -3637,7 +4166,7 @@ button:hover { transform: none !important; }
     const duration = 2.35;
     lane.effects.push({
       type: "ballistaBolt", x: tower.x, y: tower.y, vx: dx / len * speed, vy: dy / len * speed,
-      r: 7 + tower.grade, damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
+      r: 7 + tower.grade + projectileItemMods(tower).hitBonus, baseR: 7 + tower.grade + projectileItemMods(tower).hitBonus, grow: projectileItemMods(tower).grow, damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
       color: towerDefs.ballista.color
     });
     lane.shots.push({ x1: tower.x, y1: tower.y, x2: tower.x + dx / len * 52, y2: tower.y + dy / len * 52, color: towerDefs.ballista.color, time: 0.18, width: 2.2 });
@@ -3647,6 +4176,10 @@ button:hover { transform: none !important; }
     for (const wave of lane.effects.filter(e => e.type === "shockwave" || e.type === "ballistaBolt")) {
       wave.x += wave.vx * dt;
       wave.y += wave.vy * dt;
+      if (wave.grow && wave.baseR && wave.life) {
+        const travelled = Math.max(0, Math.min(1, 1 - wave.time / wave.life));
+        wave.r = wave.baseR * (1 + travelled);
+      }
       const tower = lane.towers.find(t => t.id === wave.towerId) || null;
       for (const enemy of [...lane.enemies]) {
         if (enemy.spawnDelay > 0 || enemy.hp <= 0 || wave.hitIds.includes(enemy.id)) continue;
@@ -3989,7 +4522,21 @@ button:hover { transform: none !important; }
       const target = targets[i];
       const pos = enemyPos(lane, target);
       const dmg = i === 0 ? stats.damage : stats.damage * 0.72;
-      if (tower.type === "mine") {
+      if (tower.type === "damageBank") {
+        tower.storedDamage = Math.min(999999, (tower.storedDamage || 0) + dmg);
+        const shouldRelease = lane.focusEnemyId === target.id;
+        if (shouldRelease && tower.storedDamage > 0) {
+          const stored = tower.storedDamage;
+          const burst = stored * (2.35 + tower.grade * 0.22 + tower.level * 0.08);
+          tower.storedDamage = 0;
+          dealDamage(lane, target, burst, tower, pos);
+          lane.effects.push({ type: "soulBeam", x: pos.x, y: pos.y, r: 34 + tower.grade * 6, time: 0.70, life: 0.70, color: towerDefs.damageBank.color, dps: 0 });
+          addFloatingText(lane, pos.x, pos.y - 32, `VAULT ${Math.round(burst)}`, "#ddd6fe");
+          lane.focusEnemyId = null;
+        } else {
+          addFloatingText(lane, pos.x, pos.y - 24, `Stored ${Math.round(tower.storedDamage)}`, "#c4b5fd");
+        }
+      } else if (tower.type === "mine") {
         attachMine(lane, tower, target, stats, pos);
       } else {
         dealDamage(lane, target, dmg, tower, pos);
@@ -4079,6 +4626,25 @@ button:hover { transform: none !important; }
         dealDamage(lane, enemy, stats.damage * 1.65, tower, p);
         applySlow(enemy, 0.45, 1.1);
         addFloatingText(lane, p.x, p.y - 34, "FROSTBURN", "#bfdbfe");
+      }
+    }
+    if (tower.type === "blade") {
+      for (const item of equippedItems(tower)) {
+        const e = itemDefs[item.key].effects || {};
+        if (!e.meleeShockwave) continue;
+        tower.meleeProcHits = (tower.meleeProcHits || 0) + 1;
+        if (tower.meleeProcHits >= 5) {
+          tower.meleeProcHits = 0;
+          const p = pos || enemyPos(lane, enemy);
+          const r = 58 + tower.grade * 6;
+          lane.effects.push({ type: "shockProc", x: p.x, y: p.y, r, time: 0.42, color: "#93c5fd" });
+          for (const other of [...lane.enemies]) {
+            if (other.spawnDelay > 0 || other.hp <= 0) continue;
+            const op = enemyPos(lane, other);
+            if (Math.hypot(op.x - p.x, op.y - p.y) <= r) dealDamage(lane, other, stats.damage * 0.72, tower, op);
+          }
+          addFloatingText(lane, p.x, p.y - 34, "QUAKE", "#bae6fd");
+        }
       }
     }
     applyBurnSynergy(lane, tower, enemy, stats, pos || enemyPos(lane, enemy));
@@ -4199,7 +4765,25 @@ button:hover { transform: none !important; }
     }
   }
 
+  function collectSoulsForItems(lane, enemy, pos) {
+    if (!lane || !pos) return;
+    for (const t of lane.towers) {
+      if (!equippedItems(t).some(item => (itemDefs[item.key].effects || {}).soulCollector)) continue;
+      const st = towerStats(t, lane);
+      if (Math.hypot(t.x - pos.x, t.y - pos.y) > st.range) continue;
+      t.soulCount = (t.soulCount || 0) + 1;
+      if (t.soulCount >= 30) {
+        t.soulCount = 0;
+        const target = lane.enemies.filter(e => e.spawnDelay <= 0 && e.hp > 0).map(e => ({ e, p: enemyPos(lane, e) })).sort((a,b)=>b.e.progress-a.e.progress)[0];
+        const beamPos = target ? target.p : pos;
+        lane.effects.push({ type: "soulBeam", x: beamPos.x, y: beamPos.y, r: 42 + t.grade * 5, time: 4, life: 4, color: "#fde68a", dps: Math.max(24, st.damage * 1.45), towerId: t.id });
+        addFloatingText(lane, beamPos.x, beamPos.y - 42, "SOUL BEAM", "#fde68a");
+      }
+    }
+  }
+
   function killEnemy(lane, enemy, tower, pos) {
+    collectSoulsForItems(lane, enemy, pos);
     awardAuraUnitXpOnDeath(lane, enemy, pos);
     lane.enemies = lane.enemies.filter(e => e.id !== enemy.id);
     if (lane.focusEnemyId === enemy.id) lane.focusEnemyId = null;
@@ -4233,7 +4817,7 @@ button:hover { transform: none !important; }
     if (enemy.boss && lane.side === "player") {
       grantAchievement("bossKill");
       bossDrop(enemy);
-      if (state.wave > 0 && state.wave % 10 === 0) runLaneDpsCheck(enemy);
+      if (state.wave > 0 && state.wave % 10 === 0) log("Boss cleared. Final DPS audit appears only when the run ends, so it reflects the actual final setup.");
     }
   }
 
@@ -4254,7 +4838,6 @@ button:hover { transform: none !important; }
   }
 
   function runLaneDpsCheck(enemy) {
-    if (state.lastDpsCheckWave === state.wave) return;
     state.lastDpsCheckWave = state.wave;
     const defense = state.player.towers.filter(t => !isAttackTower(t));
     const assault = state.player.towers.filter(t => isAttackTower(t));
@@ -4264,8 +4847,8 @@ button:hover { transform: none !important; }
     const ratio = laneDps / Math.max(1, recommended);
     const rating = ratio >= 1.35 ? "Dominant" : ratio >= 1.0 ? "Passed" : ratio >= 0.72 ? "Barely holding" : "Underpowered";
     const color = ratio >= 1 ? "#86efac" : "#fca5a5";
-    log(`Wave ${state.wave} DPS audit: ${Math.round(laneDps)} lane DPS, ${Math.round(assaultDps)} assault DPS. ${rating}.`);
-    showInfoPopup("Lane DPS audit complete", `Wave ${state.wave} post-boss check: ${rating}.`, [
+    log(`Final DPS audit: ${Math.round(laneDps)} lane DPS, ${Math.round(assaultDps)} assault DPS. ${rating}.`);
+    showInfoPopup("Final DPS audit", `Run ended at Wave ${state.wave}. Final setup: ${rating}.`, [
       ["Lane DPS", Math.round(laneDps)],
       ["Expected DPS", recommended],
       ["Assault DPS", Math.round(assaultDps)],
@@ -4391,7 +4974,7 @@ button:hover { transform: none !important; }
     }
     state.vendorPausedWas = state.paused;
     state.paused = true;
-    document.getElementById("pauseBtn").textContent = "Resume";
+    syncPauseButtons();
     el.vendorSub.textContent = `Resources: ${formatGold(state.gold)} gold, +${Math.round(state.income)} income/wave, ${state.inventory.length} item${state.inventory.length === 1 ? "" : "s"}. Vendor chance reset to ${Math.round(state.vendorChance * 100)}%. ${state.passive === "seller" ? "Big Seller expanded this shop to 6 offers." : "Buy one item or leave."}`;
     renderVendorOffers();
     el.vendorModal.classList.add("show");
@@ -4426,7 +5009,7 @@ button:hover { transform: none !important; }
   function closeVendorShop() {
     el.vendorModal.classList.remove("show");
     state.paused = state.vendorPausedWas;
-    document.getElementById("pauseBtn").textContent = state.paused ? "Resume" : "Pause";
+    syncPauseButtons();
     state.vendorOffers = [];
     uiDirty = true;
   }
@@ -4450,7 +5033,7 @@ button:hover { transform: none !important; }
     const item = addItem(key);
     showLootPopup([item], "Workshop purchase", `${itemDefs[key].name} added to inventory.`);
     grantAchievement("buyCommon");
-    log(`Bought ${itemDefs[key].name} from the Item Workshop.`);
+    log(`Bought ${itemDefs[key].name} from the Items.`);
     renderItemWorkshop();
     uiDirty = true;
   }
@@ -4493,18 +5076,18 @@ button:hover { transform: none !important; }
   }
 
   function openItemWorkshop() {
-    if (!state || !state.running) return setMessage("Start a run before opening the Item Workshop.");
+    if (!state || !state.running) return setMessage("Start a run before opening the Items.");
     state.paused = true;
     renderItemWorkshop();
     el.itemShopModal.classList.add("show");
-    setMessage("Item Workshop opened. Buy commons, craft pairs, or forge recipe items.");
+    setMessage("Items opened. Buy commons, craft pairs, or forge recipe items.");
     tutorialEvent("openShop");
   }
 
   function closeItemWorkshop() {
     el.itemShopModal.classList.remove("show");
     state.paused = false;
-    setMessage("Item Workshop closed. Combat resumed.");
+    setMessage("Items closed. Combat resumed.");
   }
 
   function renderItemWorkshop() {
@@ -4594,13 +5177,14 @@ button:hover { transform: none !important; }
   }
 
   function updateBlizzardZones(lane, dt) {
-    for (const zone of lane.effects.filter(e => e.type === "blizzard")) {
+    for (const zone of lane.effects.filter(e => e.type === "blizzard" || e.type === "soulBeam")) {
       for (const enemy of [...lane.enemies]) {
         if (enemy.spawnDelay > 0 || enemy.hp <= 0) continue;
         const p = enemyPos(lane, enemy);
         if (Math.hypot(p.x - zone.x, p.y - zone.y) <= zone.r) {
-          applySlow(enemy, zone.slowPct || 0.30, 0.22);
-          dealDamage(lane, enemy, (zone.dps || 2) * dt, null, p);
+          if (zone.type === "blizzard") applySlow(enemy, zone.slowPct || 0.30, 0.22);
+          const sourceTower = zone.towerId ? lane.towers.find(t => t.id === zone.towerId) : null;
+          dealDamage(lane, enemy, (zone.dps || 2) * dt, sourceTower, p);
         }
       }
     }
@@ -4746,6 +5330,11 @@ button:hover { transform: none !important; }
       splashPct = Math.max(splashPct, 0.45);
     }
 
+    if (tower.type === "damageBank") {
+      range += tower.grade * 7;
+      damage *= 0.82;
+    }
+
     if (tower.type === "detector") {
       range += tower.grade * 14;
       damage *= 0.78;
@@ -4774,6 +5363,7 @@ button:hover { transform: none !important; }
       if (e.flatDamage) damage += e.flatDamage * dmgScale;
       if (e.attackSpeedPct) attackSpeed *= 1 + e.attackSpeedPct;
       if (e.extraTargets) extraTargets += e.extraTargets;
+      if (e.projectileHitBonus && (tower.type === "shockwave" || tower.type === "ballista")) range += e.projectileHitBonus * 2;
       if (e.splashRadius) { splashRadius = Math.max(splashRadius, e.splashRadius); splashPct = Math.max(splashPct, e.splashPct || 0.32); }
       if (e.poisonDpsPct) { poisonDps = Math.max(poisonDps, damage * e.poisonDpsPct); poisonDur = Math.max(poisonDur, e.poisonDur || 2.4); }
       if (tower.type === "detector" && e.detectorRangePct) range *= 1 + e.detectorRangePct;
@@ -4890,14 +5480,16 @@ button:hover { transform: none !important; }
   }
 
   function checkEnd() {
+    if (state.gameOver) return;
     if (state.player.lives <= 0) {
       state.player.lives = 0; state.gameOver = true; state.victory = false;
+      if (!state.finalDpsAuditShown) { state.finalDpsAuditShown = true; runLaneDpsCheck(); }
       setMessage("Defeat. Your core collapsed. Try more early pressure and stronger boss itemization.");
-    }
-    if (state.ai.lives <= 0) {
+        } else if (state.ai.lives <= 0) {
       state.ai.lives = 0; state.gameOver = true; state.victory = true;
+      if (!state.finalDpsAuditShown) { state.finalDpsAuditShown = true; runLaneDpsCheck(); }
       recordWinAchievements();
-      setMessage("Victory. The AI mirror core collapsed under your pressure.");
+      setMessage("Victory. The enemy core collapsed under your pressure.");
     }
   }
 
@@ -4989,8 +5581,9 @@ button:hover { transform: none !important; }
     const waveBtn = document.getElementById("startWaveBtn");
     if (waveBtn) {
       waveBtn.disabled = !state.running || state.gameOver || (!state.prepPending && (state.waveInProgress || hasWaveUnitsAlive()));
-      waveBtn.textContent = state.prepPending ? "Start Wave 1" : "Start Next Wave";
+      waveBtn.textContent = state.prepPending ? "▶ Wave 1" : "▶ Wave";
     }
+    syncPauseButtons();
     if (el.gambleBtn) {
       const canGamble = state.running && !state.gameOver && hasPlacedPlayerTowers() && state.gold >= gambleCost();
       el.gambleBtn.disabled = !canGamble;
@@ -5002,6 +5595,14 @@ button:hover { transform: none !important; }
     if (el.autoSendBtn) {
       el.autoSendBtn.disabled = !state.running || state.gameOver || state.gold < Math.min(...Object.values(contractDefs.queued).map(c => c.cost));
       el.autoSendBtn.textContent = "Auto Send";
+    }
+    if (el.bulkMergeBtn) {
+      const candidates = state.player.towers
+        .filter(t => !t.cloneTemp && t.level >= MAX_LEVEL && t.grade < MAX_GRADE)
+        .map(t => ({ t, partner: state.player.towers.find(p => !p.cloneTemp && p.id !== t.id && p.type === t.type && p.grade === t.grade && p.level >= MAX_LEVEL) }))
+        .filter(x => x.partner);
+      const cheapest = candidates.length ? Math.min(...candidates.map(x => mergeCost(x.t))) : null;
+      el.bulkMergeBtn.textContent = cheapest ? `Merge All Possible (from ${formatCost(cheapest)})` : "Merge All Possible";
     }
     if (el.vendorText) el.vendorText.textContent = `${Math.round(state.vendorChance * 100)}%`;
     const assaultFocus = state.player.towers.some(t => isAttackTower(t) && t.focusTowerId);
@@ -5033,18 +5634,25 @@ button:hover { transform: none !important; }
     const card = (key, icon, color, tag, lockedReason = "") => {
       const c = randomBuildDefs[key];
       const locked = Boolean(lockedReason);
-      return `<div class="tower-card ${selected(key)} ${isAssaultBuild(c) ? "assault" : "defense"} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr((locked ? lockedReason + " " : "") + c.note)}">
-        <div class="card-head"><div class="card-title" style="color:${color}">${icon} ${c.name}</div><div class="card-price">${formatCost(c.cost)}</div></div>
-        <div class="card-meta">${locked ? lockedReason + " " : ""}${c.note}</div>
-        <div class="card-tags"><span class="tag">${tag}</span><span class="tag">${c.elite ? "Starts L3" : "Starts L1"}</span></div>
+      const fixedType = c.fixedType || null;
+      const rarity = fixedType ? towerRarity(fixedType) : "common";
+      const cost = fixedType ? c.cost : c.cost;
+      const note = fixedType ? towerBuildMeta(fixedType, c.note) : c.note;
+      return `<div class="tower-card ${selected(key)} ${isAssaultBuild(c) ? "assault" : "defense"} rarity-${rarity} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr((locked ? lockedReason + " " : "") + note)}">
+        <div class="card-head"><div class="card-title" style="color:${color}">${icon} ${c.name}</div><div class="card-price">${formatCost(cost)}</div></div>
+        <div class="card-meta">${locked ? lockedReason + " " : ""}${note}</div>
+        <div class="card-tags"><span class="tag">${tag}</span><span class="tag rarity-label">${rarity}</span><span class="tag">${c.elite ? "Starts L3" : "Starts L1"}</span></div>
       </div>`;
     };
-    const fixedDefenseCard = (key, type, meta, locked = false, cost = randomBuildDefs.randomDefense.cost, tag = "One use") => {
+    const fixedDefenseCard = (key, type, meta = "", locked = false, cost = null, tag = "One use") => {
       const def = towerDefs[type];
-      return `<div class="tower-card ${selected(key)} defense ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr(meta)}">
-        <div class="card-head"><div class="card-title" style="color:${def.color}">${def.icon} ${def.name}</div><div class="card-price">${formatCost(cost)}</div></div>
-        <div class="card-meta">${meta}</div>
-        <div class="card-tags"><span class="tag">${tag}</span><span class="tag">Level 1</span></div>
+      const rarity = towerRarity(type);
+      const shownCost = cost == null ? towerBuildCost(type) : cost;
+      const fullMeta = meta || towerBuildMeta(type, "One-time choice from the current draft.");
+      return `<div class="tower-card ${selected(key)} defense rarity-${rarity} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr(fullMeta)}">
+        <div class="card-head"><div class="card-title" style="color:${def.color}">${def.icon} ${def.name}</div><div class="card-price">${formatCost(shownCost)}</div></div>
+        <div class="card-meta">${fullMeta}</div>
+        <div class="card-tags"><span class="tag">${tag}</span><span class="tag rarity-label">${rarity}</span><span class="tag">Level 1</span></div>
       </div>`;
     };
     const offenseLocked = !assaultUnlocked();
@@ -5062,13 +5670,13 @@ button:hover { transform: none !important; }
     if (state.passive === "selection" && state.wave === 0) {
       const cost = almostRerollCost();
       defenseHint = `Selection passive: opening draft. Each card can be placed once before Wave 1; after that, normal visible drafts take over. Reroll is ${cost ? formatCost(cost) : "free"}.`;
-      defenseCards = `<button class="ghost wide" data-tower-action="rerollAlmost">↻ Reroll Draft (${cost ? formatCost(cost) : "Free"})</button>` + state.selectionChoices.map((pick, i) => fixedDefenseCard(`selection_${i}`, pick.type, pick.used ? "Already placed from your starting draft." : "One-time drafted tower.", pick.used)).join("") + detectorCard;
+      defenseCards = `<button class="ghost wide" data-tower-action="rerollAlmost">↻ Reroll Draft (${cost ? formatCost(cost) : "Free"})</button>` + state.selectionChoices.map((pick, i) => fixedDefenseCard(`selection_${i}`, pick.type, pick.used ? "Already placed from your starting draft." : towerBuildMeta(pick.type, "One-time drafted tower."), pick.used, towerBuildCost(pick.type), pick.used ? "Used" : "One use")).join("") + detectorCard;
     } else if (usesDraftChoices()) {
       const cost = almostRerollCost();
       defenseHint = `Draft builder: each of these 5 choices can be built once. Your first reroll each run is free; the next reroll costs ${cost ? formatCost(cost) : "Free"} and future rerolls scale sharply.`;
       defenseCards = `
         <button class="ghost wide" data-tower-action="rerollAlmost">↻ Reroll Draft (${cost ? formatCost(cost) : "Free"})</button>
-        ${(state.almostChoices || []).map((pick, i) => fixedDefenseCard(`almost_${i}`, pick.type, pick.used ? "Already built from this draft." : (towerDefs[pick.type].pathTrap ? "One-time Fire Ground. Place it on a path cell." : "One-time choice from the current draft."), pick.used, randomBuildDefs.randomDefense.cost, pick.used ? "Used" : "One use")).join("")}
+        ${(state.almostChoices || []).map((pick, i) => fixedDefenseCard(`almost_${i}`, pick.type, pick.used ? "Already built from this draft." : towerBuildMeta(pick.type, towerDefs[pick.type].pathTrap ? "One-time Fire Ground." : "One-time choice from the current draft."), pick.used, towerBuildCost(pick.type), pick.used ? "Used" : "One use")).join("")}
         ${detectorCard}`;
     } else {
       defenseHint = "Really Random passive: buy pure random defense rolls. Fire Ground can appear in these rolls; Sentry Lens remains a manual detector after Grade II.";
@@ -5135,7 +5743,7 @@ button:hover { transform: none !important; }
   function renderSelectedPanel() {
     const tower = getSelectedTower();
     if (!tower) {
-      el.selectedPanel.innerHTML = `<div class="selected-empty">No tower selected. Click one of your towers on the left lane to inspect attack damage, attack speed, level, items, abilities, individual relocation cooldown, and merge options.</div>`;
+      el.selectedPanel.innerHTML = `<div class="selected-empty">No tower selected. Click one of your towers on the left lane to inspect attack damage, attack speed, level, items, abilities, individual replace cooldown, and merge options.</div>`;
       return;
     }
     const def = towerDefs[tower.type];
@@ -5190,15 +5798,15 @@ button:hover { transform: none !important; }
         ${tower.freshRoll ? `<button class="gold-btn" data-action="reroll">Free reroll</button>` : ""}
         <button class="primary" data-action="train" ${canTrain ? "" : "disabled"}>Train ${canTrain ? formatCost(trainCost(tower)) : "Max"}</button>
         <button class="gold-btn" data-action="merge" ${mergeReady && partner ? "" : "disabled"}>Merge ${mergeReady && partner ? formatCost(mergeCost(tower)) : ""}</button>
-        <button class="ghost" data-action="replace" ${(tower.replaceCd || 0) <= 0 ? "" : "disabled"}>Relocate${(tower.replaceCd || 0) > 0 ? ` ${tower.replaceCd.toFixed(1)}s` : ""}</button>
+        <button class="ghost" data-action="replace" ${(tower.replaceCd || 0) <= 0 ? "" : "disabled"}>Replace${(tower.replaceCd || 0) > 0 ? ` ${tower.replaceCd.toFixed(1)}s` : ""}</button>
         <button class="danger" data-action="sell">Sell</button>
       </div>
       ${tower.type === "portal" ? `<div class="section row"><button class="ghost" data-action="portalA">Set portal A</button><button class="ghost" data-action="portalB">Set portal B</button></div>` : ""}
-      <div class="section muted">Relocation cooldown is now individual per tower. Fire Ground relocates only to empty path cells; other defense towers move to empty non-path tiles; assault-only towers move to empty assault slots. The tower keeps level, grade, health, stats, and items.</div>
+      <div class="section muted">Replace cooldown is now individual per tower. Fire Ground replaces only to empty path cells; other defense towers replace to empty non-path tiles; assault-only towers replace to empty assault slots. The tower keeps level, grade, health, stats, and items.</div>
     `;
   }
 
-  function roman(n) { return ["", "I", "II", "III", "IV", "V"][n] || String(n); }
+  function roman(n) { return ["", "I", "II", "III"][n] || String(n); }
 
   function draw() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -5211,8 +5819,7 @@ button:hover { transform: none !important; }
     drawLane(state.player);
     drawLane(state.ai);
     drawDivider();
-    if (state.paused) drawBanner("Paused", "Planning is allowed. Press Resume to continue.");
-    if (state.gameOver) drawBanner(state.victory ? "Victory" : "Defeat", state.victory ? "The AI mirror core has fallen." : "Your core has fallen.");
+    if (state.gameOver) drawBanner(state.victory ? "Victory" : "Defeat", state.victory ? "The enemy core has fallen." : "Your core has fallen.");
   }
 
   function drawBackdrop() {
@@ -5496,12 +6103,12 @@ button:hover { transform: none !important; }
       ctx.fillStyle = "rgba(2,6,23,0.92)";
       roundRect(tower.x - r - 8, tower.y - r - 8, 22, 15, 7, true, false);
       ctx.fillStyle = "#e0f2fe";
-      ctx.font = "1000 8px Inter, system-ui";
-      ctx.fillText(`G${tower.grade}`, tower.x - r + 3, tower.y - r + 3);
+      ctx.font = "1000 11px Inter, system-ui";
+      ctx.fillText(`G${tower.grade}`, tower.x - r + 3, tower.y - r + 4);
       ctx.fillStyle = "rgba(2,6,23,0.92)";
       roundRect(tower.x + r - 12, tower.y + r - 6, 22, 15, 7, true, false);
       ctx.fillStyle = "#fef3c7";
-      ctx.fillText(`L${tower.level}`, tower.x + r - 1, tower.y + r + 5);
+      ctx.fillText(`L${tower.level}`, tower.x + r - 1, tower.y + r + 6);
 
       if (tower.cloneTemp) {
         ctx.fillStyle = "#e9d5ff";
@@ -5701,6 +6308,21 @@ button:hover { transform: none !important; }
         ctx.strokeStyle = e.color;
         ctx.lineWidth = 3;
         circle(e.x, e.y, e.r * (1 + (0.5 - a) * 0.32), false);
+      } else if (e.type === "soulBeam") {
+        ctx.globalAlpha = Math.max(0.18, a / (e.life || 4) * 0.58);
+        ctx.strokeStyle = e.color || "#fde68a";
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(e.x, BOARD_Y - 44); ctx.lineTo(e.x, e.y + e.r); ctx.stroke();
+        ctx.fillStyle = "rgba(250,204,21,0.10)";
+        circle(e.x, e.y, e.r, true);
+        ctx.strokeStyle = e.color || "#fde68a";
+        ctx.lineWidth = 2;
+        circle(e.x, e.y, e.r * (0.95 + Math.sin(performance.now()/100) * 0.05), false);
+      } else if (e.type === "shockProc") {
+        ctx.globalAlpha = a / 0.42 * 0.50;
+        ctx.strokeStyle = e.color || "#bae6fd";
+        ctx.lineWidth = 3;
+        circle(e.x, e.y, e.r * (1 + (0.42 - a) * 0.38), false);
       } else if (e.type === "death") {
         ctx.globalAlpha = a / 0.35;
         ctx.fillStyle = e.color;
@@ -5784,7 +6406,7 @@ button:hover { transform: none !important; }
     ctx.fillStyle = "#cbd5e1";
     ctx.font = "900 11px Inter, system-ui";
     ctx.textAlign = "center";
-    ctx.fillText("MIRROR CORE", MID_X, top + 30);
+    // center label removed for BoonTD Wars clarity
   }
 
   function drawBanner(title, sub) {
@@ -5822,6 +6444,1004 @@ button:hover { transform: none !important; }
     if (stroke) ctx.stroke();
   }
 
+
+
+  // Final BoonTD Wars interface overrides.
+  const passiveIcons = {
+    resonant: "✦", hunter: "◆", pressure: "➤", leakBounty: "¤", miner: "⛏", selection: "▣", almostRandom: "?", seller: "♕", keepsake: "✦"
+  };
+  const passiveColors = {
+    resonant: "#60a5fa", hunter: "#f59e0b", pressure: "#ef4444", leakBounty: "#facc15", miner: "#22c55e", selection: "#38bdf8", almostRandom: "#c084fc", seller: "#fbbf24", keepsake: "#a78bfa"
+  };
+  function rarityColor(r) { return r === "legendary" ? "#f59e0b" : r === "epic" ? "#c084fc" : r === "rare" ? "#60a5fa" : "#cbd5e1"; }
+  function shortTowerText(type) { const d = towerDefs[type]; return d ? `${d.name}: ${d.ability}` : "Tower choice."; }
+
+  function towerBuildMeta(type, prefix = "") {
+    const def = towerDefs[type];
+    if (!def) return prefix || "Tower choice.";
+    return def.ability;
+  }
+
+  function renderPassiveChoices() {
+    if (el.difficultyGrid) {
+      const names = { apprentice: "EASY", normal: "MEDIUM", rival: "HARD", nightmare: "EXTREME" };
+      el.difficultyGrid.innerHTML = Object.entries(difficultyDefs).map(([key, d]) => {
+        const done = profile.achievements[`beatDifficulty_${key}`];
+        return `<div class="passive ${pendingDifficulty === key ? "selected" : ""}" data-difficulty="${key}"><strong>${done ? "✓ " : ""}${names[key] || d.short}</strong><span></span></div>`;
+      }).join("");
+    }
+    const pts = masteryPoints();
+    el.passiveGrid.innerHTML = Object.entries(passives).map(([key, p]) => {
+      const unlocked = passiveUnlocked(key);
+      const cost = passiveUnlockCosts[key] || 0;
+      const win = profile.achievements[`winPassive_${key}`];
+      const line = unlocked ? (win ? "Mastered." : (cost === 0 ? "Starter passive." : `Purchased for ${cost} MP.`)) : `Locked · ${cost} MP required · you have ${pts}.`;
+      return `<div class="passive ${unlocked ? "" : "locked"}" data-passive="${key}" style="border-color:${passiveColors[key] || "#38bdf8"}66">
+        <div class="passive-symbol" style="color:${passiveColors[key] || "#38bdf8"}">${passiveIcons[key] || "✦"}</div>
+        <div class="passive-copy"><strong>${win ? "✓ " : ""}${p.name}</strong><span>${p.desc}</span><span class="unlock-line">${line}</span></div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderTowerCards() {
+    const currentView = state.buildView || "defense";
+    const selected = key => state.selectedBuild === key ? "selected" : "";
+    const towerCard = (key, type, locked = false, cost = null) => {
+      const def = towerDefs[type];
+      const rarity = towerRarity(type);
+      const shownCost = cost == null ? towerBuildCost(type) : cost;
+      const desc = shortTowerText(type);
+      return `<div class="tower-card ${selected(key)} defense rarity-${rarity} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr(desc)}">
+        <div class="card-head"><span class="rarity-pill ${rarity}">${rarity}</span><div class="card-price">${formatCost(shownCost)}</div></div>
+        <div class="card-head" style="margin-top:5px"><div class="card-title" style="color:${def.color}">${def.icon} ${def.name}</div></div>
+        <div class="card-meta">${desc}</div>
+      </div>`;
+    };
+    const buildCard = (key, icon, color, lockedReason = "") => {
+      const c = randomBuildDefs[key];
+      const locked = Boolean(lockedReason);
+      const fixedType = c.fixedType || null;
+      const rarity = fixedType ? towerRarity(fixedType) : "common";
+      const note = fixedType ? shortTowerText(fixedType) : c.note;
+      return `<div class="tower-card ${selected(key)} ${isAssaultBuild(c) ? "assault" : "defense"} rarity-${rarity} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr((locked ? lockedReason + " " : "") + note)}">
+        <div class="card-head"><span class="rarity-pill ${rarity}">${rarity}</span><div class="card-price">${formatCost(c.cost)}</div></div>
+        <div class="card-head" style="margin-top:5px"><div class="card-title" style="color:${color}">${icon} ${c.name}</div></div>
+        <div class="card-meta">${locked ? lockedReason + " " : ""}${note}</div>
+      </div>`;
+    };
+    const offenseLocked = !assaultUnlocked();
+    const offenseCards = [
+      buildCard("assaultRepair", "✚", "#34d399", hasPlayerTowerType("repair") ? "Already built." : ""),
+      buildCard("assaultShield", "⬡", "#67e8f9", hasPlayerTowerType("shield") ? "Already built." : ""),
+      buildCard("assaultHealer", "♡", "#86efac", hasPlayerTowerType("healer") ? "Already built." : ""),
+      buildCard("randomAssaultDamage", "✦", "#fda4af")
+    ].join("");
+    let defenseCards = "";
+    const detectorLock = hasPlayerTowerType("detector") ? "Built already." : (sentryUnlocked() ? "" : "Requires Grade II tower.");
+    const detectorCard = hasPlayerTowerType("detector") ? "" : buildCard("detectionTower", "◉", "#7dd3fc", detectorLock);
+    if (state.passive === "selection" && state.wave === 0) {
+      const cost = almostRerollCost();
+      defenseCards = `<button class="ghost wide" data-tower-action="rerollAlmost">↻ Reroll Draft (${cost ? formatCost(cost) : "Free"})</button>` + state.selectionChoices.map((pick, i) => towerCard(`selection_${i}`, pick.type, pick.used, towerBuildCost(pick.type))).join("") + detectorCard;
+    } else if (usesDraftChoices()) {
+      const cost = almostRerollCost();
+      defenseCards = `<button class="ghost wide" data-tower-action="rerollAlmost">↻ Reroll Draft (${cost ? formatCost(cost) : "Free"})</button>` + (state.almostChoices || []).map((pick, i) => towerCard(`almost_${i}`, pick.type, pick.used, towerBuildCost(pick.type))).join("") + detectorCard;
+    } else {
+      defenseCards = `${buildCard("randomDefense", "◇", "#38bdf8")}${buildCard("randomDefenseElite", "◆", "#a78bfa")}${detectorCard}`;
+    }
+    el.towerCards.innerHTML = `
+      <div class="tabs" style="grid-template-columns:1fr 1fr; margin-bottom:4px">
+        <button class="tab ${currentView === "defense" ? "active" : ""}" data-build-tab="defense">Defense</button>
+        <button class="tab ${currentView === "offense" ? "active" : ""}" data-build-tab="offense" ${offenseLocked ? "disabled" : ""}>Offense</button>
+      </div>
+      ${currentView === "offense" ? (offenseLocked ? `<div class="selected-empty">Assault unlocks after wave ${assaultUnlockWave()}.</div>` : offenseCards) : (defenseCards || `<div class="selected-empty">No tower choices available.</div>`)}`;
+  }
+
+  function renderSelectedPanel() {
+    const tower = getSelectedTower();
+    if (!tower) { el.selectedPanel.innerHTML = `<div class="selected-empty">No tower selected. Click a tower on your lane to inspect stats, train, replace, sell, equip items, and merge.</div>`; return; }
+    const def = towerDefs[tower.type], st = towerStats(tower, state.player);
+    const xpMax = xpNeeded(tower), xpPct = tower.level >= MAX_LEVEL ? 100 : Math.min(100, tower.xp / xpMax * 100);
+    const slots = new Array(slotsForTower(tower)).fill(0).map((_, i) => {
+      const item = state.inventory.find(it => it.id === tower.itemIds[i]);
+      const itemDef = item ? itemDefs[item.key] : null;
+      return `<button class="slot ${item ? "equipped" : ""}" data-action="slot" data-arg="${i}" title="Equip slot ${i + 1}"><span class="idx">${i + 1}</span><span class="icon">${itemDef ? itemDef.icon : "+"}</span></button>`;
+    }).join("");
+    const mergeReady = tower.level >= MAX_LEVEL && tower.grade < MAX_GRADE;
+    const partner = state.player.towers.find(t => !t.cloneTemp && t.id !== tower.id && t.type === tower.type && t.grade === tower.grade && t.level === MAX_LEVEL);
+    const canTrain = tower.level < MAX_LEVEL;
+    const canMerge = Boolean(mergeReady && partner);
+    const hpText = `${Math.round(tower.hp || tower.maxHp)} / ${Math.round(tower.maxHp || towerMaxHp(tower))}`;
+    const statusText = tower.freezeTimer > 0 ? `Frozen ${tower.freezeTimer.toFixed(1)}s` : tower.slowedTimer > 0 ? `Slowed ${tower.slowedTimer.toFixed(1)}s` : tower.cloneTemp ? `Clone ${tower.cloneExpires.toFixed(1)}s` : "Operational";
+    const soulText = tower.soulCount ? `<div class="mini"><small>Souls</small><strong>${tower.soulCount}/30</strong></div>` : "";
+    el.selectedPanel.innerHTML = `
+      <div class="selected-topline">
+        <button class="danger icon-btn" data-action="sell" title="Sell tower">🗑</button>
+        <div class="tower-name-line"><span class="orb" style="color:${def.color}"></span><div><strong>${def.icon} ${def.name}</strong><div class="muted">Grade ${roman(tower.grade)} · Level ${tower.level}/${MAX_LEVEL}</div></div></div>
+        ${canTrain ? `<button class="primary icon-btn" data-action="train" title="Train ${formatCost(trainCost(tower))}">＋</button>` : `<button class="ghost icon-btn" disabled title="Level cap reached">＋</button>`}
+      </div>
+      <div class="mini-grid">
+        <div class="mini"><small>Attack damage</small><strong>${st.damage.toFixed(1)}</strong></div>
+        <div class="mini"><small>Attack speed</small><strong>${st.attackSpeed.toFixed(2)}/s</strong></div>
+        <div class="mini"><small>DPS estimate</small><strong>${st.dps.toFixed(1)}</strong></div>
+        <div class="mini"><small>Range</small><strong>${Math.round(st.range)}</strong></div>
+        <div class="mini"><small>Health</small><strong>${hpText}</strong></div>
+        <div class="mini"><small>Status</small><strong>${statusText}</strong></div>
+        <div class="mini"><small>Kills</small><strong>${tower.kills}</strong></div>
+        <div class="mini"><small>Total damage</small><strong>${Math.round(tower.totalDamage)}</strong></div>
+        ${tower.storedDamage ? `<div class="mini"><small>Stored damage</small><strong>${Math.round(tower.storedDamage)}</strong></div>` : ""}
+        ${soulText}
+      </div>
+      <div class="inventory-under-stats"><div class="section-title">Inventory</div><div class="slot-row">${slots}</div></div>
+      <div class="section"><div class="section-title">XP / merge</div>
+        <div class="soft">${tower.level >= MAX_LEVEL ? "Level cap reached." : `${Math.floor(tower.xp)} / ${xpMax} XP to next level.`}</div>
+        <div class="xpbar"><span style="width:${xpPct}%"></span></div>
+        ${mergeReady ? `<div class="merge-inline-row"><button class="gold-btn" data-action="merge" ${canMerge ? "" : "disabled"} title="${canMerge ? "Merge matching tower" : "Merge with matching tower"}">Merge ${canMerge ? formatCost(mergeCost(tower)) : ""}</button><span class="muted">${canMerge ? `Merge to Grade ${roman(tower.grade + 1)}/${roman(MAX_GRADE)}.` : "Merge with matching tower."}</span></div>` : ""}
+      </div>
+      <div class="section"><div class="section-title">Ability</div><div class="soft">${def.ability}${isAttackTower(tower) ? `<br><span class="focus-hint">Assault control:</span> select this tower, then click/right-click an enemy tower to focus it.` : ""}${tower.type === "portal" ? `<br>Portal A: ${tower.portalA ? `${tower.portalA.col},${tower.portalA.row}` : "not set"}. Portal B: ${tower.portalB ? `${tower.portalB.col},${tower.portalB.row}` : "not set"}. CD: ${(tower.portalCd || 0).toFixed(1)}s.` : ""}</div></div>
+      ${renderFusionButtons(tower)}
+      <div class="section row">
+        ${tower.freshRoll ? `<button class="gold-btn" data-action="reroll">Free reroll</button>` : ""}
+        <button class="ghost" data-action="replace" ${(tower.replaceCd || 0) <= 0 ? "" : "disabled"}>Replace${(tower.replaceCd || 0) > 0 ? ` ${tower.replaceCd.toFixed(1)}s` : ""}</button>
+      </div>
+      ${tower.type === "portal" ? `<div class="section row"><button class="ghost" data-action="portalA">Set portal A</button><button class="ghost" data-action="portalB">Set portal B</button></div>` : ""}`;
+  }
+
+  function randomVendorItemKey(exclude = new Set()) {
+    const wave = Math.max(1, state.wave);
+    const pool = [];
+    for (const [key, item] of Object.entries(itemDefs)) {
+      if (exclude.has(key)) continue;
+      if (item.lockedContent && !contentUnlocked(item.lockedContent)) continue;
+      let weight = item.rarity === "common" ? 42 : item.rarity === "rare" ? 28 : item.rarity === "epic" ? 10 : 1;
+      if (state.passive === "seller") {
+        weight = item.rarity === "common" ? 26 : item.rarity === "rare" ? 34 : item.rarity === "epic" ? 16 : 2;
+        if (wave % 6 === 0 && item.rarity !== "common") weight += 8;
+      }
+      if (wave >= 10 && item.rarity === "epic") weight += 6;
+      if (wave >= 12 && item.rarity === "legendary") weight += 3;
+      if (wave >= 20 && item.rarity === "legendary") weight += 5;
+      for (let i = 0; i < weight; i++) pool.push(key);
+    }
+    return pool[Math.floor(Math.random() * pool.length)] || "quickGear";
+  }
+
+  function renderVendorOffers() {
+    const resourceLine = `<div class="shop-help" style="grid-column:1/-1"><strong>Available:</strong> ${formatGold(state.gold)} gold · +${Math.round(state.income)} income/wave · ${state.inventory.length} items · ${profile.vaultGold || 0} Vault Gold saved.</div>`;
+    el.vendorList.innerHTML = resourceLine + state.vendorOffers.map((offer, i) => {
+      const def = itemDefs[offer.key]; const canBuy = state.gold >= offer.price; const r = def.rarity;
+      return `<div class="item-card vendor-offer free rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${def.icon} ${def.name}</div><div class="rarity-pill ${r}">${r}</div></div>
+        <div class="card-meta">${def.desc}</div>
+        <div class="buy-line"><div class="price-stack"><span class="muted">Price</span><span class="vendor-price">${offer.price}g</span></div><button class="primary compact" data-vendor-buy="${i}" ${canBuy ? "" : "disabled"}>Buy</button></div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderItemWorkshop() {
+    if (!el.shopList) return;
+    const shopCards = commonShopItems.map(key => {
+      const def = itemDefs[key]; const cost = shopItemPrice(key); const owned = availableItemsByKey(key).length; const r = def.rarity;
+      return `<div class="item-card shop-item-card free rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${def.icon} ${def.name}</div><div class="rarity-pill ${r}">${r}</div></div>
+        <div class="card-meta">${def.desc}</div>
+        <div class="card-tags"><span class="tag">Owned: ${owned}</span></div>
+        <div class="buy-line"><div class="price-stack"><span class="muted">Price</span><span class="vendor-price">${formatCost(cost)}</span></div><button class="primary compact" data-shop-buy="${key}">Buy</button></div>
+        ${pairCraftUpgrades[key] ? `<button class="ghost wide" style="margin-top:7px" data-pair-craft="${key}" ${owned < 2 ? "disabled" : ""}>Craft 2 → ${itemDefs[pairCraftUpgrades[key]].name}</button>` : ""}
+      </div>`;
+    }).join("");
+    const recipeCards = Object.entries(recipeDefs).filter(([key, recipe]) => contentUnlocked(recipe.unlock)).map(([key, recipe]) => {
+      const result = itemDefs[recipe.result]; const ready = hasRecipeIngredients(recipe) && state.gold >= recipe.cost; const r = result.rarity;
+      const reqText = recipe.requires.map(k => `${itemDefs[k].icon} ${itemDefs[k].name} (${availableItemsByKey(k).length}/1)`).join(" + ");
+      return `<div class="item-card recipe-card shop-item-card rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${result.icon} ${recipe.name}</div><div class="rarity-pill ${r}">${r}</div></div>
+        <div class="card-meta"><strong>Requires:</strong> ${reqText}<br>${recipe.note}<br>Creates: ${result.desc}</div>
+        <div class="buy-line"><div class="price-stack"><span class="muted">Forge cost</span><span class="vendor-price">${formatCost(recipe.cost)}</span></div><button class="gold-btn compact" data-recipe-craft="${key}" ${ready ? "" : "disabled"}>Forge</button></div>
+      </div>`;
+    }).join("");
+    el.shopList.innerHTML = `<div class="section-title" style="grid-column:1/-1">Common item shop</div>${shopCards}<div class="section-title" style="grid-column:1/-1;margin-top:8px">Recipes</div>${recipeCards}`;
+  }
+
+  function renderItemModal() {
+    if (!state.inventory.length) { el.itemList.innerHTML = `<div class="selected-empty">No items yet. Bosses, vendors, gambling, and the Lucky Keepsake passive can add equipment.</div>`; return; }
+    el.itemList.innerHTML = state.inventory.map(item => {
+      const def = itemDefs[item.key]; const equipped = Boolean(item.equippedTowerId); const tower = state.player.towers.find(t => t.id === item.equippedTowerId); const r = def.rarity;
+      return `<div class="item-card ${equipped ? "equipped" : "free"} rarity-${r}" data-item-id="${item.id}">
+        <div class="card-head"><div class="card-title rarity-${r}">${def.icon} ${def.name}</div><div class="rarity-pill ${r}">${r}</div></div>
+        <div class="card-meta">${def.desc}</div>
+        <div class="card-tags"><span class="tag">${equipped ? `Equipped: ${tower ? towerDefs[tower.type].name : "tower"}` : "Unequipped"}</span></div>
+      </div>`;
+    }).join("");
+  }
+
+  function drawDivider() {
+    const top = BOARD_Y - 46, bottom = BOARD_Y + BOARD_H + 92;
+    ctx.strokeStyle = "rgba(125,211,252,0.16)"; ctx.lineWidth = 1;
+    ctx.setLineDash([10, 10]); ctx.beginPath(); ctx.moveTo(MID_X, top); ctx.lineTo(MID_X, bottom); ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  function renderFrameHud() {
+    const selectedRelocate = getSelectedTower();
+    el.lifeText.textContent = state.player.lives;
+    el.aiLifeText.textContent = state.ai.lives;
+    el.goldText.textContent = Math.round(state.gold);
+    el.incomeInlineText.textContent = Math.round(state.income);
+    el.waveText.textContent = state.wave;
+    el.timerText.textContent = state.waveInProgress ? "Active" : state.prepPending ? "Ready" : `${Math.ceil(Math.max(0, state.nextWave))}s`;
+    el.replaceText.textContent = selectedRelocate && (selectedRelocate.replaceCd || 0) > 0 ? `${selectedRelocate.replaceCd.toFixed(1)}s` : "Ready";
+    if (selectedRelocate && (selectedRelocate.replaceCd || 0) > 0) uiDirty = true;
+    if (el.autoSendBtn) {
+      el.autoSendBtn.disabled = !state.running || state.gameOver || state.gold < Math.min(...Object.values(contractDefs.queued).map(c => c.cost));
+      el.autoSendBtn.textContent = "Auto Send";
+    }
+    if (el.bulkMergeBtn) {
+      const candidates = state.player.towers.filter(t => !t.cloneTemp && t.level >= MAX_LEVEL && t.grade < MAX_GRADE).map(t => ({ t, partner: state.player.towers.find(p => !p.cloneTemp && p.id !== t.id && p.type === t.type && p.grade === t.grade && p.level >= MAX_LEVEL) })).filter(x => x.partner);
+      const cheapest = candidates.length ? Math.min(...candidates.map(x => mergeCost(x.t))) : null;
+      el.bulkMergeBtn.textContent = cheapest ? `Merge All Possible (from ${formatCost(cheapest)})` : "Merge All Possible";
+    }
+    const vText = `${Math.round(state.vendorChance * 100)}%`;
+    if (el.vendorText) el.vendorText.textContent = vText;
+    if (el.canvasVendorChance) el.canvasVendorChance.textContent = `Vendor ${vText}`;
+    el.passiveText.textContent = state.passive ? passives[state.passive].short : "None";
+    if (!renderFrameHud._progressLast || performance.now() - renderFrameHud._progressLast > 1000) { renderFrameHud._progressLast = performance.now(); checkProgressAchievements(); }
+  }
+
+
+
+  // Clean run-setup selection, canvas HUD, and vendor-flow overrides.
+  function updatePassiveDetail() {
+    const box = document.getElementById("passiveDetail");
+    if (!box) return;
+    const key = pendingPassive || "resonant";
+    const p = passives[key] || passives.resonant;
+    const unlocked = passiveUnlocked(key);
+    const color = passiveColors[key] || "#60a5fa";
+    const icon = passiveIcons[key] || "✦";
+    const cost = passiveUnlockCosts[key] || 0;
+    box.style.borderColor = `${color}66`;
+    box.innerHTML = `
+      <div class="detail-symbol" style="color:${color}">${icon}</div>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="detail-note">${unlocked ? "Ready. Press Play Run to start with this passive." : `Locked · ${cost} Mastery Points required.`}</div>`;
+  }
+
+  function renderPassiveChoices() {
+    if (!pendingPassive || !passiveUnlocked(pendingPassive)) pendingPassive = passiveUnlocked("resonant") ? "resonant" : Object.keys(passives).find(passiveUnlocked) || "resonant";
+    if (el.difficultyGrid) {
+      const names = { apprentice: "EASY", normal: "MEDIUM", rival: "HARD", nightmare: "EXTREME" };
+      el.difficultyGrid.innerHTML = Object.entries(difficultyDefs).map(([key, d]) => {
+        const done = profile.achievements[`beatDifficulty_${key}`];
+        return `<button class="passive ${pendingDifficulty === key ? "selected" : ""}" data-difficulty="${key}" type="button"><strong>${done ? "✓ " : ""}${names[key] || d.short}</strong><span></span></button>`;
+      }).join("");
+    }
+    el.passiveGrid.innerHTML = Object.entries(passives).map(([key, p]) => {
+      const unlocked = passiveUnlocked(key);
+      const cost = passiveUnlockCosts[key] || 0;
+      const win = profile.achievements[`winPassive_${key}`];
+      const color = passiveColors[key] || "#38bdf8";
+      const selected = pendingPassive === key;
+      const title = unlocked ? `${p.name}: ${p.desc}` : `${p.name} locked · ${cost} Mastery Points required`;
+      return `<button class="passive ${unlocked ? "" : "locked"} ${selected ? "selected" : ""}" data-passive="${key}" type="button" title="${htmlAttr(title)}" style="border-color:${color}66">
+        <div class="passive-symbol" style="color:${color}">${passiveIcons[key] || "✦"}</div>
+        <div class="passive-copy"><strong>${win ? "✓ " : ""}${p.name}</strong><span></span><span class="unlock-line">${unlocked ? "Unlocked" : `${cost} MP`}</span></div>
+      </button>`;
+    }).join("");
+    updatePassiveDetail();
+  }
+
+  function drawLaneHeader(lane) {
+    const isPlayer = lane.side === "player";
+    ctx.textAlign = "left";
+    ctx.fillStyle = isPlayer ? "#7dd3fc" : "#d8b4fe";
+    ctx.font = "900 17px Inter, system-ui";
+    ctx.fillText(lane.label, lane.boardX, lane.boardY - 24);
+    ctx.fillStyle = "#b7c3d7";
+    ctx.font = "800 12px Inter, system-ui";
+    ctx.fillText(`Enemies ${lane.enemies.length}`, lane.boardX, lane.boardY - 6);
+    if (isPlayer) {
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#fde68a";
+      ctx.font = "900 12px Inter, system-ui";
+      ctx.fillText(`Gold ${Math.round(state.gold)} · Income +${Math.round(state.income)}`, lane.boardX + BOARD_W, lane.boardY - 6);
+    }
+    ctx.textAlign = "left";
+  }
+
+  function renderFrameHud() {
+    const selectedRelocate = getSelectedTower();
+    const timer = state.waveInProgress ? "ACTIVE" : state.prepPending ? "READY" : `${Math.ceil(Math.max(0, state.nextWave))}s`;
+    const pLife = document.getElementById("canvasPlayerLife");
+    const eLife = document.getElementById("canvasEnemyLife");
+    const cWave = document.getElementById("canvasWaveNumber");
+    const cTimer = document.getElementById("canvasTimerText");
+    if (pLife) pLife.textContent = state.player.lives;
+    if (eLife) eLife.textContent = state.ai.lives;
+    if (cWave) cWave.textContent = state.wave;
+    if (cTimer) cTimer.textContent = timer;
+    if (el.lifeText) el.lifeText.textContent = state.player.lives;
+    if (el.aiLifeText) el.aiLifeText.textContent = state.ai.lives;
+    if (el.goldText) el.goldText.textContent = Math.round(state.gold);
+    if (el.incomeInlineText) el.incomeInlineText.textContent = Math.round(state.income);
+    if (el.waveText) el.waveText.textContent = state.wave;
+    if (el.timerText) el.timerText.textContent = timer;
+    el.replaceText.textContent = selectedRelocate && (selectedRelocate.replaceCd || 0) > 0 ? `${selectedRelocate.replaceCd.toFixed(1)}s` : "Ready";
+    if (selectedRelocate && (selectedRelocate.replaceCd || 0) > 0) uiDirty = true;
+    const waveBtn = document.getElementById("startWaveBtn");
+    const waveReady = Boolean(state.running && !state.gameOver && !state.waveInProgress && !hasWaveUnitsAlive());
+    if (waveBtn) waveBtn.style.display = waveReady ? "inline-grid" : "none";
+    if (el.autoSendBtn) {
+      el.autoSendBtn.disabled = !state.running || state.gameOver || state.gold < Math.min(...Object.values(contractDefs.queued).map(c => c.cost));
+      el.autoSendBtn.textContent = "Auto Send";
+    }
+    if (el.bulkMergeBtn) {
+      const candidates = state.player.towers.filter(t => !t.cloneTemp && t.level >= MAX_LEVEL && t.grade < MAX_GRADE).map(t => ({ t, partner: state.player.towers.find(p => !p.cloneTemp && p.id !== t.id && p.type === t.type && p.grade === t.grade && p.level >= MAX_LEVEL) })).filter(x => x.partner);
+      const cheapest = candidates.length ? Math.min(...candidates.map(x => mergeCost(x.t))) : null;
+      el.bulkMergeBtn.textContent = cheapest ? `Merge All Possible (from ${formatCost(cheapest)})` : "Merge All Possible";
+    }
+    const vText = `${Math.round(state.vendorChance * 100)}%`;
+    if (el.vendorText) el.vendorText.textContent = vText;
+    if (el.canvasVendorChance) el.canvasVendorChance.textContent = `Vendor ${vText}`;
+    el.passiveText.textContent = state.passive ? passives[state.passive].short : "None";
+    if (!renderFrameHud._progressLast || performance.now() - renderFrameHud._progressLast > 1000) { renderFrameHud._progressLast = performance.now(); checkProgressAchievements(); }
+  }
+
+  function randomVendorItemKey(exclude = new Set()) {
+    const wave = Math.max(1, state.wave);
+    const pool = [];
+    for (const [key, item] of Object.entries(itemDefs)) {
+      if (exclude.has(key)) continue;
+      if (item.lockedContent && !contentUnlocked(item.lockedContent)) continue;
+      let weight = item.rarity === "common" ? 42 : item.rarity === "rare" ? 28 : item.rarity === "epic" ? 10 : 1;
+      if (state.passive === "seller") {
+        weight = item.rarity === "common" ? 24 : item.rarity === "rare" ? 38 : item.rarity === "epic" ? 18 : 3;
+      }
+      if (wave >= 10 && item.rarity === "epic") weight += 6;
+      if (wave >= 12 && item.rarity === "legendary") weight += 3;
+      if (wave >= 20 && item.rarity === "legendary") weight += 5;
+      for (let i = 0; i < weight; i++) pool.push(key);
+    }
+    return pool[Math.floor(Math.random() * pool.length)] || "quickGear";
+  }
+
+
+
+  /* RTS command dock, hover passive detail, larger in-canvas controls patch */
+  const COMMAND_BIND_DEFAULTS = { send: "1", instant: "2", upgrade: "3", build: "4", dps: "5" };
+
+  function getKeybinds() {
+    let raw = null;
+    try { raw = JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}"); } catch (err) { raw = {}; }
+    const saved = (profile && profile.keybinds) || raw.keybinds || {};
+    const binds = { ...COMMAND_BIND_DEFAULTS, ...saved };
+    if (profile) profile.keybinds = binds;
+    return binds;
+  }
+
+  function saveKeybind(action, key) {
+    key = String(key || "").trim().slice(0, 1).toLowerCase();
+    if (!key) return;
+    profile.keybinds = { ...getKeybinds(), [action]: key };
+    saveProfile();
+    renderMainMenu();
+  }
+
+  function passiveUnlockHelp(key) {
+    const cost = passiveUnlockCosts[key] || 0;
+    if (passiveUnlocked(key)) return "Unlocked. Select it and press Play Run.";
+    return `Locked · needs ${cost} Mastery Points. Complete achievements to earn Mastery Points, then unlock it in Achievements.`;
+  }
+
+  const __baseUpdatePassiveDetail = typeof updatePassiveDetail === "function" ? updatePassiveDetail : null;
+  updatePassiveDetail = function(keyOverride = null) {
+    const box = document.getElementById("passiveDetail");
+    if (!box) return;
+    const key = keyOverride || pendingPassive || "resonant";
+    const p = passives[key] || passives.resonant;
+    const unlocked = passiveUnlocked(key);
+    const color = passiveColors[key] || "#60a5fa";
+    const icon = passiveIcons[key] || "✦";
+    box.style.borderColor = `${color}66`;
+    box.innerHTML = `
+      <div class="detail-symbol" style="color:${color}">${icon}</div>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="detail-note">${passiveUnlockHelp(key)}</div>
+      ${unlocked ? "" : `<button class="primary locked-detail-button" data-open-achievement-focus="${key}">Open achievements</button>`}`;
+  };
+
+  const __baseRenderPassiveChoices = renderPassiveChoices;
+  renderPassiveChoices = function() {
+    __baseRenderPassiveChoices();
+    if (el.passiveGrid) {
+      el.passiveGrid.querySelectorAll("[data-passive]").forEach(card => {
+        const key = card.dataset.passive;
+        const p = passives[key];
+        const cost = passiveUnlockCosts[key] || 0;
+        const unlocked = passiveUnlocked(key);
+        card.title = unlocked ? `${p.name}: ${p.desc}` : `${p.name}: ${p.desc} Locked — needs ${cost} Mastery Points from achievements.`;
+      });
+    }
+    updatePassiveDetail();
+  };
+
+  function ensureSetupUtilities() {
+    const card = document.querySelector(".run-setup-card");
+    if (!card || card.querySelector(".run-setup-top-actions")) return;
+    const playBtn = document.getElementById("startRunConfirmBtn");
+    const oldRow = card.querySelector(".run-setup-play-row");
+    const bar = document.createElement("div");
+    bar.className = "run-setup-top-actions";
+    bar.innerHTML = `<button class="ghost" id="runSetupBackBtn" type="button">← Profile</button><button class="progress-btn" id="runSetupAchievementsBtn" type="button">Achievements</button>`;
+    if (playBtn) bar.appendChild(playBtn);
+    if (oldRow) oldRow.replaceWith(bar); else card.prepend(bar);
+    document.getElementById("runSetupBackBtn")?.addEventListener("click", () => { el.startModal.classList.remove("show"); openMainMenu(); });
+    document.getElementById("runSetupAchievementsBtn")?.addEventListener("click", () => openProgressModal());
+  }
+
+  const __baseOpenRunSetup = openRunSetup;
+  openRunSetup = function() {
+    __baseOpenRunSetup();
+    ensureSetupUtilities();
+    updatePassiveDetail(pendingPassive || "resonant");
+  };
+
+  function setupModernCanvasUI() {
+    const wrap = document.querySelector(".canvas-wrap");
+    if (!wrap || wrap.dataset.modernUi === "1") return;
+    wrap.dataset.modernUi = "1";
+    const economy = document.createElement("div");
+    economy.id = "canvasEconomyHud";
+    economy.className = "canvas-economy-hud";
+    economy.innerHTML = `<strong>Gold 0</strong><span>Income +0</span>`;
+    wrap.appendChild(economy);
+
+    const start = document.createElement("button");
+    start.id = "canvasStartSphere";
+    start.className = "canvas-start-sphere";
+    start.type = "button";
+    start.textContent = "START";
+    start.addEventListener("click", () => {
+      if (!state.running || state.gameOver || state.waveInProgress || hasWaveUnitsAlive()) return;
+      if (!hasPlacedPlayerTowers()) return setMessage("Build at least one tower before starting the wave.");
+      requestNextWave();
+    });
+    wrap.appendChild(start);
+
+    const actionBar = document.createElement("div");
+    actionBar.id = "gameActionButtons";
+    actionBar.className = "game-action-buttons";
+    actionBar.innerHTML = `
+      <button class="ghost" data-command-kind="send">Send <span class="muted">1</span></button>
+      <button class="ghost" data-command-kind="instant">Instant <span class="muted">2</span></button>
+      <button class="ghost" data-command-kind="upgrade">Upgrade <span class="muted">3</span></button>
+      <button class="primary" data-command-kind="build">Build <span class="muted">4</span></button>
+      <button class="ghost" data-command-kind="dps">DPS <span class="muted">5</span></button>`;
+    wrap.appendChild(actionBar);
+
+    const panel = document.createElement("div");
+    panel.id = "gameCommandPanel";
+    panel.className = "game-command-panel";
+    panel.innerHTML = `<div class="command-panel-head"><strong id="commandPanelTitle">Build</strong><button class="ghost compact command-panel-close" type="button">Close</button></div><div class="command-panel-content" id="commandPanelContent"></div>`;
+    wrap.appendChild(panel);
+
+    const dps = document.createElement("div");
+    dps.id = "dpsMeter";
+    dps.className = "dps-meter";
+    dps.innerHTML = `<h3>DPS meter</h3><div id="dpsMeterContent"><div class="dps-meter-row"><span>No data yet</span><b>0</b></div></div>`;
+    wrap.appendChild(dps);
+
+    actionBar.addEventListener("click", e => {
+      const btn = e.target.closest("[data-command-kind]");
+      if (!btn) return;
+      const kind = btn.dataset.commandKind;
+      if (kind === "dps") return toggleDpsMeter();
+      toggleCommandPanel(kind);
+    });
+    panel.querySelector(".command-panel-close")?.addEventListener("click", () => toggleCommandPanel(null));
+    panel.addEventListener("mouseleave", () => { clearTimeout(panel._hideTimer); panel._hideTimer = setTimeout(() => toggleCommandPanel(null), 550); });
+    panel.addEventListener("mouseenter", () => clearTimeout(panel._hideTimer));
+    panel.addEventListener("click", onCommandPanelClick);
+
+    document.addEventListener("keydown", e => {
+      if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      const key = e.key.toLowerCase();
+      const binds = getKeybinds();
+      if (key === binds.send) { e.preventDefault(); toggleCommandPanel("send"); }
+      else if (key === binds.instant) { e.preventDefault(); toggleCommandPanel("instant"); }
+      else if (key === binds.upgrade) { e.preventDefault(); toggleCommandPanel("upgrade"); }
+      else if (key === binds.build) { e.preventDefault(); toggleCommandPanel("build"); }
+      else if (key === binds.dps) { e.preventDefault(); toggleDpsMeter(); }
+    });
+  }
+
+  function commandTitle(kind) {
+    return kind === "send" ? "Send on Wave" : kind === "instant" ? "Instant Units" : kind === "upgrade" ? "Wave Upgrades" : kind === "build" ? "Build Towers" : "";
+  }
+
+  function toggleCommandPanel(kind) {
+    setupModernCanvasUI();
+    const panel = document.getElementById("gameCommandPanel");
+    if (!panel) return;
+    if (!kind || state.commandKind === kind && panel.classList.contains("show")) {
+      state.commandKind = null;
+      panel.classList.remove("show");
+      document.querySelectorAll("[data-command-kind]").forEach(b => b.classList.remove("active"));
+      return;
+    }
+    state.commandKind = kind;
+    document.getElementById("commandPanelTitle").textContent = commandTitle(kind);
+    panel.classList.add("show");
+    document.querySelectorAll("[data-command-kind]").forEach(b => b.classList.toggle("active", b.dataset.commandKind === kind));
+    syncCommandPanel();
+  }
+
+  function syncCommandPanel() {
+    if (syncCommandPanel._busy) return;
+    const content = document.getElementById("commandPanelContent");
+    const panel = document.getElementById("gameCommandPanel");
+    if (!content || !panel || !panel.classList.contains("show")) return;
+    syncCommandPanel._busy = true;
+    try {
+    const kind = state.commandKind;
+    if (kind === "build") {
+      content.innerHTML = el.towerCards ? el.towerCards.innerHTML : `<div class="selected-empty">No build choices yet.</div>`;
+    } else if (kind === "send") {
+      const old = activeContractTab;
+      activeContractTab = "queued";
+      renderContractCards();
+      activeContractTab = old;
+      content.innerHTML = el.contractCards ? el.contractCards.innerHTML : `<div class="selected-empty">No send choices.</div>`;
+    } else if (kind === "instant") {
+      const old = activeContractTab;
+      activeContractTab = "direct";
+      renderContractCards();
+      activeContractTab = old;
+      content.innerHTML = el.contractCards ? el.contractCards.innerHTML : `<div class="selected-empty">Instant units require an active wave.</div>`;
+    } else if (kind === "upgrade") {
+      renderSendUpgrades();
+      content.innerHTML = el.sendUpgradeCards ? el.sendUpgradeCards.innerHTML : `<div class="selected-empty">No upgrades.</div>`;
+    }
+    } finally { syncCommandPanel._busy = false; }
+  }
+
+  function onCommandPanelClick(e) {
+    const action = e.target.closest("[data-tower-action]");
+    if (action && action.dataset.towerAction === "rerollAlmost") { rerollAlmostChoices(); syncCommandPanel(); return; }
+    const tab = e.target.closest("[data-build-tab]");
+    if (tab) {
+      const nextView = tab.dataset.buildTab;
+      if (nextView === "offense" && !assaultUnlocked()) return setMessage(`Assault towers unlock after wave ${assaultUnlockWave()}.`);
+      state.buildView = nextView;
+      state.selectedBuild = nextView === "offense" ? "randomAssaultDamage" : (usesDraftChoices() ? firstUnusedAlmostChoiceKey() : "randomDefense");
+      state.mode = "build";
+      state.portalTarget = null;
+      uiDirty = true;
+      renderTowerCards();
+      syncCommandPanel();
+      return;
+    }
+    const towerCard = e.target.closest("[data-tower]");
+    if (towerCard && !towerCard.classList.contains("locked")) {
+      state.selectedBuild = towerCard.dataset.tower;
+      state.mode = "build";
+      state.portalTarget = null;
+      const choice = selectedBuildInfo();
+      const key = towerCard.dataset.tower;
+      const draftPick = key.startsWith("almost_") ? state.almostChoices[Number(key.split("_")[1])] : key.startsWith("selection_") ? state.selectionChoices[Number(key.split("_")[1])] : null;
+      const name = draftPick ? towerDefs[draftPick.type].name : choice.name;
+      setMessage(`${name} selected. Click the lane to place it.`);
+      uiDirty = true;
+      return;
+    }
+    const contract = e.target.closest("[data-contract]");
+    if (contract && !contract.classList.contains("locked")) {
+      buyContract(state.commandKind === "instant" ? "direct" : "queued", contract.dataset.contract);
+      syncCommandPanel();
+      return;
+    }
+    const upgrade = e.target.closest("[data-send-upgrade]");
+    if (upgrade) { buySendUpgrade(upgrade.dataset.sendUpgrade); syncCommandPanel(); return; }
+  }
+
+  const __baseRenderAll = renderAll;
+  renderAll = function() {
+    __baseRenderAll();
+    syncCommandPanel();
+  };
+
+  const __baseRenderTowerCards2 = renderTowerCards;
+  renderTowerCards = function() { __baseRenderTowerCards2(); syncCommandPanel(); };
+  const __baseRenderContractCards2 = renderContractCards;
+  renderContractCards = function() { __baseRenderContractCards2(); syncCommandPanel(); };
+  const __baseRenderSendUpgrades2 = renderSendUpgrades;
+  renderSendUpgrades = function() { __baseRenderSendUpgrades2(); syncCommandPanel(); };
+
+  const __baseRerollAlmostChoices = rerollAlmostChoices;
+  rerollAlmostChoices = function() {
+    const cost = almostRerollCost();
+    if (state && state.wave === 0 && cost > 0) return setMessage("Before Wave 1 only the free reroll is allowed. Paid rerolls unlock after the first wave starts.");
+    return __baseRerollAlmostChoices();
+  };
+
+  function toggleDpsMeter() {
+    setupModernCanvasUI();
+    const dps = document.getElementById("dpsMeter");
+    if (!dps) return;
+    dps.classList.toggle("show");
+    updateDpsMeter(true);
+  }
+
+  function updateDpsMeter(force = false) {
+    const box = document.getElementById("dpsMeterContent");
+    const dps = document.getElementById("dpsMeter");
+    if (!box || !dps || (!force && !dps.classList.contains("show"))) return;
+    const now = performance.now();
+    if (!updateDpsMeter.last) updateDpsMeter.last = { now, totals: new Map() };
+    const dt = Math.max(0.25, (now - updateDpsMeter.last.now) / 1000);
+    const rows = state.player.towers.filter(t => !t.cloneTemp).map(t => {
+      const old = updateDpsMeter.last.totals.get(t.id) || t.totalDamage || 0;
+      const dpsVal = Math.max(0, ((t.totalDamage || 0) - old) / dt);
+      updateDpsMeter.last.totals.set(t.id, t.totalDamage || 0);
+      return { t, dps: dpsVal, total: t.totalDamage || 0 };
+    }).sort((a,b)=>b.dps-a.dps).slice(0,8);
+    updateDpsMeter.last.now = now;
+    const totalDps = rows.reduce((a,r)=>a+r.dps,0);
+    box.innerHTML = `<div class="dps-meter-row dps-meter-total"><span>Total DPS</span><b>${totalDps.toFixed(1)}</b></div>` + (rows.length ? rows.map(r => `<div class="dps-meter-row"><span>${towerDefs[r.t.type].icon} ${towerDefs[r.t.type].name} G${r.t.grade} L${r.t.level}</span><b>${r.dps.toFixed(1)}</b></div>`).join("") : `<div class="dps-meter-row"><span>No towers yet</span><b>0</b></div>`);
+  }
+
+  drawLaneHeader = function(lane) {
+    const isPlayer = lane.side === "player";
+    ctx.textAlign = "left";
+    ctx.fillStyle = isPlayer ? "#7dd3fc" : "#d8b4fe";
+    ctx.font = "1000 18px Inter, system-ui";
+    ctx.fillText(lane.label, lane.boardX, lane.boardY - 24);
+    ctx.fillStyle = "#b7c3d7";
+    ctx.font = "900 13px Inter, system-ui";
+    ctx.fillText(`Enemies ${lane.enemies.length}`, lane.boardX, lane.boardY - 5);
+    ctx.textAlign = "left";
+  };
+
+  const __baseRenderFrameHud2 = renderFrameHud;
+  renderFrameHud = function() {
+    __baseRenderFrameHud2();
+    setupModernCanvasUI();
+    const econ = document.getElementById("canvasEconomyHud");
+    if (econ) econ.innerHTML = `<strong>Gold ${Math.round(state.gold)}</strong><span>Income +${Math.round(state.income)}</span>`;
+    const sphere = document.getElementById("canvasStartSphere");
+    if (sphere) {
+      const ready = Boolean(state.running && !state.gameOver && !state.waveInProgress && !hasWaveUnitsAlive() && hasPlacedPlayerTowers());
+      sphere.classList.toggle("show", ready);
+      sphere.disabled = !ready;
+    }
+    updateDpsMeter();
+  };
+
+  const __baseRenderMainMenu2 = renderMainMenu;
+  renderMainMenu = function() {
+    __baseRenderMainMenu2();
+    if (!el.mainMenuContent || document.getElementById("keybindSettings")) return;
+    const binds = getKeybinds();
+    const div = document.createElement("details");
+    div.className = "menu-details";
+    div.id = "keybindSettings";
+    div.open = false;
+    div.innerHTML = `<summary>Keybinds</summary><div class="keybind-grid">
+      ${Object.entries({send:"Send", instant:"Instant", upgrade:"Upgrade", build:"Build", dps:"DPS Meter"}).map(([key,label]) => `<div class="keybind-card"><label>${label}</label><input maxlength="1" data-keybind="${key}" value="${htmlAttr(binds[key] || COMMAND_BIND_DEFAULTS[key])}"></div>`).join("")}
+    </div>`;
+    el.mainMenuContent.prepend(div);
+  };
+
+  document.addEventListener("mouseover", e => {
+    const passive = e.target.closest("#passiveGrid [data-passive]");
+    if (passive) updatePassiveDetail(passive.dataset.passive);
+  });
+  document.addEventListener("mouseleave", e => {
+    if (e.target && e.target.id === "passiveGrid") updatePassiveDetail(pendingPassive || "resonant");
+  }, true);
+  document.addEventListener("click", e => {
+    const focus = e.target.closest("[data-open-achievement-focus]");
+    if (focus) { openProgressModal(); setTimeout(() => { const modal = document.getElementById("progressModal"); modal?.scrollIntoView?.({block:"center"}); }, 0); }
+    const cup = e.target.closest("[data-cup-game]");
+    if (cup) gambleForItem();
+  });
+  document.addEventListener("change", e => {
+    const input = e.target.closest("[data-keybind]");
+    if (input) saveKeybind(input.dataset.keybind, input.value);
+  });
+
+  const __baseRenderItemWorkshop2 = renderItemWorkshop;
+  renderItemWorkshop = function() {
+    __baseRenderItemWorkshop2();
+    if (!el.shopList || document.getElementById("cupGameCard")) return;
+    const cost = gambleCost();
+    const card = document.createElement("div");
+    card.id = "cupGameCard";
+    card.className = "item-card shop-item-card rarity-rare";
+    card.innerHTML = `<div class="card-head"><div class="card-title rarity-rare">🎲 Cup Game</div><div class="rarity-pill rare">chance</div></div><div class="card-meta">Pay gold for a 25% chance to win a random item. This replaces the old permanent gamble button and lives inside Items.</div><div class="buy-line"><div class="price-stack"><span class="muted">Play cost</span><span class="vendor-price">${formatCost(cost)}</span></div><button class="gold-btn compact" data-cup-game="1" ${!hasPlacedPlayerTowers() || state.gold < cost ? "disabled" : ""}>Play</button></div>`;
+    el.shopList.prepend(card);
+  };
+
+  const __baseRenderVendorOffers2 = renderVendorOffers;
+  renderVendorOffers = function() {
+    __baseRenderVendorOffers2();
+    if (!el.vendorList) return;
+    const cost = gambleCost();
+    const cup = document.createElement("div");
+    cup.className = "item-card vendor-offer rarity-rare";
+    cup.innerHTML = `<div class="card-head"><div class="card-title rarity-rare">🎲 Cup Game</div><div class="rarity-pill rare">chance</div></div><div class="card-meta">25% chance to win a random item from the current wave pool. Your personal vendor refreshes every wave.</div><div class="buy-line"><div class="price-stack"><span class="muted">Play cost</span><span class="vendor-price">${formatCost(cost)}</span></div><button class="gold-btn compact" data-cup-game="1" ${state.gold < cost ? "disabled" : ""}>Play</button></div>`;
+    el.vendorList.appendChild(cup);
+  };
+
+
+  /* Professional gameplay-fix patch: placement, AI legality, DPS smoothing, Vault manual release, player-only Cup Game. */
+  if (towerDefs.damageBank) {
+    Object.assign(towerDefs.damageBank, {
+      damage: 34,
+      attackSpeed: 0.92,
+      range: 165,
+      role: "Stored damage / manual burst",
+      ability: "Stores attacks instead of auto-damaging. Select it and right-click an enemy in range to release one huge focused shot."
+    });
+  }
+
+  function professionalIsLegalDefenseCell(lane, type, col, row) {
+    const def = towerDefs[type];
+    if (!lane || !def || isAttackTowerType(type)) return false;
+    if (!Number.isInteger(col) || !Number.isInteger(row)) return false;
+    if (col < 0 || row < 0 || col >= COLS || row >= ROWS) return false;
+    const key = `${col},${row}`;
+    if (def.pathTrap) return lane.pathSet.has(key) && !getTowerAtCell(lane, col, row);
+    return !lane.pathSet.has(key) && !getTowerAtCell(lane, col, row);
+  }
+
+  function professionalNearestLegalDefenseCell(lane, type, col, row) {
+    if (professionalIsLegalDefenseCell(lane, type, col, row)) return { col, row };
+    let best = null;
+    for (let c = 0; c < COLS; c++) {
+      for (let r = 0; r < ROWS; r++) {
+        if (!professionalIsLegalDefenseCell(lane, type, c, r)) continue;
+        const d = Math.abs(c - col) + Math.abs(r - row);
+        if (!best || d < best.d) best = { col: c, row: r, d };
+      }
+    }
+    return best;
+  }
+
+  const __professionalBaseAddTower = addTower;
+  addTower = function(lane, type, col, row, free = false) {
+    const def = towerDefs[type];
+    if (!lane || !def) return null;
+    if (isAttackTowerType(type)) {
+      if (!Number.isInteger(col)) return null;
+      if (col < 0 || col >= ATTACK_SLOTS) {
+        if (lane.side === "player") return null;
+        col = Math.max(0, Math.min(ATTACK_SLOTS - 1, col));
+      }
+      return __professionalBaseAddTower(lane, type, col, -1, free);
+    }
+    col = Math.floor(Number(col));
+    row = Math.floor(Number(row));
+    if (!professionalIsLegalDefenseCell(lane, type, col, row)) {
+      if (lane.side === "ai") {
+        const safe = professionalNearestLegalDefenseCell(lane, type, col, row);
+        if (!safe) return null;
+        col = safe.col; row = safe.row;
+      } else {
+        return null;
+      }
+    }
+    return __professionalBaseAddTower(lane, type, col, row, free);
+  };
+
+  const __professionalBaseBuildTowerAt = buildTowerAt;
+  buildTowerAt = function(col, row) {
+    col = Math.floor(Number(col));
+    row = Math.floor(Number(row));
+    if (!Number.isInteger(col) || !Number.isInteger(row) || col < 0 || row < 0 || col >= COLS || row >= ROWS) {
+      return setMessage("Build denied: place towers only while the cursor is over a valid grid field.");
+    }
+    return __professionalBaseBuildTowerAt(col, row);
+  };
+
+  const __professionalBaseRelocateTowerTo = relocateTowerTo;
+  relocateTowerTo = function(tower, col, row) {
+    col = Math.floor(Number(col));
+    row = Math.floor(Number(row));
+    if (!Number.isInteger(col) || !Number.isInteger(row) || col < 0 || row < 0 || col >= COLS || row >= ROWS) {
+      return setMessage("Replacement denied: choose a valid grid field.");
+    }
+    return __professionalBaseRelocateTowerTo(tower, col, row);
+  };
+
+  function professionalReleaseDamageBank(lane, tower, enemy) {
+    if (!lane || !tower || tower.type !== "damageBank" || !enemy || enemy.hp <= 0) return false;
+    const pos = enemyPos(lane, enemy);
+    const stats = towerStats(tower, lane);
+    if (Math.hypot(tower.x - pos.x, tower.y - pos.y) > stats.range) {
+      setMessage("Vault Obelisk target is outside range. Move it or right-click a closer enemy.");
+      return true;
+    }
+    const stored = Math.max(0, tower.storedDamage || 0);
+    if (stored <= 0) {
+      lane.focusEnemyId = enemy.id;
+      setMessage("Vault Obelisk is charging. It will keep storing damage until you right-click a target again.");
+      return true;
+    }
+    const burst = stored * (2.75 + tower.grade * 0.28 + tower.level * 0.10);
+    tower.storedDamage = 0;
+    tower.cooldown = Math.max(tower.cooldown || 0, 0.20);
+    dealDamage(lane, enemy, burst, tower, pos);
+    lane.effects.push({ type: "soulBeam", x: pos.x, y: pos.y, r: 40 + tower.grade * 7, time: 0.78, life: 0.78, color: towerDefs.damageBank.color, dps: 0 });
+    lane.shots.push({ x1: tower.x, y1: tower.y, x2: pos.x, y2: pos.y, color: towerDefs.damageBank.color, time: 0.22, width: 4 + tower.grade * 0.45 });
+    addFloatingText(lane, pos.x, pos.y - 38, `VAULT ${Math.round(burst)}`, "#ddd6fe");
+    lane.focusEnemyId = null;
+    setMessage(`Vault Obelisk released ${Math.round(burst)} stored damage.`);
+    uiDirty = true;
+    return true;
+  }
+
+  onCanvasRightClick = function(e) {
+    e.preventDefault();
+    if (!state.running || state.gameOver) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    const slotHit = attackSlotAt(x, y);
+    const selected = getSelectedTower();
+    if (slotHit && selected && isAttackTower(selected) && slotHit.lane.side !== "player" && slotHit.tower) {
+      selected.focusTowerId = slotHit.tower.id;
+      setMessage(`${towerDefs[selected.type].name} focus set to ${towerDefs[slotHit.tower.type].name}.`);
+      uiDirty = true;
+      return;
+    }
+    const lane = laneAt(x, y);
+    if (lane && lane.side !== "player" && selected && isAttackTower(selected)) {
+      const targetTower = hitTowerAtPoint(lane, x, y);
+      if (targetTower) {
+        selected.focusTowerId = targetTower.id;
+        setMessage(`${towerDefs[selected.type].name} focus set to ${towerDefs[targetTower.type].name}.`);
+        uiDirty = true;
+      }
+      return;
+    }
+    if (!lane || lane.side !== "player") return;
+    const hit = lane.enemies
+      .filter(enemy => enemy.spawnDelay <= 0)
+      .map(enemy => ({ enemy, p: enemyPos(lane, enemy) }))
+      .find(({ enemy, p }) => Math.hypot(x - p.x, y - p.y) <= enemy.radius + 10);
+    if (hit && selected && selected.type === "damageBank") {
+      professionalReleaseDamageBank(lane, selected, hit.enemy);
+      return;
+    }
+    if (hit) {
+      lane.focusEnemyId = hit.enemy.id;
+      setMessage(`Focus fire locked on ${hit.enemy.name}. Towers in range will prioritize it.`);
+    } else {
+      lane.focusEnemyId = null;
+      setMessage("Focus fire cleared.");
+    }
+    uiDirty = true;
+  };
+
+  const __professionalBaseStartWave = startWave;
+  startWave = function() {
+    const before = state ? state.wave : 0;
+    const result = __professionalBaseStartWave();
+    if (state && state.wave > before) {
+      const all = [...state.player.towers, ...state.ai.towers];
+      for (const t of all) {
+        t.waveStartDamage = t.totalDamage || 0;
+        t.lastWaveDamage = 0;
+      }
+      updateDpsMeter.samples = new Map();
+      updateDpsMeter.lastTick = performance.now();
+    }
+    return result;
+  };
+
+  const __professionalBaseCompleteWave = completeWave;
+  completeWave = function() {
+    if (state) {
+      for (const t of [...state.player.towers, ...state.ai.towers]) {
+        t.lastWaveDamage = Math.max(0, (t.totalDamage || 0) - (t.waveStartDamage || 0));
+      }
+    }
+    return __professionalBaseCompleteWave();
+  };
+
+  updateDpsMeter = function(force = false) {
+    const box = document.getElementById("dpsMeterContent");
+    const dps = document.getElementById("dpsMeter");
+    if (!box || !dps || (!force && !dps.classList.contains("show"))) return;
+    const now = performance.now();
+    const windowMs = 4000;
+    if (!updateDpsMeter.samples) updateDpsMeter.samples = new Map();
+    const liveRows = state.player.towers.filter(t => !t.cloneTemp).map(t => {
+      let samples = updateDpsMeter.samples.get(t.id);
+      if (!samples) {
+        samples = [{ time: now, total: t.totalDamage || 0 }];
+        updateDpsMeter.samples.set(t.id, samples);
+      }
+      const current = t.totalDamage || 0;
+      const last = samples[samples.length - 1];
+      if (!last || current !== last.total || now - last.time > 450) samples.push({ time: now, total: current });
+      while (samples.length > 1 && now - samples[0].time > windowMs) samples.shift();
+      const first = samples[0] || { time: now, total: current };
+      const elapsed = Math.max(0.35, (now - first.time) / 1000);
+      const raw = Math.max(0, (current - first.total) / elapsed);
+      const previous = t.displayDps || 0;
+      const smoothed = raw > 0 ? previous * 0.58 + raw * 0.42 : previous * 0.86;
+      t.displayDps = smoothed < 0.05 ? 0 : smoothed;
+      const waveDamage = Math.max(0, current - (t.waveStartDamage || 0));
+      return { t, dps: t.displayDps, total: current, waveDamage };
+    }).sort((a, b) => b.dps - a.dps || b.total - a.total).slice(0, 10);
+    const totalDps = liveRows.reduce((a, r) => a + r.dps, 0);
+    const totalDamage = state.player.towers.filter(t => !t.cloneTemp).reduce((a, t) => a + (t.totalDamage || 0), 0);
+    box.innerHTML = `<div class="dps-meter-row dps-meter-total"><span>Live DPS · all towers</span><b>${totalDps.toFixed(1)}</b></div>` +
+      `<div class="dps-meter-row"><span>Cumulative damage</span><b>${Math.round(totalDamage)}</b></div>` +
+      (liveRows.length ? liveRows.map(r => {
+        const def = towerDefs[r.t.type];
+        const stored = r.t.storedDamage ? ` · Stored ${Math.round(r.t.storedDamage)}` : "";
+        return `<div class="dps-meter-row"><span>${def.icon} ${def.name} G${r.t.grade} L${r.t.level}<br><small class="muted">Wave ${Math.round(r.waveDamage)} · Total ${Math.round(r.total)}${stored}</small></span><b>${r.dps.toFixed(1)}</b></div>`;
+      }).join("") : `<div class="dps-meter-row"><span>No towers yet</span><b>0</b></div>`);
+  };
+
+  const PLAYER_CUP_DESCRIPTION = "Pay gold for a 25% chance to win a random item! Just for you: this could be any item possible. The higher the wave, the higher the chance to get a good (more rare) item; it rises slightly.";
+
+  renderVendorOffers = function() {
+    const resourceLine = `<div class="shop-help" style="grid-column:1/-1"><strong>Available:</strong> ${formatGold(state.gold)} gold · +${Math.round(state.income)} income/wave · ${state.inventory.length} items · ${profile.vaultGold || 0} Vault Gold saved.</div>`;
+    el.vendorList.innerHTML = resourceLine + state.vendorOffers.map((offer, i) => {
+      const def = itemDefs[offer.key]; const canBuy = state.gold >= offer.price; const r = def.rarity;
+      return `<div class="item-card vendor-offer free rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${def.icon} ${def.name}</div></div>
+        <div class="card-meta">${def.desc}</div>
+        <div class="buy-line"><span class="rarity-pill ${r} buy-rarity">${r}</span><div class="price-stack"><span class="muted">Price</span><span class="vendor-price">${offer.price}g</span></div><button class="primary compact" data-vendor-buy="${i}" ${canBuy ? "" : "disabled"}>Buy</button></div>
+      </div>`;
+    }).join("");
+  };
+
+  renderItemWorkshop = function() {
+    if (!el.shopList) return;
+    const cupCost = gambleCost();
+    const cupCard = `<div id="cupGameCard" class="item-card shop-item-card rarity-rare">
+      <div class="card-head"><div class="card-title rarity-rare">🎲 Cup Game</div></div>
+      <div class="card-meta">${PLAYER_CUP_DESCRIPTION}</div>
+      <div class="buy-line"><span class="rarity-pill rare buy-rarity">chance</span><div class="price-stack"><span class="muted">Play cost</span><span class="vendor-price">${formatCost(cupCost)}</span></div><button class="gold-btn compact" data-cup-game="1" ${!hasPlacedPlayerTowers() || state.gold < cupCost ? "disabled" : ""}>Play</button></div>
+    </div>`;
+    const shopCards = commonShopItems.map(key => {
+      const def = itemDefs[key]; const cost = shopItemPrice(key); const owned = availableItemsByKey(key).length; const r = def.rarity;
+      return `<div class="item-card shop-item-card free rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${def.icon} ${def.name}</div></div>
+        <div class="card-meta">${def.desc}</div>
+        <div class="card-tags"><span class="tag">Owned: ${owned}</span></div>
+        <div class="buy-line"><span class="rarity-pill ${r} buy-rarity">${r}</span><div class="price-stack"><span class="muted">Price</span><span class="vendor-price">${formatCost(cost)}</span></div><button class="primary compact" data-shop-buy="${key}">Buy</button></div>
+        ${pairCraftUpgrades[key] ? `<button class="ghost wide" style="margin-top:7px" data-pair-craft="${key}" ${owned < 2 ? "disabled" : ""}>Craft 2 → ${itemDefs[pairCraftUpgrades[key]].name}</button>` : ""}
+      </div>`;
+    }).join("");
+    const recipeCards = Object.entries(recipeDefs).filter(([key, recipe]) => contentUnlocked(recipe.unlock)).map(([key, recipe]) => {
+      const result = itemDefs[recipe.result]; const ready = hasRecipeIngredients(recipe) && state.gold >= recipe.cost; const r = result.rarity;
+      const reqText = recipe.requires.map(k => `${itemDefs[k].icon} ${itemDefs[k].name} (${availableItemsByKey(k).length}/1)`).join(" + ");
+      return `<div class="item-card recipe-card shop-item-card rarity-${r}">
+        <div class="card-head"><div class="card-title rarity-${r}">${result.icon} ${recipe.name}</div></div>
+        <div class="card-meta"><strong>Requires:</strong> ${reqText}<br>${recipe.note}<br>Creates: ${result.desc}</div>
+        <div class="buy-line"><span class="rarity-pill ${r} buy-rarity">${r}</span><div class="price-stack"><span class="muted">Forge cost</span><span class="vendor-price">${formatCost(recipe.cost)}</span></div><button class="gold-btn compact" data-recipe-craft="${key}" ${ready ? "" : "disabled"}>Forge</button></div>
+      </div>`;
+    }).join("");
+    el.shopList.innerHTML = `<div class="section-title" style="grid-column:1/-1">Player vendor</div>${cupCard}<div class="section-title" style="grid-column:1/-1;margin-top:8px">Common item shop</div>${shopCards}<div class="section-title" style="grid-column:1/-1;margin-top:8px">Recipes</div>${recipeCards}`;
+  };
+
+  tutorialSteps.splice(0, tutorialSteps.length,
+    { title: "Play first", body: "Press Play Run. Resonant Training is selected by default; hover passives to preview them, including locked ones.", target: "#startRunConfirmBtn", event: "startRun" },
+    { title: "Open Build", body: "Press 4 or click Build below the lane. The bottom command dock shows your current tower draft. Pick a tower, then place it on your board.", target: "#gameActionButtons", event: "buildDefense" },
+    { title: "Start from the center", body: "After building at least one tower, the green START sphere appears between both lanes. Click it when ready.", target: "#canvasStartSphere", event: "startWave" },
+    { title: "Send pressure", body: "Press 1 for On-Wave sends or 2 for Instant units. Both appear in the same RTS-style bottom command panel.", target: "#gameActionButtons", event: "sendQueued" },
+    { title: "Upgrade your sends", body: "Press 3 or click Upgrade to open the Wave Unit Lab. These upgrades strengthen all units you send this run.", target: "#gameActionButtons", event: "sendUpgrade" },
+    { title: "Items and Cup Game", body: "Open Items from the canvas. Cup Game is only inside your Items vendor as a risky item roll.", target: "#shopBtn", event: "openShop" },
+    { title: "Optional DPS meter", body: "Press 5 or click DPS to open a small live damage window. Use it to compare towers without cluttering the main game.", target: "#gameActionButtons", event: "trainOrMerge" }
+  );
+
+  setupModernCanvasUI();
   init();
 })();
 </script>
