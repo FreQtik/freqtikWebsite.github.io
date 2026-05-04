@@ -772,6 +772,123 @@
     .wave-lab-callout { border: 1px solid rgba(125,211,252,.24); border-radius: 20px; padding: 10px; margin-bottom: 10px; background: rgba(8,47,73,.20); }
     @media (max-width: 900px) { .main-hero, .menu-grid { grid-template-columns: 1fr; } .main-play { width:100%; } }
 
+  
+/* UX + performance pass: less intimidating first screen, fewer heavy effects, hover/tap help */
+:root { --lite-panel: rgba(7, 12, 24, 0.82); }
+body::after { display: none; }
+.panel, .modal, .start-card, .main-menu { backdrop-filter: none !important; box-shadow: 0 18px 48px rgba(0,0,0,.32) !important; }
+canvas { box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 12px 38px rgba(0,0,0,.32) !important; }
+button:hover { transform: none !important; }
+.tower-card, .contract-card, .item-card, .unlock-card, .achievement-card { position: relative; }
+.tower-card .card-meta, .contract-card .card-meta, .item-card .card-meta {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height .18s ease, opacity .18s ease, margin-top .18s ease;
+}
+.tower-card:hover .card-meta, .tower-card.selected .card-meta, .tower-card:focus-within .card-meta,
+.contract-card:hover .card-meta, .contract-card:focus-within .card-meta,
+.item-card:hover .card-meta, .item-card:focus-within .card-meta {
+  max-height: 190px;
+  opacity: 1;
+  margin-top: 7px;
+}
+.card-title::after {
+  content: " ⓘ";
+  color: rgba(186,230,253,.72);
+  font-weight: 900;
+  font-size: .72em;
+}
+.item-card .card-title .rarity-common,
+.item-card .card-title.rarity-common { text-shadow: 0 0 14px rgba(203,213,225,.13); }
+.item-card .card-title .rarity-rare,
+.item-card .card-title.rarity-rare { text-shadow: 0 0 16px rgba(96,165,250,.22); }
+.item-card .card-title .rarity-epic,
+.item-card .card-title.rarity-epic { text-shadow: 0 0 16px rgba(192,132,252,.25); }
+.item-card .card-title .rarity-legendary,
+.item-card .card-title.rarity-legendary { text-shadow: 0 0 18px rgba(245,158,11,.30); }
+.fun-start {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.fun-step {
+  border: 1px solid rgba(125,211,252,.16);
+  border-radius: 22px;
+  padding: 13px;
+  background: linear-gradient(180deg, rgba(8,47,73,.22), rgba(2,6,23,.44));
+}
+.fun-step strong { display:block; margin-bottom:5px; }
+.fun-step span { color: var(--soft); line-height: 1.35; font-size: .88rem; }
+.menu-details {
+  border: 1px solid rgba(148,163,184,.13);
+  border-radius: 22px;
+  padding: 12px;
+  background: rgba(2,6,23,.32);
+  margin-top: 10px;
+}
+.menu-details summary {
+  cursor: pointer;
+  font-weight: 1000;
+  color: #dbeafe;
+  letter-spacing: -.02em;
+}
+.help-strip {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 4px;
+}
+.help-chip {
+  border: 1px solid rgba(148,163,184,.14);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(15,23,42,.54);
+  color: var(--soft);
+  font-size: .78rem;
+  font-weight: 850;
+}
+.resource-explain {
+  border: 1px solid rgba(250,204,21,.20);
+  background: rgba(113,63,18,.20);
+  border-radius: 20px;
+  padding: 11px 12px;
+  color: #fde68a;
+  line-height: 1.38;
+  margin: 10px 0;
+}
+.mini-help {
+  border: 1px solid rgba(125,211,252,.16);
+  border-radius: 18px;
+  padding: 10px;
+  background: rgba(8,47,73,.14);
+  color: var(--soft);
+  line-height: 1.38;
+  font-size: .84rem;
+}
+.clean-tooltip {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  border:1px solid rgba(125,211,252,.35);
+  color:#bae6fd;
+  font-size:.72rem;
+  margin-left:5px;
+}
+.selected-empty { font-size: .92rem; }
+.modal-head { top: -18px; }
+@media (max-width: 900px) {
+  .fun-start { grid-template-columns: 1fr; }
+  .top-actions { gap: 6px; }
+  .top-actions button { padding: 8px 9px; font-size: .82rem; }
+  .subtitle { display:none; }
+}
+
   </style>
 </head>
 <body>
@@ -781,7 +898,7 @@
       <div class="main-hero">
         <div>
           <h2>Mirror Lane Profile</h2>
-          <p>Build permanent progression, unlock passives manually with Mastery Points, spend Vault Gold on exotic items and tower fusions, then start a clean mirrored-lane run.</p>
+          <p>Press Play, place towers, beat waves. Achievements unlock permanent toys later — they are optional.</p>
         </div>
         <button class="primary main-play" id="mainPlayBtn">Play Run</button>
       </div>
@@ -976,8 +1093,8 @@
 
   <div class="start-backdrop" id="startModal">
     <div class="start-card">
-      <h2>Choose your run setup</h2>
-      <p>Pick a difficulty first, then choose one passive. Higher difficulties make the AI defend better, scale faster, and send stronger pressure back at you.</p>
+      <h2>Choose your run</h2>
+      <p>Pick difficulty, choose one unlocked passive, then place towers. You can ignore advanced systems until you want them.</p>
       <div class="setup-label">Difficulty</div>
       <div class="passive-grid difficulty-grid" id="difficultyGrid"></div>
       <div class="setup-label">Passive</div>
@@ -1003,6 +1120,13 @@
 <script>
 (() => {
   "use strict";
+
+  const IS_FIREFOX = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent || "");
+  const IS_SMALL_SCREEN = typeof matchMedia !== "undefined" && matchMedia("(max-width: 900px)").matches;
+  const PERFORMANCE_MODE = IS_FIREFOX || IS_SMALL_SCREEN;
+  const DRAW_FPS = PERFORMANCE_MODE ? 30 : 45;
+  let lastDrawFrame = 0;
+  let lastHudFrame = 0;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
@@ -1552,16 +1676,16 @@
   }
 
   const tutorialSteps = [
-    { title: "Open a run", body: "From the profile menu, press Play, then pick a difficulty and a passive you purchased with Mastery Points.", target: "#startModal", event: "startRun" },
-    { title: "Place your first tower", body: "Choose one visible tower card, then click a legal tile on your left board. This step is the core loop: choose, place, watch, then improve.", target: "#towerCards", event: "buildDefense" },
-    { title: "Train or merge power", body: "Select a tower. Train raises level to 3; two level-3 towers of the same type and grade can merge up to Grade V.", target: "#selectedPanel", event: "trainOrMerge" },
-    { title: "Open the Item Workshop", body: "The workshop sells reliable common items. Buy commons, craft pairs into rares, then use recipes for epic and legendary items.", target: "#shopBtn", event: "openShop" },
-    { title: "Equip an item", body: "Select a tower, click an item slot, and equip an item. Items are powerful, but Pure Defense rewards winning without equipping any.", target: "#selectedPanel", event: "equipItem" },
-    { title: "Launch combat", body: "Start the next wave. Invisible neutral waves begin at Wave 12; after any tower reaches Grade II, build Sentry Lens for 75g when the warning appears.", target: "#startWaveBtn", event: "startWave" },
-    { title: "Queue pressure", body: "Buy queued send units to attack the AI on the next wave. Expensive sends let you spend gold quickly and convert economy into pressure.", target: "#contractCards", event: "sendQueued" },
-    { title: "Use active sends", body: "During an active wave, switch to Direct aura units. They cost at least 50g and gain XP when nearby allies die, scaling aura strength and life.", target: "#directTab", event: "sendDirect" },
-    { title: "Upgrade your sent waves", body: "The Wave Unit Lab is directly below the send cards. It upgrades every sent unit this run: health, armor, regeneration, and invisibility after Wave 5.", target: "#sendUpgradeCards", event: "sendUpgrade" },
-    { title: "Build assault infrastructure", body: "After assault unlocks, build assault damage plus Repair Matrix and Tactical Shield. Focus-fire enemy towers to break the AI defense.", target: "#towerCards", event: "buildAssault" }
+    { title: "Start relaxed", body: "Press Play from the profile menu, choose a difficulty, then choose an unlocked passive. The profile screen is only for long-term progress; you can ignore it and just play.", target: "#mainPlayBtn", event: "startRun" },
+    { title: "Place a tower", body: "Select one visible tower card, then click an empty tile on your left board. This is the first fun moment: one choice, one placement, immediate combat value.", target: "#game", event: "buildDefense" },
+    { title: "Read towers quickly", body: "Cards are compact on purpose. Hover or focus a card to see the detailed explanation. Towers cap at Level 3; after that, matching towers can merge up to Grade V.", target: "#towerCards", event: "buildDefense" },
+    { title: "Train and merge", body: "Select a tower to open its inspector. Train raises Level 1 → 2 → 3. Merge shows its gold cost and combines two matching Level 3 towers into a higher grade.", target: "#selectedPanel", event: "trainOrMerge" },
+    { title: "Items are optional power", body: "Open the Item Workshop when you want reliable upgrades. Buy commons, craft pairs, and equip items through a selected tower's item slots.", target: "#shopBtn", event: "openShop" },
+    { title: "Launch waves", body: "Start the next wave whenever you are ready. Perfect clears build streak rewards. Invisible neutral waves start at Wave 12, with warnings before they arrive.", target: "#startWaveBtn", event: "startWave" },
+    { title: "Send pressure", body: "Use queued sends to attack the AI on the next wave. Press Auto Send when you just want spare gold converted into pressure without thinking.", target: "#contractCards", event: "sendQueued" },
+    { title: "Active send units", body: "During a wave, switch to Direct aura units. They cost more, gain XP when nearby allies die, and become stronger if protected.", target: "#directTab", event: "sendDirect" },
+    { title: "Wave Unit Lab", body: "The Wave Lab button jumps to permanent run upgrades for your sent units: health, armor, regeneration, and invisibility after Wave 5.", target: "#waveLabBtn", event: "sendUpgrade" },
+    { title: "Counters and assault", body: "Build Sentry Lens after a Grade II tower when invisible pressure appears. Later, assault towers attack the AI's towers; Repair Matrix and Tactical Shield keep your assault plan alive.", target: "#towerCards", event: "buildAssault" }
   ];
 
   function startTutorial() {
@@ -1955,16 +2079,18 @@
     const defs = achievementDefs();
     const done = Object.keys(defs).filter(k => profile.achievements[k]).length;
     const total = Object.keys(defs).length;
+
     const passivesHtml = Object.entries(passives).map(([key, p]) => {
       const unlocked = passiveUnlocked(key);
       const cost = passiveUnlockCosts[key] || 0;
       return `<div class="unlock-card ${unlocked ? "unlocked" : ""}">
         <strong>${unlocked ? "✓" : "○"} ${p.name}</strong>
-        <p>${p.desc}</p>
+        <p>${p.short}: ${p.desc}</p>
         <div class="card-tags"><span class="tag">${cost ? `${cost} MP` : "Starter"}</span><span class="tag">${profile.achievements[`winPassive_${key}`] ? "Mastered" : "Quest open"}</span></div>
-        ${unlocked ? `<button class="ghost" disabled>Unlocked</button>` : `<button class="primary" data-unlock-passive="${key}" ${masteryPoints() < cost ? "disabled" : ""}>Unlock passive · ${cost} MP</button>`}
+        ${unlocked ? `<button class="ghost" disabled>Unlocked</button>` : `<button class="primary" data-unlock-passive="${key}" ${masteryPoints() < cost ? "disabled" : ""}>Unlock · ${cost} MP</button>`}
       </div>`;
     }).join("");
+
     const contentHtml = Object.entries(contentUnlockDefs).map(([key, def]) => {
       const unlocked = contentUnlocked(key);
       return `<div class="unlock-card ${unlocked ? "unlocked" : ""}">
@@ -1974,26 +2100,57 @@
         ${unlocked ? `<button class="ghost" disabled>Researched</button>` : `<button class="gold-btn" data-unlock-content="${key}" ${(profile.vaultGold || 0) < def.cost ? "disabled" : ""}>Research · ${def.cost}</button>`}
       </div>`;
     }).join("");
-    const recentAchievements = Object.entries(defs).slice(0, 12).map(([key, def]) => `<span class="tag" style="${profile.achievements[key] ? "border-color:rgba(34,197,94,.42);color:#bbf7d0" : "opacity:.68"}">${profile.achievements[key] ? "✓" : "○"} ${def.title}</span>`).join(" ");
+
+    const recentAchievements = Object.entries(defs).slice(0, 12).map(([key, def]) =>
+      `<span class="tag">${profile.achievements[key] ? "✓" : "○"} ${def.title}</span>`
+    ).join("");
+
     el.mainMenuContent.innerHTML = `
       <div class="menu-grid">
-        <div class="menu-card"><small>Mastery Points</small><strong>${masteryPoints()}</strong></div>
         <div class="menu-card"><small>Vault Gold</small><strong>${profile.vaultGold || 0}</strong></div>
+        <div class="menu-card"><small>Mastery Points</small><strong>${masteryPoints()}</strong></div>
         <div class="menu-card"><small>Achievements</small><strong>${done}/${total}</strong></div>
-        <div class="menu-card"><small>Total wins</small><strong>${profile.stats.totalWins || 0}</strong></div>
+        <div class="menu-card"><small>Total Wins</small><strong>${profile.stats.totalWins || 0}</strong></div>
       </div>
-      <div class="shop-help"><strong>Profile loop:</strong> Achievements give Mastery Points and Vault Gold. Spend Mastery Points to unlock passives manually. Spend Vault Gold to add exotic items, recipes, and tower fusions to future runs.</div>
-      <div class="section-title" style="margin-top:12px">Passive unlocks</div>
-      <div class="unlock-grid">${passivesHtml}</div>
-      <div class="section-title" style="margin-top:16px">Research unlocks</div>
-      <div class="unlock-grid">${contentHtml}</div>
-      <div class="section-title" style="margin-top:16px">Achievement overview</div>
-      <div class="menu-tabs">${recentAchievements}</div>
-      <div class="row" style="margin-top:12px"><button class="ghost" id="mainAchievementsBtn">Open full achievements</button><button class="ghost" id="mainTutorialBtn">Start tutorial</button></div>`;
+
+      <div class="fun-start">
+        <div class="fun-step"><strong>1 · Build</strong><span>Pick one visible tower card, place it on your lane, then watch it fight.</span></div>
+        <div class="fun-step"><strong>2 · Upgrade</strong><span>Train to Level 3, then merge matching Level 3 towers up to Grade V.</span></div>
+        <div class="fun-step"><strong>3 · Pressure</strong><span>Send units to the AI. Auto Send spends spare gold quickly; smart sends win faster.</span></div>
+      </div>
+
+      <div class="resource-explain"><strong>Vault Gold:</strong> +${20} to +${35} from achievements, +1 + wave/5 on every wave clear, +1 extra for perfect clears, and +35 + 2×wave on victory. Saved locally in this browser.</div>
+
+      <div class="help-strip">
+        <span class="help-chip">Start simple: Play → Difficulty → Passive</span>
+        <span class="help-chip">Hover cards for details</span>
+        <span class="help-chip">Items/towers use icons + rarity color</span>
+        <span class="help-chip">Firefox-safe performance mode is automatic</span>
+      </div>
+
+      <details class="menu-details">
+        <summary>Passive unlocks</summary>
+        <div class="unlock-grid">${passivesHtml}</div>
+      </details>
+
+      <details class="menu-details">
+        <summary>Research unlocks: items, recipes, tower fusions</summary>
+        <div class="unlock-grid">${contentHtml}</div>
+      </details>
+
+      <details class="menu-details">
+        <summary>Achievement preview</summary>
+        <div class="menu-tabs">${recentAchievements}</div>
+      </details>
+
+      <div class="row" style="margin-top:14px">
+        <button class="primary" id="mainAchievementsBtn">Achievements & Unlocks</button>
+        <button class="ghost" id="mainTutorialBtn">Start guided tutorial</button>
+      </div>`;
     const ach = document.getElementById("mainAchievementsBtn");
     if (ach) ach.onclick = () => { if (el.mainMenu) el.mainMenu.classList.remove("show"); openProgressModal(); };
     const tut = document.getElementById("mainTutorialBtn");
-    if (tut) tut.onclick = () => { startTutorial(); if (el.mainMenu) el.mainMenu.classList.remove("show"); if (el.startModal) el.startModal.classList.add("show"); };
+    if (tut) tut.onclick = () => { startTutorial(); if (el.mainMenu) el.mainMenu.classList.remove("show"); openRunSetup(); };
   }
 
   function openMainMenu() {
@@ -2303,12 +2460,23 @@
   }
 
   function loop(now) {
-    const dt = Math.min(0.05, (now - last) / 1000);
+    const dt = Math.min(0.075, (now - last) / 1000);
     last = now;
     if (state.running && !state.paused && !state.gameOver) update(dt);
-    draw();
-    renderFrameHud();
-    if (uiDirty) renderAll();
+
+    const drawInterval = 1000 / DRAW_FPS;
+    const shouldDraw = !document.hidden && (uiDirty || now - lastDrawFrame >= drawInterval || state.paused || state.gameOver);
+    if (shouldDraw) {
+      draw();
+      lastDrawFrame = now;
+    }
+
+    if (uiDirty || now - lastHudFrame >= 160) {
+      renderFrameHud();
+      lastHudFrame = now;
+      if (uiDirty) renderAll();
+    }
+
     requestAnimationFrame(loop);
   }
 
@@ -4236,7 +4404,7 @@
     el.vendorList.innerHTML = resourceLine + state.vendorOffers.map((offer, i) => {
       const def = itemDefs[offer.key];
       const canBuy = state.gold >= offer.price;
-      return `<div class="item-card vendor-offer free">
+      return `<div class="item-card vendor-offer free" title="${htmlAttr(def.desc)}">
         <div class="card-head"><div class="card-title rarity-${def.rarity}">${def.icon} ${def.name}</div><div class="card-price">${def.rarity}</div></div>
         <div class="card-meta">${def.desc}</div>
         <div class="buy-line"><span class="vendor-price">${offer.price}g</span><button class="primary compact" data-vendor-buy="${i}" ${canBuy ? "" : "disabled"}>Buy</button></div>
@@ -4345,7 +4513,7 @@
       const def = itemDefs[key];
       const cost = shopItemPrice(key);
       const owned = availableItemsByKey(key).length;
-      return `<div class="item-card free">
+      return `<div class="item-card free" title="${htmlAttr(def.desc)}">
         <div class="card-head"><div class="card-title ${"rarity-" + def.rarity}">${def.icon} ${def.name}</div><div class="vendor-price">${formatCost(cost)}</div></div>
         <div class="card-meta">${def.desc}</div>
         <div class="card-tags"><span class="tag">Common shop</span><span class="tag">Unequipped owned: ${owned}</span></div>
@@ -4357,7 +4525,7 @@
       const result = itemDefs[recipe.result];
       const ready = hasRecipeIngredients(recipe) && state.gold >= recipe.cost;
       const reqText = recipe.requires.map(k => `${itemDefs[k].icon} ${itemDefs[k].name} (${availableItemsByKey(k).length}/1)`).join(" + ");
-      return `<div class="item-card recipe-card">
+      return `<div class="item-card recipe-card" title="${htmlAttr(recipe.note + " Creates: " + result.desc)}">
         <div class="card-head"><div class="card-title ${"rarity-" + result.rarity}">${result.icon} ${recipe.name}</div><div class="vendor-price">${formatCost(recipe.cost)}</div></div>
         <div class="card-meta"><strong>Requires:</strong> ${reqText}<br>${recipe.note}<br><span class="soft">Creates: ${result.desc}</span></div>
         <div class="card-tags"><span class="tag">Recipe</span><span class="tag">${result.rarity}</span></div>
@@ -4417,7 +4585,7 @@
       const def = itemDefs[item.key];
       const equipped = Boolean(item.equippedTowerId);
       const tower = state.player.towers.find(t => t.id === item.equippedTowerId);
-      return `<div class="item-card ${equipped ? "equipped" : "free"}" data-item-id="${item.id}">
+      return `<div class="item-card ${equipped ? "equipped" : "free"}" data-item-id="${item.id}" title="${htmlAttr(def.desc)}">
         <div class="card-head"><div class="card-title"><span class="rarity-${def.rarity}">${def.icon} ${def.name}</span></div><div class="tag">${def.rarity}</div></div>
         <div class="card-meta">${def.desc}</div>
         <div class="card-tags"><span class="tag">${equipped ? `Equipped: ${tower ? towerDefs[tower.type].name : "tower"}` : "Unequipped"}</span></div>
@@ -4736,7 +4904,7 @@
   function setMessage(text) { el.message.textContent = text; }
   function log(text) {
     state.log.unshift(`[W${state.wave || 0}] ${text}`);
-    state.log = state.log.slice(0, 9);
+    state.log = state.log.slice(0, 6);
     uiDirty = true;
   }
 
@@ -4746,6 +4914,14 @@
 
   function formatCost(value) {
     return `${Math.ceil(value)}g`;
+  }
+
+  function htmlAttr(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
   }
 
 
@@ -4783,6 +4959,7 @@
       </div>`;
     }).join("");
     el.progressContent.innerHTML = `
+      <div class="resource-explain"><strong>How rewards work:</strong> Achievements give +1 Mastery Point and Vault Gold. Wave clears also give Vault Gold, and winning gives a large bonus. Everything here is saved in localStorage on this browser.</div>
       <div class="achievement-summary">
         <div class="summary-card"><small>Unspent Mastery</small><strong>${pts}</strong></div>
         <div class="summary-card"><small>Vault Gold</small><strong>${profile.vaultGold || 0}</strong></div>
@@ -4829,7 +5006,10 @@
     if (el.vendorText) el.vendorText.textContent = `${Math.round(state.vendorChance * 100)}%`;
     const assaultFocus = state.player.towers.some(t => isAttackTower(t) && t.focusTowerId);
     el.threatText.textContent = state.player.focusEnemyId ? "Focus fire" : assaultFocus ? "Assault focus" : state.lastThreat;
-    checkProgressAchievements();
+    if (!renderFrameHud._progressLast || performance.now() - renderFrameHud._progressLast > 1000) {
+      renderFrameHud._progressLast = performance.now();
+      checkProgressAchievements();
+    }
   }
 
   function renderAll() {
@@ -4853,7 +5033,7 @@
     const card = (key, icon, color, tag, lockedReason = "") => {
       const c = randomBuildDefs[key];
       const locked = Boolean(lockedReason);
-      return `<div class="tower-card ${selected(key)} ${isAssaultBuild(c) ? "assault" : "defense"} ${locked ? "locked" : ""}" data-tower="${key}">
+      return `<div class="tower-card ${selected(key)} ${isAssaultBuild(c) ? "assault" : "defense"} ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr((locked ? lockedReason + " " : "") + c.note)}">
         <div class="card-head"><div class="card-title" style="color:${color}">${icon} ${c.name}</div><div class="card-price">${formatCost(c.cost)}</div></div>
         <div class="card-meta">${locked ? lockedReason + " " : ""}${c.note}</div>
         <div class="card-tags"><span class="tag">${tag}</span><span class="tag">${c.elite ? "Starts L3" : "Starts L1"}</span></div>
@@ -4861,7 +5041,7 @@
     };
     const fixedDefenseCard = (key, type, meta, locked = false, cost = randomBuildDefs.randomDefense.cost, tag = "One use") => {
       const def = towerDefs[type];
-      return `<div class="tower-card ${selected(key)} defense ${locked ? "locked" : ""}" data-tower="${key}">
+      return `<div class="tower-card ${selected(key)} defense ${locked ? "locked" : ""}" data-tower="${key}" title="${htmlAttr(meta)}">
         <div class="card-head"><div class="card-title" style="color:${def.color}">${def.icon} ${def.name}</div><div class="card-price">${formatCost(cost)}</div></div>
         <div class="card-meta">${meta}</div>
         <div class="card-tags"><span class="tag">${tag}</span><span class="tag">Level 1</span></div>
@@ -4932,7 +5112,7 @@
       const locked = directLocked || invisLocked || unaffordable;
       const reason = directLocked ? "Requires an active wave. " : invisLocked ? "Invisible sends unlock after Wave 5. " : unaffordable ? "Need more gold. " : "";
       return `
-      <div class="contract-card ${locked ? "locked" : ""}" data-contract="${key}">
+      <div class="contract-card ${locked ? "locked" : ""}" data-contract="${key}" title="${htmlAttr(reason + c.note)}">
         <div class="card-head"><div class="card-title">${c.name}</div><div class="card-price">${formatCost(c.cost)}</div></div>
         <div class="card-meta">${reason}${c.note}</div>
         <div class="card-tags"><span class="tag">${c.tag}</span><span class="tag">x${c.count}</span><span class="tag">+${c.income || 1} income</span></div>
@@ -4995,6 +5175,7 @@
         <div class="section-title">XP / cap</div>
         <div class="soft">${tower.level >= MAX_LEVEL ? "Level cap reached. Merge is now the power path." : `${Math.floor(tower.xp)} / ${xpMax} XP to next level.`}</div>
         <div class="xpbar"><span style="width:${xpPct}%"></span></div>
+        <div class="mini-help" style="margin-top:8px">Tower path: Level ${tower.level}/${MAX_LEVEL} → merge matching Level 3 towers → Grade ${roman(tower.grade)}/${roman(MAX_GRADE)}. Merge cost: ${mergeReady && partner ? formatCost(mergeCost(tower)) : "needs matching Level 3 partner"}.</div>
       </div>
       <div class="section">
         <div class="section-title">Ability</div>
@@ -5008,7 +5189,7 @@
       <div class="section row">
         ${tower.freshRoll ? `<button class="gold-btn" data-action="reroll">Free reroll</button>` : ""}
         <button class="primary" data-action="train" ${canTrain ? "" : "disabled"}>Train ${canTrain ? formatCost(trainCost(tower)) : "Max"}</button>
-        <button class="gold-btn" data-action="merge" ${mergeReady && partner ? "" : "disabled"}>Merge</button>
+        <button class="gold-btn" data-action="merge" ${mergeReady && partner ? "" : "disabled"}>Merge ${mergeReady && partner ? formatCost(mergeCost(tower)) : ""}</button>
         <button class="ghost" data-action="replace" ${(tower.replaceCd || 0) <= 0 ? "" : "disabled"}>Relocate${(tower.replaceCd || 0) > 0 ? ` ${tower.replaceCd.toFixed(1)}s` : ""}</button>
         <button class="danger" data-action="sell">Sell</button>
       </div>
@@ -5035,6 +5216,11 @@
   }
 
   function drawBackdrop() {
+    if (PERFORMANCE_MODE) {
+      ctx.fillStyle = "#050b16";
+      ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+      return;
+    }
     const bg = ctx.createLinearGradient(0, 0, CANVAS_W, CANVAS_H);
     bg.addColorStop(0, "#050b16");
     bg.addColorStop(0.52, "#07111f");
@@ -5434,7 +5620,8 @@
   }
 
   function drawShots(lane) {
-    for (const s of lane.shots) {
+    const shots = PERFORMANCE_MODE ? lane.shots.slice(-36) : lane.shots;
+    for (const s of shots) {
       const denom = s.arc ? 0.42 : 0.16;
       ctx.globalAlpha = Math.max(0, s.time / denom);
       ctx.strokeStyle = s.color;
@@ -5454,7 +5641,8 @@
   }
 
   function drawEffects(lane) {
-    for (const e of lane.effects) {
+    const effects = PERFORMANCE_MODE ? lane.effects.slice(-22) : lane.effects;
+    for (const e of effects) {
       const a = Math.max(0, e.time);
       if (e.type === "splash") {
         ctx.globalAlpha = a / 0.25 * 0.55;
@@ -5564,7 +5752,8 @@
   }
 
   function drawFloaters(lane) {
-    for (const f of lane.floaters) {
+    const floaters = PERFORMANCE_MODE ? lane.floaters.slice(-14) : lane.floaters;
+    for (const f of floaters) {
       ctx.globalAlpha = Math.max(0, f.time / f.life);
       ctx.fillStyle = f.color;
       ctx.font = "1000 12px Inter, system-ui";
@@ -5581,11 +5770,13 @@
     ctx.setLineDash([10, 10]);
     ctx.beginPath(); ctx.moveTo(MID_X, top); ctx.lineTo(MID_X, bottom); ctx.stroke();
     ctx.setLineDash([]);
-    const halo = ctx.createRadialGradient(MID_X, top + 24, 4, MID_X, top + 24, 110);
-    halo.addColorStop(0, "rgba(125,211,252,0.20)");
-    halo.addColorStop(1, "rgba(125,211,252,0)");
-    ctx.fillStyle = halo;
-    circle(MID_X, top + 24, 110, true);
+    if (!PERFORMANCE_MODE) {
+      const halo = ctx.createRadialGradient(MID_X, top + 24, 4, MID_X, top + 24, 110);
+      halo.addColorStop(0, "rgba(125,211,252,0.20)");
+      halo.addColorStop(1, "rgba(125,211,252,0)");
+      ctx.fillStyle = halo;
+      circle(MID_X, top + 24, 110, true);
+    }
     ctx.fillStyle = "rgba(2,6,23,0.82)";
     roundRect(MID_X - 56, top + 10, 112, 30, 999, true, false);
     ctx.strokeStyle = "rgba(148,163,184,0.20)";
