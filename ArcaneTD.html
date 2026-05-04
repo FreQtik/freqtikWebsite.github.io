@@ -1331,6 +1331,112 @@ canvas { width: 100% !important; max-height: calc(100vh - 145px); object-fit: co
 .dps-meter-row span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .dps-meter-row b { white-space:nowrap; }
 
+
+
+/* Coherent content patch: WoW-style damage meter, progress modal hierarchy, DPS test controls */
+.dps-meter { width: min(460px, calc(100% - 28px)) !important; }
+.dps-meter h3 { margin-bottom: 8px; }
+.damage-meter-summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 10px;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(148,163,184,.16);
+  color: #cbd5e1;
+  font-size: .78rem;
+  font-weight: 900;
+}
+.damage-meter-summary b { color: #f8fbff; white-space: nowrap; }
+.dps-meter-entry {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(148,163,184,.12);
+  border-radius: 13px;
+  padding: 7px 8px 8px;
+  margin-top: 6px;
+  background: rgba(2,6,23,.48);
+}
+.dps-meter-line, .damage-meter-sub {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.dps-meter-line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 1000; }
+.dps-meter-line b { white-space: nowrap; }
+.damage-meter-sub { margin-top: 3px; color: #94a3b8; font-size: .70rem; font-weight: 900; }
+.damage-meter-track {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,23,42,.68);
+  z-index: 0;
+}
+.damage-meter-track span {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  opacity: .36;
+  box-shadow: inset -12px 0 28px rgba(255,255,255,.06);
+}
+.damage-meter-empty { color: #94a3b8; padding: 8px 0; font-weight: 900; }
+#progressModal.modal-backdrop.show { z-index: 96 !important; pointer-events: auto; }
+#progressModal .progress-modal { width: min(1120px, calc(100vw - 30px)); }
+.progress-section-heading {
+  margin: 20px 0 12px;
+  font-size: 1.18rem;
+  letter-spacing: -.035em;
+  color: #f8fbff;
+  border-left: 5px solid #a78bfa;
+  padding-left: 10px;
+}
+.progress-section-heading:first-of-type { margin-top: 12px; }
+.progress-modal .unlock-card, .progress-modal .achievement-card { border-width: 2px; }
+.unlock-kind-passive { border-color: rgba(167,139,250,.50) !important; }
+.unlock-kind-tower-fusion { border-color: rgba(56,189,248,.56) !important; }
+.unlock-kind-exotic-item { border-color: rgba(192,132,252,.58) !important; }
+.unlock-kind-legendary-recipe { border-color: rgba(245,158,11,.62) !important; }
+.progress-modal button:not(.compact),
+.run-setup-top-actions .progress-btn,
+.locked-detail-button,
+.passive-detail .progress-btn {
+  background: linear-gradient(180deg, rgba(126,34,206,.98), rgba(76,29,149,.98)) !important;
+  color: #fff !important;
+}
+.progress-modal button:disabled { opacity: .48; }
+.passive.locked.selected {
+  opacity: .78;
+  border-color: rgba(250,204,21,.62) !important;
+  box-shadow: inset 0 0 0 2px rgba(250,204,21,.13), 0 14px 36px rgba(0,0,0,.22) !important;
+}
+#startRunConfirmBtn.locked-choice {
+  background: linear-gradient(180deg, rgba(71,85,105,.95), rgba(30,41,59,.95)) !important;
+  outline: 2px solid rgba(250,204,21,.35);
+}
+.loot-toasts.show { pointer-events: auto !important; }
+.loot-popup .dps-test-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.loot-popup .dps-test-actions button { flex:1; min-width:160px; }
+
+
+
+/* Statistics + DPS test polish */
+.stats-modal { width: min(1120px, calc(100vw - 28px)) !important; }
+.stats-compare-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; margin:12px 0; }
+.stats-columns { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; margin-top:12px; }
+.stats-columns h3 { margin: 0 0 8px; font-size:.82rem; color:#bae6fd; text-transform:uppercase; letter-spacing:.09em; }
+.stats-tower-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:center; padding:7px 0; border-top:1px solid rgba(148,163,184,.10); }
+.stats-tower-row span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:900; }
+.stats-tower-row b { color:#fde68a; white-space:nowrap; }
+.stats-tower-row em { grid-column:1/-1; display:flex; gap:5px; flex-wrap:wrap; font-style:normal; }
+.dps-results-popup { width:min(760px, calc(100vw - 28px)) !important; }
+.dps-result-list { max-height:min(42vh, 440px); overflow:auto; padding-right:4px; margin-top:10px; }
+#dockAutoSendBtn { margin-left: 8px; white-space: nowrap; }
+.dps-meter .tag, .dps-results-popup .tag { font-size:.66rem; padding:2px 6px; }
+@media (max-width: 900px) { .stats-compare-grid, .stats-columns { grid-template-columns: 1fr; } }
+
 </style>
 </head>
 <body>
@@ -7440,6 +7546,992 @@ canvas { width: 100% !important; max-height: calc(100vh - 145px); object-fit: co
     { title: "Items and Cup Game", body: "Open Items from the canvas. Cup Game is only inside your Items vendor as a risky item roll.", target: "#shopBtn", event: "openShop" },
     { title: "Optional DPS meter", body: "Press 5 or click DPS to open a small live damage window. Use it to compare towers without cluttering the main game.", target: "#gameActionButtons", event: "trainOrMerge" }
   );
+
+
+
+  /* Coherent integration patch: per-tower damage meter, DPS test mode, passive/achievement UX, Random Darkness tower, and projectile-speed item. */
+  function shortNumber(value) {
+    value = Number(value) || 0;
+    const abs = Math.abs(value);
+    if (abs >= 1e9) return `${(value / 1e9).toFixed(abs >= 1e10 ? 1 : 2)}B`;
+    if (abs >= 1e6) return `${(value / 1e6).toFixed(abs >= 1e7 ? 1 : 2)}M`;
+    if (abs >= 1e3) return `${(value / 1e3).toFixed(abs >= 1e4 ? 1 : 2)}K`;
+    return `${Math.round(value)}`;
+  }
+
+  itemDefs.slowProjectiles = {
+    name: "Gravitic Resin",
+    icon: "🜁",
+    rarity: "rare",
+    desc: "Flying projectiles travel 50% slower. Works on true moving projectiles such as Shockwave Core, Titan Ballista, and Random Darkness.",
+    effects: { projectileSpeedMult: 0.5 }
+  };
+
+  towerDefs.randomDarkness = {
+    name: "Random Darkness",
+    icon: "☄",
+    cost: 10,
+    color: "#7c3aed",
+    range: 790,
+    damage: 62,
+    attackSpeed: 0.36,
+    role: "Special / random projectile",
+    ability: "Automatically fires a very slow dark orb in a random direction while enemies are on the field. The orb lives 7 seconds and repeatedly damages every unit underneath it. Extremely high damage, but inaccurate."
+  };
+  towerRarityByType.randomDarkness = "epic";
+  if (!defenseRandomPool.some(entry => entry.type === "randomDarkness")) defenseRandomPool.push({ type: "randomDarkness", weight: 4 });
+
+  for (const def of Object.values(sendUpgradeDefs)) {
+    if (!/^Permanently upgrades/.test(def.desc)) {
+      def.desc = `Permanently upgrades the wave and send units your enemy receives. ${def.desc}`;
+    }
+  }
+
+  const __coherentBaseProjectileItemMods = projectileItemMods;
+  projectileItemMods = function(tower) {
+    const mods = __coherentBaseProjectileItemMods(tower) || { hitBonus: 0, grow: false };
+    let speedMult = 1;
+    for (const item of equippedItems(tower)) {
+      const effects = (itemDefs[item.key] && itemDefs[item.key].effects) || {};
+      if (effects.projectileSpeedMult) speedMult *= effects.projectileSpeedMult;
+    }
+    return { ...mods, speedMult };
+  };
+
+  launchShockwave = function(lane, tower, target, stats) {
+    const targetPos = enemyPos(lane, target);
+    const dx = targetPos.x - tower.x;
+    const dy = targetPos.y - tower.y;
+    const len = Math.max(1, Math.hypot(dx, dy));
+    const mods = projectileItemMods(tower);
+    const speedMult = mods.speedMult || 1;
+    const speed = Math.max(144, stats.range) * speedMult;
+    const duration = 2.0 / Math.max(0.25, speedMult);
+    lane.effects.push({
+      type: "shockwave", x: tower.x, y: tower.y, vx: dx / len * speed, vy: dy / len * speed,
+      r: 18 + tower.grade * 2 + mods.hitBonus, baseR: 18 + tower.grade * 2 + mods.hitBonus, grow: mods.grow,
+      damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
+      color: towerDefs.shockwave.color
+    });
+    lane.shots.push({ x1: tower.x, y1: tower.y, x2: tower.x + dx / len * 34, y2: tower.y + dy / len * 34, color: towerDefs.shockwave.color, time: 0.18, width: 3 });
+  };
+
+  launchBallistaBolt = function(lane, tower, target, stats) {
+    const targetPos = enemyPos(lane, target);
+    const dx = targetPos.x - tower.x;
+    const dy = targetPos.y - tower.y;
+    const len = Math.max(1, Math.hypot(dx, dy));
+    const mods = projectileItemMods(tower);
+    const speedMult = mods.speedMult || 1;
+    const speed = Math.max(260, stats.range * 1.55) * speedMult;
+    const duration = 2.35 / Math.max(0.25, speedMult);
+    lane.effects.push({
+      type: "ballistaBolt", x: tower.x, y: tower.y, vx: dx / len * speed, vy: dy / len * speed,
+      r: 7 + tower.grade + mods.hitBonus, baseR: 7 + tower.grade + mods.hitBonus, grow: mods.grow,
+      damage: stats.damage, towerId: tower.id, hitIds: [], time: duration, life: duration,
+      color: towerDefs.ballista.color
+    });
+    lane.shots.push({ x1: tower.x, y1: tower.y, x2: tower.x + dx / len * 52, y2: tower.y + dy / len * 52, color: towerDefs.ballista.color, time: 0.18, width: 2.2 });
+  };
+
+  function launchRandomDarkness(lane, tower, stats) {
+    const def = towerDefs.randomDarkness;
+    const angle = Math.random() * Math.PI * 2;
+    const mods = projectileItemMods(tower);
+    const speed = (42 + tower.grade * 7 + tower.level * 3) * (mods.speedMult || 1);
+    const radius = 24 + tower.grade * 3 + (mods.hitBonus || 0);
+    const duration = 7.0;
+    lane.effects.push({
+      type: "darknessOrb",
+      x: tower.x,
+      y: tower.y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r: radius,
+      baseR: radius,
+      grow: Boolean(mods.grow),
+      damage: stats.damage * (0.72 + tower.grade * 0.10 + tower.level * 0.04),
+      towerId: tower.id,
+      tickCd: 0.05,
+      tickInterval: 0.25,
+      time: duration,
+      life: duration,
+      color: def.color
+    });
+    lane.shots.push({ x1: tower.x, y1: tower.y, x2: tower.x + Math.cos(angle) * 36, y2: tower.y + Math.sin(angle) * 36, color: def.color, time: 0.26, width: 3.2 });
+    addFloatingText(lane, tower.x, tower.y - 30, "DARKNESS", "#c4b5fd");
+  }
+
+
+  const __coherentBaseFindTargets = findTargets;
+  findTargets = function(lane, tower, range, count) {
+    if (tower && tower.type === "randomDarkness") {
+      return lane.enemies.filter(enemy => enemy.spawnDelay <= 0 && enemy.hp > 0).slice(0, 1);
+    }
+    return __coherentBaseFindTargets(lane, tower, range, count);
+  };
+
+  const __coherentBaseFireTower = fireTower;
+  fireTower = function(lane, tower, targets, stats) {
+    if (tower && tower.type === "randomDarkness") {
+      launchRandomDarkness(lane, tower, stats);
+      return;
+    }
+    return __coherentBaseFireTower(lane, tower, targets, stats);
+  };
+
+  function updateDarknessOrbs(lane, dt) {
+    const orbs = lane.effects.filter(e => e.type === "darknessOrb");
+    if (!orbs.length) return;
+    const minX = lane.boardX + 8, maxX = lane.boardX + BOARD_W - 8;
+    const minY = lane.boardY + 8, maxY = lane.boardY + BOARD_H - 8;
+    for (const orb of orbs) {
+      orb.x += orb.vx * dt;
+      orb.y += orb.vy * dt;
+      if (orb.x < minX || orb.x > maxX) { orb.x = Math.max(minX, Math.min(maxX, orb.x)); orb.vx *= -0.92; }
+      if (orb.y < minY || orb.y > maxY) { orb.y = Math.max(minY, Math.min(maxY, orb.y)); orb.vy *= -0.92; }
+      if (orb.grow && orb.baseR && orb.life) {
+        const progress = Math.max(0, Math.min(1, 1 - orb.time / orb.life));
+        orb.r = orb.baseR * (1 + progress);
+      }
+      orb.tickCd -= dt;
+      if (orb.tickCd > 0) continue;
+      orb.tickCd += orb.tickInterval || 0.25;
+      const tower = lane.towers.find(t => t.id === orb.towerId) || null;
+      if (!tower) continue;
+      const stats = { ...towerStats(tower, lane), damage: orb.damage };
+      let hit = false;
+      for (const enemy of [...lane.enemies]) {
+        if (enemy.spawnDelay > 0 || enemy.hp <= 0) continue;
+        const p = enemyPos(lane, enemy);
+        if (Math.hypot(p.x - orb.x, p.y - orb.y) <= (orb.r || 24) + enemy.radius) {
+          hit = true;
+          dealDamage(lane, enemy, orb.damage, tower, p);
+          applyOnHit(lane, tower, enemy, stats, p);
+          if (stats.splashRadius > 0) splashDamage(lane, enemy, p, orb.damage * (stats.splashPct || 0.32), stats.splashRadius, tower);
+        }
+      }
+      if (hit) lane.effects.push({ type: "shockProc", x: orb.x, y: orb.y, r: orb.r + 8, time: 0.20, color: orb.color });
+    }
+  }
+
+  const __coherentBaseUpdateShockwaves = updateShockwaves;
+  updateShockwaves = function(lane, dt) {
+    __coherentBaseUpdateShockwaves(lane, dt);
+    updateDarknessOrbs(lane, dt);
+  };
+
+  const __coherentBaseDrawEffects = drawEffects;
+  drawEffects = function(lane) {
+    __coherentBaseDrawEffects(lane);
+    const effects = PERFORMANCE_MODE ? lane.effects.slice(-28) : lane.effects;
+    for (const e of effects) {
+      if (e.type !== "darknessOrb") continue;
+      const alpha = Math.max(0.20, Math.min(0.78, e.time / (e.life || 7)));
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = "rgba(124,58,237,0.24)";
+      circle(e.x, e.y, e.r, true);
+      ctx.strokeStyle = e.color || "#7c3aed";
+      ctx.lineWidth = 3;
+      circle(e.x, e.y, e.r + Math.sin(performance.now() / 95) * 4, false);
+      ctx.fillStyle = "rgba(221,214,254,0.90)";
+      circle(e.x, e.y, Math.max(4, e.r * 0.18), true);
+      ctx.globalAlpha = 1;
+    }
+  };
+
+  const __coherentBaseDealDamage = dealDamage;
+  dealDamage = function(lane, enemy, raw, tower, pos) {
+    const before = enemy ? enemy.hp : 0;
+    const result = __coherentBaseDealDamage(lane, enemy, raw, tower, pos);
+    if (enemy && enemy.dpsTester) {
+      const dealt = Math.max(0, before - enemy.hp);
+      if (dealt > 0) {
+        recordDpsTesterDamage(lane, enemy, dealt, pos || enemyPos(lane, enemy));
+        enemy.hp = enemy.maxHp;
+      }
+    }
+    return result;
+  };
+
+  function recordDpsTesterDamage(lane, enemy, damage, pos) {
+    const now = performance.now();
+    enemy.dpsTestTotal = (enemy.dpsTestTotal || 0) + damage;
+    if (!enemy.dpsTestSamples) enemy.dpsTestSamples = [];
+    enemy.dpsTestSamples.push({ time: now, total: enemy.dpsTestTotal });
+    while (enemy.dpsTestSamples.length > 1 && now - enemy.dpsTestSamples[0].time > 3500) enemy.dpsTestSamples.shift();
+    const first = enemy.dpsTestSamples[0] || { time: now, total: enemy.dpsTestTotal };
+    enemy.dpsTestDps = Math.max(0, (enemy.dpsTestTotal - first.total) / Math.max(0.35, (now - first.time) / 1000));
+    enemy.dpsTestRecent = (enemy.dpsTestRecent || 0) + damage;
+    if (!enemy.dpsTestLastFloat || now - enemy.dpsTestLastFloat > 180) {
+      addFloatingText(lane, pos.x, pos.y - enemy.radius - 30, `-${shortNumber(enemy.dpsTestRecent)}`, "#fef3c7");
+      enemy.dpsTestRecent = 0;
+      enemy.dpsTestLastFloat = now;
+    }
+  }
+
+  function startDpsTestMode() {
+    if (!state || !state.player) return;
+    clearTimeout(lootPopupTimer);
+    if (el.lootToasts) { el.lootToasts.classList.remove("show"); el.lootToasts.innerHTML = ""; }
+    state.dpsTestMode = true;
+    state.running = true;
+    state.gameOver = false;
+    state.victory = false;
+    state.paused = false;
+    state.prepPending = false;
+    state.waveInProgress = true;
+    state.nextWave = 999;
+    state.player.lives = Math.max(1, state.player.lives || 1);
+    state.player.enemies.length = 0;
+    state.ai.enemies.length = 0;
+    for (const lane of [state.player, state.ai]) {
+      lane.shots.length = 0;
+      lane.effects.length = 0;
+      lane.floaters.length = 0;
+      lane.tentacles.length = 0;
+      lane.focusEnemyId = null;
+      for (const t of lane.towers) {
+        t.cooldown = 0;
+        t.waveStartDamage = t.totalDamage || 0;
+        t.lastWaveDamage = 0;
+        t.displayDps = 0;
+      }
+    }
+    updateDpsMeter.samples = new Map();
+    const lane = state.player;
+    const tester = {
+      id: uid("dpsTester"),
+      type: "dpsTester",
+      name: "DPS Tester",
+      source: "test",
+      boss: true,
+      dpsTester: true,
+      vendor: false,
+      healBurst: false,
+      aura: null,
+      auraLevel: 1,
+      auraXp: 0,
+      taunt: false,
+      regenAura: false,
+      invisible: false,
+      hp: 1000000000000,
+      maxHp: 1000000000000,
+      speed: 0,
+      reward: 0,
+      xp: 0,
+      color: "#fef3c7",
+      radius: 30,
+      armor: 0,
+      split: false,
+      progress: lane.pathLength * 0.48,
+      spawnDelay: 0,
+      slowTimer: 0,
+      slowFactor: 1,
+      stunTimer: 0,
+      vulnTimer: 0,
+      vulnPct: 0,
+      movementMult: 1,
+      teleports: {},
+      poisons: [],
+      burns: [],
+      mines: [],
+      regenDps: 1000000000000,
+      tauntTimer: 0,
+      beamTick: 0,
+      bossAge: 0,
+      enraged: false,
+      wobble: Math.random() * Math.PI * 2,
+      dpsTestTotal: 0,
+      dpsTestDps: 0,
+      dpsTestSamples: []
+    };
+    lane.enemies.push(tester);
+    lane.focusEnemyId = tester.id;
+    const dps = document.getElementById("dpsMeter");
+    if (dps) dps.classList.add("show");
+    setMessage("DPS test mode: all wave units cleared. Attack the unkillable DPS Tester and compare this-wave damage in the DPS meter.");
+    syncPauseButtons();
+    updateDpsMeter(true);
+    uiDirty = true;
+  }
+
+  const __coherentBaseCheckEnd = checkEnd;
+  checkEnd = function() {
+    if (state && state.dpsTestMode) return;
+    return __coherentBaseCheckEnd();
+  };
+
+  function attachDpsTestButtonToDefeatPopup() {
+    if (!state || state.victory || !el.lootToasts) return;
+    const popup = el.lootToasts.querySelector(".loot-popup");
+    if (!popup || popup.querySelector("[data-dps-test-mode]")) return;
+    clearTimeout(lootPopupTimer);
+    popup.insertAdjacentHTML("beforeend", `<div class="dps-test-actions"><button class="progress-btn" data-dps-test-mode="1">DPS Test</button><button class="ghost" data-close-dps-popup="1">Close</button></div><p style="margin-top:10px">Optional: clears active wave units and spawns one unkillable lifesteal target so you can inspect tower damage.</p>`);
+    el.lootToasts.classList.add("show");
+  }
+
+  const __coherentBaseRunLaneDpsCheck = runLaneDpsCheck;
+  runLaneDpsCheck = function(enemy) {
+    const result = __coherentBaseRunLaneDpsCheck(enemy);
+    if (state && state.gameOver && !state.victory) attachDpsTestButtonToDefeatPopup();
+    return result;
+  };
+
+  const __coherentBaseDrawEnemies = drawEnemies;
+  drawEnemies = function(lane) {
+    __coherentBaseDrawEnemies(lane);
+    for (const enemy of lane.enemies) {
+      if (!enemy.dpsTester || enemy.spawnDelay > 0) continue;
+      const p = enemyPos(lane, enemy);
+      const y = p.y - enemy.radius - 46;
+      const w = 190;
+      const h = 40;
+      ctx.fillStyle = "rgba(2,6,23,0.84)";
+      roundRect(p.x - w / 2, y - 22, w, h, 12, true, false);
+      ctx.strokeStyle = "rgba(250,204,21,.42)";
+      ctx.lineWidth = 2;
+      roundRect(p.x - w / 2, y - 22, w, h, 12, false, true);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#fef3c7";
+      ctx.font = "1000 12px Inter, system-ui";
+      ctx.fillText(`Damage received ${shortNumber(enemy.dpsTestTotal || 0)}`, p.x, y - 5);
+      ctx.fillStyle = "#bae6fd";
+      ctx.font = "900 11px Inter, system-ui";
+      ctx.fillText(`Current ${shortNumber(enemy.dpsTestDps || 0)} DPS · lifesteal target`, p.x, y + 12);
+    }
+  };
+
+  updateDpsMeter = function(force = false) {
+    const box = document.getElementById("dpsMeterContent");
+    const dps = document.getElementById("dpsMeter");
+    if (!box || !dps || (!force && !dps.classList.contains("show"))) return;
+    const now = performance.now();
+    const windowMs = 4000;
+    if (!updateDpsMeter.samples) updateDpsMeter.samples = new Map();
+    const towers = (state && state.player && state.player.towers ? state.player.towers : []).filter(t => !t.cloneTemp);
+    const rows = towers.map(t => {
+      let samples = updateDpsMeter.samples.get(t.id);
+      if (!samples) {
+        samples = [{ time: now, total: t.totalDamage || 0 }];
+        updateDpsMeter.samples.set(t.id, samples);
+      }
+      const current = t.totalDamage || 0;
+      const last = samples[samples.length - 1];
+      if (!last || current !== last.total || now - last.time > 450) samples.push({ time: now, total: current });
+      while (samples.length > 1 && now - samples[0].time > windowMs) samples.shift();
+      const first = samples[0] || { time: now, total: current };
+      const raw = Math.max(0, (current - first.total) / Math.max(0.35, (now - first.time) / 1000));
+      const previous = t.displayDps || 0;
+      t.displayDps = raw > 0 ? previous * 0.52 + raw * 0.48 : (previous < 0.08 ? 0 : previous * 0.88);
+      const waveDamage = Math.max(0, current - (t.waveStartDamage || 0));
+      return { t, dps: t.displayDps || 0, total: current, waveDamage };
+    }).sort((a, b) => b.waveDamage - a.waveDamage || b.dps - a.dps || b.total - a.total);
+    const highest = Math.max(1, ...rows.map(r => r.waveDamage));
+    const totalWaveDamage = rows.reduce((sum, r) => sum + r.waveDamage, 0);
+    const totalDps = rows.reduce((sum, r) => sum + r.dps, 0);
+    const totalAll = rows.reduce((sum, r) => sum + r.total, 0);
+    const tester = state && state.player && state.player.enemies ? state.player.enemies.find(e => e.dpsTester) : null;
+    box.innerHTML = `
+      <div class="damage-meter-summary"><span>This wave damage</span><b>${shortNumber(totalWaveDamage)}</b><span>Live DPS</span><b>${totalDps.toFixed(1)}</b><span>All-time damage</span><b>${shortNumber(totalAll)}</b>${tester ? `<span>DPS Tester received</span><b>${shortNumber(tester.dpsTestTotal || 0)}</b>` : ""}</div>
+      ${rows.length ? rows.slice(0, 14).map((r, index) => {
+        const def = towerDefs[r.t.type] || { icon: "◆", name: r.t.type, color: "#38bdf8" };
+        const pct = r.waveDamage > 0 ? Math.max(2, Math.min(100, r.waveDamage / highest * 100)) : 0;
+        const stored = r.t.storedDamage ? ` · Stored ${shortNumber(r.t.storedDamage)}` : "";
+        return `<div class="dps-meter-entry">
+          <div class="damage-meter-track"><span style="width:${pct}%; background:${htmlAttr(def.color || "#38bdf8")}"></span></div>
+          <div class="dps-meter-line"><span>${index + 1}. ${def.icon} ${def.name} G${r.t.grade} L${r.t.level}</span><b>${r.dps.toFixed(1)} DPS</b></div>
+          <div class="damage-meter-sub"><span>${shortNumber(r.waveDamage)} this wave${stored}</span><span>${shortNumber(r.total)} total</span></div>
+        </div>`;
+      }).join("") : `<div class="damage-meter-empty">No towers yet.</div>`}`;
+  };
+
+  function updateRunSetupPlayState() {
+    const btn = document.getElementById("startRunConfirmBtn");
+    if (!btn) return;
+    const unlocked = passiveUnlocked(pendingPassive || "resonant");
+    btn.classList.toggle("locked-choice", !unlocked);
+    btn.textContent = unlocked ? "Play Run" : "Select an unlocked passive";
+    btn.title = unlocked ? "Start the run." : "This passive is locked. Unlock it in Achievements first.";
+  }
+
+  updatePassiveDetail = function(keyOverride = null) {
+    const box = document.getElementById("passiveDetail");
+    if (!box) return;
+    const key = keyOverride || pendingPassive || "resonant";
+    const p = passives[key] || passives.resonant;
+    const unlocked = passiveUnlocked(key);
+    const color = passiveColors[key] || "#60a5fa";
+    const icon = passiveIcons[key] || "✦";
+    const cost = passiveUnlockCosts[key] || 0;
+    box.style.borderColor = `${color}66`;
+    box.innerHTML = `
+      <div class="detail-symbol" style="color:${color}">${icon}</div>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="detail-note">${unlocked ? "Unlocked. Press Play Run to start with this passive." : `Locked · needs ${cost} Mastery Points. You can inspect it here, but runs require an unlocked passive.`}</div>
+      ${unlocked ? "" : `<button class="progress-btn locked-detail-button" type="button" data-open-achievement-focus="${key}">Open achievements</button>`}`;
+    updateRunSetupPlayState();
+  };
+
+  renderPassiveChoices = function() {
+    if (!pendingPassive) pendingPassive = "resonant";
+    if (el.difficultyGrid) {
+      const names = { apprentice: "EASY", normal: "MEDIUM", rival: "HARD", nightmare: "EXTREME" };
+      el.difficultyGrid.innerHTML = Object.entries(difficultyDefs).map(([key, d]) => {
+        const done = profile.achievements[`beatDifficulty_${key}`];
+        return `<button class="passive ${pendingDifficulty === key ? "selected" : ""}" data-difficulty="${key}" type="button"><strong>${done ? "✓ " : ""}${names[key] || d.short}</strong><span>${d.desc}</span></button>`;
+      }).join("");
+    }
+    if (el.passiveGrid) {
+      el.passiveGrid.innerHTML = Object.entries(passives).map(([key, p]) => {
+        const unlocked = passiveUnlocked(key);
+        const cost = passiveUnlockCosts[key] || 0;
+        const win = profile.achievements[`winPassive_${key}`];
+        const color = passiveColors[key] || "#38bdf8";
+        const selected = pendingPassive === key;
+        const title = unlocked ? `${p.name}: ${p.desc}` : `${p.name}: ${p.desc} Locked — needs ${cost} Mastery Points.`;
+        return `<button class="passive ${unlocked ? "" : "locked"} ${selected ? "selected" : ""}" data-passive="${key}" type="button" title="${htmlAttr(title)}" style="border-color:${color}66">
+          <div class="passive-symbol" style="color:${color}">${passiveIcons[key] || "✦"}</div>
+          <div class="passive-copy"><strong>${win ? "✓ " : ""}${p.name}</strong><span>${p.desc}</span><span class="unlock-line">${unlocked ? "Unlocked" : `Locked · ${cost} MP`}</span></div>
+        </button>`;
+      }).join("");
+    }
+    updatePassiveDetail(pendingPassive);
+    updateRunSetupPlayState();
+  };
+
+  document.addEventListener("click", e => {
+    const passiveCard = e.target.closest("#passiveGrid [data-passive]");
+    if (passiveCard) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      pendingPassive = passiveCard.dataset.passive || "resonant";
+      renderPassiveChoices();
+      if (passiveUnlocked(pendingPassive)) setMessage(`${passives[pendingPassive].name} selected. Press Play Run to begin.`);
+      else setMessage(`${passives[pendingPassive].name} is locked. Select an unlocked passive to play, or unlock this one in Achievements.`);
+      return;
+    }
+    const runButton = e.target.closest("#startRunConfirmBtn");
+    if (runButton && !passiveUnlocked(pendingPassive || "resonant")) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const p = passives[pendingPassive] || passives.resonant;
+      setMessage(`${p.name} is locked. Select an unlocked passive before starting the run.`);
+      updatePassiveDetail(pendingPassive);
+      return;
+    }
+    const dpsButton = e.target.closest("[data-dps-test-mode]");
+    if (dpsButton) {
+      e.preventDefault();
+      startDpsTestMode();
+      return;
+    }
+    const closeDpsPopup = e.target.closest("[data-close-dps-popup]");
+    if (closeDpsPopup && el.lootToasts) {
+      e.preventDefault();
+      el.lootToasts.classList.remove("show");
+      el.lootToasts.innerHTML = "";
+    }
+  }, true);
+
+  const __coherentBaseOpenProgressModal = openProgressModal;
+  openProgressModal = function() {
+    renderProgressModal();
+    if (el.progressModal) {
+      el.progressModal.classList.add("show");
+      el.progressModal.style.zIndex = "96";
+    }
+  };
+
+  const __coherentBaseCloseProgressModal = closeProgressModal;
+  closeProgressModal = function() {
+    if (el.progressModal) {
+      el.progressModal.classList.remove("show");
+      el.progressModal.style.zIndex = "";
+    }
+    if (state && !state.running && el.mainMenu && !el.startModal.classList.contains("show")) openMainMenu();
+  };
+
+  function progressKindClass(kind) {
+    return "unlock-kind-" + String(kind || "passive").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  renderProgressModal = function() {
+    if (!el.progressContent) return;
+    const defs = achievementDefs();
+    const pts = masteryPoints();
+    const total = Object.keys(defs).length;
+    const done = Object.keys(defs).filter(k => profile.achievements[k]).length;
+    const passiveCards = Object.entries(passives).map(([key, p]) => {
+      const unlocked = passiveUnlocked(key);
+      const cost = passiveUnlockCosts[key] || 0;
+      const color = passiveColors[key] || "#a78bfa";
+      return `<div class="unlock-card unlock-kind-passive ${unlocked ? "unlocked" : ""}" style="border-color:${color}80"><strong>${unlocked ? "✓" : "○"} ${p.name}</strong><p>${p.desc}</p>${unlocked ? `<button class="progress-btn" disabled>Unlocked</button>` : `<button class="progress-btn" data-unlock-passive="${key}" ${pts < cost ? "disabled" : ""}>Unlock · ${cost} MP</button>`}</div>`;
+    }).join("");
+    const contentCards = Object.entries(contentUnlockDefs).map(([key, def]) => {
+      const unlocked = contentUnlocked(key);
+      const cls = progressKindClass(def.kind);
+      return `<div class="unlock-card ${cls} ${unlocked ? "unlocked" : ""}"><strong>${unlocked ? "✓" : "○"} ${def.title}</strong><p><span class="muted">${def.kind}</span><br>${def.desc}</p>${unlocked ? `<button class="progress-btn" disabled>Researched</button>` : `<button class="progress-btn" data-unlock-content="${key}" ${(profile.vaultGold || 0) < def.cost ? "disabled" : ""}>Research · ${def.cost} Vault Gold</button>`}</div>`;
+    }).join("");
+    const achievementCards = Object.entries(defs).map(([key, def]) => {
+      const isDone = Boolean(profile.achievements[key]);
+      return `<div class="achievement-card ${isDone ? "done" : "locked"}">
+        <strong>${isDone ? "✓" : "○"} ${def.title}</strong>
+        <p>${def.desc}</p>
+        <div class="reward">Reward: ${def.reward}</div>
+      </div>`;
+    }).join("");
+    el.progressContent.innerHTML = `
+      <div class="resource-explain"><strong>How rewards work:</strong> Achievements give +1 Mastery Point and Vault Gold. Wave clears also give Vault Gold, and winning gives a large bonus. Everything here is saved locally in this browser.</div>
+      <div class="achievement-summary">
+        <div class="summary-card"><small>Unspent Mastery</small><strong>${pts}</strong></div>
+        <div class="summary-card"><small>Vault Gold</small><strong>${profile.vaultGold || 0}</strong></div>
+        <div class="summary-card"><small>Achievements</small><strong>${done}/${total}</strong></div>
+        <div class="summary-card"><small>Total sent</small><strong>${profile.stats.totalSentUnits || 0}</strong></div>
+      </div>
+      <div class="shop-help"><strong>Progression:</strong> spend Mastery Points on passives and Vault Gold on exotic items, recipes, and tower fusions. All action buttons use the same purple style for consistency.</div>
+      <h3 class="progress-section-heading">Passive Unlocks</h3>
+      <div class="unlock-grid">${passiveCards}</div>
+      <h3 class="progress-section-heading">Research Unlocks</h3>
+      <div class="unlock-grid">${contentCards}</div>
+      <h3 class="progress-section-heading">Achievement Quests</h3>
+      <div class="achievement-grid">${achievementCards}</div>`;
+  };
+
+  const __coherentBaseRenderSendUpgrades = renderSendUpgrades;
+  renderSendUpgrades = function() {
+    if (!el.sendUpgradeCards) return;
+    el.sendUpgradeCards.innerHTML = `<div class="shop-help" style="grid-column:1/-1"><strong>Wave upgrades:</strong> permanently upgrade the wave and send units your enemy receives.</div>` + Object.entries(sendUpgradeDefs).map(([key, def]) => {
+      const lvl = (state.sendUpgrades && state.sendUpgrades[key]) || 0;
+      const cost = sendUpgradeCost(key);
+      return `<div class="upgrade-card">
+        <strong>${def.icon} ${def.name} <span class="muted">L${lvl}</span></strong>
+        <small>${def.desc}</small>
+        <button class="ghost" data-send-upgrade="${key}" ${state.gold < cost || !state.running || (key === "invisible" && state.wave < 6) ? "disabled" : ""}>${key === "invisible" && state.wave < 6 ? "Unlocks after W5" : `Upgrade ${formatCost(cost)}`}</button>
+      </div>`;
+    }).join("");
+  };
+
+
+
+
+  /* Stats + true lane-walking DPS test + anti-stall + Auto Send restoration patch */
+  function safeTowerDef(type) {
+    return towerDefs[type] || { name: type || "Unknown", icon: "◆", color: "#38bdf8" };
+  }
+
+  function towerItemDetails(tower) {
+    const ids = (tower && tower.itemIds) || [];
+    return ids.map(id => state.inventory.find(item => item.id === id)).filter(Boolean).map(item => {
+      const def = itemDefs[item.key] || { name: item.key, icon: "◇", rarity: "common" };
+      return { key: item.key, name: def.name, icon: def.icon || "◇", rarity: def.rarity || "common" };
+    });
+  }
+
+  function towerSnapshot(tower, lane) {
+    const def = safeTowerDef(tower.type);
+    return {
+      id: tower.id,
+      type: tower.type,
+      name: def.name,
+      icon: def.icon || "◆",
+      grade: tower.grade || 1,
+      level: tower.level || 1,
+      kills: Math.round(tower.kills || 0),
+      totalDamage: Math.round(tower.totalDamage || 0),
+      hp: Math.round(tower.hp || 0),
+      maxHp: Math.round(tower.maxHp || 0),
+      col: tower.col,
+      row: tower.row,
+      attackSlot: tower.attackSlot,
+      items: lane && lane.side === "player" ? towerItemDetails(tower) : []
+    };
+  }
+
+  function runTowerSummary(lane) {
+    const towers = (lane && lane.towers) || [];
+    return {
+      count: towers.length,
+      totalDamage: Math.round(towers.reduce((sum, t) => sum + (t.totalDamage || 0), 0)),
+      kills: Math.round(towers.reduce((sum, t) => sum + (t.kills || 0), 0)),
+      items: towers.reduce((sum, t) => sum + ((t.itemIds || []).filter(Boolean).length), 0),
+      towers: towers.map(t => towerSnapshot(t, lane))
+    };
+  }
+
+  function ensureGameHistory() {
+    if (!profile.stats) profile.stats = {};
+    if (!Array.isArray(profile.stats.games)) profile.stats.games = [];
+    return profile.stats.games;
+  }
+
+  function recordGameStatistics(reason = "ended") {
+    if (!state || state.gameStatsRecorded || state.dpsTestMode) return;
+    if (!state.gameOver) return;
+    state.gameStatsRecorded = true;
+    const game = {
+      id: uid("game"),
+      endedAt: new Date().toISOString(),
+      reason,
+      result: state.victory ? "Victory" : "Defeat",
+      difficulty: state.difficulty,
+      difficultyName: (difficultyDefs[state.difficulty] || {}).short || state.difficulty,
+      passive: state.passive,
+      passiveName: (passives[state.passive] || {}).name || "None",
+      wave: state.wave,
+      durationSec: Math.max(0, Math.round((Date.now() - (state.startedAt || Date.now())) / 1000)),
+      player: {
+        lives: state.player.lives,
+        gold: Math.round(state.gold || 0),
+        income: Math.round(state.income || 0),
+        sentUnits: state.sentUnitsThisRun || 0,
+        queue: (state.playerQueue || []).length,
+        towers: runTowerSummary(state.player)
+      },
+      opponent: {
+        lives: state.ai.lives,
+        gold: Math.round(state.aiGold || 0),
+        income: Math.round(state.aiIncome || 0),
+        queue: (state.aiQueue || []).length,
+        towers: runTowerSummary(state.ai)
+      }
+    };
+    const history = ensureGameHistory();
+    history.unshift(game);
+    profile.stats.games = history.slice(0, 30);
+    saveProfile();
+  }
+
+  const __statsBaseCheckEnd = checkEnd;
+  checkEnd = function() {
+    const wasOver = state && state.gameOver;
+    const result = __statsBaseCheckEnd();
+    if (state && state.gameOver && !wasOver) recordGameStatistics(state.victory ? "victory" : "defeat");
+    return result;
+  };
+
+  const __statsBaseNewState = newState;
+  newState = function(passiveKey = null, difficultyKey = pendingDifficulty) {
+    const s = __statsBaseNewState(passiveKey, difficultyKey);
+    s.startedAt = Date.now();
+    s.gameStatsRecorded = false;
+    s.dpsTestMode = false;
+    s.dpsTestFinished = false;
+    if (typeof updateDpsMeter === "function") {
+      updateDpsMeter.samples = new Map();
+      updateDpsMeter.last = null;
+    }
+    return s;
+  };
+
+  function itemPillsHtml(items) {
+    if (!items || !items.length) return `<span class="tag">No items</span>`;
+    return items.map(item => `<span class="tag rarity-${htmlAttr(item.rarity || "common")}" title="${htmlAttr(item.name)}">${htmlAttr(item.icon || "◇")} ${htmlAttr(item.name)}</span>`).join("");
+  }
+
+  function dpsRowsForTest() {
+    const duration = Math.max(0.1, ((performance.now() - ((state.dpsTestResult && state.dpsTestResult.startedAt) || performance.now())) / 1000));
+    const towers = (state.player.towers || []).filter(t => !t.cloneTemp).map(t => {
+      const start = t.dpsTestStartDamage || 0;
+      const damage = Math.max(0, (t.totalDamage || 0) - start);
+      return { t, damage, dps: damage / duration, items: towerItemDetails(t) };
+    }).sort((a, b) => b.damage - a.damage || b.dps - a.dps);
+    const totalDamage = towers.reduce((sum, r) => sum + r.damage, 0);
+    const overallDps = totalDamage / duration;
+    const highestDps = towers.reduce((max, r) => Math.max(max, r.dps), 0);
+    return { towers, totalDamage, overallDps, highestDps, duration };
+  }
+
+  function finishDpsTestRun(tester) {
+    if (!state || !state.dpsTestMode || state.dpsTestFinished) return;
+    state.dpsTestFinished = true;
+    const result = dpsRowsForTest();
+    const previous = state._preDpsTest || {};
+    state.dpsTestMode = false;
+    state.waveInProgress = Boolean(previous.waveInProgress && !previous.gameOver);
+    state.nextWave = previous.nextWave == null ? state.nextWave : previous.nextWave;
+    state.gameOver = Boolean(previous.gameOver);
+    state.victory = Boolean(previous.victory);
+    state.paused = Boolean(previous.gameOver);
+    if (Number.isFinite(previous.playerLives)) state.player.lives = previous.playerLives;
+    if (Number.isFinite(previous.aiLives)) state.ai.lives = previous.aiLives;
+    state.player.enemies = state.player.enemies.filter(e => !e.dpsTester);
+    state.ai.enemies = state.ai.enemies.filter(e => !e.dpsTester);
+    updateDpsMeter(true);
+    const towerRows = result.towers.map((r, i) => {
+      const def = safeTowerDef(r.t.type);
+      const pct = result.totalDamage > 0 ? Math.max(2, Math.min(100, r.damage / result.totalDamage * 100)) : 0;
+      return `<div class="dps-meter-entry">
+        <div class="damage-meter-track"><span style="width:${pct}%; background:${htmlAttr(def.color || "#38bdf8")}"></span></div>
+        <div class="dps-meter-line"><span>${i + 1}. ${htmlAttr(def.icon || "◆")} ${htmlAttr(def.name)} G${r.t.grade} L${r.t.level}</span><b>${r.dps.toFixed(1)} DPS</b></div>
+        <div class="damage-meter-sub"><span>${shortNumber(r.damage)} damage</span><span>${itemPillsHtml(r.items)}</span></div>
+      </div>`;
+    }).join("");
+    clearTimeout(lootPopupTimer);
+    el.lootToasts.innerHTML = `<div class="loot-popup dps-results-popup" style="border-color:#fde68a">
+      <h2>DPS Test Results</h2>
+      <p>The test runner walked your full lane from start to finish. Damage is accumulated over the complete pass.</p>
+      <div class="damage-meter-summary">
+        <span>Highest tower DPS</span><b>${result.highestDps.toFixed(1)}</b>
+        <span>Overall DPS</span><b>${result.overallDps.toFixed(1)}</b>
+        <span>Damage received</span><b>${shortNumber((tester && tester.dpsTestTotal) || result.totalDamage)}</b>
+        <span>Test duration</span><b>${result.duration.toFixed(1)}s</b>
+      </div>
+      <div class="dps-result-list">${towerRows || `<div class="damage-meter-empty">No tower damage recorded.</div>`}</div>
+      <div class="dps-test-actions"><button class="ghost" data-close-dps-popup="1">Close</button>${state.gameOver ? `<button class="progress-btn" data-dps-test-mode="1">Run test again</button>` : ""}</div>
+    </div>`;
+    el.lootToasts.classList.add("show");
+    setMessage(`DPS test complete: ${shortNumber(result.totalDamage)} damage over ${result.duration.toFixed(1)}s.`);
+    syncPauseButtons();
+    uiDirty = true;
+  }
+
+  startDpsTestMode = function() {
+    if (!state || !state.player) return;
+    clearTimeout(lootPopupTimer);
+    if (el.lootToasts) { el.lootToasts.classList.remove("show"); el.lootToasts.innerHTML = ""; }
+    state._preDpsTest = {
+      gameOver: state.gameOver,
+      victory: state.victory,
+      playerLives: state.player.lives,
+      aiLives: state.ai.lives,
+      waveInProgress: state.waveInProgress,
+      nextWave: state.nextWave
+    };
+    state.dpsTestMode = true;
+    state.dpsTestFinished = false;
+    state.dpsTestResult = { startedAt: performance.now() };
+    state.running = true;
+    state.gameOver = false;
+    state.victory = false;
+    state.paused = false;
+    state.prepPending = false;
+    state.waveInProgress = true;
+    state.nextWave = 999;
+    state.player.enemies.length = 0;
+    state.ai.enemies.length = 0;
+    for (const lane of [state.player, state.ai]) {
+      lane.shots.length = 0;
+      lane.effects.length = 0;
+      lane.floaters.length = 0;
+      lane.tentacles.length = 0;
+      lane.focusEnemyId = null;
+      for (const t of lane.towers) {
+        t.cooldown = 0;
+        t.waveStartDamage = t.totalDamage || 0;
+        t.dpsTestStartDamage = t.totalDamage || 0;
+        t.lastWaveDamage = 0;
+        t.displayDps = 0;
+      }
+    }
+    updateDpsMeter.samples = new Map();
+    updateDpsMeter.last = null;
+    const lane = state.player;
+    const tester = {
+      id: uid("dpsRunner"), type: "dpsRunner", name: "DPS Runner", source: "test", dpsTester: true, boss: false,
+      vendor: false, healBurst: false, aura: null, auraLevel: 1, auraXp: 0, taunt: false, regenAura: false,
+      invisible: false, hp: 1000000000000, maxHp: 1000000000000, speed: 82, reward: 0, xp: 0,
+      color: "#fef3c7", radius: 30, armor: 0, split: false, progress: 0, spawnDelay: 0,
+      slowTimer: 0, slowFactor: 1, stunTimer: 0, vulnTimer: 0, vulnPct: 0, movementMult: 1,
+      teleports: {}, poisons: [], burns: [], mines: [], regenDps: 1000000000000, tauntTimer: 0,
+      beamTick: 0, bossAge: 0, enraged: false, wobble: Math.random() * Math.PI * 2,
+      dpsTestTotal: 0, dpsTestDps: 0, dpsTestSamples: [], _lastProgress: 0, _stallTime: 0
+    };
+    lane.enemies.push(tester);
+    lane.focusEnemyId = tester.id;
+    const dps = document.getElementById("dpsMeter");
+    if (dps) dps.classList.add("show");
+    setMessage("DPS test started: the runner walks your full lane. Results appear when it reaches the end.");
+    syncPauseButtons();
+    updateDpsMeter(true);
+    uiDirty = true;
+  };
+
+  const __laneDpsRunLaneDpsCheck = runLaneDpsCheck;
+  runLaneDpsCheck = function(enemy) {
+    const res = __laneDpsRunLaneDpsCheck(enemy);
+    if (state && state.gameOver) setTimeout(attachAnyEndDpsTestButton, 0);
+    return res;
+  };
+
+  function attachAnyEndDpsTestButton() {
+    if (!el.lootToasts) return;
+    const popup = el.lootToasts.querySelector(".loot-popup");
+    if (!popup || popup.querySelector("[data-dps-test-mode]")) return;
+    clearTimeout(lootPopupTimer);
+    popup.insertAdjacentHTML("beforeend", `<div class="dps-test-actions"><button class="progress-btn" data-dps-test-mode="1">Run DPS Test</button><button class="ghost" data-close-dps-popup="1">Close</button></div><p style="margin-top:10px">Optional: sends one test runner through your full lane and shows detailed tower damage, item, and DPS statistics.</p>`);
+    el.lootToasts.classList.add("show");
+  }
+
+  const __dpsWalkBaseUpdateEnemies = updateEnemies;
+  updateEnemies = function(lane, dt) {
+    const preLives = lane.lives;
+    const preTester = state && state.dpsTestMode && lane.side === "player" ? lane.enemies.find(e => e.dpsTester) : null;
+    const beforeProgress = new Map(lane.enemies.map(e => [e.id, e.progress || 0]));
+    const result = __dpsWalkBaseUpdateEnemies(lane, dt);
+    for (const enemy of lane.enemies) {
+      if (enemy.spawnDelay > 0 || enemy.hp <= 0) continue;
+      const before = beforeProgress.get(enemy.id);
+      if (before == null) { enemy._stallTime = 0; enemy._lastProgress = enemy.progress || 0; continue; }
+      const moved = Math.abs((enemy.progress || 0) - before) > 0.25;
+      if (moved) {
+        enemy._stallTime = 0;
+        enemy._lastProgress = enemy.progress || 0;
+      } else {
+        enemy._stallTime = (enemy._stallTime || 0) + dt;
+        if (enemy._stallTime >= 10) {
+          enemy.progress = Math.min(lane.pathLength, (enemy.progress || 0) + Math.max(6, (enemy.speed || 20) * 0.18));
+          enemy.stunTimer = Math.min(enemy.stunTimer || 0, 0.08);
+          enemy._stallTime = 0;
+          const p = enemyPos(lane, enemy);
+          if (lane.side === "player") addFloatingText(lane, p.x, p.y - enemy.radius - 8, "unstuck", "#bae6fd");
+        }
+      }
+    }
+    if (preTester && !lane.enemies.some(e => e.id === preTester.id)) {
+      lane.lives = preLives;
+      lane.leakedFlash = 0;
+      finishDpsTestRun(preTester);
+    }
+    return result;
+  };
+
+  updateDpsMeter = function(force = false) {
+    const box = document.getElementById("dpsMeterContent");
+    const dps = document.getElementById("dpsMeter");
+    if (!box || !dps || (!force && !dps.classList.contains("show"))) return;
+    const now = performance.now();
+    const windowMs = state && state.dpsTestMode ? 1800 : 4000;
+    if (!updateDpsMeter.samples) updateDpsMeter.samples = new Map();
+    const towers = (state && state.player && state.player.towers ? state.player.towers : []).filter(t => !t.cloneTemp);
+    const rows = towers.map(t => {
+      let samples = updateDpsMeter.samples.get(t.id);
+      const current = t.totalDamage || 0;
+      if (!samples) {
+        samples = [{ time: now, total: current }];
+        updateDpsMeter.samples.set(t.id, samples);
+      }
+      const last = samples[samples.length - 1];
+      if (!last || current !== last.total || now - last.time > 500) samples.push({ time: now, total: current });
+      while (samples.length > 1 && now - samples[0].time > windowMs) samples.shift();
+      const first = samples[0] || { time: now, total: current };
+      const raw = Math.max(0, (current - first.total) / Math.max(0.35, (now - first.time) / 1000));
+      const previous = t.displayDps || 0;
+      t.displayDps = raw > 0 ? previous * 0.45 + raw * 0.55 : (previous < 0.06 ? 0 : previous * 0.90);
+      const waveDamage = state && state.dpsTestMode ? Math.max(0, current - (t.dpsTestStartDamage || 0)) : Math.max(0, current - (t.waveStartDamage || 0));
+      return { t, dps: t.displayDps || 0, total: current, waveDamage, items: towerItemDetails(t) };
+    }).sort((a, b) => b.waveDamage - a.waveDamage || b.dps - a.dps || b.total - a.total);
+    const highest = Math.max(1, ...rows.map(r => r.waveDamage));
+    const totalWaveDamage = rows.reduce((sum, r) => sum + r.waveDamage, 0);
+    const totalDps = rows.reduce((sum, r) => sum + r.dps, 0);
+    const tester = state && state.player && state.player.enemies ? state.player.enemies.find(e => e.dpsTester) : null;
+    box.innerHTML = `
+      <div class="damage-meter-summary"><span>${state && state.dpsTestMode ? "Test damage" : "This wave damage"}</span><b>${shortNumber(totalWaveDamage)}</b><span>Overall DPS</span><b>${totalDps.toFixed(1)}</b>${tester ? `<span>Runner received</span><b>${shortNumber(tester.dpsTestTotal || 0)}</b>` : ""}</div>
+      ${rows.length ? rows.slice(0, 16).map((r, index) => {
+        const def = safeTowerDef(r.t.type);
+        const pct = r.waveDamage > 0 ? Math.max(2, Math.min(100, r.waveDamage / highest * 100)) : 0;
+        const stored = r.t.storedDamage ? ` · Stored ${shortNumber(r.t.storedDamage)}` : "";
+        return `<div class="dps-meter-entry">
+          <div class="damage-meter-track"><span style="width:${pct}%; background:${htmlAttr(def.color || "#38bdf8")}"></span></div>
+          <div class="dps-meter-line"><span>${index + 1}. ${htmlAttr(def.icon || "◆")} ${htmlAttr(def.name)} G${r.t.grade} L${r.t.level}</span><b>${r.dps.toFixed(1)} DPS</b></div>
+          <div class="damage-meter-sub"><span>${shortNumber(r.waveDamage)} damage${stored}</span><span>${itemPillsHtml(r.items)}</span></div>
+        </div>`;
+      }).join("") : `<div class="damage-meter-empty">No towers yet.</div>`}`;
+  };
+
+  function renderStatisticsModal() {
+    const history = ensureGameHistory();
+    const totals = history.reduce((acc, g) => {
+      acc.games += 1;
+      acc.wins += g.result === "Victory" ? 1 : 0;
+      acc.waves += g.wave || 0;
+      acc.playerDamage += (g.player && g.player.towers && g.player.towers.totalDamage) || 0;
+      acc.enemyDamage += (g.opponent && g.opponent.towers && g.opponent.towers.totalDamage) || 0;
+      return acc;
+    }, { games: 0, wins: 0, waves: 0, playerDamage: 0, enemyDamage: 0 });
+    const cards = history.map((g, idx) => {
+      const playerT = (g.player && g.player.towers) || { count:0,totalDamage:0,kills:0,items:0,towers:[] };
+      const enemyT = (g.opponent && g.opponent.towers) || { count:0,totalDamage:0,kills:0,items:0,towers:[] };
+      const playerRows = (playerT.towers || []).slice(0, 10).map(t => `<div class="stats-tower-row"><span>${htmlAttr(t.icon)} ${htmlAttr(t.name)} G${t.grade} L${t.level}</span><b>${shortNumber(t.totalDamage)} dmg</b><em>${itemPillsHtml(t.items)}</em></div>`).join("") || `<div class="muted">No towers placed.</div>`;
+      const enemyRows = (enemyT.towers || []).slice(0, 10).map(t => `<div class="stats-tower-row"><span>${htmlAttr(t.icon)} ${htmlAttr(t.name)} G${t.grade} L${t.level}</span><b>${shortNumber(t.totalDamage)} dmg</b></div>`).join("") || `<div class="muted">No enemy towers recorded.</div>`;
+      return `<details class="menu-details stats-game" ${idx === 0 ? "open" : ""}>
+        <summary>${g.result === "Victory" ? "🏆" : "💀"} ${g.result} · Wave ${g.wave} · ${htmlAttr(g.difficultyName || g.difficulty)} · ${htmlAttr(g.passiveName || "Passive")}</summary>
+        <div class="stats-compare-grid">
+          <div class="summary-card"><small>You</small><strong>${playerT.count} towers · ${shortNumber(playerT.totalDamage)} dmg</strong><span class="muted">Lives ${g.player.lives} · Gold ${g.player.gold} · Income ${g.player.income} · Sent ${g.player.sentUnits || 0}</span></div>
+          <div class="summary-card"><small>Opponent</small><strong>${enemyT.count} towers · ${shortNumber(enemyT.totalDamage)} dmg</strong><span class="muted">Lives ${g.opponent.lives} · Gold ${g.opponent.gold} · Income ${g.opponent.income}</span></div>
+        </div>
+        <div class="stats-columns"><div><h3>Your towers & items</h3>${playerRows}</div><div><h3>Opponent towers</h3>${enemyRows}</div></div>
+      </details>`;
+    }).join("") || `<div class="selected-empty">No finished games recorded yet. Win or lose a run to add statistics here.</div>`;
+    return `<div class="achievement-summary">
+      <div class="summary-card"><small>Games</small><strong>${totals.games}</strong></div>
+      <div class="summary-card"><small>Winrate</small><strong>${totals.games ? Math.round(totals.wins / totals.games * 100) : 0}%</strong></div>
+      <div class="summary-card"><small>Average wave</small><strong>${totals.games ? (totals.waves / totals.games).toFixed(1) : "0"}</strong></div>
+      <div class="summary-card"><small>Your total damage</small><strong>${shortNumber(totals.playerDamage)}</strong></div>
+    </div>${cards}`;
+  }
+
+  function openStatisticsModal() {
+    let modal = document.getElementById("statisticsModal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "statisticsModal";
+      modal.className = "modal-backdrop";
+      modal.innerHTML = `<div class="modal stats-modal"><div class="modal-head"><div><h2>Game Statistics</h2><p>Last games, tower builds, item usage, and opponent comparison.</p></div><button class="ghost" id="closeStatisticsModal">Close</button></div><div id="statisticsContent"></div></div>`;
+      document.body.appendChild(modal);
+      modal.querySelector("#closeStatisticsModal").addEventListener("click", () => modal.classList.remove("show"));
+    }
+    modal.querySelector("#statisticsContent").innerHTML = renderStatisticsModal();
+    modal.classList.add("show");
+  }
+
+  const __statsBaseRenderMainMenu = renderMainMenu;
+  renderMainMenu = function() {
+    __statsBaseRenderMainMenu();
+    const hero = document.querySelector(".main-hero");
+    const play = document.getElementById("mainPlayBtn");
+    if (hero && play && !document.getElementById("mainStatsBtn")) {
+      const statsBtn = document.createElement("button");
+      statsBtn.id = "mainStatsBtn";
+      statsBtn.className = "ghost main-play";
+      statsBtn.textContent = "Statistics";
+      statsBtn.addEventListener("click", openStatisticsModal);
+      play.insertAdjacentElement("afterend", statsBtn);
+    }
+  };
+
+  const __statsBaseSyncCommandPanel = syncCommandPanel;
+  syncCommandPanel = function() {
+    __statsBaseSyncCommandPanel();
+    const panel = document.getElementById("gameCommandPanel");
+    const head = panel && panel.querySelector(".command-panel-head");
+    const title = document.getElementById("commandPanelTitle");
+    if (!panel || !head || !title) return;
+    let auto = document.getElementById("dockAutoSendBtn");
+    if (state.commandKind === "send") {
+      if (!auto) {
+        auto = document.createElement("button");
+        auto.id = "dockAutoSendBtn";
+        auto.className = "gold-btn compact";
+        auto.textContent = "Auto Send";
+        auto.title = "Spend available gold on random legal on-wave sends.";
+        auto.addEventListener("click", () => { autoSend(); syncCommandPanel(); });
+        title.insertAdjacentElement("afterend", auto);
+      }
+      const cheapest = Math.min(...Object.values(contractDefs.queued).map(c => c.cost));
+      auto.disabled = !state.running || state.gameOver || !hasPlacedPlayerTowers() || state.gold < cheapest;
+      auto.style.display = "inline-flex";
+    } else if (auto) {
+      auto.remove();
+    }
+  };
+
+  const __statsBaseShowInfoPopup = showInfoPopup;
+  showInfoPopup = function(title, subtitle, rows = [], accent = "#38bdf8") {
+    __statsBaseShowInfoPopup(title, subtitle, rows, accent);
+    if (state && state.gameOver) setTimeout(attachAnyEndDpsTestButton, 0);
+  };
 
   setupModernCanvasUI();
   init();
