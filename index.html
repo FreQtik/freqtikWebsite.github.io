@@ -729,28 +729,11 @@
     "applicationCategory":"AudioApplication",
     "operatingSystem":"Windows 10/11 (64-bit)",
     "name":"Impulse Anvil",
-    "description":"VST3 IR-morphing and design workstation with spectral/time morphing, Color/Fractal stages, and bake-to-IR export."
+    "description":"VST3 IR-morphing and design workstation with spectral/time morphing, Color/Fractal stages, Post/Sculpt controls, factory IRs and bake-to-IR export.",
     "offers":{
       "@type":"AggregateOffer",
-      "lowPrice":"39",
+      "lowPrice":"79",
       "highPrice":"79",
-      "priceCurrency":"EUR"
-    }
-  }
-  </script>
-
-  <!-- Product JSON-LD: Impulse Forge -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"SoftwareApplication",
-    "applicationCategory":"AudioApplication",
-    "operatingSystem":"Windows 10/11 (64-bit)",
-    "name":"Impulse Forge",
-    "description":"Acoustic editor for building rooms, importing meshes, simulating acoustics and baking impulse responses.",
-    "offers":{
-      "@type":"Offer",
-      "price":"89",
       "priceCurrency":"EUR"
     }
   }
@@ -771,7 +754,7 @@
 
   <header id="mainHeader" role="banner">
     <div class="logo-container">
-      <button class="logo-button" type="button" onclick="loadFeed('impulse'); closeDropdowns();">
+      <button class="logo-button" type="button" onclick="loadFeed('anvil'); closeDropdowns();">
         <img src="FreQtikBlackLogo.png" id="scrollLogo" alt="FreQtik Logo">
       </button>
     </div>
@@ -781,10 +764,7 @@
     <li class="dropdown">
       <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
       <div class="dropdown-content" role="menu" aria-label="Audio Tools">
-        <a href="#" onclick="loadFeed('impulse');closeDropdowns();return false;">Impulse (All)</a>
-        <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil (VST3)</a>
-        <a href="#" onclick="loadFeed('forge');closeDropdowns();return false;">Impulse Forge (Acoustic Editor)</a>
-        <a href="#" onclick="loadFeed('smith');closeDropdowns();return false;">Impulse Smith Suite (Installer)</a>
+        <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil (Windows VST3)</a>
       </div>
     </li>
 
@@ -827,7 +807,9 @@
 
     /** steam app IDs (immutable) */
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
-    const IMPULSE_SUITE_DOWNLOAD = '' /*'https://github.com/FreQtik/impulse-smith-suite/releases/download/v1.0.0/ImpulseSmith_Suite_Installer_1.0.0.exe';*/
+    const IMPULSE_ANVIL_DOWNLOAD = 'https://freqtik.com/downloads/ImpulseAnvil_Windows_VST3.zip';
+    const IMPULSE_ANVIL_BUY_URL = '#TODO-paste-lemon-squeezy-impulse-anvil-full-license-url';
+    const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD
 
     const introEl   = document.getElementById('intro');
     const headerEl  = document.getElementById('mainHeader');
@@ -1438,274 +1420,22 @@
     /* PAGE BUILDS */
 
     function buildImpulseAll(){
-  const hero = productHero({
-    id:'impulse',
-    kicker:'Audio Toolkit · Windows only',
-    title:'Impulse Smith Suite',
-    tagline:'Design, morph and bake impulse responses — from field recording to IR file.',
-    // No direct “Buy Suite” – licenses for Anvil and Forge are separate
-    demoHref:IMPULSE_SUITE_DOWNLOAD,
-    docsHref:'#docs',
-    req:'Impulse Smith Suite is the shared installer and workflow for Impulse Anvil (VST3 · Windows 10/11) and Impulse Forge (Acoustic Editor · Windows 10/11). Licenses are purchased separately for each app.',
-    img:'ImpulseSmithSuite.png'
-  });
+      return buildAnvil();
+    }
 
-
-  const tipsBand = `
-  <section class="band-dark">
-    <div class="band-inner">
-      <div class="band-header">
-        <span class="band-pill">Creative Tips</span>
-        <h2>Use the world as your filter.</h2>
-      </div>
-
-      <div class="anvil-slides" aria-label="Impulse Smith tips and creative ideas">
-        <article class="anvil-slide">
-          <h3>Turn trash takes into gold</h3>
-          <p>Ever had a noisy take with pops, clicks or someone bumping the mic? Don’t delete it – mine it.</p>
-          <ul class="list">
-            <li>Cut out a transient + tail from that “ruined” recording.</li>
-            <li>Drop it into <strong>Impulse Anvil</strong> as an IR and morph it with a clean room or cab.</li>
-            <li>Use the chaos of the noise to shape the sounds you actually love.</li>
-          </ul>
-        </article>
-
-        <article class="anvil-slide">
-          <h3>Record the world as filters</h3>
-          <p>Birds, fabric rustling, plants, wind, ice, city noise – anything that moves air can become an impulse response.</p>
-          <ul class="list">
-            <li>Record with your phone, then fade the sound out so it dies naturally.</li>
-            <li>Load it into Anvil, stretch or compress it and add Colour/Fractal for texture.</li>
-            <li>Turn footsteps in frozen grass or wind in weeds into evolving reverbs and tonal shifts.</li>
-          </ul>
-        </article>
-
-        <article class="anvil-slide">
-          <h3>Lerp Bake: evolving rooms in one IR</h3>
-          <p><strong>Lerp Bake</strong> prints a single WAV IR that begins as A and gradually becomes B across the decay. The result is an evolving “moving room” with head‑turning complexity — designed to go beyond your imagination, yet still usable in a single convolution instance.</p>
-          <ul class="list">
-            <li><strong>Designed for clarity:</strong> the first ~60 ms stays at A, while the late tail transitions A→B with your Curve Type + K.</li>
-            <li><strong>Bakeable means stackable:</strong> because the output is a standard IR, you can re‑load it, layer it, and stack multiple lerped rooms (multiple instances) for genuinely new spaces.</li>
-  
-          </ul>
-        </article>
-
-                        <article class="anvil-slide">
-          <h3>Build · Fly · Bake · Morph</h3>
-          <p>Use <strong>Impulse Forge</strong> to build the room, fly through it in real time, then bake its acoustics as IRs for Anvil.</p>
-          <ul class="list">
-            <li>Lay out geometry, assign acoustic materials and listen inside the space.</li>
-            <li>Hit Bake: Forge excites the room and records a high-quality WAV IR.</li>
-            <li>Open that IR in Anvil, morph it with field recordings or other rooms and export new variants.</li>
-          </ul>
-        </article>
-
-
-
-                <article class="anvil-slide">
-          <h3>High-resolution bake</h3>
-          <p>When a space feels right, trigger the bake: Forge fires an excitation signal through the room and records the response as a high-quality WAV IR.</p>
-          <ul class="list">
-            <li>Fast, focused baking for “what if?” exploration.</li>
-            <li>Float32 WAV IRs, ready for Anvil or any IR loader.</li>
-            <li>Directly usable inside your DAW the moment it’s baked.</li>
-          </ul>
-        </article>
-
-      </div>
-    </div>
-  </section>`;
-
-  const videos = `
-  <section>
-    <h2>Out-of-the-box video recipes</h2>
-    <p>Fast, caption-driven clips that show the whole pipeline – from recording a sound to designing an IR inside your DAW.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Trash take → IR gold</h3>
-        <p class="muted">See how a “ruined” take becomes a character IR that shapes a clean synth.</p>
-        <div class="hr"></div>
-        <div class="media-pane">
-          <!-- TODO: replace VIDEO_ID_1 with your real YouTube ID -->
-          <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID_1" loading="lazy" title="Trash take to IR gold" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Recording the world as filters</h3>
-        <p class="muted">Field record ice, wind, traffic – then morph those textures with rooms in Anvil.</p>
-        <div class="hr"></div>
-        <div class="media-pane">
-          <!-- TODO: replace VIDEO_ID_2 with your real YouTube ID -->
-          <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID_2" loading="lazy" title="Recording the world as filters" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Lerp Bake (A→B over time)</h3>
-        <p class="muted">Export one IR that transitions from A to B across its decay — useful for evolving spaces without host automation.</p>
-        <div class="hr"></div>
-        <div class="media-pane">
-          <!-- TODO: replace VIDEO_ID_3 with your real YouTube ID -->
-          <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VIDEO_ID_3" loading="lazy" title="Lerp Bake (A→B over time)" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  </section>`;
-
-                const packs = `
-  <section>
-    <h2>Included IR Packs</h2>
-    <p class="muted">The Suite installer includes demo content immediately. Bonus packs are included with the corresponding Impulse Anvil license tier.</p>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Demo included</h3>
-        <ul class="list">
-          <li><strong>ABSTRACT SPACES</strong> IR Pack <span class="badge">31 IRs</span></li>
-        </ul>
-        <p class="note">Available in Demo mode right away.</p>
-      </div>
-
-      <div class="card">
-        <h3>Impulse Anvil Basic · Bonus Packs</h3>
-        <ul class="list">
-          <li><strong>HOME PACK</strong></li>
-          <li><strong>ARTIFICIAL PACK</strong> <span class="badge">+29</span></li>
-        </ul>
-        <p class="note">Included with an Impulse Anvil Basic license.</p>
-      </div>
-
-      <div class="card">
-        <h3>Impulse Anvil Pro · Extra Packs</h3>
-        <p class="muted">Everything in Basic, plus:</p>
-        <ul class="list">
-          <li><strong>FABRIC MAGIC</strong></li>
-          <li><strong>HUMANOID</strong></li>
-          <li><strong>PHASE</strong></li>
-        </ul>
-        <p class="note">Included with an Impulse Anvil Pro license.</p>
-      </div>
-    </div>
-
-    <p class="note"><strong>Important:</strong> Impulse Anvil and Impulse Forge are purchased and licensed separately. “Impulse Smith Suite” is the installer + workflow — not a bundle product.</p>
-  </section>`;
-
-
-
-                const demo = demoSection([
-        { name:'Anvil', detail:'Perpetual demo. Every ~40 seconds, playback switches to a very quiet filtered-noise indicator for ~5 seconds (so you can tell the bus is alive). Time Morph only (Linear curve), 1 Color stripe per IR, no Fractal, no export. Includes the ABSTRACT SPACES IR pack (31 IRs).' },
-        { name:'Forge', detail:'Full editor and live listening; export / bake to WAV is disabled in the demo.' }
-      ]);
-
-
-
-  const tiles = `
-  <section>
-    <h2>Included Apps</h2>
-
-    <div class="apps-grid">
-      <div class="card app-tile">
-        <div class="app-tile__media">
-          <img src="anvilProductImage.png" alt="Impulse Anvil" loading="lazy">
-        </div>
-
-        <div class="app-tile__body">
-          <h3>Impulse Anvil <span class="badge">VST3 · Windows</span></h3>
-          <p class="muted">IR morphing, colouring, Fractal depth and bake-to-WAV directly inside your DAW.</p>
-          <div class="hr"></div>
-          <ul class="list">
-            <li>Dual A/B slots for IRs you already own.</li>
-            <li>Time Morph with curve shaping (all tiers); Spectral morph modes are <strong>Pro</strong>.</li>
-            <li>Colour Stripes (C1) for tonal shaping; <strong>Pro</strong> adds C2 + Fractal depth.</li>
-            <li>Bake morphed IRs to WAV (Basic/Pro) and Lerp Bake A→B over time (Pro).</li>
-          </ul>
-          <div class="hr"></div>
-          <div class="cta-row">
-            <a class="btn" href="#" onclick="loadFeed('anvil');return false;">See Anvil</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card app-tile">
-        <div class="app-tile__media">
-          <img src="ImpulseForgeProductImage.png" alt="Impulse Forge" loading="lazy">
-        </div>
-
-        <div class="app-tile__body">
-          <h3>Impulse Forge <span class="badge">Acoustic Editor · Windows</span></h3>
-          <p class="muted">Build rooms, fly through them, feed them from your DAW and bake their acoustics.</p>
-          <div class="hr"></div>
-          <ul class="list">
-            <li>Geometry-based acoustic sandbox with snapping and grouping.</li>
-            <li>Acoustic materials with absorption, transmission and scattering.</li>
-            <li>.OBJ import from any 3D tool for custom spaces.</li>
-            <li>Live input from Impulse Anvil via the VST3 bridge.</li>
-            <li>Bake to high-quality WAV IRs.</li>
-          </ul>
-          <div class="hr"></div>
-          <div class="cta-row">
-            <a class="btn" href="#" onclick="loadFeed('forge');return false;">See Forge</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card app-tile app-tile--wide">
-        <div class="app-tile__media">
-          <img src="ImpulseSmithSuite.png" alt="Impulse Smith Suite" loading="lazy">
-        </div>
-
-        <div class="app-tile__body">
-          <h3>Install the Suite</h3>
-          <p class="muted">Impulse Smith Suite is the shared installer that sets up both Impulse Anvil and Impulse Forge in demo mode.</p>
-          <p class="note">Licenses for Anvil and Forge are purchased separately. There is no combined “bundle” license – Impulse Smith is the name of the installer and workflow, not a separate product.</p>
-          <div class="hr"></div>
-          <div class="cta-row">
-            <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download Installer</a>
-            <a class="btn ghost" href="#" onclick="loadFeed('downloads');return false;">More about installation</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-
-
-  const related = `
-  <section>
-    <h2>Continue exploring the Impulse family</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Impulse Anvil</h3>
-        <p class="muted">Part of the Impulse Smith Suite · VST3 IR forge inside your DAW.</p>
-        <div class="hr"></div>
-        <a class="btn" href="#" onclick="loadFeed('anvil');return false;">Go to Impulse Anvil</a>
-      </div>
-      <div class="card">
-        <h3>Impulse Forge</h3>
-        <p class="muted">Part of the Impulse Smith Suite · Standalone acoustic editor for building and baking spaces.</p>
-        <div class="hr"></div>
-        <a class="btn" href="#" onclick="loadFeed('forge');return false;">Go to Impulse Forge</a>
-      </div>
-    </div>
-  </section>`;
-
-          return hero + tipsBand + videos + tiles + packs + demo + related;
-
-
-}
-
-
-        function buildAnvil(){
+function buildAnvil(){
   const hero = productHero({
     id:'anvil',
     kicker:'VST3 Plugin · Windows',
     title:'Impulse Anvil',
     tagline:'Forge new impulse responses from the IRs, rooms and noise you already have – then use them everywhere.',
-    buyHref:'#TODO-buy-anvil',
-    demoHref:IMPULSE_SUITE_DOWNLOAD,
+    buyHref:IMPULSE_ANVIL_BUY_URL,
+    demoHref:IMPULSE_ANVIL_DOWNLOAD,
     docsHref:'#docs',
-    priceFrom:'39',
+    priceFrom:'79',
     req:'Windows 10/11 · 64-bit · VST3 only',
     img:'anvilProductImage.png',
-    secondaryCtaLabel:'Download'
+    secondaryCtaLabel:'Download VST3 ZIP'
   });
 
 
@@ -1809,46 +1539,31 @@
           </div>
         </div>
       </section>`;
-
-
-            const pricing = pricingGrid('Impulse Anvil – Versions', [
+            const pricing = pricingGrid('Impulse Anvil – Full License', [
         {
-          name:'Basic', price:39, subtitle:'Core morph & bake',
+          name:'Full License', price:79, subtitle:'Complete IR morphing, sculpting & baking workstation', popular:true,
           points:[
-            'Time Morph engine + curve shaping',
-            'Live Morph + Bake Morph export',
-            '1 Color stripe per IR',
-            'Per-IR gain & time stretch',
-            'Bake morphed IRs to WAV'
+            '120 factory IRs bundled inside the VST3 folder',
+            'A/B IR loading, morphing and A→B Lerp Preview',
+            'Time + spectral morph modes with curve shaping',
+            '2 Color stripes per IR and Fractal depth',
+            'Post / Sculpt mix-ready controls',
+            'Bake Current and Bake Morph A→B to reusable WAV IRs'
           ],
-          buyHref:'#TODO-buy-anvil-basic',
-          demoHref:IMPULSE_SUITE_DOWNLOAD
-        },
-        {
-          name:'Pro', price:79, subtitle:'Full spectral & fractal toolkit', popular:true,
-          points:[
-            'Time + Spectral morph modes',
-            'Curve shaping (Linear / Exp / Log / S‑Curve / Power)',
-            'Lerp Bake (A→B over time) + Lerp Preview',
-            '2 Color stripes per IR (C1 + C2)',
-            'Fractal depth per slot'
-          ],
-          buyHref:'#TODO-buy-anvil-pro',
-          demoHref:IMPULSE_SUITE_DOWNLOAD
+          buyHref:IMPULSE_ANVIL_BUY_URL,
+          demoHref:IMPULSE_ANVIL_DOWNLOAD,
+          foot:'One version. Full unlock. No Basic/Pro upgrade ladder.'
         }
       ]);
 
 
-            const matrix = featureMatrix('Feature comparison (Impulse Anvil)', ['Demo','Basic','Pro'], [
-        { name:'Morph modes',        cells:['Time','Time','Time + Spectral'] },
-        { name:'Live Morph',         cells:['✓','✓','✓'] },
-        { name:'Color stripes per IR', cells:['×1','×1','×2'] },
-        { name:'Fractal depth',      cells:['—','—','✓'] },
-        { name:'Per-IR stretch & gain', cells:['✓','✓','✓'] },
-        { name:'Bake / Export IR',   cells:['—','✓','✓'] },
-        { name:'Lerp Bake (A→B over time)', cells:['—','—','✓'] },
-        { name:'Spectral morph modes', cells:['—','—','✓'] },
-        { name:'Demo indicator', cells:['Periodic quiet filtered noise (~5s / ~40s)','—','—'] }
+            const matrix = featureMatrix('What is included', ['Demo','Full License'], [
+        { name:'Load factory/user WAV IRs', cells:['✓','✓'] },
+        { name:'Live Morph + A/B preview', cells:['Limited','✓'] },
+        { name:'Color Stripes + Fractal depth', cells:['Limited','✓'] },
+        { name:'Post / Sculpt controls', cells:['Limited','✓'] },
+        { name:'Bake / Export WAV IRs', cells:['—','✓'] },
+        { name:'A→B Lerp Bake', cells:['—','✓'] }
       ]);
 
 
@@ -1953,23 +1668,23 @@
 
             const related = `
       <section>
-        <h2>Impulse Smith Suite workflow</h2>
+        <h2>Ready for release</h2>
         <div class="grid">
           <div class="card">
-            <h3>Impulse Forge</h3>
-            <p class="muted">Design rooms and spaces, then bake them to IRs you can load in Anvil.</p>
+            <h3>Full license</h3>
+            <p class="muted">One purchase unlocks the complete Impulse Anvil feature set. No Basic/Pro upgrade ladder.</p>
             <div class="hr"></div>
-            <a class="btn" href="#" onclick="loadFeed('forge');return false;">Go to Impulse Forge</a>
+            <a class="btn primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy Full License</a>
           </div>
 
           <div class="card">
-            <h3>Impulse Smith Suite (Installer)</h3>
-            <p class="muted">Single Windows installer that installs Anvil + Forge in demo mode.</p>
+            <h3>Windows VST3 ZIP</h3>
+            <p class="muted">Download the plugin, copy the complete .vst3 folder into your VST3 folder, then rescan your DAW.</p>
             <div class="hr"></div>
-            <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download for Windows</a>
+            <a class="btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download</a>
           </div>
         </div>
-        <p class="note"><strong>Licensing:</strong> Anvil and Forge are purchased separately — the Suite is not sold as a bundle.</p>
+        <p class="note"><strong>Factory IRs:</strong> the factory library is bundled inside the VST3 folder. No separate preset installer is required.</p>
       </section>`;
 
 
@@ -1986,7 +1701,7 @@
         title:'Impulse Forge',
         tagline:'Build any room, fly through it, feed it from your DAW and bake its acoustics as impulse responses.',
         buyHref:'#TODO-buy-forge',
-        demoHref:IMPULSE_SUITE_DOWNLOAD,
+        demoHref:IMPULSE_ANVIL_DOWNLOAD,
         docsHref:'#docs',
         priceFrom:'89',
         req:'Standalone · Windows 10/11 · 64-bit · Use 48 kHz projects (other sample rates may work depending on interface/driver).',
@@ -2102,7 +1817,7 @@
           ],
 
           buyHref:'#TODO-buy-forge-full',
-          demoHref:IMPULSE_SUITE_DOWNLOAD
+          demoHref:IMPULSE_ANVIL_DOWNLOAD
         }
       ]);
 
@@ -2185,8 +1900,8 @@
     function buildDocs(){
             const hero = `
       <section id="docs">
-        <h2>Docs &amp; FAQ – Impulse Smith Suite</h2>
-       <p>Quick starts, common questions and a plain-language explanation of impulse responses for Impulse Anvil, Impulse Forge and the Impulse Smith Suite workflow.</p>
+        <h2>Docs &amp; FAQ – Impulse Anvil</h2>
+       <p>Quick start, common questions and a plain-language explanation of impulse responses for the standalone Impulse Anvil VST3 release.</p>
 
         <div class="grid">
           <div class="card">
@@ -2199,22 +1914,19 @@
             </a>
           </div>
           <div class="card">
-            <h3>Impulse Forge</h3>
-            <p class="muted">Standalone Acoustic Editor · Windows 10/11 · 64-bit</p>
+            <h3>Installation</h3>
+            <p class="muted">Copy the full .vst3 bundle folder into your VST3 plugin folder.</p>
             <div class="hr"></div>
             <a class="btn" href="#"
-               onclick="document.getElementById('docs-forge')?.scrollIntoView({behavior:'smooth'}); return false;">
-              Forge quickstart
+               onclick="loadFeed('downloads'); return false;">
+              Install notes
             </a>
           </div>
           <div class="card">
-            <h3>Impulse Smith Suite</h3>
-            <p class="muted">Licensing, installer &amp; workflow tips.</p>
+            <h3>License</h3>
+            <p class="muted">One Full License unlocks the complete standalone Anvil release.</p>
             <div class="hr"></div>
-            <a class="btn" href="#"
-               onclick="document.getElementById('docs-suite')?.scrollIntoView({behavior:'smooth'}); return false;">
-              Suite FAQ
-            </a>
+            <a class="btn" href="#" onclick="loadFeed('downloads');return false;">Download / License FAQ</a>
           </div>
         </div>
       </section>`;
@@ -2230,7 +1942,6 @@
     <div class="flex-container" style="justify-content:flex-start; gap:10px; flex-wrap:wrap; margin-top:10px">
       <a class="btn" href="#" onclick="document.getElementById('anvil-quickstart')?.scrollIntoView({behavior:'smooth'}); return false;">Quickstart</a>
       <a class="btn" href="#" onclick="document.getElementById('anvil-global')?.scrollIntoView({behavior:'smooth'}); return false;">Global Controls</a>
-      <a class="btn" href="#" onclick="document.getElementById('anvil-bridge')?.scrollIntoView({behavior:'smooth'}); return false;">Forge Bridge</a>
       <a class="btn" href="#" onclick="document.getElementById('anvil-bake')?.scrollIntoView({behavior:'smooth'}); return false;">Bake / Export</a>
       <a class="btn" href="#" onclick="document.getElementById('anvil-slots')?.scrollIntoView({behavior:'smooth'}); return false;">IR A / IR B</a>
       <a class="btn" href="#" onclick="document.getElementById('anvil-color')?.scrollIntoView({behavior:'smooth'}); return false;">Color Stripes</a>
@@ -2264,9 +1975,9 @@
             </ul>
           </li>
           <li><strong>Set safe levels.</strong> Use <strong>Input</strong> (incoming gain) and <strong>Wet Level</strong> (effect output). Optional: enable <strong>Normalize</strong> (see notes below).</li>
-          <li><strong>Enable reverb.</strong> Turn <strong>Use Anvil</strong> on to hear the convolution engine processing your signal.</li>
+          <li><strong>Enable reverb.</strong> Turn enable <strong>Solo A</strong>, <strong>Solo B</strong> or <strong>Live Morph</strong> to hear the convolution engine processing your signal.</li>
           <li><strong>Morph &amp; shape.</strong> Enable <strong>Morph</strong> and move the <strong>Morph</strong> knob to blend A and B. Add <strong>Color</strong> and <strong>Fractal</strong> for richer, stranger spaces.</li>
-          <li><strong>Bake/export when it’s right.</strong> Click <strong>Bake Morph</strong> to write the current result as a WAV IR you can reuse anywhere.</li>
+          <li><strong>Bake/export when it’s right.</strong> Click <strong>Bake Current</strong> to write the current result as a WAV IR you can reuse anywhere.</li>
         </ol>
       </div>
 
@@ -2318,43 +2029,7 @@
 
   <div class="hr"></div>
 
-  <!-- 3) IMPULSE FORGE BRIDGE -->
-  <section id="anvil-bridge" style="padding:0; border-bottom:none; opacity:1; transform:none; animation:none;">
-    <h3>3) Impulse Forge Bridge (live audio into the editor)</h3>
-
-    <div class="cols" style="margin-top:10px">
-      <div>
-        <p><strong>Sample rate requirement</strong></p>
-        <ul class="list">
-          <li>Use <strong>48 kHz</strong> projects.</li>
-          <li>Other sample rates may work depending on your audio interface/driver.</li>
-        </ul>
-        
-        <p style="margin-top:10px"><strong>Bridge configuration (must match exactly)</strong></p>
-        <ol class="list">
-          <li>Set <strong>Wet Only</strong> to <strong>true</strong>.</li>
-          <li>Set <strong>Use Anvil</strong> to <strong>false</strong>.</li>
-          <li>Make sure <strong>IR A</strong>, <strong>IR B</strong>, and <strong>Morph</strong> are <strong>off</strong>.</li>
-          <li>Click <strong>Impulse Forge</strong> (top-right) to launch the editor.</li>
-        </ol>
-
-        <p class="note">
-          When the bridge is active, the track may go <strong>silent in the DAW</strong> — that’s normal. Your signal is being routed into Impulse Forge for live preview.
-          If you don’t hear audio inside the editor, make sure your DAW is playing. If needed: close the editor and repeat the steps.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Important limitations</h3>
-        <ul class="list">
-          <li><strong>Only one bridge at a time.</strong> Don’t open two editors and don’t connect two plugins at once.</li>
-          <li><strong>One editor, one input.</strong> If you want multiple tracks in one room, route them to a <strong>group bus</strong>, then place Anvil on that bus and enable the bridge there.</li>
-          <li>Don’t run multiple Anvils “bridging” into one editor simultaneously.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
+  <!-- Forge bridge docs hidden for standalone Anvil release. -->
   <div class="hr"></div>
 
   <!-- 4) BAKE / EXPORT -->
@@ -2370,7 +2045,7 @@
           <li>Enable <strong>Morph</strong>.</li>
           <li>Turn the Morph knob fully to <strong>A</strong> or fully to <strong>B</strong>.</li>
           <li>If you want to be extra safe, re-load the IR you want to export (A or B), then set the knob again.</li>
-          <li>Click <strong>Bake Morph</strong>.</li>
+          <li>Click <strong>Bake Current</strong>.</li>
         </ol>
 
         <p class="note">
@@ -3032,14 +2707,14 @@
             <ul class="list">
               <li>Take a boring sound and make it inspiring with IRs.</li>
               <li>Record your own IRs from nature, city or household sounds.</li>
-              <li>Use Impulse Forge + Anvil together to build complete IR packs.</li>
+              <li>Use baked Anvil IRs in any convolution reverb, cab loader or future Anvil session.</li>
             </ul>
             <p class="note">These will live on the FreQtik YouTube channel and be linked directly from this page.</p>
           </div>
         </div>
       </section>`;
 
-      return hero + anvilQuickstart + forgeQuickstart + suiteFaq + irBasics + support;
+      return hero + anvilQuickstart + irBasics + support;
     }
 
 
@@ -3115,40 +2790,38 @@
 
                                 case 'downloads':
         html = `<section id="downloads" class="depth-effect">
-          <h2>Downloads &amp; Tools</h2>
-          <p>Close your DAW, download the installer, run it, and you’re ready to forge IRs. Updating never touches your own IRs or projects.</p>
+          <h2>Downloads &amp; Installation</h2>
+          <p>Impulse Anvil is shipped as a Windows VST3 folder bundle. No installer is required for this standalone release.</p>
           <div class="grid" style="margin-top:14px">
             <div class="card">
-              <h3>Impulse Smith Suite Installer</h3>
-              <p class="muted">Installs Impulse Anvil (VST3) and Impulse Forge (Standalone) in one step.</p>
-              <p class="note">Single Windows installer. Runs in Demo until you enter a license.</p>
+              <h3>Impulse Anvil Windows VST3</h3>
+              <p class="muted">Download the ZIP, extract it, then copy the entire <strong>Impulse Anvil.vst3</strong> folder into your VST3 plugin folder.</p>
               <div class="hr"></div>
-              <a class="btn" href="${IMPULSE_SUITE_DOWNLOAD}" target="_blank" rel="noopener">Download for Windows</a>
+              <a class="btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download Windows VST3 ZIP</a>
             </div>
             <div class="card">
-              <h3>What you get</h3>
+              <h3>Install location</h3>
               <ul class="list">
-                <li>Impulse Anvil VST3 plugin for Windows 10/11 (64-bit).</li>
-                <li>Impulse Forge standalone Acoustic Editor for Windows 10/11 (64-bit).</li>
-                <li>Shared content folders under <code>C:\\ProgramData\\FreQtik</code>.</li>
-                <li>Demo mode by default – unlocks instantly when you enter a license key.</li>
+                <li>Copy the full folder: <code>Impulse Anvil.vst3</code></li>
+                <li>Paste it into: <code>C:\Program Files\Common Files\VST3</code></li>
+                <li>Restart your DAW or rescan plugins.</li>
+                <li>Do not copy only the binary inside <code>Contents\x86_64-win</code>.</li>
               </ul>
             </div>
             <div class="card">
-              <h3>System requirements</h3>
+              <h3>Factory IRs included</h3>
               <ul class="list">
-                <li>Windows 10 or 11 · 64-bit.</li>
-                <li>VST3-compatible DAW for Impulse Anvil.</li>
-                <li>Internet connection for license activation and update checks.</li>
+                <li>The factory IR library is bundled inside the VST3 folder.</li>
+                <li>No separate preset installation is required.</li>
+                <li>User bakes are saved to your Documents/FreQtik user folders.</li>
               </ul>
             </div>
           </div>
           <p class="note" style="margin-top:16px;">
-            <strong>Windows SmartScreen</strong> may warn because the installer isn’t code-signed yet and will show “Unknown publisher”.
-            The binary is built and hosted by FreQtik only. Once a code-signing certificate is in budget, future installers will be signed.
+            <strong>Windows SmartScreen:</strong> this no-installer ZIP avoids an unsigned installer, but Windows may still warn on downloaded files from a new publisher. Code signing is planned for a later installer-based release.
           </p>
           <p class="note">
-            <strong>Licenses &amp; seats.</strong> After purchase you receive a license key by email. Open Impulse Anvil or Impulse Forge, click the License button and paste the key – features unlock instantly. Each license gives you <strong>2 seats</strong>, so you can activate on two Windows machines you own.
+            <strong>Licensing:</strong> after purchase you receive a license key by email. Open Impulse Anvil, click License, paste the key, and the full version unlocks on this machine.
           </p>
         </section>`;
         break;
@@ -3340,7 +3013,7 @@ window.addEventListener('hashchange', () => {
   if (feedFromHash) {
     loadFeed(feedFromHash, { fromHash: true });
   } else {
-    loadFeed('impulse');
+    loadFeed('anvil');
   }
 
   if (window.innerWidth < 600) introEl.classList.add('hidden');
