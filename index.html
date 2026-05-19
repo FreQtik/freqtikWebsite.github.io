@@ -696,6 +696,7 @@
     }
 
   </style>
+  <noscript><style>.intro{display:none!important}</style></noscript>
 
   <!-- Organization JSON-LD -->
   <script type="application/ld+json">
@@ -803,7 +804,7 @@
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
     const IMPULSE_ANVIL_DOWNLOAD = 'https://freqtik.com/downloads/ImpulseAnvil_Setup_1.0.0.exe';
     const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD; // compatibility alias for older helper code
-    const IMPULSE_ANVIL_BUY_URL = 'https://freqtik.com/checkout/impulse-anvil';*/
+    const IMPULSE_ANVIL_BUY_URL = 'https://freqtik.com/checkout/impulse-anvil';
 
     const introEl   = document.getElementById('intro');
     const headerEl  = document.getElementById('mainHeader');
@@ -1932,35 +1933,72 @@ window.addEventListener('hashchange', () => {
       try { sessionStorage.setItem('scrollPos', String(window.scrollY)); } catch {}
     });
 
-    window.addEventListener('load', ()=>{
-  const ySpan = document.getElementById('yearSpan');
-  if (ySpan) ySpan.textContent = String(new Date().getFullYear());
-  try {
-    const pos = sessionStorage.getItem('scrollPos');
-    if (pos) window.scrollTo(0, parseFloat(pos));
-  } catch {}
+    /* Robust boot + intro handling
+       - DOMContentLoaded is used instead of waiting for all images/fonts.
+       - The intro always auto-dismisses, including Android/touch devices.
+       - Any pointer/touch/key/scroll action dismisses it immediately.
+    */
+    let pageBooted = false;
+    let introDismissed = false;
 
-  const hash = window.location.hash || '';
-  const feedFromHash = hash && hash.startsWith('#') ? hash.substring(1) : '';
+    function hideIntro(immediate){
+      if (!introEl || introDismissed) return;
+      introDismissed = true;
+      if (immediate) introEl.style.transitionDuration = '320ms';
+      introEl.classList.add('hidden');
+      introEl.setAttribute('aria-hidden', 'true');
+    }
 
-  if (feedFromHash) {
-    loadFeed(feedFromHash, { fromHash: true });
-  } else {
-    loadFeed('impulse');
-  }
+    function bootPage(){
+      if (pageBooted) return;
+      pageBooted = true;
 
-  if (window.innerWidth < 600) introEl.classList.add('hidden');
-});
+      const ySpan = document.getElementById('yearSpan');
+      if (ySpan) ySpan.textContent = String(new Date().getFullYear());
 
+      const hash = window.location.hash || '';
+      const feedFromHash = hash && hash.startsWith('#') ? hash.substring(1) : '';
+      loadFeed(feedFromHash || 'impulse', { fromHash: Boolean(feedFromHash) });
 
-    // dismiss intro on minimal mouse movement
-    let moved=0,lx=null,ly=null,done=false;
+      // Restore scroll after the dynamic section has been written.
+      try {
+        const pos = sessionStorage.getItem('scrollPos');
+        if (pos && !feedFromHash) {
+          requestAnimationFrame(() => window.scrollTo(0, parseFloat(pos)));
+        }
+      } catch {}
+
+      // Mobile/tablet should never get stuck behind the splash.
+      const isTouchLike = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window);
+      const delay = isTouchLike || window.innerWidth < 700 ? 450 : 1050;
+      window.setTimeout(() => hideIntro(false), delay);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootPage, { once:true });
+    } else {
+      bootPage();
+    }
+
+    // Failsafe: even if a browser delays DOM events strangely, do not leave a permanent cover.
+    window.setTimeout(() => {
+      bootPage();
+      hideIntro(false);
+    }, 3000);
+
+    // Dismiss intro on real user intent.
+    ['pointerdown', 'touchstart', 'keydown', 'wheel'].forEach(evt => {
+      document.addEventListener(evt, () => hideIntro(true), { once:true, passive:true });
+    });
+
+    // Desktop-only graceful mouse movement dismiss.
+    let moved=0,lx=null,ly=null;
     document.addEventListener('mousemove',e=>{
-      if(done||window.innerWidth<600) return;
+      if(introDismissed || window.innerWidth<700) return;
       if(lx!==null) moved+=Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly);
       lx=e.clientX; ly=e.clientY;
-      if(moved>300){ introEl.classList.add('hidden'); done=true; }
-    });
+      if(moved>160) hideIntro(true);
+    }, { passive:true });
   </script>
 </body>
 </html>
