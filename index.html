@@ -780,6 +780,8 @@
     .ia26 .ia-btn-primary { background:linear-gradient(135deg,#27d6ff,#168fb0 65%,#0b4960); color:#031116; border-color:rgba(143,240,255,.80); text-shadow:0 1px 0 rgba(255,255,255,.25); }
     .ia26 .ia-btn-dark { background:rgba(0,0,0,.34); }
     .ia26 .ia-btn-small { min-height:38px; padding:0 14px; font-size:13px; }
+    .ia26 .ia-hero-buy { min-height:56px; padding:0 28px; font-size:17px; box-shadow:0 18px 54px rgba(39,214,255,.26), 0 10px 30px rgba(0,0,0,.24); border-width:1px; }
+    .ia26 .ia-hero-buy:hover { box-shadow:0 24px 70px rgba(39,214,255,.34), 0 16px 42px rgba(0,0,0,.32); transform:translateY(-3px); }
     .ia26 .ia-hero { padding:64px 0 60px; position:relative; }
     .ia26 .ia-hero-grid { display:grid; grid-template-columns:minmax(0,.94fr) minmax(520px,1.22fr); gap:42px; align-items:center; }
     .ia26 .ia-eyebrow { display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border-radius:999px; border:1px solid rgba(39,214,255,.22); background:rgba(39,214,255,.065); color:#d9fbff; font-size:12px; font-weight:850; text-transform:uppercase; letter-spacing:.14em; }
@@ -828,10 +830,17 @@
     .ia26 .ia-audio-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; align-items:stretch; }
     .ia26 .ia-audio-card { min-height:100%; }
     .ia26 .ia-player-pair { display:grid; gap:10px; margin-top:16px; }
-    .ia26 .ia-player { border:1px solid var(--ia-line); background:rgba(0,0,0,.22); border-radius:16px; padding:12px; }
-    .ia26 .ia-player b { display:block; color:var(--ia-text); font-size:12px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; }
-    .ia26 .ia-player audio { width:100%; height:38px; display:block; filter:saturate(.8); }
-    .ia26 .ia-player small { display:block; margin-top:6px; color:var(--ia-dim); font-size:11px; word-break:break-all; line-height:1.35; }
+    .ia26 .ia-wave-player { border:1px solid var(--ia-line); background:rgba(0,0,0,.24); border-radius:18px; padding:12px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:center; box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
+    .ia26 .ia-wave-play { width:42px; height:42px; border-radius:999px; border:1px solid rgba(46,218,255,.32); background:linear-gradient(135deg,rgba(46,218,255,.18),rgba(255,255,255,.04)); color:var(--ia-text); font-weight:900; cursor:pointer; box-shadow:0 10px 24px rgba(0,0,0,.24); transition:transform .18s ease,border-color .18s ease,background .18s ease; }
+    .ia26 .ia-wave-play:hover { transform:translateY(-1px); border-color:rgba(46,218,255,.68); background:linear-gradient(135deg,rgba(46,218,255,.28),rgba(255,255,255,.07)); }
+    .ia26 .ia-wave-main { min-width:0; }
+    .ia26 .ia-wave-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:7px; }
+    .ia26 .ia-wave-label { color:var(--ia-text); font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; }
+    .ia26 .ia-wave-time { color:var(--ia-dim); font-size:11px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .ia26 .ia-wave-canvas { display:block; width:100%; height:58px; border-radius:12px; cursor:pointer; background:linear-gradient(180deg,rgba(46,218,255,.08),rgba(0,0,0,.18)); }
+    .ia26 .ia-wave-player.is-playing .ia-wave-play { background:linear-gradient(135deg,var(--ia-cyan),var(--ia-cyan-2)); color:#031116; border-color:rgba(218,250,255,.9); }
+    .ia26 .ia-wave-player.is-placeholder .ia-wave-time:after { content:''; }
+    .ia26 .ia-wave-player audio { display:none; }
     .ia26 .ia-video-section { padding-top:58px; }
     .ia26 .ia-video-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
     .ia26 .ia-video-card { padding:16px; }
@@ -1728,6 +1737,170 @@
       });
     }
 
+
+    /* SoundCloud-style waveform audio players for the dry/wet demo section */
+    let __iaAudioResizeBound = false;
+    function initImpulseAudioPlayers(){
+      const players = Array.from(mainEl.querySelectorAll('.ia-wave-player'));
+      if (!players.length) return;
+
+      function fmt(seconds){
+        if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${String(s).padStart(2,'0')}`;
+      }
+
+      function drawWave(player){
+        const canvas = player.querySelector('.ia-wave-canvas');
+        const audio  = player.querySelector('audio');
+        if (!canvas || !audio) return;
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const cssW = Math.max(160, rect.width || 300);
+        const cssH = Math.max(44, rect.height || 58);
+        const needW = Math.round(cssW * dpr);
+        const needH = Math.round(cssH * dpr);
+        if (canvas.width !== needW || canvas.height !== needH) {
+          canvas.width = needW;
+          canvas.height = needH;
+        }
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        ctx.clearRect(0,0,cssW,cssH);
+
+        const bars = 88;
+        const mid = cssH / 2;
+        const peaks = player.__peaks;
+        const progress = audio.duration ? Math.max(0, Math.min(1, audio.currentTime / audio.duration)) : 0;
+        const barW = Math.max(2, cssW / bars * 0.44);
+
+        for (let i = 0; i < bars; i++) {
+          let amp;
+          if (peaks && peaks.length) {
+            amp = peaks[i] || 0.08;
+          } else {
+            // Elegant placeholder wave while files are not uploaded yet.
+            amp = 0.15 + 0.75 * Math.abs(Math.sin((i + 3) * 0.31) * Math.sin((i + 11) * 0.071));
+          }
+          const x = (i + 0.5) / bars * cssW;
+          const h = Math.max(4, amp * cssH * 0.88);
+          ctx.lineWidth = barW;
+          ctx.lineCap = 'round';
+          ctx.strokeStyle = (i / bars <= progress) ? 'rgba(231,252,255,.96)' : 'rgba(46,218,255,.40)';
+          ctx.beginPath();
+          ctx.moveTo(x, mid - h / 2);
+          ctx.lineTo(x, mid + h / 2);
+          ctx.stroke();
+        }
+      }
+
+      async function loadWaveform(player){
+        if (player.__waveLoading || player.__peaks) return;
+        player.__waveLoading = true;
+        const audio = player.querySelector('audio');
+        if (!audio || !audio.src || !(window.AudioContext || window.webkitAudioContext)) {
+          drawWave(player);
+          return;
+        }
+        try {
+          const res = await fetch(audio.src, { cache: 'force-cache' });
+          if (!res.ok) throw new Error('Audio not found yet');
+          const bytes = await res.arrayBuffer();
+          const AC = window.AudioContext || window.webkitAudioContext;
+          const ac = new AC();
+          const buffer = await ac.decodeAudioData(bytes.slice(0));
+          const data = buffer.getChannelData(0);
+          const bars = 88;
+          const block = Math.max(1, Math.floor(data.length / bars));
+          const peaks = [];
+          let max = 0;
+          for (let i = 0; i < bars; i++) {
+            let sum = 0;
+            const start = i * block;
+            const end = Math.min(data.length, start + block);
+            for (let j = start; j < end; j++) sum += Math.abs(data[j]);
+            const avg = sum / Math.max(1, end - start);
+            peaks.push(avg);
+            if (avg > max) max = avg;
+          }
+          player.__peaks = peaks.map(v => max ? Math.max(0.08, Math.min(1, v / max)) : 0.08);
+          if (ac.close) ac.close();
+        } catch (err) {
+          player.classList.add('is-placeholder');
+        } finally {
+          drawWave(player);
+        }
+      }
+
+      players.forEach(player => {
+        if (player.dataset.ready === '1') return;
+        player.dataset.ready = '1';
+        const btn = player.querySelector('.ia-wave-play');
+        const audio = player.querySelector('audio');
+        const canvas = player.querySelector('.ia-wave-canvas');
+        const time = player.querySelector('.ia-wave-time');
+        if (!btn || !audio || !canvas || !time) return;
+
+        drawWave(player);
+        loadWaveform(player);
+
+        btn.addEventListener('click', async () => {
+          try {
+            if (audio.paused) {
+              mainEl.querySelectorAll('.ia-wave-player audio').forEach(other => { if (other !== audio) other.pause(); });
+              await audio.play();
+            } else {
+              audio.pause();
+            }
+          } catch (err) {
+            player.classList.add('is-placeholder');
+          }
+        });
+
+        canvas.addEventListener('click', ev => {
+          if (!audio.duration) return;
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.max(0, Math.min(rect.width, ev.clientX - rect.left));
+          audio.currentTime = (x / rect.width) * audio.duration;
+          drawWave(player);
+        });
+
+        audio.addEventListener('play', () => {
+          player.classList.add('is-playing');
+          btn.textContent = '❚❚';
+        });
+        audio.addEventListener('pause', () => {
+          player.classList.remove('is-playing');
+          btn.textContent = '▶';
+        });
+        audio.addEventListener('ended', () => {
+          player.classList.remove('is-playing');
+          btn.textContent = '▶';
+          audio.currentTime = 0;
+          drawWave(player);
+        });
+        audio.addEventListener('loadedmetadata', () => {
+          time.textContent = `${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
+        });
+        audio.addEventListener('timeupdate', () => {
+          time.textContent = audio.duration ? `${fmt(audio.currentTime)} / ${fmt(audio.duration)}` : fmt(audio.currentTime);
+          drawWave(player);
+        });
+        audio.addEventListener('error', () => {
+          player.classList.add('is-placeholder');
+          drawWave(player);
+        });
+      });
+
+      if (!__iaAudioResizeBound) {
+        __iaAudioResizeBound = true;
+        window.addEventListener('resize', () => {
+          mainEl.querySelectorAll('.ia-wave-player').forEach(drawWave);
+        }, { passive:true });
+      }
+    }
+
     /* PAGE BUILDS */
 
     function buildImpulseAll(){
@@ -1771,15 +1944,9 @@ function buildAnvil(){
           <h1>Turn any sound into <span class="ia-cyan">another world.</span></h1>
           <p class="ia-lead">Impulse Anvil is a Windows VST3 for morphing, sculpting and baking impulse responses into new reusable spaces. Load two IRs, reshape them, randomize ideas, bake the result, and use the WAV IR anywhere.</p>
           <div class="ia-actions">
-            <a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>€29 launch</span></span></a>
-            <a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3 ZIP</a>
+            <a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>€29 launch</span></span></a>
+            <a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a>
             <a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('docs'); return false;">Docs + technical manual</a>
-          </div>
-          <div class="ia-trust-row" aria-label="Product highlights">
-            <span class="ia-chip"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><strong>€29 launch</strong></span></span>
-            <span class="ia-chip"><strong>Lemon Squeezy</strong> licensing</span>
-            <span class="ia-chip"><strong>Factory IRs</strong> included</span>
-            <span class="ia-chip"><strong>Bake</strong> portable WAV IRs</span>
           </div>
         </div>
         <div class="ia-product-card" aria-label="Impulse Anvil product artwork">
@@ -1788,7 +1955,7 @@ function buildAnvil(){
           </div>
           <div class="ia-float-card">
             <b>VST3 folder bundle</b>
-            <p>Ships as a zipped <strong>Impulse Anvil.vst3</strong> folder with the factory IR library inside. Extract, copy, rescan, activate.</p>
+            <p>Ships as a zipped <strong>Impulse Anvil.vst3</strong> folder with 120 factory IRs inside. Download as demo first, then unlock with your license after purchase.</p>
           </div>
         </div>
       </div>
@@ -1800,39 +1967,56 @@ function buildAnvil(){
           <div class="ia-copy">
             <span class="ia-kicker">Hear it first</span>
             <h2>Dry / wet examples right at the top.</h2>
-            <p>These slots are ready for your 2–3 before/after examples. Upload the MP3 files with the exact names shown below and the players will work automatically.</p>
+            <p>These slots are ready for your 2–3 before/after examples. Once the MP3 files are uploaded, the waveform players load automatically.</p>
           </div>
         </div>
         <div class="ia-audio-grid">
           <article class="ia-demo-card ia-audio-card">
             <span class="ia-tag">Example 01</span>
-            <h3>Dry source → Impulse Anvil</h3>
-            <p class="ia-muted">Good for a clean vocal, synth phrase, drum loop or instrument that clearly shows the space transformation.</p>
+            <h3>Before / after comparison</h3>
+            <p class="ia-muted">Single MP3 slot for a combined dry → wet example, so listeners hear the source and the Impulse Anvil result in one clean player.</p>
             <div class="ia-player-pair">
-              <div class="ia-player"><b>Dry</b><audio controls preload="metadata" src="assets/audio/ia-example-01-dry.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-01-dry.mp3</small></div>
-              <div class="ia-player"><b>Wet / Anvil</b><audio controls preload="metadata" src="assets/audio/ia-example-01-wet.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-01-wet.mp3</small></div>
+              <div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3">
+                <button class="ia-wave-play" type="button" aria-label="Play example 01">▶</button>
+                <div class="ia-wave-main">
+                  <div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div>
+                  <canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas>
+                  <audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio>
+                </div>
+              </div>
             </div>
           </article>
           <article class="ia-demo-card ia-audio-card">
             <span class="ia-tag">Example 02</span>
             <h3>Morph / texture example</h3>
-            <p class="ia-muted">Use this to show a more unusual IR morph, texture depth, color stripes or impossible reverb character.</p>
+            <p class="ia-muted">Use this slot for a more unusual IR morph, Texture Depth movement, Color shaping or impossible reverb character.</p>
             <div class="ia-player-pair">
-              <div class="ia-player"><b>Dry</b><audio controls preload="metadata" src="assets/audio/ia-example-02-dry.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-02-dry.mp3</small></div>
-              <div class="ia-player"><b>Wet / Anvil</b><audio controls preload="metadata" src="assets/audio/ia-example-02-wet.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-02-wet.mp3</small></div>
+              <div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3">
+                <button class="ia-wave-play" type="button" aria-label="Play example 02">▶</button>
+                <div class="ia-wave-main">
+                  <div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div>
+                  <canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas>
+                  <audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio>
+                </div>
+              </div>
             </div>
           </article>
           <article class="ia-demo-card ia-audio-card">
             <span class="ia-tag">Example 03</span>
             <h3>Creative / extreme example</h3>
-            <p class="ia-muted">Optional third slot for a bold sound-design example, environmental recording IR trick or A→B baked result.</p>
+            <p class="ia-muted">Optional third slot for a bold sound-design example, environmental-recording IR trick or A→B style transformation.</p>
             <div class="ia-player-pair">
-              <div class="ia-player"><b>Dry</b><audio controls preload="metadata" src="assets/audio/ia-example-03-dry.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-03-dry.mp3</small></div>
-              <div class="ia-player"><b>Wet / Anvil</b><audio controls preload="metadata" src="assets/audio/ia-example-03-wet.mp3">Your browser does not support audio playback.</audio><small>assets/audio/ia-example-03-wet.mp3</small></div>
+              <div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3">
+                <button class="ia-wave-play" type="button" aria-label="Play example 03">▶</button>
+                <div class="ia-wave-main">
+                  <div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div>
+                  <canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas>
+                  <audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio>
+                </div>
+              </div>
             </div>
           </article>
         </div>
-        <p class="ia-note">Tip: keep each clip short, around 10–25 seconds. Loudness-match the dry and wet files enough that the improvement is about character, not just volume.</p>
       </div>
     </section>
 
@@ -1850,19 +2034,16 @@ function buildAnvil(){
             <div class="ia-video-placeholder"><span>Short Introduction video slot</span></div>
             <h3>Short Introduction</h3>
             <p>Quickly explain the interface: global controls, IR A/B, Morph, Color, Texture Depth, Post / Sculpt, Bake.</p>
-            <p class="ia-mini-note">Recommended length: 60–120 seconds. Replace this placeholder with your YouTube embed iframe.</p>
           </article>
           <article class="ia-card ia-video-card">
             <div class="ia-video-placeholder"><span>Workflow + tips video slot</span></div>
             <h3>Workflow & Tips</h3>
             <p>Show a practical session: load IRs, randomize, refine, use Color/Texture Depth, sculpt, then bake the final WAV IR.</p>
-            <p class="ia-mini-note">Recommended length: 5–10 minutes. Focus on one strong musical result.</p>
           </article>
           <article class="ia-card ia-video-card">
             <div class="ia-video-placeholder"><span>Create IRs from recordings slot</span></div>
             <h3>Create IRs From Any Recording</h3>
             <p>Teach the creative concept: environment recordings, noise, impacts, rooms and objects can become convolution fingerprints.</p>
-            <p class="ia-mini-note">Recommended length: 5–12 minutes. This is a strong education/marketing video.</p>
           </article>
         </div>
       </div>
@@ -1894,16 +2075,16 @@ function buildAnvil(){
           <article class="ia-card"><h3>Color stripes</h3><p>Layered IR self-modulation for tonal shifts, movement, density and unusual phase/reflection structures.</p></article>
           <article class="ia-card"><h3>Texture Depth</h3><p>Recursive color layering turns simple IRs into richer, deeper and more complex convolution textures.</p></article>
           <article class="ia-card"><h3>Post / Sculpt</h3><p>Final trimming, fading, filtering, width and safety controls help the baked IR sit in a mix before you commit it to disk.</p></article>
-          <article class="ia-card"><h3>Factory IRs</h3><p>The factory library is bundled inside the VST3 folder, so there is no separate preset installer to manage.</p></article>
+          <article class="ia-card"><h3>120 factory IRs</h3><p>The factory library is bundled inside the VST3 folder, so there is no separate preset installer to manage.</p></article>
           <article class="ia-card"><h3>WAV export</h3><p>Bake Current and A→B morph results into standard WAV impulse responses for your wider plugin ecosystem.</p></article>
-          <article class="ia-card"><h3>Simple licensing</h3><p>Lemon Squeezy key activation unlocks the commercial version after purchase.</p></article>
+          <article class="ia-card"><h3>Simple activation</h3><p>After purchase, your license key unlocks the commercial version inside the plugin.</p></article>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-interface">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface</span><h2>The plugin stays technical, but the story becomes clear.</h2><p>This section uses your actual plugin screenshot and keeps the product page visually aligned with the blue glass / dark 2026 direction from the dummy landing.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface</span><h2>The plugin stays technical, but the story becomes clear.</h2></div></div>
         <div class="ia-anatomy">
           <div class="ia-card ia-screen-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface screenshot" loading="lazy"></div></div>
           <div class="ia-callout-list">
@@ -1921,9 +2102,9 @@ function buildAnvil(){
       <div class="ia-shell">
         <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Pricing</span><h2>One commercial license. No Basic / Pro ladder.</h2><p>Impulse Anvil launches with a simple offer: the complete plugin, factory IRs included, and a reduced launch price before it returns to regular pricing.</p></div></div>
         <div class="ia-pricing">
-          <article class="ia-card ia-price-card"><span class="ia-tag">Demo</span><h3>Try the workflow</h3><div class="ia-price"><strong>€0</strong><span>download</span></div><p class="ia-muted">Use the same VST3 ZIP, then activate after purchase.</p><ul class="ia-list"><li>Windows VST3 folder bundle</li><li>Factory IRs included</li><li>Periodic quiet demo indicator</li><li>Export locked until activation</li></ul><div class="ia-actions"><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download ZIP</a></div></article>
-          <article class="ia-card ia-price-card ia-price-card-featured"><span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>launch</span></div><p class="ia-muted">Launch offer for the full commercial license. Full unlock through Lemon Squeezy licensing once your store is live.</p><ul class="ia-list"><li>Complete A/B IR morphing workstation</li><li>Color stripes and Texture Depth</li><li>Post / Sculpt controls</li><li>Bake Current and morph results to WAV IRs</li><li>Factory IR library inside the VST3 folder</li></ul><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy for €29</a><a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('docs'); return false;">Activation steps</a></div></article>
-          <article class="ia-card ia-price-card"><span class="ia-tag">Delivery</span><h3>What customers get</h3><div class="ia-price"><strong>.zip</strong><span>VST3</span></div><p class="ia-muted">A single zipped VST3 folder bundle with no separate content installer.</p><ul class="ia-list"><li>Extract the ZIP</li><li>Copy the whole <code>Impulse Anvil.vst3</code> folder</li><li>Paste into <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code></li><li>Rescan plugins in the DAW</li></ul></article>
+          <article class="ia-card ia-price-card"><span class="ia-tag">Demo</span><h3>Try the workflow</h3><div class="ia-price"><strong>€0</strong><span>download</span></div><p class="ia-muted">Use the same VST3 download, then activate after purchase.</p><ul class="ia-list"><li>Windows VST3 folder bundle</li><li>120 factory IRs included</li><li>Demo limitation: one Color row per IR</li><li>Demo limitation: Time Morph only</li><li>No A→B Lerp and no baking/export in demo mode</li><li>Periodic subtle demo noise</li></ul><div class="ia-actions"><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a></div></article>
+          <article class="ia-card ia-price-card ia-price-card-featured"><span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>launch</span></div><p class="ia-muted">Launch offer for the full commercial license. Activate once after purchase and unlock the complete plugin.</p><ul class="ia-list"><li>Complete A/B IR morphing workstation</li><li>Two Color rows per IR and Texture Depth</li><li>Post / Sculpt controls</li><li>Bake Current and morph results to WAV IRs</li><li>120 factory IRs inside the VST3 folder</li><li>2 seats per license</li></ul><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy for €29</a><a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('docs'); return false;">Activation steps</a></div></article>
+          <article class="ia-card ia-price-card"><span class="ia-tag">Download + activation</span><h3>Demo first. Unlock after purchase.</h3><div class="ia-price"><strong>.zip</strong><span>VST3</span></div><p class="ia-muted">The public download always starts in demo mode. After purchase, the license key arrives by email and is activated inside the plugin.</p><ul class="ia-list"><li>Download the same Windows VST3 ZIP</li><li>Install by copying the full <code>Impulse Anvil.vst3</code> folder</li><li>Open Impulse Anvil in your DAW</li><li>Paste the license key in the License panel</li><li>Includes 2 seats per license</li></ul></article>
         </div>
       </div>
     </section>
@@ -1934,7 +2115,7 @@ function buildAnvil(){
         <div class="ia-grid ia-grid-three">
           <article class="ia-card"><div class="ia-number">1</div><h3>Install</h3><p>Download <code>ImpulseAnvil_Windows_VST3.zip</code>, extract it, then copy the complete <code>Impulse Anvil.vst3</code> folder into the Windows VST3 folder. Do not copy only the inner DLL/binary.</p></article>
           <article class="ia-card"><div class="ia-number">2</div><h3>Rescan</h3><p>Restart your DAW or run a plugin rescan. Insert Impulse Anvil on an audio track, bus or send like a convolution reverb / creative IR loader.</p></article>
-          <article class="ia-card"><div class="ia-number">3</div><h3>Activate</h3><p>After purchase, copy the Lemon Squeezy license key from your email, open the License panel in Impulse Anvil, paste the key and activate.</p></article>
+          <article class="ia-card"><div class="ia-number">3</div><h3>Activate</h3><p>After purchase, copy the license key from your email, open the License panel in Impulse Anvil, paste the key and activate.</p></article>
         </div>
         <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="#" onclick="loadFeed('docs'); return false;">Open full technical manual</a></div>
       </div>
@@ -1946,8 +2127,8 @@ function buildAnvil(){
         <div class="ia-faq">
           <details open><summary>Is this only for Windows?</summary><p>Yes. This release is Windows 10/11, 64-bit, VST3 only.</p></details>
           <details><summary>Is it an installer?</summary><p>No. The commercial delivery is a zipped VST3 folder bundle. Customers extract the ZIP and copy the full <code>Impulse Anvil.vst3</code> folder into their VST3 folder.</p></details>
-          <details><summary>Are factory IRs included?</summary><p>Yes. The factory IRs ship inside the VST3 folder bundle, so customers do not need a separate content download.</p></details>
-          <details><summary>How does licensing work?</summary><p>Purchases are handled with Lemon Squeezy. The customer receives a license key by email and activates inside the plugin.</p></details>
+          <details><summary>Are factory IRs included?</summary><p>Yes. Impulse Anvil includes 120 factory IRs inside the VST3 folder bundle, so customers do not need a separate content download.</p></details>
+          <details><summary>How does licensing work?</summary><p>After purchase, the customer receives a license key by email and activates inside the plugin.</p></details>
           <details><summary>Can baked IRs be used in other plugins?</summary><p>Yes. Baked files are standard WAV impulse responses and can be loaded into other convolution reverbs, IR loaders and cab tools that accept WAV IRs.</p></details>
         </div>
       </div>
@@ -1959,7 +2140,7 @@ function buildAnvil(){
           <span class="ia-kicker">Release copy</span>
           <h2>Impulse Anvil turns your IR folder into a creative instrument.</h2>
           <p>Load, morph, randomize, sculpt and bake new impulse responses from spaces, cabs, captures and textures you already own. <span class="ia-sale-inline"><span class="ia-old-price">€49</span><strong>€29 launch</strong></span>.</p>
-          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy Impulse Anvil</a><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3 ZIP</a></div>
+          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy Impulse Anvil</a><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a></div>
         </div>
       </div>
     </section>
@@ -2183,7 +2364,7 @@ function buildAnvil(){
           <a href="#" onclick="iaScrollTo('ia-doc-color'); return false;">Color</a>
           <a href="#" onclick="iaScrollTo('ia-doc-texture'); return false;">Texture</a>
           <a href="#" onclick="iaScrollTo('ia-doc-morph'); return false;">Morph</a>
-          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download ZIP</a>
+          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a>
         </div>
       </div>
     </div>
@@ -2235,15 +2416,15 @@ function buildAnvil(){
 
     <section class="ia-section" id="ia-doc-install">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Install / delivery</span><h2>Copy the complete VST3 bundle. Do not split it apart.</h2><p>Impulse Anvil ships as a zipped Windows VST3 folder bundle with factory IRs inside the plugin folder.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Install / delivery</span><h2>Copy the complete VST3 bundle. Do not split it apart.</h2><p>Impulse Anvil ships as a zipped Windows VST3 folder bundle with 120 factory IRs inside the plugin folder.</p></div></div>
         <div class="ia-grid ia-grid-three">
           <article class="ia-card"><div class="ia-number">1</div><h3>Download</h3><p>Download <code>ImpulseAnvil_Windows_VST3.zip</code>. This should be the final customer build, not the source/project ZIP.</p></article>
           <article class="ia-card"><div class="ia-number">2</div><h3>Extract</h3><p>Unzip it. You should see a complete <code>Impulse Anvil.vst3</code> folder bundle with subfolders and factory content.</p></article>
           <article class="ia-card"><div class="ia-number">3</div><h3>Copy + rescan</h3><p>Copy the whole folder to <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code>, restart your DAW or run a plugin rescan.</p></article>
         </div>
         <div class="ia-grid ia-grid-two" style="margin-top:16px">
-          <article class="ia-card"><h3>Activation</h3><ul class="ia-list"><li>Buy through Lemon Squeezy.</li><li>Copy the license key from the purchase email.</li><li>Open the License panel inside Impulse Anvil.</li><li>Paste the key and activate while online.</li></ul></article>
-          <article class="ia-card"><h3>Where content lives</h3><p>The factory IR library is bundled inside the VST3 folder. User bakes and user IR folders are kept separate by the plugin so customers can keep their own IR library organized.</p><p class="ia-note">For the website, keep the download file named <code>ImpulseAnvil_Windows_VST3.zip</code> unless you intentionally change the constant in <code>index.html</code>.</p></article>
+          <article class="ia-card"><h3>Activation</h3><ul class="ia-list"><li>Buy a license.</li><li>Copy the license key from the purchase email.</li><li>Open the License panel inside Impulse Anvil.</li><li>Paste the key and activate while online.</li></ul></article>
+          <article class="ia-card"><h3>Where content lives</h3><p>The 120 factory IR library is bundled inside the VST3 folder. User bakes and user IR folders are kept separate by the plugin so customers can keep their own IR library organized.</p><p class="ia-note">For the website, keep the download file named <code>ImpulseAnvil_Windows_VST3.zip</code> unless you intentionally change the constant in <code>index.html</code>.</p></article>
         </div>
       </div>
     </section>
@@ -2450,7 +2631,7 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
           <span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span>
           <h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1>
           <p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p>
-          <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download Windows VST3 ZIP</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy / Activate €29</a></div>
+          <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download Windows VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy / Activate €29</a></div>
         </div>
         <div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-product.png" alt="Impulse Anvil product image" loading="lazy"></div></div>
       </div>
@@ -2460,7 +2641,7 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
         <div class="ia-grid ia-grid-three">
           <article class="ia-card"><div class="ia-number">1</div><h3>Extract</h3><p>Unzip <code>ImpulseAnvil_Windows_VST3.zip</code>. Keep the VST3 bundle structure intact.</p></article>
           <article class="ia-card"><div class="ia-number">2</div><h3>Copy</h3><p>Copy the complete <code>Impulse Anvil.vst3</code> folder to <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code>.</p></article>
-          <article class="ia-card"><div class="ia-number">3</div><h3>Rescan</h3><p>Restart or rescan your DAW. The factory IR library is bundled inside the plugin folder.</p></article>
+          <article class="ia-card"><div class="ia-number">3</div><h3>Rescan</h3><p>Restart or rescan your DAW. The 120 factory IR library is bundled inside the plugin folder.</p></article>
         </div>
       </div>
     </section>
@@ -2607,10 +2788,11 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
               <h2>Impressum / Legal Notice</h2>
 
               <div lang="de">
-                <p><strong>Angaben gemäß § 5 TMG</strong></p>
-                <address>
+                <p><strong>Angaben gemäß § 5 DDG</strong></p>
+                <address data-nosnippet>
                   <div><strong>FreQtik</strong></div>
                   <div>Maximilian Georg Walla</div>
+                  <div>STRASSE UND HAUSNUMMER HIER EINTRAGEN</div>
                   <div>63263 Neu Isenburg</div>
                   <div>Deutschland</div>
                 </address>
@@ -2624,7 +2806,7 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
                 </p>
 
                 <h3>Haftungsausschluss, Links, Urheberrecht</h3>
-                <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte verantwortlich. Nach §§ 8–10 TMG sind wir nicht verpflichtet, fremde Informationen zu überwachen. Bei Kenntnis von Rechtsverletzungen entfernen wir Inhalte/Links umgehend. Inhalte unterliegen dem deutschen Urheberrecht.</p>
+                <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte verantwortlich. Nach den gesetzlichen Vorschriften sind wir nicht verpflichtet, fremde Informationen zu überwachen. Bei Kenntnis von Rechtsverletzungen entfernen wir Inhalte/Links umgehend. Inhalte unterliegen dem deutschen Urheberrecht.</p>
 
                 <p><strong>EU-Streitschlichtung</strong><br>
                   Plattform der EU-Kommission: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.
@@ -2637,9 +2819,10 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
 
               <div lang="en">
                 <p><strong>Legal Notice (non-binding translation)</strong></p>
-                <address>
+                <address data-nosnippet>
                   <div><strong>FreQtik</strong></div>
                   <div>Maximilian Georg Walla</div>
+                  <div>INSERT STREET AND HOUSE NUMBER HERE</div>
                   <div>63263 Neu Isenburg</div>
                   <div>Germany</div>
                 </address>
@@ -2665,6 +2848,7 @@ else: blend = Curve((x − pivot) / ((1 − pivot) × LerpTime))</div></article>
     mainEl.innerHTML = html;
     initAutoSlides(); // initialize auto-scrolling on any slides in this view
     initAnatomy();    // initialize plugin anatomy highlight if present
+    initImpulseAudioPlayers(); // initialize custom dry/wet waveform players
     initImpulseAnvilStickyNav(); // product/docs floating chapter navigation
     initImpulseAnvilLanding();
     mainEl.scrollIntoView({behavior:'smooth'});
@@ -2775,14 +2959,14 @@ window.addEventListener('hashchange', () => {
 });
 
 
-    /* Prevent accidental test/placeholder checkout clicks before Lemon Squeezy is live. */
+    /* Prevent accidental test/placeholder checkout clicks before the store is live. */
     document.addEventListener('click', (event) => {
       const a = event.target && event.target.closest ? event.target.closest('a[href]') : null;
       if (!a) return;
       const href = a.getAttribute('href') || '';
       if (href.includes('PASTE_LIVE_LEMON_SQUEEZY_CHECKOUT_URL_HERE') || href.includes('PASTE_LEMON_SQUEEZY_CHECKOUT_URL_HERE')) {
         event.preventDefault();
-        alert('Impulse Anvil checkout is not live yet. The demo download is available now. Replace the Lemon Squeezy placeholder in index.html when your live store is approved.');
+        alert('Impulse Anvil checkout is not live yet. The demo download is available now.');
       }
     });
 
