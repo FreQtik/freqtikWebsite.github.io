@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Impulse Anvil Beta Tester Start Page</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="description" content="Private beta tester start page for Impulse Anvil by FreQtik.">
+  <link rel="icon" type="image/png" href="assets/tinylogoQ.png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#03070d; --bg2:#07131d; --text:#f4fbfd; --muted:#b0c3cb; --dim:#718894;
+      --cyan:#27d6ff; --cyan2:#138fb0; --line:rgba(150,218,240,.16); --line2:rgba(255,255,255,.105);
+      --ok:#9ff3d1; --warn:#f8e7a1; --bad:#ffb4b4; --radius:24px; --shadow:0 30px 90px rgba(0,0,0,.46); --max:1180px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; background:var(--bg); color:var(--text); }
+    body {
+      margin:0; min-height:100vh;
+      font-family:Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 16% 7%, rgba(39,214,255,.12), transparent 31%),
+        radial-gradient(circle at 86% 4%, rgba(74,163,255,.08), transparent 34%),
+        radial-gradient(circle at 52% 66%, rgba(255,255,255,.045), transparent 32%),
+        linear-gradient(180deg,#03070d 0%,#07131d 43%,#04070b 100%);
+      overflow-x:hidden;
+    }
+    body:before {
+      content:""; position:fixed; inset:0; z-index:-2; opacity:.16;
+      background-image:linear-gradient(rgba(39,214,255,.10) 1px, transparent 1px),linear-gradient(90deg, rgba(39,214,255,.10) 1px, transparent 1px);
+      background-size:96px 96px; mask-image:linear-gradient(to bottom, black 0%, transparent 80%); pointer-events:none;
+    }
+    body:after { content:""; position:fixed; inset:0; z-index:-1; background:radial-gradient(ellipse at bottom, rgba(255,255,255,.04), transparent 58%); pointer-events:none; }
+    a { color:inherit; } img { max-width:100%; display:block; }
+    .shell { width:min(var(--max), calc(100% - 36px)); margin:0 auto; }
+    .mini-nav { position:relative; z-index:4; padding:46px 0 0; }
+    .mini-nav-inner {
+      width:min(var(--max), calc(100% - 36px)); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px;
+      border:1px solid var(--line); border-radius:999px; padding:8px 10px 8px 16px; background:rgba(4,10,15,.64);
+      box-shadow:0 18px 50px rgba(0,0,0,.23); backdrop-filter:blur(16px);
+    }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; min-width:max-content; }
+    .brand-mark {
+      width:34px; height:34px; border:1px solid rgba(39,214,255,.38); border-radius:12px; display:grid; place-items:center;
+      background:linear-gradient(145deg, rgba(39,214,255,.14), rgba(255,255,255,.035)); box-shadow:inset 0 1px 0 rgba(255,255,255,.20), 0 0 20px rgba(39,214,255,.10); overflow:hidden;
+    }
+    .brand-mark img { width:24px; height:24px; object-fit:contain; filter:invert(1) brightness(1.65) drop-shadow(0 0 8px rgba(39,214,255,.25)); opacity:.96; }
+    .brand strong { display:block; font-size:13px; letter-spacing:.12em; }
+    .brand span span { display:block; color:var(--dim); font-size:10px; margin-top:1px; letter-spacing:.06em; }
+    .mini-links { display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+    .mini-links a { text-decoration:none; color:var(--muted); font-size:12px; font-weight:800; padding:8px 10px; border-radius:999px; transition:color .2s, background .2s, transform .2s; }
+    .mini-links a:hover { color:var(--text); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:0 18px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:var(--text); text-decoration:none;
+      font-weight:850; font-size:14px; letter-spacing:-.01em; white-space:nowrap; box-shadow:0 10px 30px rgba(0,0,0,.18);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease; cursor:pointer; font-family:inherit;
+    }
+    .btn:hover { transform:translateY(-2px); border-color:rgba(39,214,255,.55); box-shadow:0 16px 42px rgba(0,0,0,.28); }
+    .btn-primary { background:linear-gradient(135deg,#27d6ff,#168fb0 65%,#0b4960); color:#031116; border-color:rgba(143,240,255,.80); text-shadow:0 1px 0 rgba(255,255,255,.25); }
+    .btn-hero { min-height:56px; padding:0 28px; font-size:17px; box-shadow:0 18px 54px rgba(39,214,255,.26), 0 10px 30px rgba(0,0,0,.24); }
+    .section { padding:72px 0; }
+    .hero { padding:64px 0 54px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,.94fr) minmax(520px,1.22fr); gap:42px; align-items:center; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border-radius:999px; border:1px solid rgba(39,214,255,.22);
+      background:rgba(39,214,255,.065); color:#d9fbff; font-size:12px; font-weight:850; text-transform:uppercase; letter-spacing:.14em;
+    }
+    .pulse { width:8px; height:8px; border-radius:999px; background:var(--cyan); box-shadow:0 0 14px rgba(39,214,255,.8); }
+    h1 { margin:18px 0 16px; font-size:clamp(44px,6vw,88px); line-height:.88; letter-spacing:-.07em; max-width:850px; }
+    h2 { font-size:clamp(32px,4vw,56px); line-height:.95; letter-spacing:-.045em; margin:10px 0 12px; }
+    h3 { margin:0 0 10px; font-size:20px; letter-spacing:-.02em; }
+    p { color:var(--muted); line-height:1.65; }
+    .cyan { color:var(--cyan); text-shadow:0 0 28px rgba(39,214,255,.22); }
+    .lead { color:#d2e4ea; font-size:clamp(18px,1.7vw,23px); line-height:1.45; max-width:640px; margin:0 0 22px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin:26px 0 20px; }
+    .product-card { position:relative; border-radius:28px; padding:12px; background:linear-gradient(145deg, rgba(39,214,255,.20), rgba(255,255,255,.05) 42%, rgba(0,0,0,.38)), rgba(255,255,255,.052); border:1px solid rgba(136,231,255,.20); box-shadow:var(--shadow), 0 0 50px rgba(39,214,255,.10); isolation:isolate; }
+    .product-card:before { content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; background:linear-gradient(90deg, transparent, rgba(39,214,255,.30), transparent); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite:exclude; padding:1px; opacity:.58; }
+    .product-window { border-radius:19px; overflow:hidden; background:#000; box-shadow:inset 0 0 0 1px rgba(255,255,255,.12); }
+    .float-card { position:absolute; right:22px; bottom:22px; width:min(330px,46%); border-radius:18px; padding:16px; background:rgba(4,10,15,.78); border:1px solid rgba(39,214,255,.22); backdrop-filter:blur(18px); box-shadow:0 24px 50px rgba(0,0,0,.40); }
+    .float-card b { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--cyan); margin-bottom:5px; }
+    .float-card p { margin:0; color:#d9eaee; line-height:1.4; font-size:13px; }
+    .section-head { margin-bottom:28px; display:flex; justify-content:space-between; gap:24px; align-items:end; }
+    .section-head .copy { max-width:760px; }
+    .kicker { color:var(--cyan); font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+    .grid { display:grid; gap:16px; }
+    .grid-three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .grid-two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .card { position:relative; overflow:hidden; border-radius:var(--radius); border:1px solid var(--line); background:linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.04)); box-shadow:0 18px 50px rgba(0,0,0,.22); padding:24px; }
+    .card:before { content:""; position:absolute; inset:-120px -120px auto auto; width:220px; height:220px; border-radius:999px; background:radial-gradient(circle, rgba(39,214,255,.12), transparent 66%); pointer-events:none; }
+    .number { width:46px; height:46px; border-radius:16px; display:grid; place-items:center; background:rgba(39,214,255,.12); border:1px solid rgba(39,214,255,.24); color:var(--cyan); font-weight:900; font-size:17px; margin-bottom:16px; box-shadow:0 0 28px rgba(39,214,255,.08); }
+    .step-card { padding:30px; border-color:rgba(39,214,255,.26); background:linear-gradient(180deg, rgba(39,214,255,.105), rgba(255,255,255,.045)); }
+    .step-card .number { width:58px; height:58px; border-radius:20px; font-size:21px; margin-bottom:20px; background:linear-gradient(135deg,rgba(39,214,255,.20),rgba(255,255,255,.055)); border-color:rgba(39,214,255,.38); }
+    .step-card h3 { font-size:23px; margin-bottom:12px; }
+    .step-card p, .step-card li { font-size:16px; }
+    .step-pill { display:inline-flex; align-items:center; gap:9px; border-radius:999px; padding:8px 12px; border:1px solid rgba(39,214,255,.26); background:rgba(39,214,255,.08); color:#e0fbff; font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; }
+    .path-card { margin-top:16px; border-color:rgba(39,214,255,.24); }
+    .path-card h3 { margin-bottom:8px; }
+    .path-card p { margin-top:0; }
+    .list { list-style:none; padding:0; margin:18px 0 0; display:grid; gap:10px; }
+    .list li { color:var(--muted); line-height:1.45; position:relative; padding-left:24px; }
+    .list li:before { content:"✓"; position:absolute; left:0; color:var(--ok); font-weight:900; }
+    .list-warn li:before { content:"!"; color:var(--warn); }
+    .quest { display:flex; gap:12px; align-items:flex-start; }
+    .quest input { appearance:none; width:22px; height:22px; margin-top:1px; border-radius:7px; border:1px solid rgba(39,214,255,.42); background:rgba(0,0,0,.24); flex:0 0 22px; cursor:pointer; }
+    .quest input:checked { background:linear-gradient(135deg,#27d6ff,#168fb0); box-shadow:0 0 0 3px rgba(39,214,255,.16); }
+    .quest strong { display:block; color:var(--text); }
+    .quest span { display:block; color:var(--muted); line-height:1.45; font-size:14px; }
+    .code { color:#dffbff; background:rgba(255,255,255,.08); padding:.15em .35em; border-radius:6px; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .path-box { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-radius:18px; border:1px solid var(--line); background:rgba(0,0,0,.22); color:#e6fbff; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; overflow:auto; }
+    .small-btn { min-height:34px; padding:0 12px; font-size:12px; flex:0 0 auto; }
+    .note { color:var(--dim); font-size:13px; line-height:1.55; margin-top:12px; }
+    .warn-box { border:1px solid rgba(248,231,161,.24); background:rgba(248,231,161,.07); border-radius:20px; padding:18px; color:#f7edbe; }
+    .final-cta { margin:26px 0 0; border-radius:34px; padding:clamp(34px,6vw,64px); background:radial-gradient(circle at 25% 10%, rgba(39,214,255,.17), transparent 30%), linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.03)); border:1px solid rgba(39,214,255,.20); box-shadow:var(--shadow); text-align:center; }
+    footer { padding:30px 0 46px; color:var(--dim); font-size:13px; text-align:center; }
+    @media (max-width:1050px) { .hero-grid { grid-template-columns:1fr; } .product-card { max-width:900px; margin:0 auto; } .grid-three { grid-template-columns:1fr 1fr; } }
+    @media (max-width:720px) { .mini-nav { padding-top:18px; } .mini-nav-inner { align-items:flex-start; flex-direction:column; border-radius:22px; padding:12px; } .mini-links { justify-content:flex-start; } .grid-three,.grid-two { grid-template-columns:1fr; } .section-head { display:block; } .float-card { position:static; width:auto; margin-top:12px; } h1 { font-size:clamp(43px,15vw,70px); } .section { padding:52px 0; } }
+  </style>
+</head>
+<body>
+  <div class="mini-nav" aria-label="Impulse Anvil beta tester navigation">
+    <div class="mini-nav-inner">
+      <a class="brand" href="#top" aria-label="FreQtik beta tester page">
+        <span class="brand-mark"><img src="assets/tinylogoQ.png" alt=""></span>
+        <span><strong>FREQTIK</strong><span>Impulse Anvil beta</span></span>
+      </a>
+      <div class="mini-links">
+        <a href="#download">Download</a>
+        <a href="#install">Install</a>
+        <a href="#activate">Activate</a>
+        <a href="#quests">Optional quests</a>
+        <a href="tester-feedback.html">Feedback</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="section hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow"><span class="pulse"></span> Private beta tester page</span>
+          <h1>Hey — still up for testing <span class="cyan">Impulse Anvil?</span></h1>
+          <p class="lead">Thank you for helping me check this before launch. This page keeps everything in one place: download, install, activation, a few useful test quests, and the feedback form.</p>
+          <div class="actions">
+            <a class="btn btn-primary btn-hero" href="#download">Start beta setup</a>
+            <a class="btn" href="#quests">Optional test quests</a>
+            <a class="btn" href="tester-feedback.html">Open feedback form</a>
+          </div>
+          <div class="warn-box">
+            <strong>Please don’t share the license key or download link publicly.</strong><br>
+            This is only for early testing and honest feedback before release. Short answers are fine — I mainly need to know what works, what breaks, and what feels confusing.
+          </div>
+        </div>
+        <div class="product-card" aria-label="Impulse Anvil product artwork">
+          <div class="product-window">
+            <img src="assets/impulse-anvil-product.png" alt="Impulse Anvil product artwork by FreQtik" loading="eager">
+          </div>
+          <div class="float-card">
+            <b>Beta testing goal</b>
+            <p>Install it, activate it, use it on real sounds, try the deeper features, then tell me honestly where it felt good or confusing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="shell">
+        <div class="section-head"><div class="copy"><span class="step-pill">Step 1 · Download</span><h2>Download the same VST3 build users will try.</h2><p>The download starts as demo mode, then unlocks when the beta/test license is activated inside the plugin.</p></div></div>
+        <div class="grid grid-two">
+          <article class="card step-card">
+            <div class="number">1</div>
+            <h3>Download the ZIP</h3>
+            <p>Click the button and download <span class="code">ImpulseAnvil_Windows_VST3.zip</span>.</p>
+            <div class="actions"><a class="btn btn-primary" href="https://github.com/freqtik/freqtikWebsite.github.io/releases/latest/download/ImpulseAnvil_Windows_VST3.zip" target="_blank" rel="noopener">Download Impulse Anvil VST3</a></div>
+          </article>
+          <article class="card step-card">
+            <div class="number">2</div>
+            <h3>Before you start</h3>
+            <ul class="list list-warn">
+              <li>Windows 10/11, 64-bit only.</li>
+              <li>VST3 host required.</li>
+              <li>Keep the whole <span class="code">Impulse Anvil.vst3</span> folder together.</li>
+              <li>Do not copy only the internal DLL/binary.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="install">
+      <div class="shell">
+        <div class="section-head"><div class="copy"><span class="step-pill">Step 2 · Install</span><h2>Install by copying the complete VST3 folder.</h2><p>This is a zipped VST3 folder bundle, not a traditional installer.</p></div></div>
+        <div class="grid grid-three">
+          <article class="card step-card"><div class="number">1</div><h3>Extract the ZIP</h3><p>Right-click the downloaded ZIP and extract it. You should see a full folder called <span class="code">Impulse Anvil.vst3</span>.</p></article>
+          <article class="card step-card"><div class="number">2</div><h3>Copy the folder</h3><p>Copy the complete <span class="code">Impulse Anvil.vst3</span> folder into the common Windows VST3 path shown below.</p></article>
+          <article class="card step-card"><div class="number">3</div><h3>Rescan your DAW</h3><p>Restart your DAW or run a VST3 rescan. Then load Impulse Anvil on an audio track, bus, or send.</p></article>
+        </div>
+        <article class="card path-card">
+          <h3>Common Windows VST3 path</h3>
+          <p>This is the standard folder where most Windows DAWs scan VST3 plugins. Paste the whole <span class="code">Impulse Anvil.vst3</span> folder here:</p>
+          <div class="path-box">
+            <span id="vstPath">C:\Program Files\Common Files\VST3</span>
+            <button class="btn small-btn" type="button" onclick="copyPath()">Copy path</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="activate">
+      <div class="shell">
+        <div class="section-head"><div class="copy"><span class="step-pill">Step 3 · Activate</span><h2>Activate the beta/test license inside the plugin.</h2><p>Use the license key I sent you. The plugin should unlock after activation. If anything fails, please write down exactly what happened.</p></div></div>
+        <div class="grid grid-three">
+          <article class="card step-card"><div class="number">1</div><h3>Open the plugin</h3><p>Insert Impulse Anvil in your DAW and open the plugin window.</p></article>
+          <article class="card step-card"><div class="number">2</div><h3>Open License</h3><p>Go to the license/activation area inside Impulse Anvil.</p></article>
+          <article class="card step-card"><div class="number">3</div><h3>Paste key</h3><p>Paste the beta license key, activate it, then reload the plugin if the UI asks for it.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quests">
+      <div class="shell">
+        <div class="section-head"><div class="copy"><span class="kicker">Optional after setup</span><h2>Optional test quests.</h2><p>Only do these if you have time and energy after the plugin is installed and activated. They are just prompts for finding bugs, confusing behaviour, or cool moments.</p></div></div>
+        <div class="grid grid-two">
+          <article class="card">
+            <h3>Core workflow</h3>
+            <label class="quest"><input type="checkbox"><span><strong>Load IR A and IR B.</strong><span>Try a factory IR first, then any WAV IR you already have.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Use the Morph knob.</strong><span>Sweep it by ear and note if the transition feels useful, confusing, or broken.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Try all morph modes.</strong><span>Time Morph, Spectral, BandSwap and ZigZag. Note anything that sounds broken or surprisingly good.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Use Random a few times.</strong><span>See whether it gives useful discoveries or confusing chaos.</span></span></label>
+          </article>
+          <article class="card">
+            <h3>Deep features</h3>
+            <label class="quest"><input type="checkbox"><span><strong>Try Color and Texture Depth.</strong><span>Enable a Color row first, then increase Texture Depth slowly.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Try A→B Lerp.</strong><span>Change the curve and Lerp Time, then listen to how the IR tail evolves.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Bake Current.</strong><span>Export one current IR, then load it again if possible.</span></span></label>
+            <label class="quest"><input type="checkbox"><span><strong>Bake a lerped IR.</strong><span>Export an A→B Lerp result and check whether it behaves as expected.</span></span></label>
+          </article>
+        </div>
+        <div class="grid grid-two" style="margin-top:16px">
+          <article class="card">
+            <h3>Sound sources to try</h3>
+            <ul class="list">
+              <li>Vocal, synth, piano, drums or guitar.</li>
+              <li>One send/bus setup and one insert setup.</li>
+              <li>Any weird IR or WAV texture you already have.</li>
+              <li>Something short and percussive, then something sustained.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Most useful things to report</h3>
+            <ul class="list list-warn">
+              <li>DAW and Windows version.</li>
+              <li>Install/scan/activation problems.</li>
+              <li>Crashes, freezes, crackles, silence, crazy volume spikes.</li>
+              <li>Any control name or workflow step that felt unclear.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="feedback">
+      <div class="shell">
+        <div class="final-cta">
+          <span class="kicker">When you are done</span>
+          <h2>Send the feedback while it is still fresh.</h2>
+          <p>Even short feedback helps a lot. A simple “setup worked, Cubase scanned it, activation worked, Morph confused me here” is already useful.</p>
+          <div class="actions" style="justify-content:center"><a class="btn btn-primary btn-hero" href="tester-feedback.html">Open feedback form</a><a class="btn" href="mailto:freqtiksup@gmail.com">Email support</a></div>
+          <p class="note">Support email: freqtiksup@gmail.com</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Private beta tester page for Impulse Anvil by FreQtik. Please do not share the license key or download link publicly.
+  </footer>
+
+  <script>
+    function copyPath() {
+      const text = document.getElementById('vstPath').textContent;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert('VST3 path copied.'));
+      } else {
+        alert(text);
+      }
+    }
+  </script>
+</body>
+</html>
