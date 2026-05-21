@@ -53,7 +53,13 @@
     #menuToggle {
       position:fixed; top:10px; left:10px;
       z-index:200; background:none; border:none;
+      color:#000;
       font-size:24px; display:none; cursor:pointer;
+      transition:color .18s ease, text-shadow .18s ease;
+    }
+    #menuToggle.menu-light {
+      color:#fff;
+      text-shadow:0 2px 14px rgba(0,0,0,.75), 0 0 20px rgba(39,214,255,.20);
     }
     header {
       position:fixed; top:0; left:0; right:0;
@@ -719,6 +725,7 @@
     }
     .ia26 .ia-mini-links a:hover { color:var(--ia-text); background:rgba(255,255,255,.06); transform:translateY(-1px); }
 
+    .ia26 .ia-mini-nav.ia-mini-nav-product { padding-top:46px; }
     .ia26 .ia-mini-nav-product .ia-mini-nav-inner { justify-content:center; padding-left:10px; }
     .ia26 .ia-mini-links-product { justify-content:center; }
     .ia26 .ia-old-price { color:var(--ia-dim); text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:rgba(255,255,255,.58); font-weight:850; }
@@ -913,6 +920,7 @@
       .ia26 .ia-float-card { position:static; width:auto; margin-top:12px; }
       .ia26 h1 { font-size:clamp(43px,15vw,70px); }
       .ia26 .ia-section { padding:52px 0; }
+      .ia26 .ia-mini-nav.ia-mini-nav-product { padding-top:34px; }
     }
 
     /* FOOTER */
@@ -2916,10 +2924,21 @@ window.addEventListener('hashchange', () => {
       }
     }
 
+    function updateMenuToggleTheme(isHeaderHidden){
+      const darkProduct = document.querySelector('.ia26');
+      let shouldBeLight = false;
+      if (darkProduct && isHeaderHidden) {
+        const r = darkProduct.getBoundingClientRect();
+        shouldBeLight = r.top <= 52 && r.bottom >= 52;
+      }
+      toggleBtn.classList.toggle('menu-light', shouldBeLight);
+    }
+
     /* menu toggle */
     toggleBtn.addEventListener('click', ()=>{
       headerEl.style.transform='translateY(0)';
       toggleBtn.style.display='none';
+      toggleBtn.classList.remove('menu-light');
     });
 
     /* scroll behavior (header hide/show only; logo stays fixed) */
@@ -2928,6 +2947,7 @@ window.addEventListener('hashchange', () => {
       const hidden = (y>0);
       headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
       toggleBtn.style.display = hidden ? 'block' : 'none';
+      updateMenuToggleTheme(hidden);
 
       // Close dropdowns when user scrolls
       closeDropdowns();
@@ -2954,6 +2974,8 @@ window.addEventListener('hashchange', () => {
   } else {
     loadFeed('anvil');
   }
+
+  updateMenuToggleTheme(window.scrollY > 0);
 
   if (window.innerWidth < 600) introEl.classList.add('hidden');
 });
