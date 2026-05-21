@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Impulse Anvil Early Tester Feedback</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="description" content="Private early tester feedback form for Impulse Anvil by FreQtik.">
+  <link rel="icon" type="image/png" href="assets/tinylogoQ.png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#03070d;
+      --bg2:#07131d;
+      --text:#f4fbfd;
+      --muted:#b0c3cb;
+      --dim:#718894;
+      --cyan:#27d6ff;
+      --cyan2:#138fb0;
+      --line:rgba(150,218,240,.16);
+      --line2:rgba(255,255,255,.105);
+      --ok:#9ff3d1;
+      --warn:#f8e7a1;
+      --radius:24px;
+      --shadow:0 30px 90px rgba(0,0,0,.46);
+      --max:1180px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; background:var(--bg); color:var(--text); }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 16% 7%, rgba(39,214,255,.12), transparent 31%),
+        radial-gradient(circle at 86% 4%, rgba(74,163,255,.08), transparent 34%),
+        radial-gradient(circle at 52% 66%, rgba(255,255,255,.045), transparent 32%),
+        linear-gradient(180deg,#03070d 0%,#07131d 43%,#04070b 100%);
+      overflow-x:hidden;
+    }
+    body:before {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      opacity:.16;
+      background-image:
+        linear-gradient(rgba(39,214,255,.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(39,214,255,.10) 1px, transparent 1px);
+      background-size:96px 96px;
+      mask-image:linear-gradient(to bottom, black 0%, transparent 80%);
+      pointer-events:none;
+    }
+    body:after {
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:radial-gradient(ellipse at bottom, rgba(255,255,255,.04), transparent 58%);
+      pointer-events:none;
+    }
+    a { color:inherit; }
+    img { max-width:100%; display:block; }
+    .shell { width:min(var(--max), calc(100% - 36px)); margin:0 auto; }
+    .mini-nav { position:relative; z-index:4; padding:46px 0 0; }
+    .mini-nav-inner {
+      width:min(var(--max), calc(100% - 36px));
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 10px 8px 16px;
+      background:rgba(4,10,15,.64);
+      box-shadow:0 18px 50px rgba(0,0,0,.23);
+      backdrop-filter:blur(16px);
+    }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; min-width:max-content; }
+    .brand-mark {
+      width:34px; height:34px; border:1px solid rgba(39,214,255,.38); border-radius:12px;
+      display:grid; place-items:center;
+      background:linear-gradient(145deg, rgba(39,214,255,.14), rgba(255,255,255,.035));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.20), 0 0 20px rgba(39,214,255,.10);
+      overflow:hidden;
+    }
+    .brand-mark img { width:24px; height:24px; object-fit:contain; filter:invert(1) brightness(1.65) drop-shadow(0 0 8px rgba(39,214,255,.25)); opacity:.96; }
+    .brand strong { display:block; font-size:13px; letter-spacing:.12em; }
+    .brand span span { display:block; color:var(--dim); font-size:10px; margin-top:1px; letter-spacing:.06em; }
+    .mini-links { display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+    .mini-links a {
+      text-decoration:none; color:var(--muted); font-size:12px; font-weight:800; padding:8px 10px; border-radius:999px;
+      transition:color .2s, background .2s, transform .2s;
+    }
+    .mini-links a:hover { color:var(--text); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px;
+      min-height:44px; padding:0 18px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06); color:var(--text); text-decoration:none;
+      font-weight:850; font-size:14px; letter-spacing:-.01em; white-space:nowrap;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+      cursor:pointer;
+      font-family:inherit;
+    }
+    .btn:hover { transform:translateY(-2px); border-color:rgba(39,214,255,.55); box-shadow:0 16px 42px rgba(0,0,0,.28); }
+    .btn-primary { background:linear-gradient(135deg,#27d6ff,#168fb0 65%,#0b4960); color:#031116; border-color:rgba(143,240,255,.80); text-shadow:0 1px 0 rgba(255,255,255,.25); }
+    .btn-hero { min-height:56px; padding:0 28px; font-size:17px; box-shadow:0 18px 54px rgba(39,214,255,.26), 0 10px 30px rgba(0,0,0,.24); }
+    .section { padding:72px 0; }
+    .hero { padding:64px 0 54px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,.94fr) minmax(520px,1.22fr); gap:42px; align-items:center; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border-radius:999px;
+      border:1px solid rgba(39,214,255,.22); background:rgba(39,214,255,.065); color:#d9fbff;
+      font-size:12px; font-weight:850; text-transform:uppercase; letter-spacing:.14em;
+    }
+    .pulse { width:8px; height:8px; border-radius:999px; background:var(--cyan); box-shadow:0 0 14px rgba(39,214,255,.8); }
+    h1 { margin:18px 0 16px; font-size:clamp(44px,6vw,90px); line-height:.88; letter-spacing:-.07em; max-width:850px; }
+    h2 { font-size:clamp(32px,4vw,58px); line-height:.95; letter-spacing:-.045em; margin:10px 0 12px; }
+    h3 { margin:0 0 10px; font-size:20px; letter-spacing:-.02em; }
+    p { color:var(--muted); line-height:1.65; }
+    .cyan { color:var(--cyan); text-shadow:0 0 28px rgba(39,214,255,.22); }
+    .lead { color:#d2e4ea; font-size:clamp(18px,1.7vw,23px); line-height:1.45; max-width:650px; margin:0 0 22px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin:26px 0 20px; }
+    .product-card {
+      position:relative; border-radius:28px; padding:12px;
+      background:linear-gradient(145deg, rgba(39,214,255,.20), rgba(255,255,255,.05) 42%, rgba(0,0,0,.38)), rgba(255,255,255,.052);
+      border:1px solid rgba(136,231,255,.20);
+      box-shadow:var(--shadow), 0 0 50px rgba(39,214,255,.10);
+      isolation:isolate;
+    }
+    .product-card:before {
+      content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+      background:linear-gradient(90deg, transparent, rgba(39,214,255,.30), transparent);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;
+      mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite:exclude;
+      padding:1px; opacity:.58;
+    }
+    .product-window { border-radius:19px; overflow:hidden; background:#000; box-shadow:inset 0 0 0 1px rgba(255,255,255,.12); }
+    .product-window img { width:100%; height:auto; }
+    .float-card {
+      position:absolute; right:22px; bottom:22px; width:min(340px,46%); border-radius:18px; padding:16px;
+      background:rgba(4,10,15,.78); border:1px solid rgba(39,214,255,.22); backdrop-filter:blur(18px); box-shadow:0 24px 50px rgba(0,0,0,.40);
+    }
+    .float-card b { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--cyan); margin-bottom:5px; }
+    .float-card p { margin:0; color:#d9eaee; line-height:1.4; font-size:13px; }
+    .form-wrap { max-width:980px; margin:0 auto; }
+    .section-head { margin-bottom:28px; display:flex; justify-content:space-between; gap:24px; align-items:end; }
+    .kicker { color:var(--cyan); font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+    .card {
+      position:relative; overflow:hidden; border-radius:var(--radius); border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.04));
+      box-shadow:0 18px 50px rgba(0,0,0,.22); padding:24px;
+    }
+    .card:before { content:""; position:absolute; inset:-120px -120px auto auto; width:220px; height:220px; border-radius:999px; background:radial-gradient(circle, rgba(39,214,255,.12), transparent 66%); pointer-events:none; }
+    .feedback-form { display:grid; gap:16px; }
+    .field-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .field, .choice-group { display:grid; gap:8px; }
+    .field label, .choice-title { font-size:13px; color:var(--text); font-weight:900; letter-spacing:.03em; }
+    .field input, .field select, .field textarea {
+      width:100%; border-radius:16px; border:1px solid rgba(150,218,240,.22); background:rgba(0,0,0,.28); color:var(--text);
+      padding:13px 14px; outline:none; font:inherit; box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .field textarea { min-height:118px; resize:vertical; line-height:1.55; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color:rgba(39,214,255,.70); background:rgba(0,0,0,.38); box-shadow:0 0 0 4px rgba(39,214,255,.10), inset 0 1px 0 rgba(255,255,255,.07); }
+    .field small { color:var(--dim); line-height:1.45; }
+    .choice-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .pill-choice {
+      position:relative; display:inline-flex; align-items:center; gap:8px; min-height:40px; border-radius:999px;
+      border:1px solid rgba(150,218,240,.18); background:rgba(255,255,255,.045); padding:0 12px;
+      color:var(--muted); font-size:13px; font-weight:800; cursor:pointer; user-select:none;
+      transition:transform .16s ease, border-color .16s ease, color .16s ease, background .16s ease;
+    }
+    .pill-choice:hover { transform:translateY(-1px); border-color:rgba(39,214,255,.45); color:var(--text); background:rgba(39,214,255,.08); }
+    .pill-choice input, .check-line input { accent-color:var(--cyan); }
+    .check-line { display:flex; gap:10px; align-items:flex-start; color:var(--muted); line-height:1.55; font-size:14px; }
+    .check-line input { margin-top:4px; flex:0 0 auto; }
+    .submit-card { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    footer { padding:34px 18px 52px; color:var(--dim); text-align:center; font-size:13px; }
+    @media (max-width:1050px) {
+      .hero-grid { grid-template-columns:1fr; }
+      .product-card { max-width:900px; margin:0 auto; }
+    }
+    @media (max-width:720px) {
+      .mini-nav { padding-top:16px; }
+      .mini-nav-inner { align-items:flex-start; flex-direction:column; border-radius:22px; padding:12px; }
+      .mini-links { justify-content:flex-start; }
+      .hero { padding-top:44px; }
+      h1 { font-size:clamp(43px,15vw,70px); }
+      .field-grid { grid-template-columns:1fr; }
+      .float-card { position:static; width:auto; margin-top:12px; }
+      .submit-card { align-items:stretch; }
+      .submit-card .btn { width:100%; }
+      .section { padding:52px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mini-nav" aria-label="Impulse Anvil tester feedback navigation">
+    <div class="mini-nav-inner">
+      <a class="brand" href="/" aria-label="FreQtik home">
+        <span class="brand-mark"><img src="assets/tinylogoQ.png" alt="FreQtik Q"></span>
+        <span><strong>FREQTIK</strong><span>Impulse Anvil testing</span></span>
+      </a>
+      <div class="mini-links">
+        <a href="/">Product page</a>
+        <a href="/#docs">Docs</a>
+        <a href="https://github.com/freqtik/freqtikWebsite.github.io/releases/latest/download/ImpulseAnvil_Windows_VST3.zip" target="_blank" rel="noopener">Download VST3</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="section hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow"><span class="pulse"></span> Early tester feedback</span>
+          <h1>Help shape <span class="cyan">Impulse Anvil.</span></h1>
+          <p class="lead">Thanks a lot for testing this early. No need to write an essay — short honest answers are perfect. I mostly need to know if setup worked, if activation worked, what confused you, and whether anything broke.</p>
+          <p>Small note: please don’t share the license key or download link publicly. This is only for early testing before launch.</p>
+          <div class="actions">
+            <a class="btn btn-primary btn-hero" href="#feedback-form">Start feedback</a>
+            <a class="btn" href="https://github.com/freqtik/freqtikWebsite.github.io/releases/latest/download/ImpulseAnvil_Windows_VST3.zip" target="_blank" rel="noopener">Download VST3</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-window">
+            <img src="assets/impulse-anvil-product.png" alt="Impulse Anvil product artwork" loading="eager">
+          </div>
+          <div class="float-card">
+            <b>Tester form</b>
+            <p>Tell me what happened in your actual DAW. Simple, direct feedback is more useful than polished marketing language.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="feedback-form">
+      <div class="shell form-wrap">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Feedback form</span>
+            <h2>Quick, honest, human.</h2>
+            <p>Answer what you can. If something failed, the exact DAW, Windows version and what you clicked before it happened are the most useful details.</p>
+          </div>
+        </div>
+
+        <form class="feedback-form" action="https://formsubmit.co/freqtiksup@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Impulse Anvil tester feedback">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://freqtik.com/tester-feedback-thanks.html">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="card">
+            <h3>Basic info</h3>
+            <div class="field-grid">
+              <div class="field">
+                <label for="tester_name">Name / Discord name</label>
+                <input id="tester_name" name="tester_name" type="text" placeholder="Whatever name I know you by">
+              </div>
+              <div class="field">
+                <label for="email">Email, optional</label>
+                <input id="email" name="email" type="email" placeholder="Only if you want me to reply">
+              </div>
+              <div class="field">
+                <label for="daw">DAW</label>
+                <input id="daw" name="daw" type="text" required placeholder="Ableton, FL Studio, Cubase, Reaper...">
+              </div>
+              <div class="field">
+                <label for="daw_version">DAW version, if you know it</label>
+                <input id="daw_version" name="daw_version" type="text" placeholder="Example: Reaper 7, Cubase 13">
+              </div>
+              <div class="field">
+                <label for="windows_version">Windows version</label>
+                <input id="windows_version" name="windows_version" type="text" required placeholder="Windows 10 / Windows 11">
+              </div>
+              <div class="field">
+                <label for="audio_interface">Audio interface / buffer, optional</label>
+                <input id="audio_interface" name="audio_interface_buffer" type="text" placeholder="Example: Focusrite, 256 samples">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Setup check</h3>
+            <div class="choice-group">
+              <div class="choice-title">Did setup / install work?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="install_worked" value="Yes, no problem" required> Yes, no problem</label>
+                <label class="pill-choice"><input type="radio" name="install_worked" value="Yes, but confusing"> Yes, but confusing</label>
+                <label class="pill-choice"><input type="radio" name="install_worked" value="No, I got stuck"> No, I got stuck</label>
+                <label class="pill-choice"><input type="radio" name="install_worked" value="Did not try yet"> Did not try yet</label>
+              </div>
+            </div>
+            <div class="choice-group" style="margin-top:16px">
+              <div class="choice-title">Did your DAW find / scan the plugin?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="daw_scan_worked" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="daw_scan_worked" value="No"> No</label>
+                <label class="pill-choice"><input type="radio" name="daw_scan_worked" value="Needed rescan/fix"> Needed rescan/fix</label>
+                <label class="pill-choice"><input type="radio" name="daw_scan_worked" value="Not sure"> Not sure</label>
+              </div>
+            </div>
+            <div class="choice-group" style="margin-top:16px">
+              <div class="choice-title">Did license activation work?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="license_activation_worked" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="license_activation_worked" value="No"> No</label>
+                <label class="pill-choice"><input type="radio" name="license_activation_worked" value="Only used demo mode"> Only used demo mode</label>
+                <label class="pill-choice"><input type="radio" name="license_activation_worked" value="Did not try yet"> Did not try yet</label>
+              </div>
+            </div>
+            <div class="choice-group" style="margin-top:16px">
+              <div class="choice-title">Did the plugin work once loaded?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="plugin_worked" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="plugin_worked" value="Mostly yes"> Mostly yes</label>
+                <label class="pill-choice"><input type="radio" name="plugin_worked" value="Loaded but something felt broken"> Loaded, but something felt broken</label>
+                <label class="pill-choice"><input type="radio" name="plugin_worked" value="No"> No</label>
+                <label class="pill-choice"><input type="radio" name="plugin_worked" value="Did not get that far"> Did not get that far</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Actual use</h3>
+            <div class="choice-group">
+              <div class="choice-title">Did you actually use it on sounds or music?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="actually_used_plugin" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="actually_used_plugin" value="Only briefly"> Only briefly</label>
+                <label class="pill-choice"><input type="radio" name="actually_used_plugin" value="Not yet"> Not yet</label>
+              </div>
+            </div>
+            <div class="field" style="margin-top:16px">
+              <label for="used_on">What did you try it on?</label>
+              <input id="used_on" name="used_on" type="text" placeholder="Vocals, drums, synths, guitar, ambience, random recordings...">
+            </div>
+            <div class="field-grid" style="margin-top:16px">
+              <div class="field">
+                <label for="liked">What did you like?</label>
+                <textarea id="liked" name="what_you_liked" required placeholder="Sound, UI, Random, morphing, Color, Texture Depth, factory IRs, baking, docs..."></textarea>
+              </div>
+              <div class="field">
+                <label for="not_liked">What did you not like or find confusing?</label>
+                <textarea id="not_liked" name="what_you_did_not_like_or_found_confusing" required placeholder="Be honest. Confusing names, workflow friction, UI parts, anything."></textarea>
+              </div>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="bugs">Any bugs, crashes, freezes or weird audio?</label>
+                <textarea id="bugs" name="bugs_crashes_or_weird_audio" required placeholder="What happened? What were you doing right before it happened?"></textarea>
+              </div>
+              <div class="field">
+                <label for="ideas">What would make it easier or more exciting?</label>
+                <textarea id="ideas" name="ideas_or_missing_features" placeholder="Anything small is useful. Better naming, presets, tutorial needs, workflow ideas..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Final impression</h3>
+            <div class="choice-group">
+              <div class="choice-title">Did you understand what Impulse Anvil is for after using it?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="understood_product" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="understood_product" value="Kind of"> Kind of</label>
+                <label class="pill-choice"><input type="radio" name="understood_product" value="Not really"> Not really</label>
+              </div>
+            </div>
+            <div class="choice-group" style="margin-top:16px">
+              <div class="choice-title">Would you use it again after testing?</div>
+              <div class="choice-row">
+                <label class="pill-choice"><input type="radio" name="would_use_again" value="Yes" required> Yes</label>
+                <label class="pill-choice"><input type="radio" name="would_use_again" value="Maybe"> Maybe</label>
+                <label class="pill-choice"><input type="radio" name="would_use_again" value="Probably not"> Probably not</label>
+              </div>
+            </div>
+            <div class="field" style="margin-top:16px">
+              <label for="final_thoughts">Anything else?</label>
+              <textarea id="final_thoughts" name="final_thoughts" placeholder="Anything you noticed, even if it feels small."></textarea>
+            </div>
+          </div>
+
+          <div class="card submit-card">
+            <div>
+              <label class="check-line">
+                <input type="checkbox" name="license_not_shared_confirmation" value="Confirmed" required>
+                <span>I won’t share the license key or download link publicly.</span>
+              </label>
+              <label class="check-line" style="margin-top:8px">
+                <input type="checkbox" name="ok_to_contact_me" value="Yes">
+                <span>It is okay to contact me if you need more detail about my feedback.</span>
+              </label>
+            </div>
+            <button class="btn btn-primary btn-hero" type="submit">Send feedback</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>© FreQtik · Private early tester feedback page</footer>
+</body>
+</html>
