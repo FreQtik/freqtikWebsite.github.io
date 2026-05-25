@@ -1922,7 +1922,6 @@ function buildAnvil(){
       <div class="ia-mini-nav-inner">
         <div class="ia-mini-links ia-mini-links-product">
           <a href="#" onclick="iaScrollTo('ia-sound'); return false;">Audio demos</a>
-          <a href="#" onclick="iaScrollTo('ia-videos'); return false;">Videos</a>
           <a href="#" onclick="iaScrollTo('ia-workflow'); return false;">Workflow</a>
           <a href="#" onclick="iaScrollTo('ia-features'); return false;">Features</a>
           <a href="#" onclick="iaScrollTo('ia-interface'); return false;">Interface</a>
@@ -1936,7 +1935,6 @@ function buildAnvil(){
     <nav class="ia-side-nav" aria-label="Impulse Anvil floating chapter navigation">
       <a href="#" data-ia-target="anvil" onclick="iaScrollTo('anvil'); return false;"><img class="ia-side-logo" src="assets/tinylogoQ.png" alt=""><span class="ia-side-label">Top</span></a>
       <a href="#" data-ia-target="ia-sound" onclick="iaScrollTo('ia-sound'); return false;">A<span class="ia-side-label">Audio demos</span></a>
-      <a href="#" data-ia-target="ia-videos" onclick="iaScrollTo('ia-videos'); return false;">V<span class="ia-side-label">Videos</span></a>
       <a href="#" data-ia-target="ia-workflow" onclick="iaScrollTo('ia-workflow'); return false;">W<span class="ia-side-label">Workflow</span></a>
       <a href="#" data-ia-target="ia-features" onclick="iaScrollTo('ia-features'); return false;">F<span class="ia-side-label">Features</span></a>
       <a href="#" data-ia-target="ia-interface" onclick="iaScrollTo('ia-interface'); return false;">I<span class="ia-side-label">Interface</span></a>
@@ -2046,35 +2044,6 @@ function buildAnvil(){
       </div>
     </section>
 
-    <section class="ia-section ia-video-section" id="ia-videos">
-      <div class="ia-shell">
-        <div class="ia-section-head">
-          <div class="ia-copy">
-            <span class="ia-kicker">Video slots</span>
-            <h2>Short intro, workflow, and creative IR tutorials.</h2>
-            <p>These are prepared as clean placeholders. When your videos are ready, paste YouTube embed iframes into these cards or replace the placeholder box with a local MP4 embed.</p>
-          </div>
-        </div>
-        <div class="ia-video-grid">
-          <article class="ia-card ia-video-card">
-            <div class="ia-video-placeholder"><span>Short Introduction video slot</span></div>
-            <h3>Short Introduction</h3>
-            <p>Quickly explain the interface: global controls, IR A/B, Morph, Color, Texture Depth, Post / Sculpt, Bake.</p>
-          </article>
-          <article class="ia-card ia-video-card">
-            <div class="ia-video-placeholder"><span>Workflow + tips video slot</span></div>
-            <h3>Workflow & Tips</h3>
-            <p>Show a practical session: load IRs, randomize, refine, use Color/Texture Depth, sculpt, then bake the final WAV IR.</p>
-          </article>
-          <article class="ia-card ia-video-card">
-            <div class="ia-video-placeholder"><span>Create IRs from recordings slot</span></div>
-            <h3>Create IRs From Any Recording</h3>
-            <p>Teach the creative concept: environment recordings, noise, impacts, rooms and objects can become convolution fingerprints.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="ia-section" id="ia-workflow">
       <div class="ia-shell">
         <div class="ia-section-head">
@@ -2179,7 +2148,7 @@ function buildAnvil(){
         kicker:'Acoustic Editor · Windows',
         title:'Impulse Forge',
         tagline:'Build any room, fly through it, feed it from your DAW and bake its acoustics as impulse responses.',
-        buyHref:'#TODO-buy-forge',
+        buyHref:'#forge-pricing',
         demoHref:IMPULSE_ANVIL_DOWNLOAD,
         docsHref:'#docs',
         priceFrom:'89',
@@ -2295,7 +2264,7 @@ function buildAnvil(){
             'Save/load levels and materials'
           ],
 
-          buyHref:'#TODO-buy-forge-full',
+          buyHref:'#forge-pricing',
           demoHref:IMPULSE_ANVIL_DOWNLOAD
         }
       ]);
@@ -2999,14 +2968,14 @@ window.addEventListener('hashchange', () => {
 });
 
 
-    /* Prevent accidental test/placeholder checkout clicks before the store is live. */
+    /* Checkout safety while the live purchase URL is not configured. */
     document.addEventListener('click', (event) => {
       const a = event.target && event.target.closest ? event.target.closest('a[href]') : null;
       if (!a) return;
       const href = a.getAttribute('href') || '';
       if (href.includes('PASTE_LIVE_LEMON_SQUEEZY_CHECKOUT_URL_HERE') || href.includes('PASTE_LEMON_SQUEEZY_CHECKOUT_URL_HERE')) {
         event.preventDefault();
-        alert('Impulse Anvil checkout is not live yet. The demo download is available now.');
+        alert('Impulse Anvil checkout is not available yet. The demo download is available now.');
       }
     });
 
