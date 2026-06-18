@@ -106,6 +106,17 @@
     nav ul li a.nav-link:hover {
       transform:scale(1.05);
     }
+    nav ul li button.is-current,
+    nav ul li a.nav-link.is-current {
+      border-radius:999px;
+      background:rgba(0,0,0,0.055);
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,0.085);
+    }
+    nav ul li button.is-current:hover,
+    nav ul li a.nav-link.is-current:hover {
+      transform:scale(1.03);
+      background:rgba(0,0,0,0.075);
+    }
 
     /* DROPDOWNS */
     .dropdown-content {
@@ -951,6 +962,40 @@
       background:var(--ia-cyan);
       box-shadow:0 0 14px rgba(39,214,255,.55);
     }
+    .ia26 .ia-download-heading {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .ia26 .ia-download-heading .ia-eyebrow {
+      margin:0;
+    }
+    .ia26 .ia-current-version {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      min-height:31px;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid rgba(39,214,255,.18);
+      background:rgba(255,255,255,.045);
+      color:var(--ia-muted);
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .ia26 .ia-current-version:before {
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:var(--ia-cyan);
+      box-shadow:0 0 12px rgba(39,214,255,.45);
+      opacity:.85;
+    }
     .ia26 .ia-theme-stage {
       display:grid;
       grid-template-columns:minmax(0,1.42fr) minmax(300px,.58fr);
@@ -1374,19 +1419,19 @@
   <ul>
     <!-- Audio Tools menu -->
     <li class="dropdown">
-      <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
+      <button data-main-nav="anvil" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
       <div class="dropdown-content" role="menu" aria-label="Audio Tools">
         <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil</a>
       </div>
     </li>
 
-    <li><button onclick="loadFeed('downloads')" type="button">Downloads</button></li>
-    <li><button onclick="loadFeed('docs')" type="button">Docs</button></li>
-    <li><button onclick="loadFeed('socials')" type="button">Connect</button></li>
+    <li><button data-main-nav="downloads" onclick="loadFeed('downloads')" type="button">Downloads</button></li>
+    <li><button data-main-nav="docs" onclick="loadFeed('docs')" type="button">Docs</button></li>
+    <li><button data-main-nav="socials" onclick="loadFeed('socials')" type="button">Connect</button></li>
 
     <!-- About & personal projects on the far right -->
     <li class="dropdown">
-      <button onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">About & Projects</button>
+      <button data-main-nav="about" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">About & Projects</button>
       <div class="dropdown-content" role="menu" aria-label="About & Projects">
         <a href="#" onclick="loadFeed('about');closeDropdowns();return false;">About FreQtik</a>
 
@@ -1449,6 +1494,28 @@
         d.classList.remove('dropdown-open');
         const b = d.querySelector('button');
         if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    function mainNavKeyForFeed(feed) {
+      const productFeeds = ['anvil', 'impulse', 'forge', 'smith'];
+      const aboutFeeds = ['about', 'ltb', 'aim', 'microgame', 'youtube', 'spotify'];
+
+      if (productFeeds.includes(feed)) return 'anvil';
+      if (feed === 'downloads') return 'downloads';
+      if (feed === 'docs') return 'docs';
+      if (feed === 'socials') return 'socials';
+      if (aboutFeeds.includes(feed)) return 'about';
+      return null;
+    }
+
+    function updateMainNavState(feed) {
+      const activeKey = mainNavKeyForFeed(feed || 'anvil');
+      document.querySelectorAll('[data-main-nav]').forEach(item => {
+        const isActive = !!activeKey && item.getAttribute('data-main-nav') === activeKey;
+        item.classList.toggle('is-current', isActive);
+        if (isActive) item.setAttribute('aria-current', 'page');
+        else item.removeAttribute('aria-current');
       });
     }
 
@@ -2425,10 +2492,11 @@ function buildAnvil(){
         function buildAnvilDownloads(){
           return `
           <div class="ia26" id="downloads">
-            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
+            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><div class="ia-download-heading"><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><span class="ia-current-version">Current v1.0.113</span></div><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
             <section class="ia-section" id="download-install"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Install guide</span><h2>Quick Setup — Copy/Paste</h2><p>Open both folders, then copy the full <code>Impulse Anvil.vst3</code> folder into your system VST3 folder.</p></div></div><div class="ia-install-visual"><img src="assets/impulse-anvil-install-guide.png" alt="Impulse Anvil installation guide showing the downloaded VST3 folder and the system VST3 folder side by side" loading="lazy"><p class="ia-install-note">Image guide: left = extracted download folder, right = <code>C:\Program Files\Common Files\VST3</code>.</p></div><div class="ia-grid ia-grid-three"><article class="ia-card"><div class="ia-number">1</div><h3>Extract</h3><p>Unzip <code>ImpulseAnvil_Windows_VST3.zip</code>. Keep the VST3 bundle structure intact.</p></article><article class="ia-card"><div class="ia-number">2</div><h3>Copy</h3><p>Copy the complete <code>Impulse Anvil.vst3</code> folder to <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code>.</p></article><article class="ia-card"><div class="ia-number">3</div><h3>Rescan</h3><p>Restart or rescan your DAW. The 126 handmade IR library is bundled inside the plugin folder.</p></article></div></div></section>
             <section class="ia-section" id="download-changelog"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Changelog</span><h2>Release notes.</h2><p>Open a version to see what changed. The newest public build is listed first.</p></div></div><div class="ia-changelog">
-              <details open><summary>v1.0.112 — Prepared IR length policy</summary><div class="ia-changelog-body"><p><span class="ia-version-pill">Current release</span></p><p>This update makes prepared IR length handling more predictable across preview, editing, statistics and baking.</p><ul class="ia-list"><li>Preserves quiet reverb tails that belong to the loaded or processed IR instead of trimming them unexpectedly.</li><li>Uses the same prepared-IR length policy for convolver preview, A/B slot stats, Bake and A→B Lerp export.</li><li>Keeps a hard 30-second safety cap for generated Color, Texture, Morph and Lerp results.</li><li>Prevents mismatches between long Color/Texture stats, shorter Edit ranges and convolver safety kernels.</li><li>Color, Texture, Morph, Lerp, project restore, licensing, Normalize and Limiter behavior are unchanged.</li></ul></div></details>
+              <details open><summary>v1.0.113 — Texture Depth Bug Fix</summary><div class="ia-changelog-body"><p><span class="ia-version-pill">Current release</span></p><p>Small maintenance update for Texture Depth.</p><ul class="ia-list"><li>Fixed a &quot;Texture&quot; bug, previously introducing the wrong IR when tweaking parameters.</li></ul></div></details>
+              <details><summary>v1.0.112 — Prepared IR length policy</summary><div class="ia-changelog-body"><p>This update makes prepared IR length handling more predictable across preview, editing, statistics and baking.</p><ul class="ia-list"><li>Preserves quiet reverb tails that belong to the loaded or processed IR instead of trimming them unexpectedly.</li><li>Uses the same prepared-IR length policy for convolver preview, A/B slot stats, Bake and A→B Lerp export.</li><li>Keeps a hard 30-second safety cap for generated Color, Texture, Morph and Lerp results.</li><li>Prevents mismatches between long Color/Texture stats, shorter Edit ranges and convolver safety kernels.</li><li>Color, Texture, Morph, Lerp, project restore, Normalize and Limiter behavior are unchanged.</li></ul></div></details>
               <details><summary>v1.0.110 — Release polish and safety</summary><div class="ia-changelog-body"><ul class="ia-list"><li>Improved C1/C2 Color switch rendering so the labels stay readable in tight rows.</li><li>A/B prepared IR stats are now laid out directly in the active manual A/B panels.</li><li>Improved Lerp curve display readability in the default theme.</li><li>Theme randomizer tooltip now shows the current theme name.</li><li>Normalize tooltips now warn clearly that quiet IRs can become much louder.</li><li>A/B/Morph switching now uses a safer unity-sum crossfade to reduce brief correlated level boosts.</li><li>Spectral, BandSwap and ZigZag Lerp snapshots are normalized when Normalize is enabled, reducing weak or silent middle sections.</li></ul></div></details>
               <details><summary>v1.0.109 — Slot stats and default-theme polish</summary><div class="ia-changelog-body"><ul class="ia-list"><li>Added per-slot prepared IR stats for A and B: Peak, RMS and IR length.</li><li>Slot stats follow the prepared slot after Time, Gain, Color, Texture Depth and Normalize.</li><li>Color voice switches now draw as compact C1/C2 controls instead of being shortened to ellipses.</li><li>The factory Anvil Blue theme was slightly calmed for a cleaner first-run look.</li><li>Stats update from the editor side with throttling; no audio-thread work was added.</li></ul></div></details>
               <details><summary>v1.0.108 — Color label polish</summary><div class="ia-changelog-body"><ul class="ia-list"><li>Color enable switches now display C1 and C2 visibly.</li><li>Added clearer C1/C2 tooltips for A and B Color voices.</li><li>No DSP, Morph/Lerp, Color/Texture, backend or licensing behavior changed.</li></ul></div></details>
@@ -2686,6 +2754,7 @@ function buildAnvil(){
     }
 
     currentFeed = feed;
+    updateMainNavState(feed);
 
     mainEl.innerHTML = html;
     initAutoSlides(); // initialize auto-scrolling on any slides in this view
