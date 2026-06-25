@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum / Legal Notice — FreQtik</title>
+  <meta name="robots" content="noindex, follow, noarchive" />
+  <link rel="icon" type="image/png" href="assets/tinylogoQ.png">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#fff; --text:#000; --muted:#666; --line:#e0e0e0; --shadow:rgba(0,0,0,.08); --rad:14px; }
+    * { box-sizing:border-box; font-family:'Manrope',sans-serif; }
+    body { margin:0; background:var(--bg); color:var(--text); line-height:1.65; }
+    main { max-width:920px; margin:0 auto; padding:48px 20px 64px; }
+    header { border-bottom:1px solid var(--line); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    header a { color:var(--text); text-decoration:none; font-weight:800; }
+    .brand { display:flex; align-items:center; gap:10px; }
+    .brand img { width:34px; height:34px; object-fit:contain; }
+    .back { border:1px solid var(--line); border-radius:999px; padding:8px 12px; box-shadow:0 2px 8px var(--shadow); }
+    h1 { font-size:38px; line-height:1.1; margin:0 0 24px; letter-spacing:-.03em; }
+    h2 { font-size:22px; margin:28px 0 10px; }
+    h3 { font-size:18px; margin:22px 0 8px; }
+    p { margin:0 0 14px; }
+    address { font-style:normal; padding:16px; border:1px solid var(--line); border-radius:var(--rad); background:#fafafa; margin:10px 0 18px; }
+    a { color:inherit; }
+    hr { margin:32px 0; border:none; border-top:1px solid var(--line); }
+    .muted { color:var(--muted); }
+    footer { border-top:1px solid var(--line); padding:18px 20px; text-align:center; color:var(--muted); font-size:14px; }
+    footer a { text-decoration:none; border-bottom:1px solid transparent; }
+    footer a:hover { border-bottom-color:#888; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">
+      <img src="assets/tinylogoQ.png" alt="FreQtik logo">
+      <span>FreQtik</span>
+    </a>
+    <a class="back" href="/">Back to homepage</a>
+  </header>
+
+  <main>
+    <h1>Impressum / Legal Notice</h1>
+
+    <section lang="de">
+      <p><strong>Angaben gemäß § 5 DDG</strong></p>
+      <address data-nosnippet>
+        <div><strong>FreQtik</strong></div>
+        <div>Maximilian Georg Walla</div>
+        <div>Wilhelm Leuschner Straße 93</div>
+        <div>63263 Neu Isenburg</div>
+        <div>Deutschland</div>
+      </address>
+
+      <p><strong>Kontakt</strong><br>
+        E-Mail: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a>
+      </p>
+
+      <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
+        <span data-nosnippet>Maximilian Georg Walla, Wilhelm Leuschner Straße 93, 63263 Neu Isenburg, Deutschland</span>
+      </p>
+
+      <h3>Haftungsausschluss, Links, Urheberrecht</h3>
+      <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte verantwortlich. Nach den gesetzlichen Vorschriften sind wir nicht verpflichtet, fremde Informationen zu überwachen. Bei Kenntnis von Rechtsverletzungen entfernen wir Inhalte/Links umgehend. Inhalte unterliegen dem deutschen Urheberrecht.</p>
+
+      <p><strong>EU-Streitschlichtung</strong><br>
+        Plattform der EU-Kommission: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.
+      </p>
+
+      <p class="muted">Stand: 2025-11-07</p>
+    </section>
+
+    <hr>
+
+    <section lang="en">
+      <p><strong>Legal Notice (non-binding translation)</strong></p>
+      <address data-nosnippet>
+        <div><strong>FreQtik</strong></div>
+        <div>Maximilian Georg Walla</div>
+        <div>Wilhelm Leuschner Straße 93</div>
+        <div>63263 Neu Isenburg</div>
+        <div>Germany</div>
+      </address>
+
+      <p><strong>Contact</strong><br>
+        Email: <a href="mailto:freqtiksup@gmail.com">freqtiksup@gmail.com</a>
+      </p>
+
+      <h3>Disclaimer</h3>
+      <p>The German version above governs. The English text is for convenience and does not change the legal meaning of the German “Impressum”.</p>
+
+      <p class="muted">Last updated: 2025-11-07</p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="yearSpan"></span> FreQtik. All rights reserved. ·
+    <a href="/privacy.html">Privacy / Datenschutz</a> ·
+    <a href="/terms.html">Terms / AGB</a>
+  </footer>
+  <script>document.getElementById('yearSpan').textContent = String(new Date().getFullYear());</script>
+</body>
+</html>
