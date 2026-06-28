@@ -798,6 +798,44 @@
     .ia26 .ia-btn-primary { background:linear-gradient(135deg,#27d6ff,#168fb0 65%,#0b4960); color:#031116; border-color:rgba(143,240,255,.80); text-shadow:0 1px 0 rgba(255,255,255,.25); }
     .ia26 .ia-btn-dark { background:rgba(0,0,0,.34); }
     .ia26 .ia-btn-small { min-height:38px; padding:0 14px; font-size:13px; }
+    .ia26 .ia-discord-icon,
+    .social-icon-discord {
+      width:18px;
+      height:18px;
+      display:inline-block;
+      flex:0 0 auto;
+      vertical-align:-3px;
+    }
+    .ia26 .ia-discord-icon svg,
+    .social-icon-discord svg {
+      display:block;
+      width:100%;
+      height:100%;
+      fill:currentColor;
+    }
+    .ia26 .ia-btn-discord {
+      background:rgba(88,101,242,.16);
+      border-color:rgba(160,169,255,.28);
+    }
+    .ia26 .ia-btn-discord:hover {
+      border-color:rgba(160,169,255,.62);
+      box-shadow:0 16px 42px rgba(88,101,242,.16), 0 16px 42px rgba(0,0,0,.22);
+    }
+    .ia26 .ia-community-card {
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:18px;
+      align-items:center;
+    }
+    .ia26 .ia-community-card p {
+      margin:0;
+      color:var(--ia-muted);
+      line-height:1.58;
+    }
+    @media (max-width:720px) {
+      .ia26 .ia-community-card { grid-template-columns:1fr; }
+    }
     .ia26 .ia-hero-buy { min-height:56px; padding:0 28px; font-size:17px; box-shadow:0 18px 54px rgba(39,214,255,.26), 0 10px 30px rgba(0,0,0,.24); border-width:1px; }
     .ia26 .ia-hero-buy:hover { box-shadow:0 24px 70px rgba(39,214,255,.34), 0 16px 42px rgba(0,0,0,.32); transform:translateY(-3px); }
     .ia26 .ia-hero { padding:64px 0 60px; position:relative; }
@@ -1401,6 +1439,7 @@
     "sameAs": [
       "https://www.youtube.com/@FreQtik",
       "https://www.instagram.com/freqtik/",
+      "https://discord.gg/qUetz23QPq",
       "https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK"
     ]
   }
@@ -1494,6 +1533,7 @@
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
     const IMPULSE_ANVIL_DOWNLOAD = 'https://github.com/freqtik/freqtikWebsite.github.io/releases/latest/download/ImpulseAnvil_Windows_VST3.zip';
     const IMPULSE_ANVIL_BUY_URL = 'mailto:freqtiksup@gmail.com?subject=Impulse%20Anvil%20Full%20License';
+    const DISCORD_INVITE_URL = 'https://discord.gg/qUetz23QPq';
     const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD
 
     const introEl   = document.getElementById('intro');
@@ -1564,6 +1604,12 @@
         .replaceAll('>','&gt;')
         .replaceAll('"','&quot;')
         .replaceAll("'","&#39;");
+    }
+
+
+    function discordIcon(className){
+      const cls = className || 'ia-discord-icon';
+      return `<span class="${cls}" aria-hidden="true"><svg viewBox="0 0 245 240" focusable="false"><path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1 0-6.1-4.5-11.1-10.2-11.1Zm36.7 0c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.3-5 10.2-11.1 0-6.1-4.5-11.1-10.2-11.1Z"/><path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6C210 29.2 200.8 20 189.5 20Zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2Z"/></svg></span>`;
     }
 
     /* Product building blocks (with image support) */
@@ -2349,6 +2395,7 @@ function buildAnvil(){
             <a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>€29 launch</span></span></a>
             <a class="ia-btn" href="#" onclick="loadFeed('downloads'); return false;">Download VST3</a>
             <a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('docs'); return false;">Read the manual</a>
+            <a class="ia-btn ia-btn-discord" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${discordIcon()} Join Discord</a>
           </div>
           <div class="ia-hero-note" aria-label="Impulse Anvil highlights">
             <span>126 handmade IRs</span>
@@ -2437,6 +2484,10 @@ function buildAnvil(){
             <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-forest.png" data-title="Forest"><img src="assets/impulse-anvil-ui-forest.png" alt="Forest theme preview"></button>
           </div>
         </div>
+        <div class="ia-card ia-community-card">
+          <div><span class="ia-tag">Discord community</span><h3>Free themes, IRs, updates and videos.</h3><p>Join the Impulse Anvil Discord for extra design themes, free IR downloads, update notes, videos and direct community support.</p></div>
+          <a class="ia-btn ia-btn-discord" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${discordIcon()} Join Discord</a>
+        </div>
       </div>
     </section>
 
@@ -2520,8 +2571,8 @@ function buildAnvil(){
         function buildAnvilDownloads(){
           return `
           <div class="ia26" id="downloads">
-            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><div class="ia-download-heading"><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><span class="ia-current-version">Current v1.0.113</span></div><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
-            <section class="ia-section" id="download-videos"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup videos</span><h2>Install and activate Impulse Anvil.</h2><p>Watch the short setup walkthroughs directly here before opening your DAW.</p></div></div><div class="ia-download-video-grid"><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/d4JgmIoF9zA" title="Impulse Anvil installation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>Installation</h3><p>Download, extract and copy the complete VST3 folder to the Windows VST3 directory.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://youtu.be/d4JgmIoF9zA?si=wz737Bp9ntyVm9wu" target="_blank" rel="noopener">Open on YouTube</a></div></article><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/d4JgmIoF9zA" title="Impulse Anvil license activation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>License activation</h3><p>Paste your license key into the plugin and unlock the full version after purchase.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://youtu.be/d4JgmIoF9zA?si=wz737Bp9ntyVm9wu" target="_blank" rel="noopener">Open on YouTube</a></div></article></div></div></section>
+            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><div class="ia-download-heading"><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><span class="ia-current-version">Current v1.0.113</span></div><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a><a class="ia-btn ia-btn-discord" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${discordIcon()} Discord support</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
+            <section class="ia-section" id="download-videos"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup videos</span><h2>Install and activate Impulse Anvil.</h2><p>Watch the short setup walkthroughs directly here before opening your DAW.</p></div></div><div class="ia-download-video-grid"><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/d4JgmIoF9zA" title="Impulse Anvil installation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>Installation</h3><p>Download, extract and copy the complete VST3 folder to the Windows VST3 directory.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://youtu.be/d4JgmIoF9zA?si=wz737Bp9ntyVm9wu" target="_blank" rel="noopener">Open on YouTube</a></div></article><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/d4JgmIoF9zA" title="Impulse Anvil license activation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>License activation</h3><p>Paste your license key into the plugin and unlock the full version after purchase.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://youtu.be/d4JgmIoF9zA?si=wz737Bp9ntyVm9wu" target="_blank" rel="noopener">Open on YouTube</a></div></article></div><div class="ia-card ia-community-card"><div><span class="ia-tag">Need help?</span><h3>Join the Impulse Anvil Discord.</h3><p>Get support, update notes, videos, free design themes and free IR downloads in one place.</p></div><a class="ia-btn ia-btn-discord" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${discordIcon()} Join Discord</a></div></div></section>
             <section class="ia-section" id="download-install"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Install guide</span><h2>Quick Setup — Copy/Paste</h2><p>Open both folders, then copy the full <code>Impulse Anvil.vst3</code> folder into your system VST3 folder.</p></div></div><div class="ia-install-visual"><img src="assets/impulse-anvil-install-guide.png" alt="Impulse Anvil installation guide showing the downloaded VST3 folder and the system VST3 folder side by side" loading="lazy"><p class="ia-install-note">Image guide: left = extracted download folder, right = <code>C:\Program Files\Common Files\VST3</code>.</p></div><div class="ia-grid ia-grid-three"><article class="ia-card"><div class="ia-number">1</div><h3>Extract</h3><p>Unzip <code>ImpulseAnvil_Windows_VST3.zip</code>. Keep the VST3 bundle structure intact.</p></article><article class="ia-card"><div class="ia-number">2</div><h3>Copy</h3><p>Copy the complete <code>Impulse Anvil.vst3</code> folder to <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code>.</p></article><article class="ia-card"><div class="ia-number">3</div><h3>Rescan</h3><p>Restart or rescan your DAW. The 126 handmade IR library is bundled inside the plugin folder.</p></article></div></div></section>
             <section class="ia-section" id="download-changelog"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Changelog</span><h2>Release notes.</h2><p>Open a version to see what changed. The newest public build is listed first.</p></div></div><div class="ia-changelog">
               <details open><summary>v1.0.113 — Texture Depth Bug Fix</summary><div class="ia-changelog-body"><p><span class="ia-version-pill">Current release</span></p><p>Small maintenance update for Texture Depth.</p><ul class="ia-list"><li>Fixed a &quot;Texture&quot; bug, previously introducing the wrong IR when tweaking parameters.</li></ul></div></details>
@@ -2707,7 +2758,11 @@ function buildAnvil(){
           case 'socials':
             html = `<section id="socials" class="depth-effect">
               <h2>Connect</h2>
+              <p>Join the Impulse Anvil Discord for support, update notes, new videos, free design themes and free IR downloads.</p>
               <div class="flex-container">
+                <a href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener noreferrer">
+                  ${discordIcon('social-icon-discord')}Discord
+                </a>
                 <a href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener noreferrer">
                   <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram
                 </a>
