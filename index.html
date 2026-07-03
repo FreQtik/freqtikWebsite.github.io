@@ -701,6 +701,9 @@
       z-index:4;
       padding:14px 0 0;
     }
+    .ia26 .ia-tool-mini-nav {
+      padding-top:46px;
+    }
     .ia26 .ia-mini-nav-inner {
       width:min(var(--ia-max), calc(100% - 36px));
       margin:0 auto;
@@ -923,6 +926,7 @@
     }
     @media (max-width:720px) {
       .ia26 .ia-mini-nav { padding-top:10px; }
+      .ia26 .ia-tool-mini-nav { padding-top:34px; }
       .ia26 .ia-mini-nav-inner { align-items:flex-start; flex-direction:column; border-radius:22px; padding:12px; }
       .ia26 .ia-mini-links { justify-content:flex-start; }
       .ia26 .ia-grid-three, .ia26 .ia-grid-four, .ia26 .ia-grid-two, .ia26 .ia-demo-grid, .ia26 .ia-audio-grid, .ia26 .ia-video-grid, .ia26 .ia-pricing { grid-template-columns:1fr; }
@@ -1423,6 +1427,23 @@
   }
   </script>
 
+  <!-- Product JSON-LD: Master Desktop Tap -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "applicationCategory":"AudioApplication",
+    "operatingSystem":"Windows 10/11 (64-bit)",
+    "name":"Master Desktop Tap",
+    "description":"Free beta Windows VST3 utility for streaming DAW audio from ASIO setups into Discord, OBS and screen share apps, with no built-in session timer.",
+    "offers":{
+      "@type":"Offer",
+      "price":"0",
+      "priceCurrency":"EUR"
+    }
+  }
+  </script>
+
   
 
 
@@ -1449,6 +1470,7 @@
       <button data-main-nav="anvil" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
       <div class="dropdown-content" role="menu" aria-label="Audio Tools">
         <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil</a>
+        <a href="#" onclick="loadFeed('desktopTap');closeDropdowns();return false;">Master Desktop Tap · Free Beta</a>
       </div>
     </li>
 
@@ -1496,6 +1518,9 @@
     const IMPULSE_ANVIL_BUY_URL = 'mailto:freqtiksup@gmail.com?subject=Impulse%20Anvil%20Full%20License';
     const DISCORD_INVITE_URL = 'https://discord.gg/qUetz23QPq';
     const CONTRAST_RULES_PDF_URL = 'https://freqtik.com/assets/contrast_rules_for_producers1.3.pdf';
+    const MASTER_DESKTOP_TAP_DOWNLOAD = 'https://freqtik.com/assets/master-desktop-tap/MasterDesktopTap_v0.4.4_Windows.zip';
+    const MASTER_DESKTOP_TAP_IMAGE = 'assets/master-desktop-tap/master-desktop-tap-ui.png';
+    const MASTER_DESKTOP_TAP_VERSION = '0.4.4';
     const DISCORD_ICON = '<svg class="ia-discord-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z"></path></svg>';
     const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD
 
@@ -1529,7 +1554,7 @@
     }
 
     function mainNavKeyForFeed(feed) {
-      const productFeeds = ['anvil', 'impulse', 'forge', 'smith'];
+      const productFeeds = ['anvil', 'impulse', 'forge', 'smith', 'desktopTap'];
       const aboutFeeds = ['about', 'ltb', 'aim', 'microgame', 'youtube', 'spotify', 'frameworks'];
 
       if (productFeeds.includes(feed)) return 'anvil';
@@ -2510,6 +2535,79 @@ function buildAnvil(){
       return buildAnvil();
     }
 
+    function buildMasterDesktopTap(){
+      return `
+      <div class="ia26 ia-desktop-tap-page" id="desktopTap">
+        <div class="ia-mini-nav ia-tool-mini-nav" aria-label="Master Desktop Tap navigation">
+          <div class="ia-mini-nav-inner">
+            <a class="ia-mini-brand" href="#" onclick="iaScrollTo('desktopTap'); return false;"><span class="ia-mark"><img class="ia-brand-img" src="assets/tinylogoQ.png" alt=""></span><span><strong>FREQTIK</strong><span>Free Beta Tool</span></span></a>
+            <div class="ia-mini-links"><a href="#" onclick="iaScrollTo('desktopTap-solve'); return false;">What it solves</a><a href="#" onclick="iaScrollTo('desktopTap-setup'); return false;">How to use</a><a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${MASTER_DESKTOP_TAP_DOWNLOAD}" target="_blank" rel="noopener">Download Free Beta</a></div>
+          </div>
+        </div>
+
+        <section class="ia-section ia-hero">
+          <div class="ia-shell ia-hero-grid">
+            <div class="ia-hero-copy">
+              <span class="ia-eyebrow"><span class="ia-pulse"></span> Free beta utility · Windows VST3</span>
+              <h1>Stream your DAW audio <span class="ia-cyan">on Windows.</span></h1>
+              <p class="ia-lead">When your DAW is audible, but your stream hears nothing. Master Desktop Tap is a free beta utility for producers who want Discord, OBS or screen share to hear the DAW output on Windows.</p>
+              <div class="ia-actions">
+                <a class="ia-btn ia-btn-primary ia-hero-buy" href="${MASTER_DESKTOP_TAP_DOWNLOAD}" target="_blank" rel="noopener">Download Free Beta</a>
+                <a class="ia-btn" href="#" onclick="iaScrollTo('desktopTap-setup'); return false;">Quick setup</a>
+                <a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('anvil'); return false;">Impulse Anvil</a>
+              </div>
+              <div class="ia-hero-note" aria-label="Master Desktop Tap highlights">
+                <span>Windows VST3</span>
+                <span>Free beta</span>
+                <span>DAW → stream audio</span>
+                <span>Discord / OBS / screen share</span>
+                <span>No built-in session timer</span>
+              </div>
+              <p class="ia-note">Free beta utility. No built-in session timer. Test your routing before relying on it for a live stream, call or recording session.</p>
+            </div>
+            <div class="ia-product-card" aria-label="Master Desktop Tap interface preview">
+              <div class="ia-product-window">
+                <img src="${MASTER_DESKTOP_TAP_IMAGE}" alt="Master Desktop Tap plugin interface" loading="eager">
+              </div>
+              <div class="ia-float-card">
+                <b>DAW → Stream</b>
+                <p>Place it on your master and send your DAW output to the audio route your streaming app can hear.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ia-section" id="desktopTap-solve">
+          <div class="ia-shell">
+            <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">What it solves</span><h2>When your DAW is audible, but your stream hears nothing.</h2><p>Some Windows DAW setups play perfectly in your headphones, while Discord, OBS or screen share still receives silence. Master Desktop Tap is a small free beta tool that helps route your DAW master to the stream, without adding a session-time limit.</p></div></div>
+            <div class="ia-grid ia-grid-three">
+              <article class="ia-card"><div class="ia-number">1</div><h3>For Discord calls</h3><p>Let someone hear your Cubase, Ableton, FL Studio or other DAW while you keep working in your normal session.</p></article>
+              <article class="ia-card"><div class="ia-number">2</div><h3>For OBS and capture</h3><p>Make DAW audio available to the app recording or streaming your screen, instead of fighting silent captures.</p></article>
+              <article class="ia-card"><div class="ia-number">3</div><h3>Free beta, no timer</h3><p>Built to solve the routing problem directly, without a built-in session-time limit.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ia-section" id="desktopTap-setup">
+          <div class="ia-shell">
+            <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Quick setup</span><h2>Put it last on your master. Choose the stream output. Test.</h2><p>The goal is not to rebuild your whole Windows audio routing. Keep it simple and verify the signal before you go live.</p></div></div>
+            <div class="ia-flow-strip">
+              <div class="ia-flow-step"><b>01 · Install</b><p>Extract the ZIP and copy the complete <code>Master Desktop Tap.vst3</code> folder into your Windows VST3 folder.</p></div>
+              <div class="ia-flow-step"><b>02 · Insert</b><p>Load Master Desktop Tap as the last insert on your DAW master channel.</p></div>
+              <div class="ia-flow-step"><b>03 · Select</b><p>Choose the Windows output device your streaming app, capture app or screen share can hear.</p></div>
+              <div class="ia-flow-step"><b>04 · Level</b><p>Start with Stream Gain low, then raise it until the receiving app gets a clean level.</p></div>
+              <div class="ia-flow-step"><b>05 · Test</b><p>Open Discord, OBS or your screen share and confirm the DAW is actually arriving before the session starts.</p></div>
+            </div>
+            <div class="ia-grid ia-grid-two" style="margin-top:16px">
+              <article class="ia-card ia-doc-tip"><h3>If you hear the DAW twice</h3><p>Use the plugin's mute option or adjust your monitoring route. The clean setup is one sound in your headphones and one controlled copy to the stream.</p></article>
+              <article class="ia-card"><h3>Free beta note</h3><p>Master Desktop Tap is provided free because this routing problem is common and annoying. It has no built-in session timer, but you should still test it with your own DAW, interface and streaming app.</p></article>
+            </div>
+            <div class="ia-actions" style="margin-top:22px"><a class="ia-btn ia-btn-primary" href="${MASTER_DESKTOP_TAP_DOWNLOAD}" target="_blank" rel="noopener">Download Master Desktop Tap v${MASTER_DESKTOP_TAP_VERSION}</a><a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('anvil'); return false;">Back to Impulse Anvil</a></div>
+          </div>
+        </section>
+      </div>`;
+    }
+
     function buildProducerFrameworks(){
       return `
       <div class="ia26" id="frameworks">
@@ -2714,6 +2812,7 @@ function buildAnvil(){
         switch(feed){
           case 'impulse': html = buildImpulseAll(); break;
           case 'anvil': html = buildAnvil(); break;
+          case 'desktopTap': html = buildMasterDesktopTap(); break;
           case 'forge': html = buildForge(); break;
           case 'smith': html = buildImpulseAll(); break; // alias to bundle page
 
