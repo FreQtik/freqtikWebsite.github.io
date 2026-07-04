@@ -424,6 +424,72 @@
       .caption { flex-direction: column; }
       .button { width: 100%; }
     }
+  
+
+    .menu-toggle {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 60;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(122, 216, 255, 0.34);
+      background: rgba(7, 11, 18, .82);
+      color: var(--text);
+      font-size: 22px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 16px 42px rgba(0,0,0,.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .quick-menu {
+      position: fixed;
+      top: 62px;
+      left: 14px;
+      z-index: 59;
+      min-width: 230px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(122, 216, 255, 0.26);
+      background: rgba(7, 11, 18, .92);
+      box-shadow: 0 22px 60px rgba(0,0,0,.36);
+      backdrop-filter: blur(18px);
+    }
+
+    .quick-menu[hidden] { display: none; }
+
+    .quick-menu a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--soft, var(--muted));
+      font-size: 14px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .quick-menu a:hover,
+    .quick-menu a.is-current {
+      color: var(--text);
+      background: rgba(102, 216, 255, .10);
+    }
+
+    header .wrap.nav,
+    .topbar .shell.nav {
+      padding-left: 46px;
+    }
+
+    @media (max-width: 640px) {
+      .menu-toggle { top: 9px; left: 9px; width: 38px; height: 38px; }
+      .quick-menu { top: 54px; left: 9px; right: 9px; min-width: 0; }
+      header .wrap.nav,
+      .topbar .shell.nav { padding-left: 44px; }
+    }
+
   </style>
 
   <script type="application/ld+json">
@@ -436,11 +502,17 @@
     "softwareVersion": "0.4.4",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "creator": { "@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com" },
-    "downloadUrl": "https://freqtik.com/assets/master-desktop-tap/MasterDesktopTap_v0.4.4_Windows.zip"
+    "downloadUrl": "https://github.com/FreQtik/free-tools/releases/download/master-desktop-tap-v0.4.4/MasterDesktopTap_v0.4.4_Windows.zip",
+    "sameAs": "https://github.com/FreQtik/free-tools/releases/tag/master-desktop-tap-v0.4.4"
   }
   </script>
 </head>
 <body>
+  <button class="menu-toggle" id="siteMenuToggle" type="button" aria-label="Open site menu" aria-expanded="false" aria-controls="siteQuickMenu">☰</button>
+  <nav class="quick-menu" id="siteQuickMenu" aria-label="Site menu" hidden>
+    <a href="/">Impulse Anvil</a><a href="/master-desktop-tap.html" class="is-current">Master Desktop Tap</a><a href="/contrast-rules-for-producers.html">Producer Guide</a><a href="/#socials">Connect</a>
+  </nav>
+
   <div class="noise" aria-hidden="true"></div>
 
   <header>
@@ -450,11 +522,11 @@
         <small>Audio tools & producer frameworks</small>
       </a>
       <nav class="navlinks" aria-label="Main navigation">
-        <a href="https://freqtik.com/impulse-anvil.html">Impulse Anvil</a>
+        <a href="https://freqtik.com/">Impulse Anvil</a>
         <a href="https://freqtik.com/master-desktop-tap.html">Master Desktop Tap</a>
         <a href="https://freqtik.com/contrast-rules-for-producers.html">Producer Guide</a>
-        <a href="https://freqtik.com/#connect">Connect</a>
-        <a class="nav-cta" href="https://freqtik.com/assets/master-desktop-tap/MasterDesktopTap_v0.4.4_Windows.zip">Download</a>
+        <a href="https://freqtik.com/#socials">Connect</a>
+        <a class="nav-cta" href="https://github.com/FreQtik/free-tools/releases/download/master-desktop-tap-v0.4.4/MasterDesktopTap_v0.4.4_Windows.zip">Download</a>
       </nav>
     </div>
   </header>
@@ -469,7 +541,7 @@
             Master Desktop Tap mirrors your DAW master into a selected Windows audio output, so <strong>Discord, OBS and screen share can hear your mix</strong> without changing your DAW driver.
           </p>
           <div class="actions">
-            <a class="button primary" href="https://freqtik.com/assets/master-desktop-tap/MasterDesktopTap_v0.4.4_Windows.zip">Download Free Beta</a>
+            <a class="button primary" href="https://github.com/FreQtik/free-tools/releases/download/master-desktop-tap-v0.4.4/MasterDesktopTap_v0.4.4_Windows.zip">Download Free Beta</a>
             <a class="button secondary" href="#setup">Quick setup</a>
           </div>
           <div class="facts" aria-label="Product facts">
@@ -615,7 +687,7 @@
         <h2>Master Desktop Tap v0.4.4</h2>
         <p>Free Windows VST3 beta utility by FreQtik. Download, install, test your routing, then stream.</p>
         <div class="actions">
-          <a class="button primary" href="https://freqtik.com/assets/master-desktop-tap/MasterDesktopTap_v0.4.4_Windows.zip">Download Free Beta</a>
+          <a class="button primary" href="https://github.com/FreQtik/free-tools/releases/download/master-desktop-tap-v0.4.4/MasterDesktopTap_v0.4.4_Windows.zip">Download Free Beta</a>
           <a class="button secondary" href="https://freqtik.com/">Back to FreQtik</a>
         </div>
       </div>
@@ -632,5 +704,27 @@
       </span>
     </div>
   </footer>
+
+<script>
+(function(){
+  const btn = document.getElementById('siteMenuToggle');
+  const menu = document.getElementById('siteQuickMenu');
+  if (!btn || !menu) return;
+  function setOpen(open){
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  btn.addEventListener('click', function(event){
+    event.stopPropagation();
+    setOpen(menu.hidden);
+  });
+  document.addEventListener('click', function(event){
+    if (!menu.hidden && !menu.contains(event.target) && event.target !== btn) setOpen(false);
+  });
+  document.addEventListener('keydown', function(event){
+    if (event.key === 'Escape') setOpen(false);
+  });
+})();
+</script>
 </body>
 </html>
