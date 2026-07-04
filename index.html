@@ -6,6 +6,8 @@
   <title>Impulse Anvil by FreQtik — Turn Any Sound Into a Custom IR Effect</title>
   <link rel="icon" type="image/png" href="assets/tinylogoQ.png">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://freqtik.com/">
+  <meta name="robots" content="index, follow">
   <meta name="description" content="Impulse Anvil is a Windows VST3 creative IR designer by FreQtik. Turn recordings, samples, surfaces and factory IRs into custom effect fingerprints, morph them and bake reusable WAV impulse responses.">
   <style>
     :root {
@@ -1470,7 +1472,7 @@
       <button data-main-nav="anvil" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
       <div class="dropdown-content" role="menu" aria-label="Audio Tools">
         <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil</a>
-        <a href="#" onclick="loadFeed('desktopTap');closeDropdowns();return false;">Master Desktop Tap · Free Beta</a>
+        <a href="/master-desktop-tap.html" onclick="closeDropdowns()">Master Desktop Tap · Free Beta</a>
       </div>
     </li>
 
@@ -1491,7 +1493,7 @@
 
         <a href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
         <a href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Music · Spotify</a>
-        <a href="#" onclick="loadFeed('frameworks');closeDropdowns();return false;">Music · Producer Frameworks</a>
+        <a href="/contrast-rules-for-producers.html" onclick="closeDropdowns()">Music · Producer Frameworks</a>
       </div>
     </li>
   </ul>
@@ -2592,7 +2594,7 @@ function buildAnvil(){
           <div class="ia-shell">
             <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Quick setup</span><h2>Put it last on your master. Choose the stream output. Test.</h2><p>The goal is not to rebuild your whole Windows audio routing. Keep it simple and verify the signal before you go live.</p></div></div>
             <div class="ia-flow-strip">
-              <div class="ia-flow-step"><b>01 · Install</b><p>Extract the ZIP and copy the  <code>Master Desktop Tap.vst3</code> file into your Windows VST3 folder.</p></div>
+              <div class="ia-flow-step"><b>01 · Install</b><p>Extract the ZIP and copy the complete <code>Master Desktop Tap.vst3</code> folder into your Windows VST3 folder.</p></div>
               <div class="ia-flow-step"><b>02 · Insert</b><p>Load Master Desktop Tap as the last insert on your DAW master channel.</p></div>
               <div class="ia-flow-step"><b>03 · Select</b><p>Choose the Windows output device your streaming app, capture app or screen share can hear.</p></div>
               <div class="ia-flow-step"><b>04 · Level</b><p>Start with Stream Gain low, then raise it until the receiving app gets a clean level.</p></div>
@@ -2817,7 +2819,7 @@ function buildAnvil(){
           case 'smith': html = buildImpulseAll(); break; // alias to bundle page
 
           case 'about':
-            html = `<section id="about"><h2>About FreQtik</h2><p>Impulse Anvil is a creative convolution VST3 plugin by FreQtik. Record sounds, load them as impulse responses, morph and sculpt them, then bake your own WAV IRs.</p><article class="card" style="margin-top:22px;max-width:780px;"><span class="kicker">Producer Framework</span><h3>Contrast Rules for Producers</h3><p class="muted">A FreQtik guide about context, contrast, attention and impact in arrangement, sound design and production decisions.</p><div class="cta-row"><a class="btn primary" href="#" onclick="loadFeed('frameworks'); return false;">Open Framework</a><a class="btn" href="${CONTRAST_RULES_PDF_URL}" target="_blank" rel="noopener">Open PDF</a></div></article></section>`;
+            html = `<section id="about"><h2>About FreQtik</h2><p>Impulse Anvil is a creative convolution VST3 plugin by FreQtik. Record sounds, load them as impulse responses, morph and sculpt them, then bake your own WAV IRs.</p><div class="grid" style="margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr));"><article class="card"><span class="kicker">Producer Framework</span><h3>Contrast Rules for Producers</h3><p class="muted">A FreQtik guide about context, contrast, attention and impact in arrangement, sound design and production decisions.</p><div class="cta-row"><a class="btn primary" href="/contrast-rules-for-producers.html">Open Framework</a><a class="btn" href="${CONTRAST_RULES_PDF_URL}" target="_blank" rel="noopener">Open PDF</a></div></article><article class="card"><span class="kicker">Free Beta Tool</span><h3>Master Desktop Tap</h3><p class="muted">A free Windows VST3 utility for streaming DAW audio into Discord, OBS and screen share.</p><div class="cta-row"><a class="btn primary" href="/master-desktop-tap.html">Open Tool Page</a><a class="btn" href="${MASTER_DESKTOP_TAP_DOWNLOAD}" target="_blank" rel="noopener">Download</a></div></article></div></section>`;
             break;
 
           case 'frameworks':
