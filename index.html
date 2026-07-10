@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Impulse Anvil by FreQtik — Morph IRs and Bake WAV Impulse Responses</title>
+  <title>Impulse Anvil — Morph, Sculpt and Export Custom WAV IRs | FreQtik</title>
   <link rel="icon" type="image/png" href="assets/tinylogoQ.png">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://freqtik.com/">
   <meta name="robots" content="index, follow">
-  <meta name="description" content="Impulse Anvil is a Windows VST3 IR-forging plugin by FreQtik. Morph A/B impulse responses with spectral, spatial and A-to-B Lerp modes, then bake reusable WAV IRs.">
+  <meta name="description" content="Impulse Anvil is a focused Windows VST3 for designing custom impulse responses. Prepare A/B sources, morph them through time, frequency or stereo space, and export reusable WAV IRs.">
+  <meta property="og:title" content="Impulse Anvil — Morph IRs. Bake WAVs.">
+  <meta property="og:description" content="Design custom impulse responses with A/B morphing, spectral and spatial modes, A-to-B Lerp, Color, Texture Depth and portable WAV export.">
+  <meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://freqtik.com/">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
     :root {
       --bg: #fff;
@@ -860,7 +868,7 @@
     .ia26 .ia-wave-label { color:var(--ia-text); font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; }
     .ia26 .ia-wave-time { color:var(--ia-dim); font-size:11px; font-variant-numeric:tabular-nums; white-space:nowrap; }
     .ia26 .ia-wave-canvas { display:block; width:100%; height:58px; border-radius:12px; cursor:pointer; background:linear-gradient(180deg,rgba(46,218,255,.08),rgba(0,0,0,.18)); }
-    .ia26 .ia-wave-player.is-playing .ia-wave-play { background:linear-gradient(135deg,var(--ia-cyan),var(--ia-cyan-2)); color:#031116; border-color:rgba(218,250,255,.9); }
+    .ia26 .ia-wave-player.is-playing .ia-wave-play { background:linear-gradient(135deg,var(--ia-cyan),var(--ia-cyan2)); color:#031116; border-color:rgba(218,250,255,.9); }
     .ia26 .ia-wave-player.is-placeholder .ia-wave-time:after { content:''; }
     .ia26 .ia-wave-player audio { display:none; }
     .ia26 .ia-video-section { padding-top:58px; }
@@ -1392,6 +1400,616 @@
       }
     }
 
+
+    /* ================================================================
+       FREQTIK / IMPULSE ANVIL — PROFESSIONAL LANDING PAGE REFINEMENT
+       Keeps all existing product routes and JavaScript functionality.
+       ================================================================ */
+    :root {
+      --header-height:72px;
+      --rad:18px;
+    }
+
+    html { scroll-padding-top:118px; }
+    body { background:#03070d; }
+
+    /* Remove the mouse-movement splash screen. It delayed the product and
+       created an unnecessary accessibility/conversion barrier. */
+    .intro { display:none !important; }
+    #menuToggle { display:none !important; }
+
+    /* Compact global navigation: one stable, readable header on every device. */
+    #mainHeader {
+      height:72px;
+      display:grid;
+      grid-template-columns:minmax(110px, 180px) minmax(0, 1fr);
+      align-items:center;
+      gap:12px;
+      padding:0 max(14px, calc((100vw - 1240px) / 2));
+      background:rgba(3,7,13,.88);
+      border-bottom:1px solid rgba(150,218,240,.14);
+      box-shadow:0 12px 38px rgba(0,0,0,.28);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      transform:none !important;
+      overflow:visible;
+    }
+    #mainHeader .logo-container {
+      height:72px;
+      justify-content:flex-start;
+      border:0;
+      min-width:0;
+    }
+    #mainHeader .logo-button { justify-content:flex-start; max-width:150px; }
+    #mainHeader .logo-container img {
+      width:min(132px, 100%);
+      height:auto;
+      max-height:42px;
+      object-fit:contain;
+      filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(39,214,255,.15));
+    }
+    #mainHeader > nav {
+      min-width:0;
+      padding:0;
+      border:0;
+      justify-content:flex-end;
+      overflow:visible;
+    }
+    #mainHeader > nav > ul {
+      width:100%;
+      justify-content:flex-end;
+      flex-wrap:nowrap !important;
+      gap:3px;
+      overflow:visible;
+    }
+    #mainHeader nav ul li { flex:0 0 auto; }
+    #mainHeader nav ul li button,
+    #mainHeader nav ul li a.nav-link {
+      min-height:40px;
+      padding:8px 11px;
+      border-radius:999px;
+      color:#c4d4da;
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+      transition:color .18s ease, background .18s ease, transform .18s ease;
+    }
+    #mainHeader nav ul li button:hover,
+    #mainHeader nav ul li a.nav-link:hover,
+    #mainHeader nav ul li button.is-current,
+    #mainHeader nav ul li a.nav-link.is-current,
+    #mainHeader nav .dropdown-open > button {
+      color:#fff;
+      background:rgba(39,214,255,.09);
+      box-shadow:inset 0 0 0 1px rgba(39,214,255,.16);
+      transform:none;
+    }
+    #mainHeader nav .dropdown > button::after {
+      content:"";
+      width:6px;
+      height:6px;
+      margin-left:8px;
+      border-right:1.5px solid currentColor;
+      border-bottom:1.5px solid currentColor;
+      transform:translateY(-2px) rotate(45deg);
+      transition:transform .18s ease;
+      flex:0 0 auto;
+    }
+    #mainHeader nav .dropdown-open > button::after {
+      transform:translateY(2px) rotate(225deg);
+    }
+    #mainHeader .dropdown-content {
+      top:calc(100% + 12px);
+      padding:10px;
+      min-width:250px;
+      border-radius:16px;
+      border:1px solid rgba(150,218,240,.18);
+      background:rgba(4,10,15,.97);
+      box-shadow:0 24px 70px rgba(0,0,0,.46);
+      z-index:1000;
+      max-height:min(70vh, 520px);
+      overflow-y:auto;
+      overscroll-behavior:contain;
+    }
+    #mainHeader .dropdown-content a {
+      margin:0;
+      padding:10px 12px;
+      border-radius:10px;
+      color:#c4d4da;
+      font-size:13px;
+    }
+    #mainHeader .dropdown-content a:hover {
+      color:#fff;
+      background:rgba(39,214,255,.09);
+      transform:none;
+    }
+    .content-container { padding-top:72px; background:#03070d; }
+    footer {
+      padding:30px 16px;
+      color:#718894;
+      background:#020509;
+      border-top:1px solid rgba(150,218,240,.12);
+    }
+
+    /* Product page foundation */
+    .ia26.ia-v2 {
+      --ia-bg:#03070d;
+      --ia-bg2:#07131d;
+      --ia-text:#f4fbfd;
+      --ia-muted:#afc2c9;
+      --ia-dim:#708691;
+      --ia-cyan:#27d6ff;
+      --ia-cyan-soft:#8cecff;
+      --ia-line:rgba(150,218,240,.16);
+      --ia-panel:rgba(255,255,255,.052);
+      --ia-panel-strong:rgba(255,255,255,.082);
+      --ia-max:1220px;
+      background:
+        radial-gradient(circle at 14% 4%, rgba(39,214,255,.13), transparent 27%),
+        radial-gradient(circle at 84% 15%, rgba(74,163,255,.075), transparent 30%),
+        linear-gradient(180deg,#03070d 0%,#07121b 44%,#03070d 100%);
+    }
+    .ia26.ia-v2:before {
+      opacity:.11;
+      background-size:120px 120px;
+    }
+    .ia26.ia-v2 .ia-shell { width:min(var(--ia-max), calc(100% - 40px)); }
+    .ia26.ia-v2 .ia-section { padding:88px 0; }
+
+    /* Product chapter bar plus the original quick chapter rail. */
+    .ia26.ia-v2 .ia-side-nav {
+      display:flex;
+      max-height:calc(100vh - 24px);
+      overflow-y:auto;
+      scrollbar-width:none;
+    }
+    .ia26.ia-v2 .ia-side-nav::-webkit-scrollbar { display:none; }
+    .ia26.ia-v2 .ia-mini-nav-product {
+      position:relative;
+      top:auto;
+      z-index:60;
+      padding:10px 0 0;
+      background:linear-gradient(180deg,rgba(3,7,13,.98),rgba(3,7,13,.72),transparent);
+    }
+    .ia26.ia-v2 .ia-mini-nav-inner {
+      width:min(var(--ia-max), calc(100% - 28px));
+      min-height:50px;
+      border-radius:17px;
+      padding:6px 7px;
+      justify-content:space-between;
+      background:rgba(5,13,19,.84);
+      border-color:rgba(150,218,240,.17);
+      box-shadow:0 16px 46px rgba(0,0,0,.28);
+    }
+    .ia26.ia-v2 .ia-mini-links-product {
+      width:100%;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      overflow-x:auto;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+    }
+    .ia26.ia-v2 .ia-mini-links-product::-webkit-scrollbar { display:none; }
+    .ia26.ia-v2 .ia-mini-links a,
+    .ia26.ia-v2 .ia-mini-links a:not(.ia-nav-important) {
+      display:inline-flex !important;
+      flex:0 0 auto;
+      min-height:36px;
+      align-items:center;
+      padding:7px 10px;
+      font-size:11px;
+      letter-spacing:.01em;
+    }
+    .ia26.ia-v2 .ia-mini-links .ia-nav-spacer { flex:1 1 auto; min-width:10px; }
+
+    /* Hero */
+    .ia26.ia-v2 .ia-hero { padding:78px 0 58px; }
+    .ia26.ia-v2 .ia-hero-grid {
+      grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr);
+      gap:54px;
+      align-items:center;
+    }
+    .ia26.ia-v2 h1 {
+      max-width:680px;
+      margin:20px 0 20px;
+      font-size:clamp(52px,6.6vw,94px);
+      line-height:.91;
+      letter-spacing:-.065em;
+    }
+    .ia26.ia-v2 .ia-lead {
+      max-width:660px;
+      margin-bottom:18px;
+      color:#d6e6eb;
+      font-size:clamp(18px,1.65vw,22px);
+      line-height:1.5;
+    }
+    .ia26.ia-v2 .ia-hero-sub {
+      max-width:640px;
+      color:var(--ia-muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+    .ia26.ia-v2 .ia-actions { margin:28px 0 14px; }
+    .ia26.ia-v2 .ia-hero-buy {
+      min-height:54px;
+      padding:0 25px;
+      font-size:15px;
+    }
+    .ia26.ia-v2 .ia-btn-primary {
+      background:linear-gradient(135deg,#62e5ff,#27d6ff 47%,#138bad);
+      border-color:rgba(188,247,255,.84);
+      box-shadow:0 16px 46px rgba(39,214,255,.20);
+    }
+    .ia26.ia-v2 .ia-btn-primary:hover { box-shadow:0 22px 62px rgba(39,214,255,.29); }
+    .ia26.ia-v2 .ia-product-card {
+      padding:10px;
+      border-radius:30px;
+      background:linear-gradient(145deg,rgba(39,214,255,.18),rgba(255,255,255,.048) 42%,rgba(0,0,0,.40));
+      box-shadow:0 38px 110px rgba(0,0,0,.55),0 0 70px rgba(39,214,255,.10);
+    }
+    .ia26.ia-v2 .ia-product-window { border-radius:21px; }
+    .ia26.ia-v2 .ia-float-card {
+      right:20px;
+      bottom:20px;
+      width:min(330px,48%);
+      padding:15px;
+      background:rgba(3,9,14,.82);
+    }
+    .ia26.ia-v2 .ia-hero-fineprint {
+      margin-top:13px;
+      color:var(--ia-dim);
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    /* Trust / proof strip */
+    .ia26.ia-v2 .ia-proofbar {
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      width:min(var(--ia-max), calc(100% - 40px));
+      margin:0 auto 24px;
+      border:1px solid var(--ia-line);
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(255,255,255,.045);
+      box-shadow:0 18px 60px rgba(0,0,0,.20);
+    }
+    .ia26.ia-v2 .ia-proof-item {
+      min-height:92px;
+      padding:18px;
+      border-right:1px solid var(--ia-line);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:4px;
+    }
+    .ia26.ia-v2 .ia-proof-item:last-child { border-right:0; }
+    .ia26.ia-v2 .ia-proof-item strong { color:var(--ia-text); font-size:14px; }
+    .ia26.ia-v2 .ia-proof-item span { color:var(--ia-dim); font-size:12px; line-height:1.35; }
+
+    /* Stronger editorial rhythm */
+    .ia26.ia-v2 .ia-section-head { margin-bottom:34px; }
+    .ia26.ia-v2 .ia-section-head .ia-copy { max-width:790px; }
+    .ia26.ia-v2 h2 { font-size:clamp(36px,4.4vw,62px); line-height:.98; }
+    .ia26.ia-v2 .ia-section-head p { font-size:16px; }
+    .ia26.ia-v2 .ia-market-note {
+      max-width:880px;
+      margin-top:14px;
+      color:var(--ia-muted);
+      font-size:15px;
+      line-height:1.75;
+    }
+
+    /* Positioning cards */
+    .ia26.ia-v2 .ia-position-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .ia26.ia-v2 .ia-position-card {
+      min-height:250px;
+      padding:27px;
+      border-radius:24px;
+      border:1px solid var(--ia-line);
+      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.036));
+      box-shadow:0 22px 64px rgba(0,0,0,.20);
+    }
+    .ia26.ia-v2 .ia-position-card .ia-number { margin-bottom:28px; }
+    .ia26.ia-v2 .ia-position-card h3 { font-size:23px; margin-bottom:10px; }
+    .ia26.ia-v2 .ia-position-card p { color:var(--ia-muted); line-height:1.68; }
+
+    /* Audio cards */
+    .ia26.ia-v2 .ia-sound-band {
+      padding:74px 0;
+      background:linear-gradient(180deg,rgba(0,0,0,.26),rgba(39,214,255,.025));
+    }
+    .ia26.ia-v2 .ia-demo-card { padding:22px; }
+    .ia26.ia-v2 .ia-wave-player { margin-top:16px; }
+
+    /* Morph mode feature stage */
+    .ia26.ia-v2 .ia-mode-stage {
+      display:grid;
+      grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);
+      gap:18px;
+      align-items:stretch;
+    }
+    .ia26.ia-v2 .ia-mode-intro,
+    .ia26.ia-v2 .ia-mode-card {
+      border:1px solid var(--ia-line);
+      border-radius:26px;
+      background:rgba(255,255,255,.048);
+      overflow:hidden;
+    }
+    .ia26.ia-v2 .ia-mode-intro {
+      padding:30px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at 20% 5%,rgba(39,214,255,.14),transparent 36%),
+        rgba(255,255,255,.045);
+    }
+    .ia26.ia-v2 .ia-mode-intro h3 { font-size:30px; line-height:1.05; margin:12px 0; }
+    .ia26.ia-v2 .ia-mode-intro p { color:var(--ia-muted); line-height:1.7; }
+    .ia26.ia-v2 .ia-mode-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .ia26.ia-v2 .ia-mode-card { padding:22px; min-height:190px; }
+    .ia26.ia-v2 .ia-mode-card b {
+      display:inline-flex;
+      margin-bottom:13px;
+      color:var(--ia-cyan);
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .ia26.ia-v2 .ia-mode-card h3 { margin-bottom:8px; font-size:19px; }
+    .ia26.ia-v2 .ia-mode-card p { color:var(--ia-muted); line-height:1.58; font-size:14px; }
+
+    /* Workflow */
+    .ia26.ia-v2 .ia-flow-strip { gap:10px; }
+    .ia26.ia-v2 .ia-flow-step {
+      min-height:180px;
+      padding:19px;
+      background:rgba(255,255,255,.045);
+    }
+
+    /* Outcome/use-case bento */
+    .ia26.ia-v2 .ia-outcome-grid {
+      display:grid;
+      grid-template-columns:1.18fr .82fr .82fr;
+      grid-template-areas:
+        "lead vocal drums"
+        "lead instruments library";
+      gap:16px;
+    }
+    .ia26.ia-v2 .ia-outcome {
+      min-height:210px;
+      padding:25px;
+      border-radius:24px;
+      border:1px solid var(--ia-line);
+      background:rgba(255,255,255,.048);
+      position:relative;
+      overflow:hidden;
+    }
+    .ia26.ia-v2 .ia-outcome:after {
+      content:"";
+      position:absolute;
+      width:170px;
+      height:170px;
+      right:-70px;
+      bottom:-80px;
+      border-radius:999px;
+      background:radial-gradient(circle,rgba(39,214,255,.15),transparent 68%);
+    }
+    .ia26.ia-v2 .ia-outcome-lead {
+      grid-area:lead;
+      min-height:436px;
+      padding:34px;
+      background:
+        radial-gradient(circle at 20% 8%,rgba(39,214,255,.14),transparent 38%),
+        linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+    }
+    .ia26.ia-v2 .ia-outcome-vocal { grid-area:vocal; }
+    .ia26.ia-v2 .ia-outcome-drums { grid-area:drums; }
+    .ia26.ia-v2 .ia-outcome-instruments { grid-area:instruments; }
+    .ia26.ia-v2 .ia-outcome-library { grid-area:library; }
+    .ia26.ia-v2 .ia-outcome h3 { font-size:21px; margin:10px 0 9px; }
+    .ia26.ia-v2 .ia-outcome-lead h3 { font-size:34px; line-height:1.05; max-width:440px; }
+    .ia26.ia-v2 .ia-outcome p { color:var(--ia-muted); line-height:1.65; }
+    .ia26.ia-v2 .ia-outcome ul { margin-top:22px; }
+
+    /* Interface and themes */
+    .ia26.ia-v2 .ia-anatomy { grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr); }
+    .ia26.ia-v2 .ia-bare-product-shot {
+      padding:10px;
+      border-radius:28px;
+      border:1px solid rgba(150,218,240,.18);
+      background:linear-gradient(145deg,rgba(39,214,255,.12),rgba(255,255,255,.045));
+      box-shadow:0 30px 90px rgba(0,0,0,.42);
+    }
+    .ia26.ia-v2 .ia-callout { padding:19px; }
+    .ia26.ia-v2 .ia-theme-stage { grid-template-columns:minmax(0,1.5fr) minmax(280px,.5fr); }
+
+    /* Honest-fit section */
+    .ia26.ia-v2 .ia-fit-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .ia26.ia-v2 .ia-fit-card {
+      padding:27px;
+      border:1px solid var(--ia-line);
+      border-radius:24px;
+      background:rgba(255,255,255,.048);
+    }
+    .ia26.ia-v2 .ia-fit-card.is-positive {
+      background:linear-gradient(135deg,rgba(39,214,255,.105),rgba(255,255,255,.035));
+      border-color:rgba(39,214,255,.24);
+    }
+    .ia26.ia-v2 .ia-fit-card h3 { margin-bottom:12px; font-size:23px; }
+    .ia26.ia-v2 .ia-fit-card .ia-list { margin-top:0; }
+
+    /* Pricing: two clear choices, no redundant third pseudo-plan. */
+    .ia26.ia-v2 .ia-pricing {
+      grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+      max-width:960px;
+      margin:0 auto;
+    }
+    .ia26.ia-v2 .ia-price-card { padding:32px; }
+    .ia26.ia-v2 .ia-price-card-featured { transform:translateY(-8px); }
+    .ia26.ia-v2 .ia-portable-note {
+      max-width:960px;
+      margin:18px auto 0;
+      padding:20px 22px;
+      border:1px solid rgba(39,214,255,.22);
+      border-radius:20px;
+      background:rgba(39,214,255,.065);
+      color:var(--ia-muted);
+      line-height:1.6;
+    }
+    .ia26.ia-v2 .ia-portable-note strong { color:var(--ia-text); }
+
+    /* FAQ and final CTA */
+    .ia26.ia-v2 details { background:rgba(255,255,255,.044); }
+    .ia26.ia-v2 summary { padding:20px 22px; }
+    .ia26.ia-v2 .ia-final-cta {
+      margin:26px 0 10px;
+      padding:clamp(40px,7vw,76px);
+      background:
+        radial-gradient(circle at 22% 8%,rgba(39,214,255,.19),transparent 31%),
+        linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+    }
+
+    /* Keyboard accessibility */
+    .ia26.ia-v2 a:focus-visible,
+    .ia26.ia-v2 button:focus-visible,
+    #mainHeader a:focus-visible,
+    #mainHeader button:focus-visible {
+      outline:2px solid #8cecff;
+      outline-offset:3px;
+    }
+
+    @media (max-width:1080px) {
+      .ia26.ia-v2 .ia-hero-grid,
+      .ia26.ia-v2 .ia-mode-stage,
+      .ia26.ia-v2 .ia-anatomy { grid-template-columns:1fr; }
+      .ia26.ia-v2 .ia-product-card { max-width:900px; }
+      .ia26.ia-v2 .ia-position-grid { grid-template-columns:1fr 1fr; }
+      .ia26.ia-v2 .ia-position-card:last-child { grid-column:1 / -1; min-height:auto; }
+      .ia26.ia-v2 .ia-proofbar { grid-template-columns:repeat(3,1fr); }
+      .ia26.ia-v2 .ia-proof-item:nth-child(3) { border-right:0; }
+      .ia26.ia-v2 .ia-proof-item:nth-child(n+4) { border-top:1px solid var(--ia-line); }
+      .ia26.ia-v2 .ia-outcome-grid {
+        grid-template-columns:1fr 1fr;
+        grid-template-areas:
+          "lead lead"
+          "vocal drums"
+          "instruments library";
+      }
+      .ia26.ia-v2 .ia-outcome-lead { min-height:auto; }
+      .ia26.ia-v2 .ia-theme-stage { grid-template-columns:1fr; }
+    }
+
+    @media (max-width:760px) {
+      :root { --header-height:62px; }
+      html { font-size:100%; scroll-padding-top:104px; }
+      #mainHeader {
+        height:62px;
+        grid-template-columns:84px minmax(0,1fr);
+        padding:0 8px 0 10px;
+      }
+      #mainHeader .logo-container { height:62px; }
+      #mainHeader .logo-container img { max-height:30px; width:78px; }
+      #mainHeader > nav > ul { justify-content:flex-end; overflow:visible; }
+      #mainHeader nav ul li button,
+      #mainHeader nav ul li a.nav-link { min-height:36px; padding:7px 9px; font-size:11px; }
+      #mainHeader .dropdown-content { position:fixed; top:62px; left:10px !important; right:10px !important; width:auto; }
+      .content-container { padding-top:62px; }
+      .ia26.ia-v2 .ia-shell { width:min(var(--ia-max), calc(100% - 28px)); }
+      .ia26.ia-v2 .ia-section { padding:64px 0; }
+      .ia26.ia-v2 .ia-hero { padding:54px 0 42px; }
+      .ia26.ia-v2 h1 { font-size:clamp(47px,15vw,72px); }
+      .ia26.ia-v2 .ia-float-card { position:static; width:auto; margin-top:10px; }
+      .ia26.ia-v2 .ia-proofbar { width:calc(100% - 28px); grid-template-columns:1fr 1fr; }
+      .ia26.ia-v2 .ia-proof-item { min-height:82px; border-top:1px solid var(--ia-line); }
+      .ia26.ia-v2 .ia-proof-item:nth-child(-n+2) { border-top:0; }
+      .ia26.ia-v2 .ia-proof-item:nth-child(2n) { border-right:0; }
+      .ia26.ia-v2 .ia-proof-item:last-child { grid-column:1 / -1; border-right:0; }
+      .ia26.ia-v2 .ia-position-grid,
+      .ia26.ia-v2 .ia-mode-list,
+      .ia26.ia-v2 .ia-fit-grid,
+      .ia26.ia-v2 .ia-pricing { grid-template-columns:1fr; }
+      .ia26.ia-v2 .ia-position-card:last-child { grid-column:auto; }
+      .ia26.ia-v2 .ia-outcome-grid {
+        grid-template-columns:1fr;
+        grid-template-areas:"lead" "vocal" "drums" "instruments" "library";
+      }
+      .ia26.ia-v2 .ia-outcome { min-height:auto; }
+      .ia26.ia-v2 .ia-outcome-lead { padding:27px; }
+      .ia26.ia-v2 .ia-outcome-lead h3 { font-size:28px; }
+      .ia26.ia-v2 .ia-price-card-featured { transform:none; }
+      .ia26.ia-v2 .ia-theme-caption { position:static; margin:10px; }
+    }
+
+    @media (max-width:520px) {
+      :root { --header-height:112px; }
+      html { scroll-padding-top:148px; }
+      #mainHeader {
+        height:112px;
+        min-height:112px;
+        grid-template-columns:1fr;
+        grid-template-rows:38px minmax(0,1fr);
+        align-content:center;
+        gap:2px;
+        padding:6px 8px;
+      }
+      #mainHeader .logo-container {
+        height:38px;
+        justify-content:center;
+      }
+      #mainHeader .logo-button { justify-content:center; }
+      #mainHeader .logo-container img { width:82px; max-height:30px; object-position:center; }
+      #mainHeader > nav { width:100%; }
+      #mainHeader > nav > ul {
+        justify-content:center;
+        align-content:center;
+        flex-wrap:wrap !important;
+        gap:2px;
+        overflow:visible;
+      }
+      #mainHeader nav ul li button,
+      #mainHeader nav ul li a.nav-link {
+        min-height:30px;
+        padding:5px 7px;
+        font-size:10.5px;
+      }
+      #mainHeader nav .dropdown > button::after { margin-left:6px; }
+      #mainHeader .dropdown-content {
+        position:fixed;
+        top:112px;
+        left:8px !important;
+        right:8px !important;
+        width:auto;
+        max-height:calc(100vh - 124px);
+      }
+      .content-container { padding-top:112px; }
+    }
+
+    @media (max-width:430px) {
+      .ia26.ia-v2 .ia-mini-nav-inner { width:calc(100% - 16px); }
+      .ia26.ia-v2 .ia-actions { display:grid; grid-template-columns:1fr; }
+      .ia26.ia-v2 .ia-btn { width:100%; white-space:normal; text-align:center; }
+      .ia26.ia-v2 .ia-proofbar { grid-template-columns:1fr; }
+      .ia26.ia-v2 .ia-proof-item,
+      .ia26.ia-v2 .ia-proof-item:nth-child(n) { border-right:0; border-top:1px solid var(--ia-line); }
+      .ia26.ia-v2 .ia-proof-item:first-child { border-top:0; }
+      .ia26.ia-v2 .ia-proof-item:last-child { grid-column:auto; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .ia26.ia-v2 *, #mainHeader * { animation:none !important; transition:none !important; }
+    }
+
   </style>
 
   <!-- Organization JSON-LD -->
@@ -1454,7 +2072,7 @@
 </head>
 <body>
 
-  <button id="menuToggle" aria-label="Open menu" title="Open menu">☰</button>
+  <button id="menuToggle" type="button" aria-label="Open menu" title="Open menu" aria-hidden="true" tabindex="-1">☰</button>
 
   <div class="intro" id="intro" aria-hidden="true">
     <img src="assets/freqtik-logo.png" alt="FreQtik Logo" />
@@ -1471,10 +2089,10 @@
   <ul>
     <!-- Audio Tools menu -->
     <li class="dropdown">
-      <button data-main-nav="anvil" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">Audio Tools</button>
-      <div class="dropdown-content" role="menu" aria-label="Audio Tools">
-        <a href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil</a>
-        <a href="/master-desktop-tap.html" onclick="closeDropdowns()">Master Desktop Tap · Free Beta</a>
+      <button data-main-nav="anvil" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="audioToolsMenu">Audio Tools</button>
+      <div class="dropdown-content" id="audioToolsMenu" role="menu" aria-label="Audio Tools">
+        <a role="menuitem" href="#" onclick="loadFeed('anvil');closeDropdowns();return false;">Impulse Anvil</a>
+        <a role="menuitem" href="/master-desktop-tap.html" onclick="closeDropdowns()">Master Desktop Tap · Free Beta</a>
       </div>
     </li>
 
@@ -1484,18 +2102,18 @@
 
     <!-- About & personal projects on the far right -->
     <li class="dropdown">
-      <button data-main-nav="about" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false">About & Projects</button>
-      <div class="dropdown-content" role="menu" aria-label="About & Projects">
-        <a href="#" onclick="loadFeed('about');closeDropdowns();return false;">About FreQtik</a>
+      <button data-main-nav="about" onclick="toggleDropdown(this)" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="aboutProjectsMenu">About & Projects</button>
+      <div class="dropdown-content" id="aboutProjectsMenu" role="menu" aria-label="About & Projects">
+        <a role="menuitem" href="#" onclick="loadFeed('about');closeDropdowns();return false;">About FreQtik</a>
 
-        <a href="#" onclick="loadFeed('ltb');closeDropdowns();return false;">Games · Learning to Bear</a>
-        <a href="#" onclick="loadFeed('aim');closeDropdowns();return false;">Games · Aim Trainer Bee Pro</a>
-        <a href="#" onclick="loadFeed('microgame');closeDropdowns();return false;">Games · Micro Mouse Trainer</a>
-        <a href="https://boontd.freqtik.com" target="_blank" rel="noopener" onclick="closeDropdowns()">Games · Boon TD Online</a>
+        <a role="menuitem" href="#" onclick="loadFeed('ltb');closeDropdowns();return false;">Games · Learning to Bear</a>
+        <a role="menuitem" href="#" onclick="loadFeed('aim');closeDropdowns();return false;">Games · Aim Trainer Bee Pro</a>
+        <a role="menuitem" href="#" onclick="loadFeed('microgame');closeDropdowns();return false;">Games · Micro Mouse Trainer</a>
+        <a role="menuitem" href="https://boontd.freqtik.com" target="_blank" rel="noopener" onclick="closeDropdowns()">Games · Boon TD Online</a>
 
-        <a href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
-        <a href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Music · Spotify</a>
-        <a href="/contrast-rules-for-producers.html" onclick="closeDropdowns()">Music · Producer Frameworks</a>
+        <a role="menuitem" href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
+        <a role="menuitem" href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Music · Spotify</a>
+        <a role="menuitem" href="/contrast-rules-for-producers.html" onclick="closeDropdowns()">Music · Producer Frameworks</a>
       </div>
     </li>
   </ul>
@@ -1580,14 +2198,20 @@
       });
     }
 
-    /* Close dropdowns when clicking anywhere outside nav dropdowns */
+    /* Close dropdowns outside the control, with Escape, or after layout changes. */
     document.addEventListener('click', (event) => {
       const target = event.target;
-      // If click is not inside a nav dropdown, close all
-      if (!target.closest('nav .dropdown')) {
+      if (!(target instanceof Element) || !target.closest('nav .dropdown')) {
         closeDropdowns();
       }
     });
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const openButton = document.querySelector('nav .dropdown-open > button');
+      closeDropdowns();
+      if (openButton) openButton.focus();
+    });
+    window.addEventListener('resize', closeDropdowns, { passive:true });
 
     /* Tiny util */
     function escapeHtml(str){
@@ -2344,142 +2968,179 @@
 
 function buildAnvil(){
   return `
-  <div class="ia26" id="anvil">
+  <div class="ia26 ia-v2" id="anvil">
     <div class="ia-mini-nav ia-mini-nav-product" aria-label="Impulse Anvil product navigation">
       <div class="ia-mini-nav-inner">
         <div class="ia-mini-links ia-mini-links-product">
+          <a href="#" onclick="iaScrollTo('anvil'); return false;">Overview</a>
           <a href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear it</a>
-          <a href="#" onclick="iaScrollTo('ia-creative-core'); return false;">Why it exists</a>
+          <a href="#" onclick="iaScrollTo('ia-creative-core'); return false;">Morph engine</a>
           <a href="#" onclick="iaScrollTo('ia-workflow'); return false;">Workflow</a>
           <a href="#" onclick="iaScrollTo('ia-usecases'); return false;">Use cases</a>
-          <a href="#" onclick="iaScrollTo('ia-trust'); return false;">Trust</a>
           <a href="#" onclick="iaScrollTo('ia-interface'); return false;">Interface</a>
+          <a href="#" onclick="iaScrollTo('ia-trust'); return false;">Honest fit</a>
+          <a href="#" onclick="iaScrollTo('ia-pricing'); return false;">Pricing</a>
+          <a href="#" onclick="iaScrollTo('ia-faq'); return false;">FAQ</a>
           <a href="#" onclick="loadFeed('docs'); return false;">Docs</a>
-          <a class="ia-nav-important" href="#" onclick="iaScrollTo('ia-pricing'); return false;">Pricing</a>
-          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>€29</span></span></a>
+          <span class="ia-nav-spacer" aria-hidden="true"></span>
+          <a class="ia-nav-important ia-btn ia-btn-small" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Free demo</a>
+          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy · €29</a>
         </div>
       </div>
     </div>
 
     <nav class="ia-side-nav" aria-label="Impulse Anvil floating chapter navigation">
-      <a href="#" data-ia-target="anvil" onclick="iaScrollTo('anvil'); return false;"><img class="ia-side-logo" src="assets/tinylogoQ.png" alt=""><span class="ia-side-label">Top</span></a>
+      <a href="#" data-ia-target="anvil" onclick="iaScrollTo('anvil'); return false;"><img class="ia-side-logo" src="assets/tinylogoQ.png" alt=""><span class="ia-side-label">Overview</span></a>
+      <a href="#" data-ia-target="ia-position" onclick="iaScrollTo('ia-position'); return false;">IR<span class="ia-side-label">What it is</span></a>
       <a href="#" data-ia-target="ia-sound" onclick="iaScrollTo('ia-sound'); return false;">▶<span class="ia-side-label">Hear it</span></a>
-      <a href="#" data-ia-target="ia-creative-core" onclick="iaScrollTo('ia-creative-core'); return false;">IR<span class="ia-side-label">Why it exists</span></a>
+      <a href="#" data-ia-target="ia-creative-core" onclick="iaScrollTo('ia-creative-core'); return false;">M<span class="ia-side-label">Morph engine</span></a>
       <a href="#" data-ia-target="ia-workflow" onclick="iaScrollTo('ia-workflow'); return false;">W<span class="ia-side-label">Workflow</span></a>
       <a href="#" data-ia-target="ia-usecases" onclick="iaScrollTo('ia-usecases'); return false;">U<span class="ia-side-label">Use cases</span></a>
-      <a href="#" data-ia-target="ia-trust" onclick="iaScrollTo('ia-trust'); return false;">✓<span class="ia-side-label">Trust</span></a>
       <a href="#" data-ia-target="ia-interface" onclick="iaScrollTo('ia-interface'); return false;">UI<span class="ia-side-label">Interface</span></a>
+      <a href="#" data-ia-target="ia-trust" onclick="iaScrollTo('ia-trust'); return false;">✓<span class="ia-side-label">Honest fit</span></a>
       <a href="#" data-ia-target="ia-faq" onclick="iaScrollTo('ia-faq'); return false;">?<span class="ia-side-label">FAQ</span></a>
       <a href="#" data-ia-target="ia-pricing" onclick="iaScrollTo('ia-pricing'); return false;">€<span class="ia-side-label">Pricing</span></a>
-      <a class="ia-side-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy<span class="ia-side-label">Launch license €29</span></a>
+      <a class="ia-side-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy<span class="ia-side-label">Full license €29</span></a>
     </nav>
 
     <section class="ia-section ia-hero">
       <div class="ia-shell ia-hero-grid">
         <div class="ia-hero-copy">
-          <span class="ia-eyebrow"><span class="ia-pulse"></span> A/B IR morphing · A→B Lerp · WAV export</span>
-          <h1>Morph IRs. <span class="ia-cyan">Bake WAVs.</span></h1>
-          <p class="ia-lead">Load two impulse responses, create entirely new ones with spectral, spatial, or A→B morphing, then export a standard WAV IR for use in any convolver, modeler, or IR loader.</p>
+          <span class="ia-eyebrow"><span class="ia-pulse"></span> Creative IR designer · Windows VST3</span>
+          <h1>Morph IRs.<br><span class="ia-cyan">Bake WAVs.</span></h1>
+          <p class="ia-lead">Build the impulse response you wish already existed.</p>
+          <p class="ia-hero-sub">Impulse Anvil is a focused IR-design plugin. Load A and B, shape each source, morph them through time, frequency or stereo space, audition the result through convolution, then bake that designed IR as a standard WAV.</p>
           <div class="ia-actions">
-            <a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>€29 launch</span></span></a>
-            <a class="ia-btn" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear audio demos</a>
-            <a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('downloads'); return false;">Download VST3</a>
-            <a class="ia-btn ia-btn-dark" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener" aria-label="Join the Impulse Anvil Discord for free themes, free IRs, updates and videos">${DISCORD_ICON}Join Discord</a>
+            <a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a>
+            <a class="ia-btn ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Full license €29</span></span></a>
+            <a class="ia-btn ia-btn-dark" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear examples</a>
           </div>
-          <div class="ia-hero-note" aria-label="Impulse Anvil highlights">
-            <span>Mode-aware A→B Lerp</span>
-            <span>Spectral morph modes</span>
-            <span>Bake WAV IRs</span>
-            <span>Color + Texture Depth</span>
-            <span>126 handmade IRs</span>
-          </div>
-          <p class="ia-note">Windows 10/11 · 64-bit VST3 effect plugin · demo included · manual ZIP install. Built for deliberate IR design, not live knob automation.</p>
+          <p class="ia-hero-fineprint">Windows 10/11 · 64-bit VST3 · 126 handmade IRs · 2 seats · manual ZIP installation · same download runs in demo mode until unlocked.</p>
         </div>
+
         <div class="ia-product-card" aria-label="Impulse Anvil interface preview">
           <div class="ia-product-window">
-            <img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface in the default design" loading="eager">
+            <img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface showing A and B impulse response controls, morphing, editing and output sections" loading="eager" fetchpriority="high" decoding="async">
           </div>
           <div class="ia-float-card">
-            <b>Morph · Lerp · Bake</b>
-            <p>Create a new IR from A/B sources, preview it in context, then export the committed result as a standard WAV.</p>
+            <b>Design → audition → commit</b>
+            <p>The prepared IR you hear is the result you can bake into a portable WAV for compatible convolvers, modelers and IR loaders.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ia-proofbar" aria-label="Impulse Anvil key facts">
+      <div class="ia-proof-item"><strong>A/B IR design</strong><span>Prepare both endpoints before morphing.</span></div>
+      <div class="ia-proof-item"><strong>7 morph approaches</strong><span>Time, spectral, spatial and Lerp behavior.</span></div>
+      <div class="ia-proof-item"><strong>Portable WAV output</strong><span>Your baked IR is not locked to the plugin.</span></div>
+      <div class="ia-proof-item"><strong>126 included IRs</strong><span>Start immediately or load your own material.</span></div>
+      <div class="ia-proof-item"><strong>Focused €29 license</strong><span>One full version with two seats.</span></div>
+    </div>
+
+    <section class="ia-section" id="ia-position">
+      <div class="ia-shell">
+        <div class="ia-section-head">
+          <div class="ia-copy">
+            <span class="ia-kicker">The product in one sentence</span>
+            <h2>Build the impulse,<br>not only the reverb.</h2>
+            <p>Impulse Anvil is deliberately centered on authoring new IR material. It is not trying to replace every large convolution suite; it gives you a direct path from two source fingerprints to a finished, reusable impulse response.</p>
+          </div>
+        </div>
+        <div class="ia-position-grid">
+          <article class="ia-position-card"><span class="ia-number">01</span><h3>Morph beyond a basic crossfade</h3><p>Choose predictable Time Morph, frequency-based Spectral, BandSwap or ZigZag behavior, or reshape the relationship between A and B across the stereo field.</p></article>
+          <article class="ia-position-card"><span class="ia-number">02</span><h3>Design both endpoints first</h3><p>Time, gain, Color and Texture Depth prepare A and B before they meet. That makes the morph a combination of two designed states—not merely two untouched files.</p></article>
+          <article class="ia-position-card"><span class="ia-number">03</span><h3>Commit the result as a WAV</h3><p>Trim, reverse-slice, fade, EQ, widen and level the prepared result, then bake it into a standard WAV IR for a personal library or another compatible convolution tool.</p></article>
         </div>
       </div>
     </section>
 
     <section class="ia-sound-band ia-media-section" id="ia-sound">
       <div class="ia-shell">
-        <div class="ia-section-head ia-media-head"><div class="ia-copy"><span class="ia-kicker">Hear it first</span><h2>Dry → wet examples.</h2><p>Short dry/wet comparisons using IRs created with Impulse Anvil. Each clip starts with the dry source, then switches into convolution so you can hear the designed IR in context.</p></div></div>
+        <div class="ia-section-head ia-media-head">
+          <div class="ia-copy">
+            <span class="ia-kicker">Hear the outcome</span>
+            <h2>Dry first. Designed IR second.</h2>
+            <p>Each example starts with the untreated source and then switches into convolution. Listen for the new space, tone, resonance and stereo behavior—not only for a longer reverb tail.</p>
+          </div>
+        </div>
         <div class="ia-audio-grid">
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 01</span><h3>Piano</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3"><button class="ia-wave-play" type="button" aria-label="Play example 01">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 02</span><h3>Voice</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button class="ia-wave-play" type="button" aria-label="Play example 02">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 03</span><h3>Guitar</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3"><button class="ia-wave-play" type="button" aria-label="Play example 03">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 01</span><h3>Piano</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3"><button class="ia-wave-play" type="button" aria-label="Play piano dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 02</span><h3>Voice</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button class="ia-wave-play" type="button" aria-label="Play voice dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 03</span><h3>Guitar</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3"><button class="ia-wave-play" type="button" aria-label="Play guitar dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-creative-core">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">The creative idea</span><h2>Turn any sound into an effect fingerprint.</h2><p>Impulse Anvil is a creative IR design workstation for producers and sound designers. Load a recording, sample, room tone, cab IR or one of 126 handmade IRs, then morph, color, trim, EQ and bake the result into a reusable WAV impulse response.</p></div></div>
-        <div class="ia-surface-list">
-          <span><b>A→B Lerp bake</b>Turn a time-progressing A/B transition into one static WAV impulse response.</span>
-          <span><b>Spectral morph modes</b>Create hybrids with Spectral, BandSwap and ZigZag behavior instead of only crossfading files.</span>
-          <span><b>Spatial morph modes</b>Use Stereo Slot Swap or Mid/Side Boundary for IRs that change across the stereo field.</span>
-          <span><b>Preview becomes export</b>Solo, Morph and Lerp bakes follow the same design chain, so the exported WAV is made to match what you auditioned.</span>
+        <div class="ia-section-head">
+          <div class="ia-copy">
+            <span class="ia-kicker">Morph engine</span>
+            <h2>Choose how A becomes B.</h2>
+            <p>The morph mode changes the structure of the new impulse response. Start with Time Morph for direct blending, then move into spectral, spatial or time-evolving designs when you want a less conventional fingerprint.</p>
+          </div>
+        </div>
+        <div class="ia-mode-stage">
+          <article class="ia-mode-intro">
+            <div>
+              <span class="ia-eyebrow"><span class="ia-pulse"></span> Prepared endpoints</span>
+              <h3>A and B can already be different worlds.</h3>
+              <p>Before morphing, each slot can be stretched, leveled, colored and textured independently. The engine then combines those prepared states and passes the result into Edit, EQ, width and output preparation.</p>
+            </div>
+            <ul class="ia-list">
+              <li>Factory IRs, your own IRs or compatible WAV material</li>
+              <li>Per-slot Time, Gain, Color and Texture Depth</li>
+              <li>Preview through the internal stereo convolver</li>
+              <li>Bake the designed state into a reusable WAV IR</li>
+            </ul>
+          </article>
+          <div class="ia-mode-list">
+            <article class="ia-mode-card"><b>Direct</b><h3>Time Morph</h3><p>A predictable sample-domain blend for natural room or cabinet combinations and dependable first results.</p></article>
+            <article class="ia-mode-card"><b>Frequency</b><h3>Spectral · BandSwap · ZigZag</h3><p>Fuse frequency character, alternate bands between A and B, or create more striped and synthetic spectral patterns.</p></article>
+            <article class="ia-mode-card"><b>Stereo space</b><h3>Stereo Slot Swap · Mid/Side Boundary</h3><p>Move the A/B relationship across left and right or separate center information from the outside stereo field.</p></article>
+            <article class="ia-mode-card"><b>Inside one IR</b><h3>A→B Lerp</h3><p>Create a single static impulse response whose internal tail progresses from A toward B over time, then bake that movement into WAV.</p></article>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-workflow">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Workflow</span><h2>Prepare A/B. Morph. Bake.</h2><p>Keep the flow simple: choose two fingerprints, design the transition or hybrid, then save the result as a reusable IR.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Workflow</span><h2>Five deliberate steps.<br>One portable result.</h2><p>The interface follows the same order as the signal design, so experimentation stays understandable even when the result becomes extreme.</p></div></div>
         <div class="ia-flow-strip">
-          <div class="ia-flow-step"><b>01 · Load</b><p>Start from factory IRs, your own IRs or short WAV textures.</p></div>
-          <div class="ia-flow-step"><b>02 · Prepare</b><p>Use Time, Gain, Color and Texture Depth before morphing.</p></div>
-          <div class="ia-flow-step"><b>03 · Morph</b><p>Choose Time, Spectral, BandSwap, ZigZag, Stereo Slot Swap, Mid/Side Boundary or A→B Lerp.</p></div>
-          <div class="ia-flow-step"><b>04 · Sculpt</b><p>Trim, reverse-slice, fade, EQ, widen and level the designed IR.</p></div>
-          <div class="ia-flow-step"><b>05 · Bake</b><p>Export the current preview or Lerp result as a standard WAV impulse response.</p></div>
+          <div class="ia-flow-step"><b>01 · Load</b><p>Choose factory IRs, your own impulse responses or short WAV textures.</p></div>
+          <div class="ia-flow-step"><b>02 · Prepare</b><p>Shape A and B independently with Time, Gain, Color and Texture Depth.</p></div>
+          <div class="ia-flow-step"><b>03 · Morph</b><p>Select the time, spectral, spatial or A→B Lerp relationship.</p></div>
+          <div class="ia-flow-step"><b>04 · Sculpt</b><p>Trim, reverse-slice, fade, EQ, widen, normalize and control the level.</p></div>
+          <div class="ia-flow-step"><b>05 · Bake</b><p>Save the designed state as a standard WAV impulse response.</p></div>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-usecases">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Use cases</span><h2>For custom IR libraries, throws and texture.</h2><p>Use it when the result should become a repeatable sound-design asset, not just a temporary preset setting.</p></div></div>
-        <div class="ia-grid ia-grid-three">
-          <article class="ia-card"><div class="ia-number">V</div><h3>Vocals</h3><p>Add object-based texture, ghost spaces, intimate resonances, metallic halos or unusual transition throws.</p></article>
-          <article class="ia-card"><div class="ia-number">S</div><h3>Synths</h3><p>Turn simple patches into physical, grainy, resonant or cinematic layers using surfaces and morphing IRs.</p></article>
-          <article class="ia-card"><div class="ia-number">G</div><h3>Guitars</h3><p>Experiment with cab-like fingerprints, room snaps, resonant materials and unnatural tone shaping.</p></article>
-          <article class="ia-card"><div class="ia-number">D</div><h3>Drums</h3><p>Use short IRs for tight impact, metallic slap, texture and transient character. Longer IRs are better for deliberate extremes.</p></article>
-          <article class="ia-card"><div class="ia-number">FX</div><h3>Transitions</h3><p>Bake custom sweeps, reverse-sliced textures, impacts and morphs into repeatable WAV IRs.</p></article>
-          <article class="ia-card"><div class="ia-number">IR</div><h3>Personal IR library</h3><p>Build a reusable library from your own recordings instead of only collecting presets from other people.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-trust">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Trust before checkout</span><h2>Focused on IR design and export.</h2><p>Impulse Anvil is strongest when you intentionally build, audition and bake IRs. It is not trying to be the largest preset reverb or a live automation performance effect.</p></div></div>
-        <div class="ia-grid ia-grid-two">
-          <article class="ia-card"><h3>Best for</h3><ul class="ia-list"><li>Sound design, experimental mixing and unique texture creation</li><li>Vocal throws, synth layers, guitar color, drum impacts and transitions</li><li>Building custom WAV IRs from your own recordings</li><li>Windows producers using VST3 hosts</li></ul></article>
-          <article class="ia-card"><h3>Designed to sculpt, not perform</h3><ul class="ia-list ia-list-warn"><li>Most IR-shaping controls rebuild or prepare the impulse response in the background</li><li>It is not intended as a live automation-heavy performance effect</li><li>Longer IRs take longer to recalculate when you change processing controls</li><li>Trim first when you want faster editing and tighter results</li></ul></article>
-          <article class="ia-card"><h3>Compatibility</h3><ul class="ia-list"><li>Windows 10/11, 64-bit</li><li>VST3 effect plugin</li><li>Manual ZIP install: copy the complete <code>Impulse Anvil.vst3</code> folder</li><li>Factory IR library is bundled with the plugin folder</li></ul></article>
-          <article class="ia-card"><h3>License and support</h3><ul class="ia-list"><li>Full license unlocks bake/export and 2 seats</li><li>126 handmade creative IRs included</li><li>Docs page contains installation and usage guidance</li><li>Discord offers setup help, free themes, free IRs, updates and videos</li></ul></article>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Use cases</span><h2>Not every IR needs to sound like a room.</h2><p>Impulse responses can transfer space, resonance, filtering, texture and timing. Impulse Anvil is strongest when you treat the IR itself as sound-design material.</p></div></div>
+        <div class="ia-outcome-grid">
+          <article class="ia-outcome ia-outcome-lead"><span class="ia-tag">Creative core</span><h3>Turn recordings and surfaces into effect fingerprints.</h3><p>Use short claps, clicks, room tones, fabric, paper, metal, glass, field recordings, cab IRs or existing spaces as raw material. Then isolate the useful moment and build a result that belongs to your own library.</p><ul class="ia-list"><li>Short resonant spaces and tonal filters</li><li>Metallic, glassy or organic tails</li><li>Reverse textures and transitional effects</li><li>Hybrid room, cabinet and found-sound behavior</li></ul></article>
+          <article class="ia-outcome ia-outcome-vocal"><span class="ia-kicker">Voice</span><h3>Throws and identity effects</h3><p>Create selected-word spaces, filtered doubles, strange resonances and tails that are more specific than a general reverb preset.</p></article>
+          <article class="ia-outcome ia-outcome-drums"><span class="ia-kicker">Drums</span><h3>Impacts and short spaces</h3><p>Use trimmed IR ranges for tight rooms, transient color, metallic hits and transition layers without automatically washing out the groove.</p></article>
+          <article class="ia-outcome ia-outcome-instruments"><span class="ia-kicker">Synth · guitar · piano</span><h3>New tone around the source</h3><p>Combine room, cab and texture fingerprints to create width, character and surreal depth around sustained or melodic material.</p></article>
+          <article class="ia-outcome ia-outcome-library"><span class="ia-kicker">Reusable assets</span><h3>Build a personal IR library</h3><p>Bake useful accidents before they disappear, name the WAV, and reuse it in compatible software or hardware that accepts standard WAV impulse responses.</p></article>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-interface">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface overview</span><h2>The IR path stays visible.</h2><p>A/B sources sit on the sides, morphing sits in the middle, and the shaping tools stay below. Prepare, combine, trim and bake without losing the signal path.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface</span><h2>The signal path stays visible.</h2><p>The layout moves from A/B preparation into Morph, Edit, EQ and Output. You can see where the current sound is being created instead of navigating a stack of disconnected effect pages.</p></div></div>
         <div class="ia-anatomy">
-          <div class="ia-bare-product-shot"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface screenshot" loading="lazy"></div></div>
+          <div class="ia-bare-product-shot"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil interface overview" loading="lazy" decoding="async"></div></div>
           <div class="ia-callout-list">
-            <div class="ia-callout"><h3>IR A / IR B</h3><p>Load factory IRs, user IRs or WAV recordings. Stretch time, adjust gain and add Color layers before morphing.</p></div>
-            <div class="ia-callout"><h3>Morph + Lerp</h3><p>Use Time, spectral, BandSwap, ZigZag and spatial modes. A→B Lerp can bake an evolving transition into one WAV IR.</p></div>
-            <div class="ia-callout"><h3>Color + Texture</h3><p>Layer and recursively recolor the impulse response before convolution, creating richer spaces and filters.</p></div>
-            <div class="ia-callout"><h3>Edit</h3><p>Trim, fade and reverse-slice the designed IR directly on the waveform to isolate the part that works.</p></div>
-            <div class="ia-callout"><h3>Bake / Export</h3><p>Turn the current sculpted state into a WAV IR for your personal library or other compatible convolution tools.</p></div>
+            <div class="ia-callout"><h3>IR A / IR B</h3><p>Load factory IRs, user IRs or WAV recordings. Stretch time, set gain and apply Color or Texture Depth independently.</p></div>
+            <div class="ia-callout"><h3>Morph + Lerp</h3><p>Choose Time, spectral, BandSwap, ZigZag and spatial modes, or bake an internal A→B progression into one IR.</p></div>
+            <div class="ia-callout"><h3>Edit + EQ</h3><p>Trim silence, isolate a useful region, reverse a selected range, add fades and shape the final frequency balance.</p></div>
+            <div class="ia-callout"><h3>Preview + Bake</h3><p>Audition the current prepared IR through convolution, then export the designed result as a standard WAV file.</p></div>
           </div>
         </div>
       </div>
@@ -2487,54 +3148,87 @@ function buildAnvil(){
 
     <section class="ia-section" id="ia-themes">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Included extras</span><h2>Custom looks, free IRs and community updates.</h2><p>Impulse Anvil includes built-in visual themes plus a custom theme system. Additional themes, IRs, news and videos are available through the Impulse Anvil Discord.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Visual system</span><h2>A technical tool that can still feel personal.</h2><p>Built-in designs and custom theme files change the presentation without changing the audio workflow. Additional themes, IRs, updates and videos are shared through the Impulse Anvil Discord.</p></div></div>
         <div class="ia-theme-stage" data-ia-theme-gallery>
-          <div class="ia-theme-main"><img data-ia-theme-main src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil theme preview"></div>
+          <div class="ia-theme-main"><img data-ia-theme-main src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil default theme preview" loading="lazy" decoding="async"><div class="ia-theme-caption"><span><strong data-ia-theme-title>Default</strong><br>Included interface design</span><a class="ia-btn ia-btn-small" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Discord extras</a></div></div>
           <div class="ia-theme-panel">
-            <button class="ia-theme-thumb is-active" type="button" data-src="assets/impulse-anvil-plugin-ui.png" data-title="Default"><img src="assets/impulse-anvil-plugin-ui.png" alt="Default theme preview"></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-purple.png" data-title="Purple"><img src="assets/impulse-anvil-ui-purple.png" alt="Purple theme preview"></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-gold.png" data-title="Gold"><img src="assets/impulse-anvil-ui-gold.png" alt="Gold theme preview"></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-silver.png" data-title="Silver"><img src="assets/impulse-anvil-ui-silver.png" alt="Silver theme preview"></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-ember.png" data-title="Ember"><img src="assets/impulse-anvil-ui-ember.png" alt="Ember theme preview"></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-forest.png" data-title="Forest"><img src="assets/impulse-anvil-ui-forest.png" alt="Forest theme preview"></button>
+            <button class="ia-theme-thumb is-active" type="button" data-src="assets/impulse-anvil-plugin-ui.png" data-title="Default"><img src="assets/impulse-anvil-plugin-ui.png" alt="Default theme preview" loading="lazy" decoding="async"><span><b>Default</b>Core cyan interface.</span></button>
+            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-purple.png" data-title="Purple"><img src="assets/impulse-anvil-ui-purple.png" alt="Purple theme preview" loading="lazy" decoding="async"><span><b>Purple</b>Deeper violet accent.</span></button>
+            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-gold.png" data-title="Gold"><img src="assets/impulse-anvil-ui-gold.png" alt="Gold theme preview" loading="lazy" decoding="async"><span><b>Gold</b>Warmer studio look.</span></button>
+            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-silver.png" data-title="Silver"><img src="assets/impulse-anvil-ui-silver.png" alt="Silver theme preview" loading="lazy" decoding="async"><span><b>Silver</b>Neutral technical finish.</span></button>
+            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-ember.png" data-title="Ember"><img src="assets/impulse-anvil-ui-ember.png" alt="Ember theme preview" loading="lazy" decoding="async"><span><b>Ember</b>Dark warm contrast.</span></button>
+            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-forest.png" data-title="Forest"><img src="assets/impulse-anvil-ui-forest.png" alt="Forest theme preview" loading="lazy" decoding="async"><span><b>Forest</b>Low-light green variant.</span></button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ia-section" id="ia-trust">
+      <div class="ia-shell">
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Honest fit</span><h2>Know what you are buying.</h2><p>A focused product converts better when its limits are as clear as its strengths. Impulse Anvil is a deliberate IR-building environment, not an automation-first performance effect.</p></div></div>
+        <div class="ia-fit-grid">
+          <article class="ia-fit-card is-positive"><h3>It is a strong fit when you want to…</h3><ul class="ia-list"><li>Design unusual rooms, filters, textures and resonant spaces</li><li>Morph two prepared IR sources through several structural modes</li><li>Create an A→B movement inside one baked impulse response</li><li>Build portable WAV IRs for a growing personal library</li><li>Work inside a Windows 64-bit VST3 host</li></ul></article>
+          <article class="ia-fit-card"><h3>Important before you buy</h3><ul class="ia-list ia-list-warn"><li>Most IR-shaping controls rebuild the impulse response and are intended for design, not continuous knob automation</li><li>Very long or dense IRs require more recalculation and can produce extreme or muddy results</li><li>The current public release is Windows 10/11, 64-bit VST3</li><li>Delivery is a manual ZIP bundle rather than an installer</li><li>Use source recordings and IRs you own or are permitted to process</li></ul></article>
         </div>
       </div>
     </section>
 
     <section class="ia-section" id="ia-pricing">
       <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Pricing</span><h2>One license. Export your own WAV IRs.</h2><p>Unlock A/B morphing, A→B Lerp bake, spectral/spatial modes, Color/Texture Depth and standard WAV export.</p></div></div>
+        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Pricing</span><h2>Try the workflow.<br>Unlock the complete forge.</h2><p>The same VST3 download opens in demo mode. A license key unlocks the full morph engine, both Color rows, A→B Lerp and WAV baking.</p></div></div>
         <div class="ia-pricing">
-          <article class="ia-card ia-price-card"><span class="ia-tag">Demo</span><h3>Try the sound</h3><div class="ia-price"><strong>€0</strong><span>download</span></div><p class="ia-muted">Use the same VST3 download, then unlock the full license after purchase.</p><ul class="ia-list"><li>Windows VST3 folder bundle</li><li>126 handmade IRs included</li><li>Demo limitation: one Color row per IR</li><li>Demo limitation: Time Morph only</li><li>No A→B Lerp and no baking/export in demo mode</li><li>Periodic subtle demo noise</li></ul><div class="ia-actions"><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a></div></article>
-          <article class="ia-card ia-price-card ia-price-card-featured"><span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>launch</span></div><p class="ia-muted">Unlock the complete creative IR workflow for production, mixing experiments and sound design.</p><ul class="ia-list"><li>Complete A/B IR morphing workflow</li><li>Mode-aware A→B Lerp bake/export</li><li>Spectral, BandSwap, ZigZag and spatial morph modes</li><li>Two Color rows per IR and Texture Depth</li><li>Visual EQ, waveform edit and standard WAV export</li><li>2 seats per license</li></ul><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get launch license €29</a><a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('docs'); return false;">Activation steps</a></div></article>
-          <article class="ia-card ia-price-card"><span class="ia-tag">Export value</span><h3>Design here. Use anywhere.</h3><div class="ia-price"><strong>WAV</strong><span>IR export</span></div><p class="ia-muted">The full version creates standard WAV impulse responses that are not locked to Impulse Anvil.</p><ul class="ia-list"><li>Build your own IR presets from recordings</li><li>Bake happy accidents before they disappear</li><li>Use exported IRs in compatible convolution reverbs</li><li>Keep building a personal sound-design library</li><li>Use your own or properly licensed source material</li></ul></article>
+          <article class="ia-card ia-price-card">
+            <span class="ia-tag">Demo</span><h3>Explore the sound</h3><div class="ia-price"><strong>€0</strong><span>download</span></div>
+            <p class="ia-muted">Test the plugin in your own DAW before purchasing.</p>
+            <ul class="ia-list"><li>Windows VST3 folder bundle</li><li>126 handmade IRs included</li><li>Time Morph available</li><li>One Color row per IR</li><li>Periodic subtle demo noise</li><li>No A→B Lerp or WAV baking</li></ul>
+            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a></div>
+          </article>
+          <article class="ia-card ia-price-card ia-price-card-featured">
+            <span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>one-time</span></div>
+            <p class="ia-muted">The complete A/B IR-design, morphing and export workflow.</p>
+            <ul class="ia-list"><li>Time, Spectral, BandSwap and ZigZag morphing</li><li>Stereo Slot Swap and Mid/Side Boundary modes</li><li>Mode-aware A→B Lerp and WAV export</li><li>Two Color rows per IR plus Texture Depth</li><li>Waveform editing, visual EQ, width and level preparation</li><li>2 seats per license</li></ul>
+            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get full license · €29</a><a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('downloads'); return false;">Install and activation</a></div>
+          </article>
         </div>
+        <div class="ia-portable-note"><strong>Your exported IRs remain portable.</strong> Full-version bakes are standard WAV impulse responses, so the useful result is not trapped inside Impulse Anvil. Load it later in compatible convolution reverbs, IR loaders, cabinet tools or supported hardware.</div>
       </div>
     </section>
 
-    <section class="ia-section" id="ia-docs"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Docs and setup</span><h2>Installation, activation and deeper manual.</h2><p>The manual covers installation, licensing, Color, Texture Depth, morph modes, reverse Edit ranges, EQ, baking and practical use cases.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="#" onclick="loadFeed('docs'); return false;">Open full manual</a><a class="ia-btn" href="#" onclick="loadFeed('downloads'); return false;">Open downloads</a><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a></div></div></section>
+    <section class="ia-section" id="ia-docs">
+      <div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup and manual</span><h2>Detailed when you need it.<br>Out of the way when you do not.</h2><p>The manual covers installation, activation, Color, Texture Depth, every morph mode, reverse Edit ranges, EQ, preview behavior, baking and practical source ideas.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="#" onclick="loadFeed('docs'); return false;">Open full manual</a><a class="ia-btn" href="#" onclick="loadFeed('downloads'); return false;">Downloads and setup</a><a class="ia-btn ia-btn-dark" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Community support</a></div></div>
+    </section>
 
     <section class="ia-section" id="ia-faq">
       <div class="ia-shell">
         <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">FAQ</span><h2>Clear answers before checkout.</h2></div></div>
         <div class="ia-faq">
-          <details open><summary>Is this only for Windows?</summary><p>The current public release is Windows 10/11, 64-bit, VST3 only.</p></details>
-          <details><summary>Is it a normal convolution reverb?</summary><p>It can behave like a convolution effect, but the main value is designing new IRs: prepare A/B sources, morph the IR, use A→B Lerp or spectral/spatial modes, then bake the result as WAV.</p></details>
-          <details><summary>Can I automate the knobs?</summary><p>Impulse Anvil is not designed as an automation-heavy real-time performance effect. Most IR-shaping controls prepare or rebuild the impulse response in the background, so they are meant for auditioning, sculpting and baking rather than continuous DAW automation.</p></details>
-          <details><summary>Why can tweaking take longer with long IRs?</summary><p>Longer IRs contain more audio data to process. When you change controls that reshape the IR, the plugin recalculates more material in the background. Short, trimmed IRs usually edit faster and often give tighter, more mixable results.</p></details>
-          <details><summary>Is it an installer?</summary><p>No. The current delivery is a zipped VST3 folder bundle. Extract the ZIP and copy the full <code>Impulse Anvil.vst3</code> folder into your VST3 folder.</p></details>
-          <details><summary>Are factory IRs included?</summary><p>Yes. Impulse Anvil includes 126 handmade creative IRs inside the VST3 folder bundle.</p></details>
-          <details><summary>Can I use my own recordings?</summary><p>Yes. Load compatible WAV material as an impulse response, then trim, color, morph, EQ and bake the result. Use material you own or are properly allowed to use.</p></details>
-          <details><summary>Can baked IRs be used in other plugins?</summary><p>Yes. Baked files are standard WAV impulse responses and can be loaded into compatible convolution reverbs, IR loaders and cab tools that accept WAV IRs.</p></details>
-          <details><summary>Will every long recording sound good?</summary><p>No. Long or dense IRs can become muddy, metallic or extreme. That can be useful for sound design, but mix-ready results usually come from trimming, short transients, useful frequency content and level control.</p></details>
+          <details open><summary>Is Impulse Anvil a convolution reverb or an IR designer?</summary><p>Both functions are present, but the product is centered on IR design. You prepare A/B sources, morph and sculpt the impulse response, audition it through the internal convolver, and bake the result as WAV.</p></details>
+          <details><summary>Can I load my own audio?</summary><p>Yes. Load compatible WAV material or existing impulse responses, then trim, color, texture, morph, EQ and bake the result. Use material you own or are properly allowed to use.</p></details>
+          <details><summary>What makes A→B Lerp different from moving a morph knob?</summary><p>A→B Lerp creates one static IR whose internal tail progresses from A toward B over time. The movement becomes part of the baked WAV itself rather than a live automation gesture.</p></details>
+          <details><summary>Can the exported IR be used outside Impulse Anvil?</summary><p>Yes. Full-version bakes are standard WAV impulse responses and can be loaded into compatible convolution reverbs, IR loaders, cabinet tools and supported hardware.</p></details>
+          <details><summary>Can I automate all controls continuously?</summary><p>Impulse Anvil is not designed as an automation-heavy performance effect. Controls that reshape the impulse response rebuild prepared audio in the background and are intended for auditioning, design and baking.</p></details>
+          <details><summary>Why do long IRs take more time to update?</summary><p>A longer impulse contains more audio data. Trimming the useful range usually speeds up iteration and often produces a tighter, more mixable result.</p></details>
+          <details><summary>Will every recording automatically become a useful IR?</summary><p>No. Source length, transients, silence, tonal balance and noise all affect the result. Short, intentional material is usually easier to control; the Edit, fade, EQ and level tools are there to refine experiments before baking.</p></details>
+          <details><summary>Is this delivered through an installer?</summary><p>No. The current Windows release is a manual ZIP bundle containing the complete VST3 folder. The Downloads section includes installation and activation videos.</p></details>
+          <details><summary>What systems are officially supported?</summary><p>The current official public release supports Windows 10/11 in 64-bit VST3 hosts. Compatibility still depends on the host correctly supporting the VST3 format.</p></details>
+          <details><summary>What is included with the license?</summary><p>The full plugin, 126 handmade IRs, the complete morph and Lerp workflow, both Color rows, Texture Depth, editing and WAV baking, with two seats per license.</p></details>
         </div>
       </div>
     </section>
 
-    <section class="ia-section"><div class="ia-shell"><div class="ia-final-cta"><span class="ia-kicker">Launch offer</span><h2>Morph IRs. Bake WAVs. Keep the result.</h2><p>Prepare A/B sources, create spectral, spatial or Lerp-based IR movement, then export the committed result as a reusable standard WAV impulse response. <span class="ia-sale-inline"><span class="ia-old-price">€49</span><strong>€29 launch</strong></span>.</p><div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get Impulse Anvil</a><a class="ia-btn" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a></div></div></div></section>
+    <section class="ia-section">
+      <div class="ia-shell">
+        <div class="ia-final-cta">
+          <span class="ia-kicker">Impulse Anvil</span>
+          <h2>Morph IRs.<br><span class="ia-cyan">Bake WAVs.</span></h2>
+          <p>Start with the free demo, hear the workflow inside your own sessions, and unlock the complete IR-design engine when it earns a place in your process.</p>
+          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a><a class="ia-btn ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Buy full license · €29</span></span></a></div>
+        </div>
+      </div>
+    </section>
   </div>`;
 }
+
 
     function buildForge(){
       return buildAnvil();
@@ -2684,7 +3378,7 @@ function buildAnvil(){
     
         <section class="ia-section" id="ia-doc-color"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Color + Texture</span><h2>Color adds layers. Texture recursively recolors them.</h2><p>Color is the first deep sound-design layer in Impulse Anvil. It does not add a normal effect after the plugin; it changes the impulse response before convolution.</p></div></div><div class="ia-grid ia-grid-three"><article class="ia-card"><h3>Time</h3><p>Stretches or compresses the Color copy. Longer values create bigger, slower tails; shorter values tighten and brighten the fingerprint.</p></article><article class="ia-card"><h3>Offset</h3><p>Moves the Color copy later in time. This can create slap, pre-echo, delayed body or ghost reflections.</p></article><article class="ia-card"><h3>Amount</h3><p>Controls how strongly the Color copy is mixed into the base IR. Start low, then raise it when the character is useful.</p></article></div><div class="ia-card" style="margin-top:16px"><h3>Texture Depth</h3><p>Texture Depth uses the enabled Color settings recursively. The result is recolored, then the recolored result is used as the source for the next layer, alternating Color 1 and Color 2. Depth is limited for stability, and it only works when Color is enabled because it needs a Color transformation to recurse through.</p><div class="ia-formula">Base IR → Color layer → recolored layer → deeper texture layers</div></div></div></section>
     
-        <section class="ia-section" id="ia-doc-morph"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Morph engine</span><h2>Four ways for A to become B.</h2><p>Before morphing, each endpoint can already have time stretch, gain, Color and Texture applied. The morph engine works on those prepared endpoints.</p></div></div><div class="ia-grid ia-grid-two"><article class="ia-card"><h3>Time Morph</h3><p>Predictable sample/time-domain blend. Use it for natural room blending, cab blending and reliable first results.</p></article><article class="ia-card"><h3>Spectral Morph</h3><p>Blends frequency-domain character for more fused, synthetic or tone-driven results.</p></article><article class="ia-card"><h3>Spectral BandSwap</h3><p>Alternates spectral regions between A and B so different frequency areas can feel like different spaces.</p></article><article class="ia-card"><h3>Spectral ZigZag</h3><p>A more experimental spectral pattern for glitchy, striped, phasey or impossible spaces.</p></article></div><div class="ia-card ia-doc-tip" style="margin-top:16px"><h3>A→B Lerp</h3><p>A→B Lerp is not a live knob movement. It creates one static IR whose internal tail moves from A toward B over time. Choose the curve and Lerp Time, then bake it into a single WAV IR.</p></div></div></section>
+        <section class="ia-section" id="ia-doc-morph"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Morph engine</span><h2>Seven approaches for A to become B.</h2><p>Before morphing, each endpoint can already have time stretch, gain, Color and Texture applied. The morph engine works on those prepared endpoints.</p></div></div><div class="ia-grid ia-grid-two"><article class="ia-card"><h3>Time Morph</h3><p>Predictable sample/time-domain blend. Use it for natural room blending, cab blending and reliable first results.</p></article><article class="ia-card"><h3>Spectral Morph</h3><p>Blends frequency-domain character for more fused, synthetic or tone-driven results.</p></article><article class="ia-card"><h3>Spectral BandSwap</h3><p>Alternates spectral regions between A and B so different frequency areas can feel like different spaces.</p></article><article class="ia-card"><h3>Spectral ZigZag</h3><p>A more experimental spectral pattern for glitchy, striped, phasey or impossible spaces.</p></article><article class="ia-card"><h3>Stereo Slot Swap</h3><p>Moves the A/B relationship in opposite directions across the left and right channels, creating a spatial A/B field rather than a simple pan effect.</p></article><article class="ia-card"><h3>Mid/Side Boundary</h3><p>Keeps Slot A toward the center field while introducing Slot B into the side field. Morph controls how strongly that center/outside boundary is expressed.</p></article></div><div class="ia-card ia-doc-tip" style="margin-top:16px"><h3>A→B Lerp</h3><p>A→B Lerp is not a live knob movement. It creates one static IR whose internal tail moves from A toward B over time. Choose the curve and Lerp Time, then bake it into a single WAV IR.</p></div></div></section>
     
         <section class="ia-section" id="ia-doc-edit"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Edit range</span><h2>Turn one long recording into many short IRs.</h2><p>Start, End, Fade In and Fade Out follow the prepared IR length. This makes long material practical: scroll through a recording and isolate the one resonance, hit, rattle or tail that actually works.</p></div></div><div class="ia-grid ia-grid-two"><article class="ia-card"><h3>Forward range</h3><p>When Start is before End, the selected region plays forward. Use this for normal trimming, removing silence and focusing the useful part of an IR.</p></article><article class="ia-card"><h3>Reverse range</h3><p>When Start is later than End, Impulse Anvil creates a reversed slice between those endpoints. Fades and processing then apply to that resolved slice, making reverse textures fast to design and bake.</p></article><article class="ia-card"><h3>Pre</h3><p>Adds silence before the IR. This behaves like predelay and remains outside the reversed slice.</p></article><article class="ia-card"><h3>Fades</h3><p>Fade In and Fade Out prevent clicks and make tiny slices usable as smooth filters or short spaces.</p></article></div></div></section>
     
@@ -2775,6 +3469,8 @@ function buildAnvil(){
     }
 
     function initImpulseAnvilStickyNav(){
+      if (typeof window.__iaStickyCleanup === 'function') window.__iaStickyCleanup();
+
       const root = mainEl.querySelector('.ia26');
       if (!root) return;
       const mini = root.querySelector('.ia-mini-nav');
@@ -2783,9 +3479,16 @@ function buildAnvil(){
 
       const links = Array.from(side.querySelectorAll('[data-ia-target]'));
       const targets = links.map(a => document.getElementById(a.getAttribute('data-ia-target'))).filter(Boolean);
+      let rafId = 0;
+      let disposed = false;
 
       function update(){
-        if (!document.body.contains(root)) return;
+        rafId = 0;
+        if (disposed || !document.body.contains(root)) {
+          cleanup();
+          return;
+        }
+
         const rootRect = root.getBoundingClientRect();
         const miniRect = mini.getBoundingClientRect();
         const visibleInProduct = rootRect.top < 60 && rootRect.bottom > 220;
@@ -2797,12 +3500,37 @@ function buildAnvil(){
         for (const target of targets){
           const r = target.getBoundingClientRect();
           const d = Math.abs(r.top - 120);
-          if (r.top < window.innerHeight * 0.72 && r.bottom > 80 && d < best){ best = d; activeId = target.id; }
+          if (r.top < window.innerHeight * 0.72 && r.bottom > 80 && d < best){
+            best = d;
+            activeId = target.id;
+          }
         }
         links.forEach(a => a.classList.toggle('is-active', a.getAttribute('data-ia-target') === activeId));
-        requestAnimationFrame(update);
       }
-      requestAnimationFrame(update);
+
+      function schedule(){
+        if (disposed || rafId) return;
+        rafId = requestAnimationFrame(update);
+      }
+
+      function cleanup(){
+        if (disposed) return;
+        disposed = true;
+        if (rafId) cancelAnimationFrame(rafId);
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+        observer.disconnect();
+        if (window.__iaStickyCleanup === cleanup) window.__iaStickyCleanup = null;
+      }
+
+      const observer = new MutationObserver(() => {
+        if (!document.body.contains(root)) cleanup();
+      });
+      observer.observe(mainEl, { childList:true });
+      window.addEventListener('scroll', schedule, { passive:true });
+      window.addEventListener('resize', schedule, { passive:true });
+      window.__iaStickyCleanup = cleanup;
+      schedule();
     }
 
         /* Router */
@@ -2994,27 +3722,17 @@ window.addEventListener('hashchange', () => {
         const r = darkProduct.getBoundingClientRect();
         shouldBeLight = r.top <= 52 && r.bottom >= 52;
       }
-      toggleBtn.classList.toggle('menu-light', shouldBeLight);
+      if (toggleBtn) toggleBtn.classList.toggle('menu-light', shouldBeLight);
     }
 
-    /* menu toggle */
-    toggleBtn.addEventListener('click', ()=>{
-      headerEl.style.transform='translateY(0)';
-      toggleBtn.style.display='none';
-      toggleBtn.classList.remove('menu-light');
-    });
+    /* The redesigned header remains visible. Keep the legacy button inert for compatibility. */
+    if (toggleBtn) {
+      toggleBtn.hidden = true;
+      toggleBtn.setAttribute('aria-hidden', 'true');
+    }
 
-    /* scroll behavior (header hide/show only; logo stays fixed) */
-    window.addEventListener('scroll', ()=>{
-      const y = window.scrollY;
-      const hidden = (y>0);
-      headerEl.style.transform = hidden ? 'translateY(-100%)' : 'translateY(0)';
-      toggleBtn.style.display = hidden ? 'block' : 'none';
-      updateMenuToggleTheme(hidden);
-
-      // Close dropdowns when user scrolls
-      closeDropdowns();
-    });
+    /* Passive scroll handling only closes transient menus; it performs no layout writes. */
+    window.addEventListener('scroll', closeDropdowns, { passive:true });
 
     /* persist scroll */
     window.addEventListener('beforeunload', ()=> {
