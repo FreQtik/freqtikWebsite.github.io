@@ -2010,6 +2010,278 @@
       .ia26.ia-v2 *, #mainHeader * { animation:none !important; transition:none !important; }
     }
 
+  
+
+    /* ================================================================
+       DARK ROUTE COMPATIBILITY + ABOUT / CONNECT REFINEMENT
+       Older utility routes originally inherited black text from the
+       former white site shell. These rules keep every routed page legible
+       inside the current dark commercial design.
+       ================================================================ */
+    #mainContent > section:not(.ia26) {
+      width:min(1120px, calc(100% - 32px));
+      max-width:1120px;
+      margin:0 auto;
+      padding:72px 0;
+      border-bottom:1px solid rgba(150,218,240,.14);
+      color:#f4fbfd;
+      opacity:1;
+      transform:none;
+      animation:none;
+    }
+    #mainContent > section:not(.ia26) h1,
+    #mainContent > section:not(.ia26) h2,
+    #mainContent > section:not(.ia26) h3,
+    #mainContent > section:not(.ia26) h4,
+    #mainContent > section:not(.ia26) strong,
+    #mainContent > section:not(.ia26) b {
+      color:#f4fbfd;
+    }
+    #mainContent > section:not(.ia26) h2 {
+      border-bottom:1px solid rgba(150,218,240,.16);
+    }
+    #mainContent > section:not(.ia26) p,
+    #mainContent > section:not(.ia26) li,
+    #mainContent > section:not(.ia26) small,
+    #mainContent > section:not(.ia26) .muted,
+    #mainContent > section:not(.ia26) .note,
+    #mainContent > section:not(.ia26) .tiny {
+      color:#afc2c9;
+    }
+    #mainContent > section:not(.ia26) a:not(.btn) {
+      color:#dffbff;
+      text-decoration-color:rgba(39,214,255,.45);
+      text-underline-offset:3px;
+    }
+    #mainContent > section:not(.ia26) a:not(.btn):hover { color:#fff; }
+    #mainContent > section:not(.ia26) .card {
+      color:#f4fbfd;
+      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.038));
+      border-color:rgba(150,218,240,.16);
+      box-shadow:0 18px 50px rgba(0,0,0,.24);
+    }
+    #mainContent > section:not(.ia26) .kicker { color:#27d6ff; }
+    #mainContent > section:not(.ia26) .sub,
+    #mainContent > section:not(.ia26) .badge { color:#afc2c9; }
+    #mainContent > section:not(.ia26) .btn {
+      color:#f4fbfd;
+      background:rgba(255,255,255,.055);
+      border-color:rgba(150,218,240,.24);
+      box-shadow:0 10px 28px rgba(0,0,0,.20);
+    }
+    #mainContent > section:not(.ia26) .btn.primary {
+      color:#031116;
+      background:linear-gradient(135deg,#62e5ff,#27d6ff 48%,#138bad);
+      border-color:rgba(188,247,255,.84);
+    }
+    #mainContent > section:not(.ia26) .flex-container { gap:12px; }
+    #mainContent > section:not(.ia26) .flex-container a {
+      min-height:48px;
+      padding:11px 15px;
+      border:1px solid rgba(150,218,240,.16);
+      border-radius:14px;
+      color:#f4fbfd;
+      background:rgba(255,255,255,.05);
+      box-shadow:0 12px 32px rgba(0,0,0,.18);
+    }
+    #mainContent > section:not(.ia26) .flex-container a:hover {
+      border-color:rgba(39,214,255,.48);
+      background:rgba(39,214,255,.08);
+    }
+    #mainContent > section:not(.ia26) .responsive-iframe,
+    #mainContent > section:not(.ia26) .micro-game-shell {
+      border:1px solid rgba(150,218,240,.16);
+      border-radius:18px;
+      overflow:hidden;
+      background:#000;
+      box-shadow:0 24px 70px rgba(0,0,0,.34);
+    }
+    #mainContent > section:not(.ia26) [id^="steam-"] { margin-top:22px; }
+    #mainContent > section:not(.ia26) [id^="steam-"] img {
+      border:1px solid rgba(150,218,240,.14);
+      border-radius:14px !important;
+      box-shadow:0 14px 34px rgba(0,0,0,.22);
+    }
+
+    .ia26.ia-about-page,
+    .ia26.ia-connect-page {
+      min-height:calc(100vh - 72px);
+    }
+    .ia26 .ia-about-hero,
+    .ia26 .ia-connect-hero { padding-top:84px; }
+    .ia26 .ia-about-hero-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);
+      gap:48px;
+      align-items:center;
+    }
+    .ia26 .ia-about-hero h1,
+    .ia26 .ia-connect-hero h1 {
+      max-width:820px;
+      margin:18px 0 18px;
+      font-size:clamp(50px,7vw,96px);
+      line-height:.9;
+      letter-spacing:-.065em;
+    }
+    .ia26 .ia-about-intro {
+      max-width:690px;
+      color:var(--ia-muted);
+      font-size:16px;
+      line-height:1.75;
+    }
+    .ia26 .ia-about-manifesto {
+      position:relative;
+      overflow:hidden;
+      padding:30px;
+      border:1px solid rgba(150,218,240,.18);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 18% 0%,rgba(39,214,255,.16),transparent 42%),
+        linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.038));
+      box-shadow:0 34px 100px rgba(0,0,0,.42);
+    }
+    .ia26 .ia-about-manifesto h2 {
+      margin:12px 0 14px;
+      font-size:clamp(34px,4vw,54px);
+      line-height:.96;
+    }
+    .ia26 .ia-about-manifesto > p { color:var(--ia-muted); line-height:1.7; }
+    .ia26 .ia-about-principles { display:grid; gap:10px; margin-top:24px; }
+    .ia26 .ia-about-principle {
+      display:grid;
+      grid-template-columns:38px minmax(0,1fr);
+      gap:12px;
+      align-items:start;
+      padding:13px;
+      border:1px solid rgba(150,218,240,.12);
+      border-radius:15px;
+      background:rgba(0,0,0,.18);
+    }
+    .ia26 .ia-about-principle b {
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:11px;
+      color:var(--ia-cyan);
+      background:rgba(39,214,255,.10);
+      border:1px solid rgba(39,214,255,.18);
+      font-size:12px;
+    }
+    .ia26 .ia-about-principle strong { display:block; margin:1px 0 3px; }
+    .ia26 .ia-about-principle span { color:var(--ia-muted); font-size:13px; line-height:1.45; }
+    .ia26.ia-about-page .ia-proofbar { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .ia26.ia-about-page .ia-proof-item:nth-child(4) { border-right:0; }
+    .ia26 .ia-about-pillar-grid,
+    .ia26 .ia-project-grid,
+    .ia26 .ia-connect-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .ia26 .ia-about-pillar,
+    .ia26 .ia-project-card,
+    .ia26 .ia-connect-card {
+      position:relative;
+      overflow:hidden;
+      min-height:250px;
+      padding:26px;
+      border:1px solid var(--ia-line);
+      border-radius:24px;
+      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.038));
+      box-shadow:0 20px 58px rgba(0,0,0,.22);
+    }
+    .ia26 .ia-about-pillar:after,
+    .ia26 .ia-project-card:after,
+    .ia26 .ia-connect-card:after {
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      right:-70px;
+      bottom:-80px;
+      border-radius:999px;
+      background:radial-gradient(circle,rgba(39,214,255,.14),transparent 68%);
+      pointer-events:none;
+    }
+    .ia26 .ia-about-pillar h3,
+    .ia26 .ia-project-card h3,
+    .ia26 .ia-connect-card h3 { margin:12px 0 9px; font-size:22px; }
+    .ia26 .ia-about-pillar p,
+    .ia26 .ia-project-card p,
+    .ia26 .ia-connect-card p { color:var(--ia-muted); line-height:1.65; }
+    .ia26 .ia-project-card { min-height:290px; display:flex; flex-direction:column; }
+    .ia26 .ia-project-card .ia-actions { margin-top:auto; padding-top:20px; }
+    .ia26 .ia-about-method-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.16fr) minmax(340px,.84fr);
+      gap:18px;
+      align-items:stretch;
+    }
+    .ia26 .ia-about-ai-card {
+      padding:32px;
+      border:1px solid rgba(39,214,255,.22);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 16% 5%,rgba(39,214,255,.17),transparent 34%),
+        linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.032));
+      box-shadow:0 28px 80px rgba(0,0,0,.30);
+    }
+    .ia26 .ia-about-ai-card h3 { margin:10px 0 13px; font-size:clamp(31px,4vw,50px); line-height:1; }
+    .ia26 .ia-about-ai-card p { color:var(--ia-muted); line-height:1.75; }
+    .ia26 .ia-about-method-steps { display:grid; gap:12px; }
+    .ia26 .ia-about-method-step {
+      padding:20px;
+      border:1px solid var(--ia-line);
+      border-radius:20px;
+      background:rgba(255,255,255,.048);
+    }
+    .ia26 .ia-about-method-step b { color:var(--ia-cyan); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
+    .ia26 .ia-about-method-step h3 { margin:8px 0 6px; font-size:18px; }
+    .ia26 .ia-about-method-step p { color:var(--ia-muted); font-size:14px; line-height:1.55; }
+    .ia26 .ia-connect-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .ia26 .ia-connect-card { min-height:245px; display:flex; flex-direction:column; }
+    .ia26 .ia-connect-mark {
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:15px;
+      color:var(--ia-cyan);
+      background:rgba(39,214,255,.10);
+      border:1px solid rgba(39,214,255,.22);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.04em;
+    }
+    .ia26 .ia-connect-card .ia-actions { margin-top:auto; padding-top:22px; }
+    .ia26 .ia-connect-card .ia-btn { position:relative; z-index:1; }
+
+    @media (max-width:980px) {
+      .ia26 .ia-about-hero-grid,
+      .ia26 .ia-about-method-grid { grid-template-columns:1fr; }
+      .ia26 .ia-about-pillar-grid,
+      .ia26 .ia-project-grid { grid-template-columns:1fr 1fr; }
+      .ia26.ia-about-page .ia-proofbar { grid-template-columns:repeat(2,1fr); }
+      .ia26.ia-about-page .ia-proof-item:nth-child(2n) { border-right:0; }
+      .ia26.ia-about-page .ia-proof-item:nth-child(n+3) { border-top:1px solid var(--ia-line); }
+    }
+    @media (max-width:680px) {
+      #mainContent > section:not(.ia26) { width:calc(100% - 28px); padding:54px 0; }
+      .ia26 .ia-about-pillar-grid,
+      .ia26 .ia-project-grid,
+      .ia26 .ia-connect-grid { grid-template-columns:1fr; }
+      .ia26.ia-about-page .ia-proofbar { grid-template-columns:1fr; }
+      .ia26.ia-about-page .ia-proof-item,
+      .ia26.ia-about-page .ia-proof-item:nth-child(n) {
+        border-right:0;
+        border-top:1px solid var(--ia-line);
+      }
+      .ia26.ia-about-page .ia-proof-item:first-child { border-top:0; }
+      .ia26 .ia-about-manifesto,
+      .ia26 .ia-about-ai-card { padding:24px; }
+    }
+
   </style>
 
   <!-- Organization JSON-LD -->
@@ -2023,8 +2295,7 @@
     "email": "mailto:freqtiksup@gmail.com",
     "sameAs": [
       "https://www.youtube.com/@FreQtik",
-      "https://www.instagram.com/freqtik/",
-      "https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK"
+      "https://www.instagram.com/freqtik/"
     ]
   }
   </script>
@@ -2112,7 +2383,6 @@
         <a role="menuitem" href="https://boontd.freqtik.com" target="_blank" rel="noopener" onclick="closeDropdowns()">Games · Boon TD Online</a>
 
         <a role="menuitem" href="#" onclick="loadFeed('youtube');closeDropdowns();return false;">Music · YouTube</a>
-        <a role="menuitem" href="#" onclick="loadFeed('spotify');closeDropdowns();return false;">Music · Spotify</a>
         <a role="menuitem" href="/contrast-rules-for-producers.html" onclick="closeDropdowns()">Music · Producer Frameworks</a>
       </div>
     </li>
@@ -2178,7 +2448,7 @@
 
     function mainNavKeyForFeed(feed) {
       const productFeeds = ['anvil', 'impulse', 'forge', 'smith', 'desktopTap'];
-      const aboutFeeds = ['about', 'ltb', 'aim', 'microgame', 'youtube', 'spotify', 'frameworks'];
+      const aboutFeeds = ['about', 'ltb', 'aim', 'microgame', 'youtube', 'frameworks'];
 
       if (productFeeds.includes(feed)) return 'anvil';
       if (feed === 'downloads') return 'downloads';
@@ -3533,6 +3803,114 @@ function buildAnvil(){
       schedule();
     }
 
+
+
+    function buildAbout(){
+      return `
+      <div class="ia26 ia-v2 ia-about-page">
+        <section class="ia-section ia-about-hero">
+          <div class="ia-shell ia-about-hero-grid">
+            <div>
+              <span class="ia-eyebrow"><span class="ia-pulse"></span> Independent developer · producer · toolmaker</span>
+              <h1>Built from curiosity.<br><span class="ia-cyan">Finished as real tools.</span></h1>
+              <p class="ia-lead">FreQtik is an independent creative-technology studio building focused audio software, producer frameworks and interactive experiments.</p>
+              <p class="ia-about-intro">The work starts with practical friction: a production task that feels slower than it should, a workflow that does not yet exist, or an idea that becomes more useful once it can be touched and tested. AI-assisted development is used intensively to accelerate implementation and iteration, but the standard remains human: the result must be understandable, functional, documented and worth using.</p>
+              <div class="ia-actions">
+                <a class="ia-btn ia-btn-primary ia-hero-buy" href="#" onclick="loadFeed('anvil'); return false;">Explore Impulse Anvil</a>
+                <a class="ia-btn" href="#" onclick="loadFeed('downloads'); return false;">Downloads</a>
+                <a class="ia-btn ia-btn-dark" href="#" onclick="loadFeed('socials'); return false;">Connect</a>
+              </div>
+              <div class="ia-hero-note" aria-label="FreQtik working characteristics"><span>Producer-led</span><span>Independent</span><span>AI-assisted</span><span>Function-first</span></div>
+            </div>
+            <aside class="ia-about-manifesto">
+              <span class="ia-kicker">Working standard</span>
+              <h2>Useful before impressive.</h2>
+              <p>A polished interface matters, but only after the core idea survives real use. FreQtik projects are shaped around clear purpose, low-friction workflows and honest communication about what each product can and cannot do.</p>
+              <div class="ia-about-principles">
+                <div class="ia-about-principle"><b>01</b><div><strong>Find the actual problem</strong><span>Start with the point where an existing workflow becomes limiting, repetitive or unclear.</span></div></div>
+                <div class="ia-about-principle"><b>02</b><div><strong>Prototype aggressively</strong><span>Use modern tools to explore more approaches, then keep only what improves the experience.</span></div></div>
+                <div class="ia-about-principle"><b>03</b><div><strong>Ship responsibly</strong><span>Test, document, support and describe the result without pretending it is something larger than it is.</span></div></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <div class="ia-proofbar" aria-label="FreQtik profile highlights">
+          <div class="ia-proof-item"><strong>Long-term production perspective</strong><span>Tools are informed by years of practical music-making, not only feature lists.</span></div>
+          <div class="ia-proof-item"><strong>Independent decisions</strong><span>Small projects can stay focused instead of growing into generic software suites.</span></div>
+          <div class="ia-proof-item"><strong>Fast iteration</strong><span>AI-assisted development enables unusually broad experimentation and refinement.</span></div>
+          <div class="ia-proof-item"><strong>Direct accountability</strong><span>The same person designs, tests, documents and supports the work.</span></div>
+        </div>
+
+        <section class="ia-section" id="about-focus">
+          <div class="ia-shell">
+            <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">What FreQtik represents</span><h2>One studio.<br>Several forms of problem-solving.</h2><p>The projects may look different, but the underlying approach is consistent: observe how people work, isolate a useful idea, then turn it into something concrete.</p></div></div>
+            <div class="ia-about-pillar-grid">
+              <article class="ia-about-pillar"><span class="ia-number">01</span><h3>Audio software</h3><p>Producer-led tools that explore routing, convolution, sound transformation and practical studio workflow without hiding the underlying idea.</p></article>
+              <article class="ia-about-pillar"><span class="ia-number">02</span><h3>Producer knowledge</h3><p>Frameworks that make perceptual and creative decisions easier to examine without reducing music to rigid rules.</p></article>
+              <article class="ia-about-pillar"><span class="ia-number">03</span><h3>Interactive projects</h3><p>Games and browser experiments used to explore movement, precision, feedback systems and learnable interaction.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ia-section" id="about-method">
+          <div class="ia-shell">
+            <div class="ia-about-method-grid">
+              <article class="ia-about-ai-card"><span class="ia-kicker">AI-assisted, human-directed</span><h3>AI is leverage.<br>Not the product claim.</h3><p>FreQtik uses AI intensively for implementation, research, iteration, debugging and communication. That makes it possible for one independent developer to explore at a scale that previously required a larger team. It does not remove responsibility: every public release still has to be judged by whether it works, whether its claims are accurate, and whether a user can understand what they are buying.</p><p>The aim is not to imitate a large company. It is to use modern tools to build unusually focused software with a clear personal point of view.</p></article>
+              <div class="ia-about-method-steps">
+                <article class="ia-about-method-step"><b>Observe</b><h3>Start with real friction</h3><p>Look for a recurring production, routing, learning or interaction problem that deserves a more direct solution.</p></article>
+                <article class="ia-about-method-step"><b>Build</b><h3>Explore more than one answer</h3><p>Prototype quickly, compare approaches and remove features that make the central idea harder to understand.</p></article>
+                <article class="ia-about-method-step"><b>Refine</b><h3>Treat presentation as part of function</h3><p>Documentation, visual hierarchy, compatibility notes and honest limitations are part of the product—not decoration added afterward.</p></article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ia-section" id="about-projects">
+          <div class="ia-shell">
+            <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Selected work</span><h2>Products, frameworks<br>and experiments.</h2><p>Explore the current FreQtik projects directly. Each project keeps its own purpose rather than being forced into one category.</p></div></div>
+            <div class="ia-project-grid">
+              <article class="ia-project-card"><span class="ia-tag">Commercial audio tool</span><h3>Impulse Anvil</h3><p>A Windows VST3 for preparing, morphing, sculpting and baking reusable WAV impulse responses.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary ia-btn-small" href="#" onclick="loadFeed('anvil'); return false;">View product</a></div></article>
+              <article class="ia-project-card"><span class="ia-tag">Free audio utility</span><h3>Master Desktop Tap</h3><p>A free Windows VST3 utility for routing DAW audio to connected output devices and streaming workflows.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="#" onclick="loadFeed('desktopTap'); return false;">View tool</a></div></article>
+              <article class="ia-project-card"><span class="ia-tag">Producer framework</span><h3>Contrast Rules for Producers</h3><p>A practical guide to context, contrast, attention and impact in arrangement, sound design and production decisions.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="#" onclick="loadFeed('frameworks'); return false;">Open framework</a></div></article>
+              <article class="ia-project-card"><span class="ia-tag">Game project</span><h3>Learning to Bear</h3><p>A non-violent third-person puzzle and movement project built around spatial thinking and learnable mechanics.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="#" onclick="loadFeed('ltb'); return false;">View project</a></div></article>
+              <article class="ia-project-card"><span class="ia-tag">Precision training</span><h3>Aim Trainer Bee Pro</h3><p>A focused interactive project exploring repeatable aiming practice, feedback and measurable control.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="#" onclick="loadFeed('aim'); return false;">View project</a></div></article>
+              <article class="ia-project-card"><span class="ia-tag">Browser experiment</span><h3>Micro Mouse Star Trainer</h3><p>A browser-based micro-control trainer with star layouts, ring drills, timing, accuracy and weakness-focused practice.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="#" onclick="loadFeed('microgame'); return false;">Open trainer</a></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="ia-section">
+          <div class="ia-shell"><div class="ia-final-cta"><span class="ia-kicker">Direct contact</span><h2>Questions, support<br>or a serious collaboration?</h2><p>FreQtik is independent, so communication stays direct. Use the Connect page for product support, licensing questions, project discussion or development updates.</p><div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="#" onclick="loadFeed('socials'); return false;">Open Connect</a></div></div></div>
+        </section>
+      </div>`;
+    }
+
+    function buildConnect(){
+      return `
+      <div class="ia26 ia-v2 ia-connect-page">
+        <section class="ia-section ia-connect-hero">
+          <div class="ia-shell">
+            <span class="ia-eyebrow"><span class="ia-pulse"></span> Contact and updates</span>
+            <h1>Reach FreQtik.<br><span class="ia-cyan">Without hunting through platforms.</span></h1>
+            <p class="ia-lead">Choose the channel that matches what you need: direct support, community help, development updates or visual project posts.</p>
+          </div>
+        </section>
+        <section class="ia-section" style="padding-top:22px">
+          <div class="ia-shell">
+            <div class="ia-connect-grid">
+              <article class="ia-connect-card"><span class="ia-connect-mark">@</span><h3>Email</h3><p>Best for license questions, purchase support, compatibility details, business enquiries and anything that needs a direct answer.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="mailto:freqtiksup@gmail.com">Email FreQtik</a></div></article>
+              <article class="ia-connect-card"><span class="ia-connect-mark">DC</span><h3>Discord</h3><p>Community support for Impulse Anvil, setup help, updates, extra themes, shared IR material and practical discussion.</p><div class="ia-actions"><a class="ia-btn" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Join Discord</a></div></article>
+              <article class="ia-connect-card"><span class="ia-connect-mark">YT</span><h3>YouTube</h3><p>Installation videos, activation guidance, demonstrations and longer explanations of FreQtik tools and development work.</p><div class="ia-actions"><a class="ia-btn" href="https://www.youtube.com/@FreQtik" target="_blank" rel="noopener noreferrer">Open YouTube</a></div></article>
+              <article class="ia-connect-card"><span class="ia-connect-mark">IG</span><h3>Instagram</h3><p>Short-form project posts, visual development updates and selected work from the broader FreQtik catalogue.</p><div class="ia-actions"><a class="ia-btn" href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener noreferrer">Open Instagram</a></div></article>
+            </div>
+            <p class="ia-note" style="margin-top:20px">For support, include your operating system, DAW, plugin version and a concise description of what happened. That makes technical issues much easier to reproduce.</p>
+          </div>
+        </section>
+      </div>`;
+    }
+
+
         /* Router */
     let currentFeed = null;
     function loadFeed(feed, options){
@@ -3551,7 +3929,7 @@ function buildAnvil(){
           case 'smith': html = buildImpulseAll(); break; // alias to bundle page
 
           case 'about':
-            html = `<section id="about"><h2>About FreQtik</h2><p>Impulse Anvil is a creative convolution VST3 plugin by FreQtik. Record sounds, load them as impulse responses, morph and sculpt them, then bake your own WAV IRs.</p><div class="grid" style="margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr));"><article class="card"><span class="kicker">Producer Framework</span><h3>Contrast Rules for Producers</h3><p class="muted">A FreQtik guide about context, contrast, attention and impact in arrangement, sound design and production decisions.</p><div class="cta-row"><a class="btn primary" href="/contrast-rules-for-producers.html">Open Framework</a><a class="btn" href="${CONTRAST_RULES_PDF_URL}" target="_blank" rel="noopener">Open PDF</a></div></article><article class="card"><span class="kicker">Free Beta Tool</span><h3>Master Desktop Tap</h3><p class="muted">A free Windows VST3 utility for streaming DAW audio into Discord, OBS and screen share.</p><div class="cta-row"><a class="btn primary" href="/master-desktop-tap.html">Open Tool Page</a><a class="btn" href="${MASTER_DESKTOP_TAP_DOWNLOAD}" target="_blank" rel="noopener">Download</a></div></article></div></section>`;
+            html = buildAbout();
             break;
 
           case 'frameworks':
@@ -3601,12 +3979,6 @@ function buildAnvil(){
             </section>`;
             break;
 
-          case 'spotify':
-            html = `<section id="spotify" class="depth-effect">
-              <h2>Spotify</h2>
-              <iframe class="responsive-iframe" src="https://open.spotify.com/embed/artist/7sbdoA5VGDrbEjY3AngmgK" allow="encrypted-media" loading="lazy" title="Spotify embed"></iframe>
-            </section>`;
-            break;
           case 'downloads':
             html = buildAnvilDownloads();
             break;
@@ -3617,20 +3989,7 @@ function buildAnvil(){
             break;
 
           case 'socials':
-            html = `<section id="socials" class="depth-effect">
-              <h2>Connect</h2>
-              <div class="flex-container">
-                <a href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener noreferrer">
-                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">Instagram
-                </a>
-                <a href="https://open.spotify.com/artist/7sbdoA5VGDrbEjY3AngmgK" target="_blank" rel="noopener noreferrer">
-                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify
-                </a>
-                <a href="mailto:freqtiksup@gmail.com">
-                  <img class="social-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">Email
-                </a>
-              </div>
-            </section>`;
+            html = buildConnect();
             break;
           case 'impressum':
             window.location.href = '/impressum.html';
