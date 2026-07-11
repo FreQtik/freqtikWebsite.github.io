@@ -1,4 +1,42 @@
+# Public FreQtik pages are crawlable by search engines and AI search systems.
 User-agent: *
 Allow: /
+
+# Keep legally required personal-information pages out of major AI crawler datasets.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: GPTBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: CCBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
 
 Sitemap: https://freqtik.com/sitemap.xml
