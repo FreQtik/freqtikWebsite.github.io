@@ -4,7 +4,7 @@
     /** steam app IDs (immutable) */
     const STEAM_IDS = Object.freeze({ ltb:2789890, aim:3666950 });
     const IMPULSE_ANVIL_DOWNLOAD = 'https://github.com/freqtik/freqtikWebsite.github.io/releases/latest/download/ImpulseAnvil_Windows_VST3.zip';
-    const IMPULSE_ANVIL_BUY_URL = 'mailto:freqtiksup@gmail.com?subject=Impulse%20Anvil%20Full%20License';
+    const IMPULSE_ANVIL_BUY_URL = 'https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1';
     const DISCORD_INVITE_URL = 'https://discord.gg/qUetz23QPq';
     const CONTRAST_RULES_PDF_URL = 'https://freqtik.com/assets/contrast_rules_for_producers1.3.pdf';
     const CONTRAST_RULES_PDF_DOWNLOAD = 'https://github.com/FreQtik/free-tools/releases/download/contrast-rules-for-producers-v1.3/contrast_rules_for_producers1.3.pdf';
@@ -12,16 +12,31 @@
     const MASTER_DESKTOP_TAP_IMAGE = 'assets/master-desktop-tap/master-desktop-tap-ui.png';
     const MASTER_DESKTOP_TAP_VERSION = '0.4.4';
     const DISCORD_ICON = '<svg class="ia-discord-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z"></path></svg>';
-    const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD
-
-    const introEl   = document.getElementById('intro');
+    const IMPULSE_SUITE_DOWNLOAD = IMPULSE_ANVIL_DOWNLOAD; const introEl   = document.getElementById('intro');
     const headerEl  = document.getElementById('mainHeader');
     const toggleBtn = document.getElementById('menuToggle');
     const mainEl    = document.getElementById('mainContent');
 
     let lastY = window.scrollY;
 
-    /* Dropdown helpers */
+    function refreshLemonSqueezyButtons() {
+  try {
+    document.querySelectorAll(`a[href="${IMPULSE_ANVIL_BUY_URL}"]`).forEach(link => {
+      link.classList.add('lemonsqueezy-button');
+      link.removeAttribute('target');
+      link.removeAttribute('rel');
+    });
+    if (window.LemonSqueezy && typeof window.LemonSqueezy.Refresh === 'function') {
+      window.LemonSqueezy.Refresh();
+      return;
+    }
+    if (typeof window.createLemonSqueezy === 'function') {
+      window.createLemonSqueezy();
+    }
+  } catch (err) {
+    console.warn('Lemon Squeezy checkout refresh failed.', err);
+  }
+} /* Dropdown helpers */
     function toggleDropdown(btn) {
       const li = btn.parentElement;
       if (!li) return;
@@ -850,8 +865,8 @@ function buildAnvil(){
           <a href="#" onclick="iaScrollTo('ia-faq'); return false;">FAQ</a>
           <a href="/docs.html">Docs</a>
           <span class="ia-nav-spacer" aria-hidden="true"></span>
-          <a class="ia-nav-important ia-btn ia-btn-small" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Free demo</a>
-          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy · €29</a>
+          <a class="ia-nav-important ia-btn ia-btn-small" href="/downloads.html">Free demo</a>
+          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Buy · €29</a>
         </div>
       </div>
     </div>
@@ -867,7 +882,7 @@ function buildAnvil(){
       <a href="#" data-ia-target="ia-trust" onclick="iaScrollTo('ia-trust'); return false;">✓<span class="ia-side-label">Honest fit</span></a>
       <a href="#" data-ia-target="ia-faq" onclick="iaScrollTo('ia-faq'); return false;">?<span class="ia-side-label">FAQ</span></a>
       <a href="#" data-ia-target="ia-pricing" onclick="iaScrollTo('ia-pricing'); return false;">€<span class="ia-side-label">Pricing</span></a>
-      <a class="ia-side-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Buy<span class="ia-side-label">Full license €29</span></a>
+      <a class="ia-side-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Buy<span class="ia-side-label">Full license €29</span></a>
     </nav>
 
     <section class="ia-section ia-hero">
@@ -878,8 +893,8 @@ function buildAnvil(){
           <p class="ia-lead">Build the impulse response you wish already existed.</p>
           <p class="ia-hero-sub">Impulse Anvil is a focused IR-design plugin. Load A and B, shape each source, morph them through time, frequency or stereo space, audition the result through convolution, then bake that designed IR as a standard WAV.</p>
           <div class="ia-actions">
-            <a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a>
-            <a class="ia-btn ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Full license €29</span></span></a>
+            <a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a>
+            <a class="ia-btn ia-hero-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Full license €29</span></span></a>
             <a class="ia-btn ia-btn-dark" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear examples</a>
           </div>
           <p class="ia-hero-fineprint">Windows 10/11 · 64-bit VST3 · 126 handmade IRs · 2 seats · manual ZIP installation · same download runs in demo mode until unlocked.</p>
@@ -1048,13 +1063,13 @@ function buildAnvil(){
             <span class="ia-tag">Demo</span><h3>Explore the sound</h3><div class="ia-price"><strong>€0</strong><span>download</span></div>
             <p class="ia-muted">Test the plugin in your own DAW before purchasing.</p>
             <ul class="ia-list"><li>Windows VST3 folder bundle</li><li>126 handmade IRs included</li><li>Time Morph available</li><li>One Color row per IR</li><li>Periodic subtle demo noise</li><li>No A→B Lerp or WAV baking</li></ul>
-            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a></div>
+            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/downloads.html">Download free demo</a></div>
           </article>
           <article class="ia-card ia-price-card ia-price-card-featured">
             <span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>one-time</span></div>
             <p class="ia-muted">The complete A/B IR-design, morphing and export workflow.</p>
             <ul class="ia-list"><li>Time, Spectral, BandSwap and ZigZag morphing</li><li>Stereo Slot Swap and Mid/Side Boundary modes</li><li>Mode-aware A→B Lerp and WAV export</li><li>Two Color rows per IR plus Texture Depth</li><li>Waveform editing, visual EQ, width and level preparation</li><li>2 seats per license</li></ul>
-            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get full license · €29</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
+            <div class="ia-actions"><a class="ia-btn ia-btn-primary lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Get full license · €29</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
           </article>
         </div>
         <div class="ia-portable-note"><strong>Your exported IRs remain portable.</strong> Full-version bakes are standard WAV impulse responses, so the useful result is not trapped inside Impulse Anvil. Load it later in compatible convolution reverbs, IR loaders, cabinet tools or supported hardware.</div>
@@ -1089,7 +1104,7 @@ function buildAnvil(){
           <span class="ia-kicker">Impulse Anvil</span>
           <h2>Morph IRs.<br><span class="ia-cyan">Bake WAVs.</span></h2>
           <p>Start with the free demo, hear the workflow inside your own sessions, and unlock the complete IR-design engine when it earns a place in your process.</p>
-          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download free demo</a><a class="ia-btn ia-hero-buy" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Buy full license · €29</span></span></a></div>
+          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a><a class="ia-btn ia-hero-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Buy full license · €29</span></span></a></div>
         </div>
       </div>
     </section>
@@ -1259,11 +1274,12 @@ function buildAnvil(){
         function buildAnvilDownloads(){
           return `
           <div class="ia26" id="downloads">
-            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><div class="ia-download-heading"><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><span class="ia-current-version">Current v1.0.119</span></div><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn" href="${IMPULSE_ANVIL_BUY_URL}" target="_blank" rel="noopener">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a><a class="ia-btn ia-btn-dark" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener" aria-label="Join the Impulse Anvil Discord for setup help, free themes, free IRs, updates and videos">${DISCORD_ICON}Discord support</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
+            <section class="ia-section ia-hero"><div class="ia-shell ia-hero-grid"><div><div class="ia-download-heading"><span class="ia-eyebrow"><span class="ia-pulse"></span> Download</span><span class="ia-current-version">Current v1.0.120</span></div><h1>Impulse Anvil <span class="ia-cyan">VST3 ZIP.</span></h1><p class="ia-lead">Download the Windows VST3 folder bundle, extract it, copy the complete <code>Impulse Anvil.vst3</code> folder into the VST3 directory, then rescan your DAW.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="${IMPULSE_ANVIL_DOWNLOAD}" target="_blank" rel="noopener">Download VST3</a><a class="ia-btn lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Get license €29</a><a class="ia-btn ia-btn-dark" href="#download-install" onclick="return iaScrollTo('download-install');">Install guide</a><a class="ia-btn ia-btn-dark" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener" aria-label="Join the Impulse Anvil Discord for setup help, free themes, free IRs, updates and videos">${DISCORD_ICON}Discord support</a></div></div><div class="ia-product-card"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface" loading="lazy"></div></div></div></section>
             <section class="ia-section" id="download-videos"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup videos</span><h2>Install and activate Impulse Anvil.</h2><p>Watch the short setup walkthroughs directly here before opening your DAW.</p></div></div><div class="ia-download-video-grid"><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/d4JgmIoF9zA" title="Impulse Anvil installation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>Installation</h3><p>Download, extract and copy the complete VST3 folder to the Windows VST3 directory.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://www.youtube.com/watch?v=d4JgmIoF9zA" target="_blank" rel="noopener">Open on YouTube</a></div></article><article class="ia-card ia-download-video-card"><div class="ia-download-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/mgJKXHDkyzE" title="Impulse Anvil license activation tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h3>License activation</h3><p>Paste your license key into the plugin and unlock the full version after purchase.</p><div class="ia-actions"><a class="ia-btn ia-btn-small" href="https://www.youtube.com/watch?v=mgJKXHDkyzE" target="_blank" rel="noopener">Open on YouTube</a></div></article></div></div></section>
             <section class="ia-section" id="download-install"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Install guide</span><h2>Quick Setup — Copy/Paste</h2><p>Open both folders, then copy the full <code>Impulse Anvil.vst3</code> folder into your system VST3 folder.</p></div></div><div class="ia-install-visual"><img src="assets/impulse-anvil-install-guide.png" alt="Impulse Anvil installation guide showing the downloaded VST3 folder and the system VST3 folder side by side" loading="lazy"><p class="ia-install-note">Image guide: left = extracted download folder, right = <code>C:\Program Files\Common Files\VST3</code>.</p></div><div class="ia-grid ia-grid-three"><article class="ia-card"><div class="ia-number">1</div><h3>Extract</h3><p>Unzip <code>ImpulseAnvil_Windows_VST3.zip</code>. Keep the VST3 bundle structure intact.</p></article><article class="ia-card"><div class="ia-number">2</div><h3>Copy</h3><p>Copy the complete <code>Impulse Anvil.vst3</code> folder to <code>C:&bsol;Program Files&bsol;Common Files&bsol;VST3</code>.</p></article><article class="ia-card"><div class="ia-number">3</div><h3>Rescan</h3><p>Restart or rescan your DAW. The 126 handmade IR library is bundled inside the plugin folder.</p></article></div></div></section>
             <section class="ia-section" id="download-changelog"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Changelog</span><h2>Release notes.</h2><p>Open a version to see what changed. The newest public build is listed first.</p></div></div><div class="ia-changelog">
-              <details open><summary>v1.0.119 — Workflow, Spatial Morph and Randomization Update</summary><div class="ia-changelog-body"><p><span class="ia-version-pill">Current release</span></p><p>This update focuses on cleaner workflow, improved A/B slot handling, new spatial morph behavior, better loudness control, and a more coherent randomization/layout experience.</p><h3>New Spatial Morph Modes</h3><ul class="ia-list"><li>Added Stereo Slot Swap, a spatial morph field where the left channel moves from Slot A to Slot B while the right channel moves from Slot B to Slot A.</li><li>Added Mid/Side Boundary, keeping Slot A in the center/mid field while introducing Slot B into the side/outside field.</li><li>Both new Morph Modes are supported in normal Morph preview, A-to-B Lerp preview, project restore, and Lerp Bake/export.</li></ul><h3>Improved Drag &amp; Drop Slot Routing</h3><ul class="ia-list"><li>Dropping a WAV file onto the A panel now reliably loads Slot A.</li><li>Dropping a WAV file onto the B panel now reliably loads Slot B.</li><li>The empty-slot fallback behavior outside the A/B panels is preserved.</li></ul><h3>Loudness &amp; Normalize Workflow Cleanup</h3><ul class="ia-list"><li>Slot A and Slot B now have their own Normalize controls.</li><li>Old sessions that used the previous global Normalize setting remain compatible and migrate safely to the new A/B Normalize setup.</li><li>Slot Gain remains useful when Normalize is enabled, making A/B compensation easier after normalization.</li><li>Output/Post Normalize now defaults to ON, and the visible Post Limiter clearly controls final output limiting.</li><li>Random, load, and reset workflows no longer unexpectedly reset Wet Level to -30 dB, except for factory startup defaults.</li></ul><h3>Randomization Workflow Improvements</h3><ul class="ia-list"><li>A/B full-slot random buttons randomize the full slot IR selection and related full-slot behavior.</li><li>A/B Color-header random buttons randomize the current IR&apos;s Color controls only, keeping the loaded IR in place.</li><li>Morph Random is available directly in the Morph card and randomizes Morph-related controls only.</li><li>EQ and EDIT now have their own local random buttons.</li><li>A/B Random resets Slot Gain to 0 dB and no longer randomizes gain above unity.</li></ul><h3>Layout &amp; Usability Polish</h3><ul class="ia-list"><li>Init/Reset Controls has been moved into the Options menu.</li><li>Clicking the A, B, or Morph panel background now selects that mode.</li><li>Moving a Color voice knob automatically enables that Color voice, so the change is immediately audible.</li><li>Morph Mode and Curve dropdowns are now centered in the Morph panel.</li><li>K and Lerp Time now use compact horizontal controls above the curve display.</li><li>Align Peaks has been renamed to Align with a clearer tooltip.</li><li>Post random tooltip now clarifies that it affects EQ, EDIT, and OUT.</li></ul><h3>Fixes</h3><ul class="ia-list"><li>Fixed A/B WAV drag-and-drop target detection.</li><li>Fixed EDIT double-click reset behavior when linked Start/End or reverse Fade Out are active.</li><li>Fixed Morph Random build handling from the previous internal build step.</li></ul><p>Existing projects and sessions remain compatible.</p></div></details>
+              <details open=""><summary>v1.0.120 — JUCE 8 Maintenance Build</summary><div class="ia-changelog-body"><p>This maintenance release refreshes the Windows commercial build after migration to JUCE 8.0.13.</p><h3>Updated</h3><ul class="ia-list"><li>Rebuilt the Windows 64-bit VST3 with JUCE 8.0.13.</li><li>Refreshed the commercial release package and build process.</li><li>Corrected the license activation dialog layout after the framework migration.</li></ul><h3>Compatibility</h3><ul class="ia-list"><li>No intentional changes were made to the DSP workflow, parameter IDs, project-state format, factory IR library, license entitlement or demo restrictions.</li><li>Existing projects and sessions should remain compatible.</li><li>Replace the complete existing <code>Impulse Anvil.vst3</code> folder when updating.</li></ul></div></details><details open><summary>v1.0.120 &mdash; JUCE 8 Maintenance Build</summary><div class="ia-changelog-body"><p><span class="ia-version-pill">Current release</span></p><p>This maintenance release refreshes the Windows commercial build after migration to JUCE 8.0.13.</p><h3>Updated</h3><ul class="ia-list"><li>Rebuilt the Windows 64-bit VST3 with JUCE 8.0.13.</li><li>Updated the bundled license notices for the current release toolchain.</li><li>Corrected the license activation dialog layout after the JUCE migration.</li></ul><h3>Compatibility</h3><ul class="ia-list"><li>No intentional changes were made to the DSP workflow, parameter IDs, project-state format, factory IR library, license entitlement or demo restrictions.</li><li>Windows 10/11, 64-bit VST3.</li><li>Replace the complete existing <code>Impulse Anvil.vst3</code> folder when updating.</li></ul></div></details>
+<details><summary>v1.0.119 — Workflow, Spatial Morph and Randomization Update</summary><div class="ia-changelog-body"><p>This update focuses on cleaner workflow, improved A/B slot handling, new spatial morph behavior, better loudness control, and a more coherent randomization/layout experience.</p><h3>New Spatial Morph Modes</h3><ul class="ia-list"><li>Added Stereo Slot Swap, a spatial morph field where the left channel moves from Slot A to Slot B while the right channel moves from Slot B to Slot A.</li><li>Added Mid/Side Boundary, keeping Slot A in the center/mid field while introducing Slot B into the side/outside field.</li><li>Both new Morph Modes are supported in normal Morph preview, A-to-B Lerp preview, project restore, and Lerp Bake/export.</li></ul><h3>Improved Drag &amp; Drop Slot Routing</h3><ul class="ia-list"><li>Dropping a WAV file onto the A panel now reliably loads Slot A.</li><li>Dropping a WAV file onto the B panel now reliably loads Slot B.</li><li>The empty-slot fallback behavior outside the A/B panels is preserved.</li></ul><h3>Loudness &amp; Normalize Workflow Cleanup</h3><ul class="ia-list"><li>Slot A and Slot B now have their own Normalize controls.</li><li>Old sessions that used the previous global Normalize setting remain compatible and migrate safely to the new A/B Normalize setup.</li><li>Slot Gain remains useful when Normalize is enabled, making A/B compensation easier after normalization.</li><li>Output/Post Normalize now defaults to ON, and the visible Post Limiter clearly controls final output limiting.</li><li>Random, load, and reset workflows no longer unexpectedly reset Wet Level to -30 dB, except for factory startup defaults.</li></ul><h3>Randomization Workflow Improvements</h3><ul class="ia-list"><li>A/B full-slot random buttons randomize the full slot IR selection and related full-slot behavior.</li><li>A/B Color-header random buttons randomize the current IR&apos;s Color controls only, keeping the loaded IR in place.</li><li>Morph Random is available directly in the Morph card and randomizes Morph-related controls only.</li><li>EQ and EDIT now have their own local random buttons.</li><li>A/B Random resets Slot Gain to 0 dB and no longer randomizes gain above unity.</li></ul><h3>Layout &amp; Usability Polish</h3><ul class="ia-list"><li>Init/Reset Controls has been moved into the Options menu.</li><li>Clicking the A, B, or Morph panel background now selects that mode.</li><li>Moving a Color voice knob automatically enables that Color voice, so the change is immediately audible.</li><li>Morph Mode and Curve dropdowns are now centered in the Morph panel.</li><li>K and Lerp Time now use compact horizontal controls above the curve display.</li><li>Align Peaks has been renamed to Align with a clearer tooltip.</li><li>Post random tooltip now clarifies that it affects EQ, EDIT, and OUT.</li></ul><h3>Fixes</h3><ul class="ia-list"><li>Fixed A/B WAV drag-and-drop target detection.</li><li>Fixed EDIT double-click reset behavior when linked Start/End or reverse Fade Out are active.</li><li>Fixed Morph Random build handling from the previous internal build step.</li></ul><p>Existing projects and sessions remain compatible.</p></div></details>
               <details><summary>v1.0.113 — Texture Depth Bug Fix</summary><div class="ia-changelog-body"><p>Small maintenance update for Texture Depth.</p><ul class="ia-list"><li>Fixed a &quot;Texture&quot; bug, previously introducing the wrong IR when tweaking parameters.</li></ul></div></details>
               <details><summary>v1.0.112 — Prepared IR length policy</summary><div class="ia-changelog-body"><p>This update makes prepared IR length handling more predictable across preview, editing, statistics and baking.</p><ul class="ia-list"><li>Preserves quiet reverb tails that belong to the loaded or processed IR instead of trimming them unexpectedly.</li><li>Uses the same prepared-IR length policy for convolver preview, A/B slot stats, Bake and A→B Lerp export.</li><li>Keeps a hard 30-second safety cap for generated Color, Texture, Morph and Lerp results.</li><li>Prevents mismatches between long Color/Texture stats, shorter Edit ranges and convolver safety kernels.</li><li>Color, Texture, Morph, Lerp, project restore, Normalize and Limiter behavior are unchanged.</li></ul></div></details>
               <details><summary>v1.0.110 — Release polish and safety</summary><div class="ia-changelog-body"><ul class="ia-list"><li>Improved C1/C2 Color switch rendering so the labels stay readable in tight rows.</li><li>A/B prepared IR stats are now laid out directly in the active manual A/B panels.</li><li>Improved Lerp curve display readability in the default theme.</li><li>Theme randomizer tooltip now shows the current theme name.</li><li>Normalize tooltips now warn clearly that quiet IRs can become much louder.</li><li>A/B/Morph switching now uses a safer unity-sum crossfade to reduce brief correlated level boosts.</li><li>Spectral, BandSwap and ZigZag Lerp snapshots are normalized when Normalize is enabled, reducing weak or silent middle sections.</li></ul></div></details>
@@ -1597,7 +1613,7 @@ function buildAnvil(){
     currentFeed = feed;
     updateMainNavState(feed);
 
-    mainEl.innerHTML = html;
+    mainEl.innerHTML = html; refreshLemonSqueezyButtons();
     initAutoSlides(); // initialize auto-scrolling on any slides in this view
     initAnatomy();    // initialize plugin anatomy highlight if present
     initImpulseAudioPlayers(); // initialize custom dry/wet waveform players
@@ -1718,9 +1734,7 @@ window.addEventListener('hashchange', () => {
     initImpulseThemeGallery();
   } else {
     loadFeed(defaultFeed, { fromHash: true });
-  }
-
-  updateMenuToggleTheme(window.scrollY > 0);
+  } refreshLemonSqueezyButtons(); updateMenuToggleTheme(window.scrollY > 0);
 
   if (window.innerWidth < 600) introEl.classList.add('hidden');
 });
@@ -1735,4 +1749,21 @@ window.addEventListener('hashchange', () => {
       lx=e.clientX; ly=e.clientY;
       if(moved>300){ introEl.classList.add('hidden'); done=true; }
     });
-  
+/* Impulse Anvil Lemon Squeezy checkout overlay. */
+if (!window.__freqtikLemonCheckoutBound) {
+  window.__freqtikLemonCheckoutBound = true;
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || !target.closest) return;
+
+    var link = target.closest('a');
+    if (!link || link.href.indexOf('https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4') !== 0) return;
+
+    if (window.LemonSqueezy &&
+        window.LemonSqueezy.Url &&
+        typeof window.LemonSqueezy.Url.Open === 'function') {
+      event.preventDefault();
+      window.LemonSqueezy.Url.Open(link.href);
+    }
+  });
+}
