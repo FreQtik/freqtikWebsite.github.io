@@ -1411,13 +1411,13 @@ function buildAnvil(){
               <span class="ia-eyebrow"><span class="ia-pulse"></span> Independent developer · producer · toolmaker</span>
               <h1>Built from curiosity.<br><span class="ia-cyan">Finished as real tools.</span></h1>
               <p class="ia-lead">FreQtik is an independent creative-technology studio building focused audio software, producer frameworks and interactive experiments.</p>
-              <p class="ia-about-intro">The work starts with practical friction: a production task that feels slower than it should, a workflow that does not yet exist, or an idea that becomes more useful once it can be touched and tested. AI-assisted development is used intensively to accelerate implementation and iteration, but the standard remains human: the result must be understandable, functional, documented and worth using.</p>
+              <p class="ia-about-intro">The work starts with practical friction: a production task that feels slower than it should, a workflow that does not yet exist, or an idea that becomes more useful once it can be touched and tested. Development is focused on making the result understandable, functional, documented and worth using.</p>
               <div class="ia-actions">
                 <a class="ia-btn ia-btn-primary ia-hero-buy" href="/">Explore Impulse Anvil</a>
                 <a class="ia-btn" href="/downloads.html">Downloads</a>
                 <a class="ia-btn ia-btn-dark" href="/connect.html">Connect</a>
               </div>
-              <div class="ia-hero-note" aria-label="FreQtik working characteristics"><span>Producer-led</span><span>Independent</span><span>AI-assisted</span><span>Function-first</span></div>
+              <div class="ia-hero-note" aria-label="FreQtik working characteristics"><span>Producer-led</span><span>Independent</span><span>Shipped products</span><span>Function-first</span></div>
             </div>
             <aside class="ia-about-manifesto">
               <span class="ia-kicker">Working standard</span>
@@ -1435,7 +1435,7 @@ function buildAnvil(){
         <div class="ia-proofbar" aria-label="FreQtik profile highlights">
           <div class="ia-proof-item"><strong>Long-term production perspective</strong><span>Tools are informed by years of practical music-making, not only feature lists.</span></div>
           <div class="ia-proof-item"><strong>Independent decisions</strong><span>Small projects can stay focused instead of growing into generic software suites.</span></div>
-          <div class="ia-proof-item"><strong>Fast iteration</strong><span>AI-assisted development enables unusually broad experimentation and refinement.</span></div>
+          <div class="ia-proof-item"><strong>Fast iteration</strong><span>Independent development allows broad experimentation and refinement.</span></div>
           <div class="ia-proof-item"><strong>Direct accountability</strong><span>The same person designs, tests, documents and supports the work.</span></div>
         </div>
 
@@ -1453,7 +1453,7 @@ function buildAnvil(){
         <section class="ia-section" id="about-method">
           <div class="ia-shell">
             <div class="ia-about-method-grid">
-              <article class="ia-about-ai-card"><span class="ia-kicker">AI-assisted, human-directed</span><h3>AI is leverage.<br>Not the product claim.</h3><p>FreQtik uses AI intensively for implementation, research, iteration, debugging and communication. That makes it possible for one independent developer to explore at a scale that previously required a larger team. It does not remove responsibility: every public release still has to be judged by whether it works, whether its claims are accurate, and whether a user can understand what they are buying.</p><p>The aim is not to imitate a large company. It is to use modern tools to build unusually focused software with a clear personal point of view.</p></article>
+              <article class="ia-about-method-card"><span class="ia-kicker">Independent and directly accountable</span><h3>Tools support the process.<br>The result remains the standard.</h3><p>FreQtik develops, tests and refines projects independently. Every public release is judged by whether it works, whether its claims are accurate, and whether a user can understand what they are buying.</p><p>The aim is not to imitate a large company. It is to use modern tools to build unusually focused software with a clear personal point of view.</p></article>
               <div class="ia-about-method-steps">
                 <article class="ia-about-method-step"><b>Observe</b><h3>Start with real friction</h3><p>Look for a recurring production, routing, learning or interaction problem that deserves a more direct solution.</p></article>
                 <article class="ia-about-method-step"><b>Build</b><h3>Explore more than one answer</h3><p>Prototype quickly, compare approaches and remove features that make the central idea harder to understand.</p></article>
@@ -1488,9 +1488,7 @@ function buildAnvil(){
       <div class="ia26 ia-v2 ia-connect-page">
         <section class="ia-section ia-connect-hero">
           <div class="ia-shell">
-            <span class="ia-eyebrow"><span class="ia-pulse"></span> Contact and updates</span>
-            <h1>Reach FreQtik.<br><span class="ia-cyan">Without hunting through platforms.</span></h1>
-            <p class="ia-lead">Choose the channel that matches what you need: direct support, community help, development updates or visual project posts.</p>
+            <h1>Connect</h1>
           </div>
         </section>
         <section class="ia-section" style="padding-top:22px">
@@ -1498,8 +1496,8 @@ function buildAnvil(){
             <div class="ia-connect-grid">
               <article class="ia-connect-card"><span class="ia-connect-mark">@</span><h3>Email</h3><p>Best for license questions, purchase support, compatibility details, business enquiries and anything that needs a direct answer.</p><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="mailto:freqtiksup@gmail.com">Email FreQtik</a></div></article>
               <article class="ia-connect-card"><span class="ia-connect-mark">DC</span><h3>Discord</h3><p>Community support for Impulse Anvil, setup help, updates, extra themes, shared IR material and practical discussion.</p><div class="ia-actions"><a class="ia-btn" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Join Discord</a></div></article>
-              <article class="ia-connect-card"><span class="ia-connect-mark">YT</span><h3>YouTube</h3><p>Installation videos, activation guidance, demonstrations and longer explanations of FreQtik tools and development work.</p><div class="ia-actions"><a class="ia-btn" href="https://www.youtube.com/@FreQtik" target="_blank" rel="noopener noreferrer">Open YouTube</a></div></article>
-              <article class="ia-connect-card"><span class="ia-connect-mark">IG</span><h3>Instagram</h3><p>Short-form project posts, visual development updates and selected work from the broader FreQtik catalogue.</p><div class="ia-actions"><a class="ia-btn" href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener noreferrer">Open Instagram</a></div></article>
+              <article class="ia-connect-card"><span class="ia-connect-mark">YT</span><h3>YouTube</h3><div class="ia-actions"><a class="ia-btn" href="https://www.youtube.com/@FreQtik" target="_blank" rel="noopener noreferrer">Open YouTube</a></div></article>
+              <article class="ia-connect-card"><span class="ia-connect-mark">IG</span><h3>Instagram</h3><div class="ia-actions"><a class="ia-btn" href="https://www.instagram.com/freqtik/" target="_blank" rel="noopener noreferrer">Open Instagram</a></div></article>
             </div>
             <p class="ia-note" style="margin-top:20px">For support, include your operating system, DAW, plugin version and a concise description of what happened. That makes technical issues much easier to reproduce.</p>
           </div>

@@ -2199,7 +2199,7 @@
       gap:18px;
       align-items:stretch;
     }
-    .ia26 .ia-about-ai-card {
+    .ia26 .ia-about-method-card {
       padding:32px;
       border:1px solid rgba(39,214,255,.22);
       border-radius:28px;
@@ -2208,8 +2208,8 @@
         linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.032));
       box-shadow:0 28px 80px rgba(0,0,0,.30);
     }
-    .ia26 .ia-about-ai-card h3 { margin:10px 0 13px; font-size:clamp(31px,4vw,50px); line-height:1; }
-    .ia26 .ia-about-ai-card p { color:var(--ia-muted); line-height:1.75; }
+    .ia26 .ia-about-method-card h3 { margin:10px 0 13px; font-size:clamp(31px,4vw,50px); line-height:1; }
+    .ia26 .ia-about-method-card p { color:var(--ia-muted); line-height:1.75; }
     .ia26 .ia-about-method-steps { display:grid; gap:12px; }
     .ia26 .ia-about-method-step {
       padding:20px;
@@ -2260,7 +2260,7 @@
       }
       .ia26.ia-about-page .ia-proof-item:first-child { border-top:0; }
       .ia26 .ia-about-manifesto,
-      .ia26 .ia-about-ai-card { padding:24px; }
+      .ia26 .ia-about-method-card { padding:24px; }
     }
 
   

@@ -1,44 +1,60 @@
-# FreQtik public project reference
+# FreQtik — public site summary
 
-FreQtik is an independent creative-technology studio focused on audio software, producer knowledge, games and interactive experiments. The work is producer-led and AI-assisted. AI is used for implementation, research, debugging, iteration and communication, but the public claim is the finished result: it must be understandable, functional, documented and useful.
+FreQtik is the independent work of a producer and developer creating audio software, practical producer resources, games and interactive projects. The official website presents released products, public documentation, downloads, demonstrations and direct support channels.
 
 ## Impulse Anvil
-Impulse Anvil is a Windows 10/11 64-bit VST3 creative impulse-response designer. It is not positioned as a general-purpose convolution-reverb suite. Its focus is IR authoring: load two WAV impulse responses or source sounds into A and B, prepare each endpoint, morph them through time, frequency or stereo space, audition the result, and bake the designed result into a portable WAV IR.
 
-The current public workflow includes endpoint preparation, time stretch, gain, Color processing, Texture Depth, visual EQ, waveform editing, wet preview, output processing, reusable WAV export, spatial morph modes and A-to-B Lerp. Morph approaches documented publicly are Time Morph, Spectral Morph, Spectral BandSwap, Spectral ZigZag, Stereo Slot Swap, Mid/Side Boundary and A-to-B Lerp. The product includes a free demo and paid license options.
+Official homepage: https://freqtik.com/
+Downloads and installation: https://freqtik.com/downloads.html
+Documentation: https://freqtik.com/docs.html
+Release history: https://github.com/FreQtik/freqtikWebsite.github.io/releases
+
+Impulse Anvil is a focused Windows 10/11, 64-bit VST3 for authoring impulse responses. Users can load two source IRs or compatible WAV material, prepare A and B independently, morph between them, audition the prepared result through convolution, edit and equalize it, and bake the result as a standard WAV impulse response.
+
+Publicly described features include:
+
+- A/B impulse-response loading and preparation
+- Per-slot time, gain, Color and Texture controls
+- Time Morph
+- Spectral, BandSwap and ZigZag morph modes
+- Stereo Slot Swap and Mid/Side Boundary modes
+- A-to-B Lerp inside a single prepared impulse response
+- Waveform trimming, reverse-range editing and fades
+- Visual EQ, stereo width and output preparation
+- Standard WAV impulse-response export in the full version
+- 126 included handmade impulse responses
+- A free demo mode for evaluation before purchase
+
+The current official target is Windows 10 or Windows 11 with a 64-bit VST3-compatible host. Delivery uses a manual ZIP containing the complete VST3 folder. The product page describes compatibility, workflow, demo limitations and purchase terms directly.
 
 ## Master Desktop Tap
-Master Desktop Tap is a free beta Windows VST3 routing utility. Inserted on a DAW master bus, it mirrors audio to a selected Windows output device so communication and capture software such as Discord, OBS or screen sharing can receive the mix without changing the DAW's ASIO driver. It has no built-in session timer and is intended as a routing utility, not a mastering processor.
 
-## Contrast Rules for Producers
-Contrast Rules for Producers is a free practical framework about how context, contrast, attention and timing affect perceived impact in arrangement, sound design and mixing. It is presented as a way of thinking rather than a secret-formula claim.
+Page: https://freqtik.com/master-desktop-tap.html
 
-## Learning to Bear
-Learning to Bear is a surreal single-player 3D puzzle-platformer released on Steam on May 1, 2025. It combines more than 40 handcrafted levels with wingsuit traversal, swinging, rail grinding, logic puzzles, ability progression and dreamlike mission spaces. FreQtik developed and published the game.
+Master Desktop Tap is a free beta Windows VST3 utility intended to help route DAW audio into applications such as Discord, OBS and screen sharing. Users should test it with their own interface, DAW and streaming setup before relying on it in a live session.
 
-## Aim Trainer Bee Pro
-Aim Trainer Bee Pro is a compact precision clicker released on Steam on May 4, 2025. It uses one-minute rounds, Steam leaderboards and performance feedback including accuracy, combos and click speed.
+## Producer resources
 
-## Micro Mouse Star Trainer
-Micro Mouse Star Trainer is a free browser-based precision trainer for mouse micro-control. It uses star layouts, ring drills, circle repetitions, depth movement, timing, accuracy and weakness-focused follow-up drills.
-
-## Boon TD Online
-Boon TD Online is a browser-playable tower-defense project developed from the earlier Warcraft III Boon TD concept. It includes progression, tower systems and ongoing milestone-based development.
-
-## Public URLs
-FreQtik studio homepage: https://freqtik.com/
-Impulse Anvil product page: https://freqtik.com/impulse-anvil.html
-Official Impulse Anvil releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
-About and project overview: https://freqtik.com/about.html
-Impulse Anvil documentation: https://freqtik.com/docs.html
-Downloads: https://freqtik.com/downloads.html
-Master Desktop Tap: https://freqtik.com/master-desktop-tap.html
 Contrast Rules for Producers: https://freqtik.com/contrast-rules-for-producers.html
-Learning to Bear: https://freqtik.com/learning-to-bear.html
-Aim Trainer Bee Pro: https://freqtik.com/aim-trainer-bee-pro.html
-Micro Mouse Star Trainer: https://freqtik.com/micro-mouse-trainer.html
-Boon TD Online: https://boontd.freqtik.com
-Connect: https://freqtik.com/connect.html
-YouTube page: https://freqtik.com/youtube.html
 
-Legal pages containing personal information are intentionally not reproduced here.
+Contrast Rules for Producers is a practical framework about how context, contrast, attention, instrumentation, timing and internal sound detail affect musical impact.
+
+## Games and interactive projects
+
+- Learning to Bear: https://freqtik.com/learning-to-bear.html
+- Aim Trainer Bee Pro: https://freqtik.com/aim-trainer-bee-pro.html
+- Micro Mouse Star Trainer: https://freqtik.com/micro-mouse-trainer.html
+- Boon TD Online: https://boontd.freqtik.com
+
+Learning to Bear and Aim Trainer Bee Pro have public Steam store records. The remaining projects are presented as browser-based or ongoing interactive work where applicable.
+
+## About and contact
+
+- About FreQtik: https://freqtik.com/about.html
+- Connect: https://freqtik.com/connect.html
+- YouTube: https://www.youtube.com/@FreQtik
+- Instagram: https://www.instagram.com/freqtik/
+- GitHub: https://github.com/FreQtik
+- Support email: freqtiksup@gmail.com
+
+FreQtik is not presented as a large software company. Product claims should be evaluated from the public pages, documentation, downloadable builds, release history and external store records.
