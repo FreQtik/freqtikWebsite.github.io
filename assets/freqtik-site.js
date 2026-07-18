@@ -848,271 +848,234 @@
       return buildAnvil();
     }
 
-function buildAnvil(){
-  return `
-  <div class="ia26 ia-v2" id="anvil">
-    <div class="ia-mini-nav ia-mini-nav-product" aria-label="Impulse Anvil product navigation">
-      <div class="ia-mini-nav-inner">
-        <div class="ia-mini-links ia-mini-links-product">
-          <a href="#" onclick="iaScrollTo('anvil'); return false;">Overview</a>
-          <a href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear it</a>
-          <a href="#" onclick="iaScrollTo('ia-creative-core'); return false;">Morph engine</a>
-          <a href="#" onclick="iaScrollTo('ia-workflow'); return false;">Workflow</a>
-          <a href="#" onclick="iaScrollTo('ia-usecases'); return false;">Use cases</a>
-          <a href="#" onclick="iaScrollTo('ia-interface'); return false;">Interface</a>
-          <a href="#" onclick="iaScrollTo('ia-trust'); return false;">Honest fit</a>
-          <a href="#" onclick="iaScrollTo('ia-pricing'); return false;">Pricing</a>
-          <a href="#" onclick="iaScrollTo('ia-faq'); return false;">FAQ</a>
-          <a href="/docs.html">Docs</a>
-          <span class="ia-nav-spacer" aria-hidden="true"></span>
-          <a class="ia-nav-important ia-btn ia-btn-small" href="/downloads.html">Free demo</a>
-          <a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Buy · €29</a>
-        </div>
-      </div>
-    </div>
+function buildAnvil(){ return `
+<div class="ia26 ia-v2" id="anvil">
+<div aria-label="Impulse Anvil product navigation" class="ia-mini-nav ia-mini-nav-product">
+<div class="ia-mini-nav-inner">
+<div class="ia-mini-links ia-mini-links-product">
+<a href="#" onclick="iaScrollTo('anvil'); return false;">Overview</a>
+<a href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear it</a>
+<a href="#" onclick="iaScrollTo('ia-workflow'); return false;">How it works</a>
+<a href="#" onclick="iaScrollTo('ia-usecases'); return false;">Record the world</a>
+<a href="#" onclick="iaScrollTo('ia-morph'); return false;">Technical depth</a>
+<a href="#" onclick="iaScrollTo('ia-interface'); return false;">Interface</a>
+<a href="#" onclick="iaScrollTo('ia-trust'); return false;">Honest fit</a>
+<a href="#" onclick="iaScrollTo('ia-pricing'); return false;">Pricing</a>
+<a href="#" onclick="iaScrollTo('ia-faq'); return false;">FAQ</a>
+<a href="/docs.html">Docs</a>
+<span aria-hidden="true" class="ia-nav-spacer"></span>
+<a class="ia-nav-important ia-btn ia-btn-small" href="/downloads.html">Free demo</a>
+<a class="ia-nav-important ia-btn ia-btn-small ia-btn-primary lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Buy &middot; &euro;29</a>
+</div>
+</div>
+</div>
+<nav aria-label="Impulse Anvil floating chapter navigation" class="ia-side-nav">
+<a class="is-active" data-ia-target="anvil" href="#" onclick="iaScrollTo('anvil'); return false;"><img alt="" class="ia-side-logo" src="assets/tinylogoQ.png"/><span class="ia-side-label">Overview</span></a>
+<a data-ia-target="ia-sound" href="#" onclick="iaScrollTo('ia-sound'); return false;">&#9654;<span class="ia-side-label">Hear it</span></a>
+<a data-ia-target="ia-workflow" href="#" onclick="iaScrollTo('ia-workflow'); return false;">3<span class="ia-side-label">How it works</span></a>
+<a data-ia-target="ia-usecases" href="#" onclick="iaScrollTo('ia-usecases'); return false;">R<span class="ia-side-label">Record the world</span></a>
+<a data-ia-target="ia-morph" href="#" onclick="iaScrollTo('ia-morph'); return false;">M<span class="ia-side-label">Technical depth</span></a>
+<a data-ia-target="ia-interface" href="#" onclick="iaScrollTo('ia-interface'); return false;">UI<span class="ia-side-label">Interface</span></a>
+<a data-ia-target="ia-trust" href="#" onclick="iaScrollTo('ia-trust'); return false;">&#10003;<span class="ia-side-label">Honest fit</span></a>
+<a data-ia-target="ia-faq" href="#" onclick="iaScrollTo('ia-faq'); return false;">?<span class="ia-side-label">FAQ</span></a>
+<a data-ia-target="ia-pricing" href="#" onclick="iaScrollTo('ia-pricing'); return false;">&euro;<span class="ia-side-label">Pricing</span></a>
+<a class="ia-side-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Buy<span class="ia-side-label">Full license &euro;29</span></a>
+</nav>
+<section class="ia-section ia-hero">
+<div class="ia-shell ia-hero-grid">
+<div class="ia-hero-copy">
+<span class="ia-eyebrow"><span class="ia-pulse"></span> Creative convolution &middot; Windows VST3</span>
+<h1>Discover what your<br/><span class="ia-cyan">sound could become.</span></h1>
+<p class="ia-lead">Transform familiar audio into new spaces, textures, rhythms and sonic identities.</p>
+<p class="ia-hero-sub">Load an impulse response, texture, found sound or compatible WAV recording. Let it reshape your audio, explore unexpected transformations, and bake the results worth keeping.</p>
+<div class="ia-actions">
+<a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a>
+<a class="ia-btn ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1"><span class="ia-sale-inline"><span class="ia-old-price">&euro;49</span><span>Get full license &middot; &euro;29</span></span></a>
+<a class="ia-btn ia-btn-dark" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear transformations</a>
+</div>
+<p class="ia-hero-fineprint">Windows 10/11 &middot; 64-bit VST3 &middot; 126 included IRs &middot; Load your own WAVs &middot; Two licence seats</p>
+</div>
+<div aria-label="Impulse Anvil interface preview" class="ia-product-card">
+<div class="ia-product-window">
+<img alt="Impulse Anvil creative convolution and impulse-response transformation interface" decoding="async" fetchpriority="high" loading="eager" src="assets/impulse-anvil-plugin-ui.png"/>
+</div>
+<div class="ia-float-card">
+<b>Surprise first. Shape what matters.</b>
+<p>Press Random, follow the transformations that provoke an idea, then sculpt and bake the results you want to keep.</p>
+</div>
+</div>
+</div>
+</section>
 
-    <nav class="ia-side-nav" aria-label="Impulse Anvil floating chapter navigation">
-      <a href="#" data-ia-target="anvil" onclick="iaScrollTo('anvil'); return false;"><img class="ia-side-logo" src="assets/tinylogoQ.png" alt=""><span class="ia-side-label">Overview</span></a>
-      <a href="#" data-ia-target="ia-position" onclick="iaScrollTo('ia-position'); return false;">IR<span class="ia-side-label">What it is</span></a>
-      <a href="#" data-ia-target="ia-sound" onclick="iaScrollTo('ia-sound'); return false;">▶<span class="ia-side-label">Hear it</span></a>
-      <a href="#" data-ia-target="ia-creative-core" onclick="iaScrollTo('ia-creative-core'); return false;">M<span class="ia-side-label">Morph engine</span></a>
-      <a href="#" data-ia-target="ia-workflow" onclick="iaScrollTo('ia-workflow'); return false;">W<span class="ia-side-label">Workflow</span></a>
-      <a href="#" data-ia-target="ia-usecases" onclick="iaScrollTo('ia-usecases'); return false;">U<span class="ia-side-label">Use cases</span></a>
-      <a href="#" data-ia-target="ia-interface" onclick="iaScrollTo('ia-interface'); return false;">UI<span class="ia-side-label">Interface</span></a>
-      <a href="#" data-ia-target="ia-trust" onclick="iaScrollTo('ia-trust'); return false;">✓<span class="ia-side-label">Honest fit</span></a>
-      <a href="#" data-ia-target="ia-faq" onclick="iaScrollTo('ia-faq'); return false;">?<span class="ia-side-label">FAQ</span></a>
-      <a href="#" data-ia-target="ia-pricing" onclick="iaScrollTo('ia-pricing'); return false;">€<span class="ia-side-label">Pricing</span></a>
-      <a class="ia-side-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Buy<span class="ia-side-label">Full license €29</span></a>
-    </nav>
+<div aria-label="Impulse Anvil key facts" class="ia-proofbar">
+<div class="ia-proof-item"><strong>Creative transformation</strong><span>Give familiar audio a different identity.</span></div>
+<div class="ia-proof-item"><strong>Real-world source material</strong><span>Use recordings, textures and found sounds.</span></div>
+<div class="ia-proof-item"><strong>Seven morph structures</strong><span>Time, spectral, spatial and Lerp behavior.</span></div>
+<div class="ia-proof-item"><strong>Reusable WAV output</strong><span>Bake discoveries into a portable IR library.</span></div>
+<div class="ia-proof-item"><strong>&euro;29 full license</strong><span>One complete version with two seats.</span></div>
+</div>
 
-    <section class="ia-section ia-hero">
-      <div class="ia-shell ia-hero-grid">
-        <div class="ia-hero-copy">
-          <span class="ia-eyebrow"><span class="ia-pulse"></span> Creative IR designer · Windows VST3</span>
-          <h1>Morph IRs.<br><span class="ia-cyan">Bake WAVs.</span></h1>
-          <p class="ia-lead">Build the impulse response you wish already existed.</p>
-          <p class="ia-hero-sub">Impulse Anvil is a focused IR-design plugin. Load A and B, shape each source, morph them through time, frequency or stereo space, audition the result through convolution, then bake that designed IR as a standard WAV.</p>
-          <div class="ia-actions">
-            <a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a>
-            <a class="ia-btn ia-hero-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Full license €29</span></span></a>
-            <a class="ia-btn ia-btn-dark" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear examples</a>
-          </div>
-          <p class="ia-hero-fineprint">Windows 10/11 · 64-bit VST3 · 126 handmade IRs · 2 seats · manual ZIP installation · same download runs in demo mode until unlocked.</p>
-        </div>
+<section class="ia-sound-band ia-media-section" id="ia-sound">
+<div class="ia-shell">
+<div class="ia-section-head ia-media-head">
+<div class="ia-copy">
+<span class="ia-kicker">One sound. Different worlds.</span>
+<h2>Hear the identity change.</h2>
+<p>Each example begins with the untreated source and moves into creative convolution. Listen for the change in tone, space, resonance, rhythm and character - not only for a reverb tail.</p>
+</div>
+</div>
+<div class="ia-audio-grid">
+<article class="ia-demo-card ia-audio-card"><span class="ia-tag">Melody</span><h3>Piano</h3><p>One performance. A completely different direction.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3"><button aria-label="Play piano dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+<article class="ia-demo-card ia-audio-card"><span class="ia-tag">Voice</span><h3>Vocal</h3><p>Turn a dry phrase into an intimate layer, unusual space or identity effect.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button aria-label="Play voice dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+<article class="ia-demo-card ia-audio-card"><span class="ia-tag">Guitar</span><h3>Guitar</h3><p>Reshape tone, resonance and space, or transform existing cabinet responses.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3"><button aria-label="Play guitar dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+</div>
+</div>
+</section>
 
-        <div class="ia-product-card" aria-label="Impulse Anvil interface preview">
-          <div class="ia-product-window">
-            <img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil plugin interface showing A and B impulse response controls, morphing, editing and output sections" loading="eager" fetchpriority="high" decoding="async">
-          </div>
-          <div class="ia-float-card">
-            <b>Design → audition → commit</b>
-            <p>The prepared IR you hear is the result you can bake into a portable WAV for compatible convolvers, modelers and IR loaders.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<div aria-hidden="true" id="ia-position"></div>
 
-    <div class="ia-proofbar" aria-label="Impulse Anvil key facts">
-      <div class="ia-proof-item"><strong>A/B IR design</strong><span>Prepare both endpoints before morphing.</span></div>
-      <div class="ia-proof-item"><strong>7 morph approaches</strong><span>Time, spectral, spatial and Lerp behavior.</span></div>
-      <div class="ia-proof-item"><strong>Portable WAV output</strong><span>Your baked IR is not locked to the plugin.</span></div>
-      <div class="ia-proof-item"><strong>126 included IRs</strong><span>Start immediately or load your own material.</span></div>
-      <div class="ia-proof-item"><strong>Focused €29 license</strong><span>One full version with two seats.</span></div>
-    </div>
+<section class="ia-section" id="ia-workflow">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Surprise first. Shape what matters.</span><h2>Three steps from source<br/>to something worth keeping.</h2><p>You do not need to know exactly what you are looking for before you begin. Start quickly, listen for a result that changes the idea, then go deeper only when it deserves attention.</p></div></div>
+<div class="ia-position-grid">
+<article class="ia-position-card"><span class="ia-number">01</span><h3>Load</h3><p>Choose from 126 included impulse responses, load your existing IR collection, or bring in compatible recordings, noise, textures and other WAV material.</p></article>
+<article class="ia-position-card"><span class="ia-number">02</span><h3>Discover</h3><p>Press Random, morph between two prepared sources, and follow the transformations that change how the original part feels.</p></article>
+<article class="ia-position-card"><span class="ia-number">03</span><h3>Keep</h3><p>Trim, Color, Texture, reverse, fade, EQ, widen and level the result, then bake the discovery as a reusable WAV impulse response.</p></article>
+</div>
+</div>
+</section>
 
-    <section class="ia-section" id="ia-position">
-      <div class="ia-shell">
-        <div class="ia-section-head">
-          <div class="ia-copy">
-            <span class="ia-kicker">The product in one sentence</span>
-            <h2>Build the impulse,<br>not only the reverb.</h2>
-            <p>Impulse Anvil is deliberately centered on authoring new IR material. It is not trying to replace every large convolution suite; it gives you a direct path from two source fingerprints to a finished, reusable impulse response.</p>
-          </div>
-        </div>
-        <div class="ia-position-grid">
-          <article class="ia-position-card"><span class="ia-number">01</span><h3>Morph beyond a basic crossfade</h3><p>Choose predictable Time Morph, frequency-based Spectral, BandSwap or ZigZag behavior, or reshape the relationship between A and B across the stereo field.</p></article>
-          <article class="ia-position-card"><span class="ia-number">02</span><h3>Design both endpoints first</h3><p>Time, gain, Color and Texture Depth prepare A and B before they meet. That makes the morph a combination of two designed states—not merely two untouched files.</p></article>
-          <article class="ia-position-card"><span class="ia-number">03</span><h3>Commit the result as a WAV</h3><p>Trim, reverse-slice, fade, EQ, widen and level the prepared result, then bake it into a standard WAV IR for a personal library or another compatible convolution tool.</p></article>
-        </div>
-      </div>
-    </section>
+<section class="ia-section" id="ia-usecases">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Record the world. Put it inside your sound.</span><h2>Real material creates<br/>unrepeatable complexity.</h2><p>Water, stone, metal, paper, rooms, machinery, footsteps, environmental noise and small accidental sounds can all become creative source material.</p></div></div>
+<div class="ia-outcome-grid">
+<article class="ia-outcome ia-outcome-lead"><span class="ia-tag">Found-sound convolution</span><h3>A recording does not need to resemble a traditional reverb.</h3><p>Short sounds can create tight tonal coloration and resonance. Longer recordings can introduce evolving spaces, irregular tails and rhythmic behavior that changes how a loop or performance is perceived.</p><p>Because the material begins in the real world, the result can carry irregularity and complexity that would be difficult to design deliberately with ordinary synthesis or modulation.</p><p><strong>Record something that interests you. Load it. Hear what it does.</strong></p></article>
+<article class="ia-outcome ia-outcome-vocal"><span class="ia-kicker">Melody and instruments</span><h3>Escape a familiar identity</h3><p>Push piano, synth, guitar or other melodic material toward a new tone, resonance, space or rhythmic impression.</p></article>
+<article class="ia-outcome ia-outcome-drums"><span class="ia-kicker">Drums and rhythm</span><h3>Short organic spaces</h3><p>Create tight resonant, metallic or organic responses without automatically washing out the groove.</p></article>
+<article class="ia-outcome ia-outcome-instruments"><span class="ia-kicker">Voice and selected words</span><h3>Distinctive layers and throws</h3><p>Turn a dry phrase into a filtered double, intimate layer, strange resonance or selected-word identity effect.</p></article>
+<article class="ia-outcome ia-outcome-library"><span class="ia-kicker">Reusable discoveries</span><h3>Build a personal IR library</h3><p>Bake useful accidents before they disappear, name the WAV and use it again in compatible convolution software or another Impulse Anvil transformation.</p></article>
+</div>
+</div>
+</section>
 
-    <section class="ia-sound-band ia-media-section" id="ia-sound">
-      <div class="ia-shell">
-        <div class="ia-section-head ia-media-head">
-          <div class="ia-copy">
-            <span class="ia-kicker">Hear the outcome</span>
-            <h2>Dry first. Designed IR second.</h2>
-            <p>Each example starts with the untreated source and then switches into convolution. Listen for the new space, tone, resonance and stereo behavior—not only for a longer reverb tail.</p>
-          </div>
-        </div>
-        <div class="ia-audio-grid">
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 01</span><h3>Piano</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3"><button class="ia-wave-play" type="button" aria-label="Play piano dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 02</span><h3>Voice</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button class="ia-wave-play" type="button" aria-label="Play voice dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-          <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Example 03</span><h3>Guitar</h3><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3"><button class="ia-wave-play" type="button" aria-label="Play guitar dry to wet example">▶</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry → Wet</span><span class="ia-wave-time">0:00</span></div><canvas class="ia-wave-canvas" width="600" height="92" aria-hidden="true"></canvas><audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-        </div>
-      </div>
-    </section>
+<section class="ia-section" id="ia-morph">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">The technology is convolution. The purpose is discovery.</span><h2>Immediate when you begin.<br/>Deep when a result matters.</h2><p>Randomization gets you moving. The complete A/B path remains visible when you want to understand, refine and preserve what you found.</p></div></div>
+<div class="ia-mode-stage">
+<article class="ia-mode-intro">
+<div>
+<span class="ia-eyebrow"><span class="ia-pulse"></span> A + B &rarr; Morph &rarr; Edit &rarr; EQ &rarr; Output &rarr; Bake</span>
+<h3>Prepare two sources, then decide how they meet.</h3>
+<p>Each slot can be stretched, leveled, colored and textured independently. The active morph mode determines how those prepared states interact before the result reaches editing, EQ, width and output preparation.</p>
+</div>
+<ul class="ia-list">
+<li>Factory IRs, your own IRs or compatible WAV recordings</li>
+<li>Per-slot Time, Gain, Color and Texture Depth</li>
+<li>Random discovery with visible, editable results</li>
+<li>Internal stereo convolution preview and standard WAV baking</li>
+</ul>
+</article>
+<div class="ia-mode-list">
+<article class="ia-mode-card"><b>Direct</b><h3>Time Morph</h3><p>Blend A and B in the time domain for direct combinations and dependable starting points.</p></article>
+<article class="ia-mode-card"><b>Frequency structure</b><h3>Spectral &middot; Spectral Bandpass &middot; Spectral Zig Zag</h3><p>Fuse spectral character, divide the frequency range between sources, or create alternating spectral relationships.</p></article>
+<article class="ia-mode-card"><b>Stereo structure</b><h3>Stereo Slot Swap &middot; Mid/Side Boundary</h3><p>Move the A/B relationship across left and right, or separate center information from the outside stereo field.</p></article>
+<article class="ia-mode-card"><b>Movement baked into one file</b><h3>Mode-aware A&rarr;B Lerp</h3><p>Use the current morph mode to generate a progression from A toward B, then bake that movement into one static WAV impulse response. The motion becomes part of the file rather than live automation.</p></article>
+</div>
+</div>
+</div>
+</section>
 
-    <section class="ia-section" id="ia-creative-core">
-      <div class="ia-shell">
-        <div class="ia-section-head">
-          <div class="ia-copy">
-            <span class="ia-kicker">Morph engine</span>
-            <h2>Choose how A becomes B.</h2>
-            <p>The morph mode changes the structure of the new impulse response. Start with Time Morph for direct blending, then move into spectral, spatial or time-evolving designs when you want a less conventional fingerprint.</p>
-          </div>
-        </div>
-        <div class="ia-mode-stage">
-          <article class="ia-mode-intro">
-            <div>
-              <span class="ia-eyebrow"><span class="ia-pulse"></span> Prepared endpoints</span>
-              <h3>A and B can already be different worlds.</h3>
-              <p>Before morphing, each slot can be stretched, leveled, colored and textured independently. The engine then combines those prepared states and passes the result into Edit, EQ, width and output preparation.</p>
-            </div>
-            <ul class="ia-list">
-              <li>Factory IRs, your own IRs or compatible WAV material</li>
-              <li>Per-slot Time, Gain, Color and Texture Depth</li>
-              <li>Preview through the internal stereo convolver</li>
-              <li>Bake the designed state into a reusable WAV IR</li>
-            </ul>
-          </article>
-          <div class="ia-mode-list">
-            <article class="ia-mode-card"><b>Direct</b><h3>Time Morph</h3><p>A predictable sample-domain blend for natural room or cabinet combinations and dependable first results.</p></article>
-            <article class="ia-mode-card"><b>Frequency</b><h3>Spectral · BandSwap · ZigZag</h3><p>Fuse frequency character, alternate bands between A and B, or create more striped and synthetic spectral patterns.</p></article>
-            <article class="ia-mode-card"><b>Stereo space</b><h3>Stereo Slot Swap · Mid/Side Boundary</h3><p>Move the A/B relationship across left and right or separate center information from the outside stereo field.</p></article>
-            <article class="ia-mode-card"><b>Inside one IR</b><h3>A→B Lerp</h3><p>Create a single static impulse response whose internal tail progresses from A toward B over time, then bake that movement into WAV.</p></article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-workflow">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Workflow</span><h2>Five deliberate steps.<br>One portable result.</h2><p>The interface follows the same order as the signal design, so experimentation stays understandable even when the result becomes extreme.</p></div></div>
-        <div class="ia-flow-strip">
-          <div class="ia-flow-step"><b>01 · Load</b><p>Choose factory IRs, your own impulse responses or short WAV textures.</p></div>
-          <div class="ia-flow-step"><b>02 · Prepare</b><p>Shape A and B independently with Time, Gain, Color and Texture Depth.</p></div>
-          <div class="ia-flow-step"><b>03 · Morph</b><p>Select the time, spectral, spatial or A→B Lerp relationship.</p></div>
-          <div class="ia-flow-step"><b>04 · Sculpt</b><p>Trim, reverse-slice, fade, EQ, widen, normalize and control the level.</p></div>
-          <div class="ia-flow-step"><b>05 · Bake</b><p>Save the designed state as a standard WAV impulse response.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-usecases">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Use cases</span><h2>Not every IR needs to sound like a room.</h2><p>Impulse responses can transfer space, resonance, filtering, texture and timing. Impulse Anvil is strongest when you treat the IR itself as sound-design material.</p></div></div>
-        <div class="ia-outcome-grid">
-          <article class="ia-outcome ia-outcome-lead"><span class="ia-tag">Creative core</span><h3>Turn recordings and surfaces into effect fingerprints.</h3><p>Use short claps, clicks, room tones, fabric, paper, metal, glass, field recordings, cab IRs or existing spaces as raw material. Then isolate the useful moment and build a result that belongs to your own library.</p><ul class="ia-list"><li>Short resonant spaces and tonal filters</li><li>Metallic, glassy or organic tails</li><li>Reverse textures and transitional effects</li><li>Hybrid room, cabinet and found-sound behavior</li></ul></article>
-          <article class="ia-outcome ia-outcome-vocal"><span class="ia-kicker">Voice</span><h3>Throws and identity effects</h3><p>Create selected-word spaces, filtered doubles, strange resonances and tails that are more specific than a general reverb preset.</p></article>
-          <article class="ia-outcome ia-outcome-drums"><span class="ia-kicker">Drums</span><h3>Impacts and short spaces</h3><p>Use trimmed IR ranges for tight rooms, transient color, metallic hits and transition layers without automatically washing out the groove.</p></article>
-          <article class="ia-outcome ia-outcome-instruments"><span class="ia-kicker">Synth · guitar · piano</span><h3>New tone around the source</h3><p>Combine room, cab and texture fingerprints to create width, character and surreal depth around sustained or melodic material.</p></article>
-          <article class="ia-outcome ia-outcome-library"><span class="ia-kicker">Reusable assets</span><h3>Build a personal IR library</h3><p>Bake useful accidents before they disappear, name the WAV, and reuse it in compatible software or hardware that accepts standard WAV impulse responses.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-interface">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface</span><h2>The signal path stays visible.</h2><p>The layout moves from A/B preparation into Morph, Edit, EQ and Output. You can see where the current sound is being created instead of navigating a stack of disconnected effect pages.</p></div></div>
-        <div class="ia-anatomy">
-          <div class="ia-bare-product-shot"><div class="ia-product-window"><img src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil interface overview" loading="lazy" decoding="async"></div></div>
-          <div class="ia-callout-list">
-            <div class="ia-callout"><h3>IR A / IR B</h3><p>Load factory IRs, user IRs or WAV recordings. Stretch time, set gain and apply Color or Texture Depth independently.</p></div>
-            <div class="ia-callout"><h3>Morph + Lerp</h3><p>Choose Time, spectral, BandSwap, ZigZag and spatial modes, or bake an internal A→B progression into one IR.</p></div>
-            <div class="ia-callout"><h3>Edit + EQ</h3><p>Trim silence, isolate a useful region, reverse a selected range, add fades and shape the final frequency balance.</p></div>
-            <div class="ia-callout"><h3>Preview + Bake</h3><p>Audition the current prepared IR through convolution, then export the designed result as a standard WAV file.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-themes">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Visual system</span><h2>A technical tool that can still feel personal.</h2><p>Built-in designs and custom theme files change the presentation without changing the audio workflow. Additional themes, IRs, updates and videos are shared through the Impulse Anvil Discord.</p></div></div>
-        <div class="ia-theme-stage" data-ia-theme-gallery>
-          <div class="ia-theme-main"><img data-ia-theme-main src="assets/impulse-anvil-plugin-ui.png" alt="Impulse Anvil default theme preview" loading="lazy" decoding="async"><div class="ia-theme-caption"><span><strong data-ia-theme-title>Default</strong><br>Included interface design</span><a class="ia-btn ia-btn-small" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Discord extras</a></div></div>
-          <div class="ia-theme-panel">
-            <button class="ia-theme-thumb is-active" type="button" data-src="assets/impulse-anvil-plugin-ui.png" data-title="Default"><img src="assets/impulse-anvil-plugin-ui.png" alt="Default theme preview" loading="lazy" decoding="async"><span><b>Default</b>Core cyan interface.</span></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-purple.png" data-title="Purple"><img src="assets/impulse-anvil-ui-purple.png" alt="Purple theme preview" loading="lazy" decoding="async"><span><b>Purple</b>Deeper violet accent.</span></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-gold.png" data-title="Gold"><img src="assets/impulse-anvil-ui-gold.png" alt="Gold theme preview" loading="lazy" decoding="async"><span><b>Gold</b>Warmer studio look.</span></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-silver.png" data-title="Silver"><img src="assets/impulse-anvil-ui-silver.png" alt="Silver theme preview" loading="lazy" decoding="async"><span><b>Silver</b>Neutral technical finish.</span></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-ember.png" data-title="Ember"><img src="assets/impulse-anvil-ui-ember.png" alt="Ember theme preview" loading="lazy" decoding="async"><span><b>Ember</b>Dark warm contrast.</span></button>
-            <button class="ia-theme-thumb" type="button" data-src="assets/impulse-anvil-ui-forest.png" data-title="Forest"><img src="assets/impulse-anvil-ui-forest.png" alt="Forest theme preview" loading="lazy" decoding="async"><span><b>Forest</b>Low-light green variant.</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-trust">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Honest fit</span><h2>Know what you are buying.</h2><p>A focused product converts better when its limits are as clear as its strengths. Impulse Anvil is a deliberate IR-building environment, not an automation-first performance effect.</p></div></div>
-        <div class="ia-fit-grid">
-          <article class="ia-fit-card is-positive"><h3>It is a strong fit when you want to…</h3><ul class="ia-list"><li>Design unusual rooms, filters, textures and resonant spaces</li><li>Morph two prepared IR sources through several structural modes</li><li>Create an A→B movement inside one baked impulse response</li><li>Build portable WAV IRs for a growing personal library</li><li>Work inside a Windows 64-bit VST3 host</li></ul></article>
-          <article class="ia-fit-card"><h3>Important before you buy</h3><ul class="ia-list ia-list-warn"><li>Most IR-shaping controls rebuild the impulse response and are intended for design, not continuous knob automation</li><li>Very long or dense IRs require more recalculation and can produce extreme or muddy results</li><li>The current public release is Windows 10/11, 64-bit VST3</li><li>Delivery is a manual ZIP bundle rather than an installer</li><li>Use source recordings and IRs you own or are permitted to process</li></ul></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-pricing">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Pricing</span><h2>Try the workflow.<br>Unlock the complete forge.</h2><p>The same VST3 download opens in demo mode. A license key unlocks the full morph engine, both Color rows, A→B Lerp and WAV baking.</p></div></div>
-        <div class="ia-pricing">
-          <article class="ia-card ia-price-card">
-            <span class="ia-tag">Demo</span><h3>Explore the sound</h3><div class="ia-price"><strong>€0</strong><span>download</span></div>
-            <p class="ia-muted">Test the plugin in your own DAW before purchasing.</p>
-            <ul class="ia-list"><li>Windows VST3 folder bundle</li><li>126 handmade IRs included</li><li>Time Morph available</li><li>One Color row per IR</li><li>Periodic subtle demo noise</li><li>No A→B Lerp or WAV baking</li></ul>
-            <div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/downloads.html">Download free demo</a></div>
-          </article>
-          <article class="ia-card ia-price-card ia-price-card-featured">
-            <span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>one-time</span></div>
-            <p class="ia-muted">The complete A/B IR-design, morphing and export workflow.</p>
-            <ul class="ia-list"><li>Time, Spectral, BandSwap and ZigZag morphing</li><li>Stereo Slot Swap and Mid/Side Boundary modes</li><li>Mode-aware A→B Lerp and WAV export</li><li>Two Color rows per IR plus Texture Depth</li><li>Waveform editing, visual EQ, width and level preparation</li><li>2 seats per license</li></ul>
-            <div class="ia-actions"><a class="ia-btn ia-btn-primary lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}">Get full license · €29</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
-          </article>
-        </div>
-        <div class="ia-portable-note"><strong>Your exported IRs remain portable.</strong> Full-version bakes are standard WAV impulse responses, so the useful result is not trapped inside Impulse Anvil. Load it later in compatible convolution reverbs, IR loaders, cabinet tools or supported hardware.</div>
-      </div>
-    </section>
-
-    <section class="ia-section" id="ia-docs">
-      <div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup and manual</span><h2>Detailed when you need it.<br>Out of the way when you do not.</h2><p>The manual covers installation, activation, Color, Texture Depth, every morph mode, reverse Edit ranges, EQ, preview behavior, baking and practical source ideas.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/docs.html">Open full manual</a><a class="ia-btn" href="/downloads.html">Downloads and setup</a><a class="ia-btn ia-btn-dark" href="${DISCORD_INVITE_URL}" target="_blank" rel="noopener">${DISCORD_ICON}Community support</a></div></div>
-    </section>
-
-    <section class="ia-section" id="ia-faq">
-      <div class="ia-shell">
-        <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">FAQ</span><h2>Clear answers before checkout.</h2></div></div>
-        <div class="ia-faq">
-          <details open><summary>Is Impulse Anvil a convolution reverb or an IR designer?</summary><p>Both functions are present, but the product is centered on IR design. You prepare A/B sources, morph and sculpt the impulse response, audition it through the internal convolver, and bake the result as WAV.</p></details>
-          <details><summary>Can I load my own audio?</summary><p>Yes. Load compatible WAV material or existing impulse responses, then trim, color, texture, morph, EQ and bake the result. Use material you own or are properly allowed to use.</p></details>
-          <details><summary>What makes A→B Lerp different from moving a morph knob?</summary><p>A→B Lerp creates one static IR whose internal tail progresses from A toward B over time. The movement becomes part of the baked WAV itself rather than a live automation gesture.</p></details>
-          <details><summary>Can the exported IR be used outside Impulse Anvil?</summary><p>Yes. Full-version bakes are standard WAV impulse responses and can be loaded into compatible convolution reverbs, IR loaders, cabinet tools and supported hardware.</p></details>
-          <details><summary>Can I automate all controls continuously?</summary><p>Impulse Anvil is not designed as an automation-heavy performance effect. Controls that reshape the impulse response rebuild prepared audio in the background and are intended for auditioning, design and baking.</p></details>
-          <details><summary>Why do long IRs take more time to update?</summary><p>A longer impulse contains more audio data. Trimming the useful range usually speeds up iteration and often produces a tighter, more mixable result.</p></details>
-          <details><summary>Will every recording automatically become a useful IR?</summary><p>No. Source length, transients, silence, tonal balance and noise all affect the result. Short, intentional material is usually easier to control; the Edit, fade, EQ and level tools are there to refine experiments before baking.</p></details>
-          <details><summary>Is this delivered through an installer?</summary><p>No. The current Windows release is a manual ZIP bundle containing the complete VST3 folder. The Downloads section includes installation and activation videos.</p></details>
-          <details><summary>What systems are officially supported?</summary><p>The current official public release supports Windows 10/11 in 64-bit VST3 hosts. Compatibility still depends on the host correctly supporting the VST3 format.</p></details>
-          <details><summary>What is included with the license?</summary><p>The full plugin, 126 handmade IRs, the complete morph and Lerp workflow, both Color rows, Texture Depth, editing and WAV baking, with two seats per license.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="ia-section">
-      <div class="ia-shell">
-        <div class="ia-final-cta">
-          <span class="ia-kicker">Impulse Anvil</span>
-          <h2>Morph IRs.<br><span class="ia-cyan">Bake WAVs.</span></h2>
-          <p>Start with the free demo, hear the workflow inside your own sessions, and unlock the complete IR-design engine when it earns a place in your process.</p>
-          <div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a><a class="ia-btn ia-hero-buy lemonsqueezy-button" href="${IMPULSE_ANVIL_BUY_URL}"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Buy full license · €29</span></span></a></div>
-        </div>
-      </div>
-    </section>
-  </div>`;
-}
-
-
-    function buildForge(){
+<section class="ia-section" id="ia-interface">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Interface</span><h2>The signal path stays visible.</h2><p>The layout moves from A/B preparation into Morph, Edit, EQ and Output. You can see where the current sound is being created instead of navigating a stack of disconnected effect pages.</p></div></div>
+<div class="ia-anatomy">
+<div class="ia-bare-product-shot"><div class="ia-product-window"><img alt="Impulse Anvil interface overview" decoding="async" loading="lazy" src="assets/impulse-anvil-plugin-ui.png"/></div></div>
+<div class="ia-callout-list">
+<div class="ia-callout"><h3>IR A / IR B</h3><p>Load factory IRs, user IRs or WAV recordings. Stretch time, set gain and apply Color or Texture Depth independently.</p></div>
+<div class="ia-callout"><h3>Morph + Lerp</h3><p>Choose Time Morph, Spectral, Spectral Bandpass, Spectral Zig Zag and spatial modes, or bake an internal A→B progression into one IR.</p></div>
+<div class="ia-callout"><h3>Edit + EQ</h3><p>Trim silence, isolate a useful region, reverse a selected range, add fades and shape the final frequency balance.</p></div>
+<div class="ia-callout"><h3>Preview + Bake</h3><p>Audition the current prepared IR through convolution, then export the designed result as a standard WAV file.</p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="ia-section" id="ia-themes">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Visual system</span><h2>A technical tool that can still feel personal.</h2><p>Built-in designs and custom theme files change the presentation without changing the audio workflow. Additional themes, IRs, updates and videos are shared through the Impulse Anvil Discord.</p></div></div>
+<div class="ia-theme-stage" data-ia-theme-gallery="" data-theme-ready="1">
+<div class="ia-theme-main"><img alt="Impulse Anvil default theme preview" data-ia-theme-main="" decoding="async" loading="lazy" src="assets/impulse-anvil-plugin-ui.png"><div class="ia-theme-caption"><span><strong data-ia-theme-title="">Default</strong><br/>Included interface design</span><a class="ia-btn ia-btn-small" href="https://discord.gg/qUetz23QPq" rel="noopener" target="_blank"><svg aria-hidden="true" class="ia-discord-icon" focusable="false" viewbox="0 0 24 24"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z" fill="currentColor"></path></svg>Discord extras</a></div></div>
+<div class="ia-theme-panel">
+<button class="ia-theme-thumb is-active" data-src="assets/impulse-anvil-plugin-ui.png" data-title="Default" type="button"><img alt="Default theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-plugin-ui.png"/><span><b>Default</b>Core cyan interface.</span></button>
+<button class="ia-theme-thumb" data-src="assets/impulse-anvil-ui-purple.png" data-title="Purple" type="button"><img alt="Purple theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-ui-purple.png"/><span><b>Purple</b>Deeper violet accent.</span></button>
+<button class="ia-theme-thumb" data-src="assets/impulse-anvil-ui-gold.png" data-title="Gold" type="button"><img alt="Gold theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-ui-gold.png"/><span><b>Gold</b>Warmer studio look.</span></button>
+<button class="ia-theme-thumb" data-src="assets/impulse-anvil-ui-silver.png" data-title="Silver" type="button"><img alt="Silver theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-ui-silver.png"/><span><b>Silver</b>Neutral technical finish.</span></button>
+<button class="ia-theme-thumb" data-src="assets/impulse-anvil-ui-ember.png" data-title="Ember" type="button"><img alt="Ember theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-ui-ember.png"/><span><b>Ember</b>Dark warm contrast.</span></button>
+<button class="ia-theme-thumb" data-src="assets/impulse-anvil-ui-forest.png" data-title="Forest" type="button"><img alt="Forest theme preview" decoding="async" loading="lazy" src="assets/impulse-anvil-ui-forest.png"/><span><b>Forest</b>Low-light green variant.</span></button>
+</div>
+</div>
+</div>
+</section>
+<section class="ia-section" id="ia-trust">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Honest fit</span><h2>Know what you are buying.</h2><p>A focused product converts better when its limits are as clear as its strengths. Impulse Anvil is a deliberate IR-building environment, not an automation-first performance effect.</p></div></div>
+<div class="ia-fit-grid">
+<article class="ia-fit-card is-positive"><h3>It is a strong fit when you want to…</h3><ul class="ia-list"><li>Design unusual rooms, filters, textures and resonant spaces</li><li>Morph two prepared IR sources through several structural modes</li><li>Create an A→B movement inside one baked impulse response</li><li>Build portable WAV IRs for a growing personal library</li><li>Work inside a Windows 64-bit VST3 host</li></ul></article>
+<article class="ia-fit-card"><h3>Important before you buy</h3><ul class="ia-list ia-list-warn"><li>Most IR-shaping controls rebuild the impulse response and are intended for design, not continuous knob automation</li><li>Very long or dense IRs require more recalculation and can produce extreme or muddy results</li><li>The current public release is Windows 10/11, 64-bit VST3</li><li>Delivery is a manual ZIP bundle rather than an installer</li><li>Use source recordings and IRs you own or are permitted to process</li></ul></article>
+</div>
+</div>
+</section>
+<section class="ia-section" id="ia-pricing">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Pricing</span><h2>Try the workflow.<br/>Unlock the complete forge.</h2><p>The same VST3 download opens in demo mode. A license key unlocks the full morph engine, both Color rows, A→B Lerp and WAV baking.</p></div></div>
+<div class="ia-pricing">
+<article class="ia-card ia-price-card">
+<span class="ia-tag">Demo</span><h3>Explore the sound</h3><div class="ia-price"><strong>€0</strong><span>download</span></div>
+<p class="ia-muted">Test the plugin in your own DAW before purchasing.</p>
+<ul class="ia-list"><li>Windows VST3 folder bundle</li><li>126 handmade IRs included</li><li>Time Morph available</li><li>One Color row per IR</li><li>Periodic subtle demo noise</li><li>No A→B Lerp or WAV baking</li></ul>
+<div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/downloads.html">Download free demo</a></div>
+</article>
+<article class="ia-card ia-price-card ia-price-card-featured">
+<span class="ia-tag">Launch offer</span><h3>Impulse Anvil Full License</h3><div class="ia-price ia-sale-price"><span class="ia-old-price">€49</span><strong>€29</strong><span>one-time</span></div>
+<p class="ia-muted">The complete A/B IR-design, morphing and export workflow.</p>
+<ul class="ia-list"><li>Time Morph, Spectral, Spectral Bandpass and Spectral Zig Zag</li><li>Stereo Slot Swap and Mid/Side Boundary modes</li><li>Mode-aware A→B Lerp and WAV export</li><li>Two Color rows per IR plus Texture Depth</li><li>Waveform editing, visual EQ, width and level preparation</li><li>2 seats per license</li></ul>
+<div class="ia-actions"><a class="ia-btn ia-btn-primary lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get full license · €29</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
+</article>
+</div>
+<div class="ia-portable-note"><strong>Your exported IRs remain portable.</strong> Full-version bakes are standard WAV impulse responses, so the useful result is not trapped inside Impulse Anvil. Load it later in compatible convolution reverbs, IR loaders and cabinet tools.</div>
+</div>
+</section>
+<section class="ia-section" id="ia-docs">
+<div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup and manual</span><h2>Detailed when you need it.<br/>Out of the way when you do not.</h2><p>The manual covers installation, activation, Color, Texture Depth, every morph mode, reverse Edit ranges, EQ, preview behavior, baking and practical source ideas.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/docs.html">Open full manual</a><a class="ia-btn" href="/downloads.html">Downloads and setup</a><a class="ia-btn ia-btn-dark" href="https://discord.gg/qUetz23QPq" rel="noopener" target="_blank"><svg aria-hidden="true" class="ia-discord-icon" focusable="false" viewbox="0 0 24 24"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z" fill="currentColor"></path></svg>Community support</a></div></div>
+</section>
+<section class="ia-section" id="ia-faq">
+<div class="ia-shell">
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">FAQ</span><h2>Clear answers before checkout.</h2></div></div>
+<div class="ia-faq">
+<details open=""><summary>Is Impulse Anvil a convolution reverb or an IR designer?</summary><p>Both functions are present, but the product is centered on IR design. You prepare A/B sources, morph and sculpt the impulse response, audition it through the internal convolver, and bake the result as WAV.</p></details>
+<details><summary>Can I load my own audio?</summary><p>Yes. Load compatible WAV material or existing impulse responses, then trim, color, texture, morph, EQ and bake the result. Use material you own or are properly allowed to use.</p></details>
+<details><summary>What makes A→B Lerp different from moving a morph knob?</summary><p>A→B Lerp creates one static IR whose internal tail progresses from A toward B over time. The movement becomes part of the baked WAV itself rather than a live automation gesture.</p></details>
+<details><summary>Can the exported IR be used outside Impulse Anvil?</summary><p>Yes. Full-version bakes are standard WAV impulse responses and can be loaded into compatible convolution reverbs, IR loaders, cabinet tools and supported hardware.</p></details>
+<details><summary>Can I automate all controls continuously?</summary><p>Impulse Anvil is not designed as an automation-heavy performance effect. Controls that reshape the impulse response rebuild prepared audio in the background and are intended for auditioning, design and baking.</p></details>
+<details><summary>Why do long IRs take more time to update?</summary><p>A longer impulse contains more audio data. Trimming the useful range usually speeds up iteration and often produces a tighter, more mixable result.</p></details>
+<details><summary>Will every recording automatically become a useful IR?</summary><p>No. Source length, transients, silence, tonal balance and noise all affect the result. Short, intentional material is usually easier to control; the Edit, fade, EQ and level tools are there to refine experiments before baking.</p></details>
+<details><summary>Is this delivered through an installer?</summary><p>No. The current Windows release is a manual ZIP bundle containing the complete VST3 folder. The Downloads section includes installation and activation videos.</p></details>
+<details><summary>What systems are officially supported?</summary><p>The current official public release supports Windows 10/11 in 64-bit VST3 hosts. Compatibility still depends on the host correctly supporting the VST3 format.</p></details>
+<details><summary>What is included with the license?</summary><p>The full plugin, 126 handmade IRs, the complete morph and Lerp workflow, both Color rows, Texture Depth, editing and WAV baking, with two seats per license.</p></details>
+</div>
+</div>
+</section>
+<section class="ia-section">
+<div class="ia-shell">
+<div class="ia-final-cta">
+<span class="ia-kicker">Impulse Anvil</span>
+<h2>Morph IRs.<br/><span class="ia-cyan">Bake WAVs.</span></h2>
+<p>Start with the free demo. Load your own sounds, explore the included library and hear what Impulse Anvil does inside your own music.</p>
+<div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a><a class="ia-btn ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1"><span class="ia-sale-inline"><span class="ia-old-price">€49</span><span>Buy full license · €29</span></span></a></div>
+</div>
+</div>
+</section>
+</div>
+`; } function buildForge(){
       return buildAnvil();
     }
 
