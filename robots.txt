@@ -1,8 +1,12 @@
-# Public FreQtik pages are crawlable by search engines and AI search systems.
+# Public FreQtik pages are available to search engines and answer engines.
+# Legally required pages containing personal information are excluded from crawler access.
+
 User-agent: *
 Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
 
-# Keep legally required personal-information pages out of major AI crawler datasets.
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /impressum.html
@@ -15,13 +19,37 @@ Disallow: /impressum.html
 Disallow: /privacy.html
 Disallow: /terms.html
 
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
 User-agent: ClaudeBot
 Allow: /
 Disallow: /impressum.html
 Disallow: /privacy.html
 Disallow: /terms.html
 
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: Claude-User
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
 User-agent: PerplexityBot
+Allow: /
+Disallow: /impressum.html
+Disallow: /privacy.html
+Disallow: /terms.html
+
+User-agent: Perplexity-User
 Allow: /
 Disallow: /impressum.html
 Disallow: /privacy.html
