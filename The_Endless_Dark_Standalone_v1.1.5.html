@@ -1889,6 +1889,207 @@ body::before {
   .target-health-track { height: 11px; }
   .target-health-affixes { display: none; }
 }
+
+/* v1.1.7 progression communication, reward actions and route assistance */
+.toast-stack {
+  position: fixed !important;
+  left: max(12px, env(safe-area-inset-left)) !important;
+  right: auto !important;
+  bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  z-index: 240 !important;
+  width: min(390px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  overflow: auto;
+  padding: 2px;
+  pointer-events: none;
+}
+.toast {
+  min-height: 44px;
+  overflow-wrap: anywhere;
+  background: linear-gradient(180deg, rgba(39,35,30,.99), rgba(18,17,15,.99));
+}
+.toast.bad { border-color: rgba(218,92,82,.72); box-shadow: 0 14px 34px rgba(0,0,0,.45), inset 3px 0 rgba(218,92,82,.82); }
+
+.item-card.locked-slot-item { border-style: dashed; }
+.item-card.locked-slot-item .item-visual { opacity: .68; filter: saturate(.62); }
+.locked-item-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100% - 50px);
+  padding: 3px 7px;
+  border: 1px solid rgba(226,184,103,.32);
+  border-radius: 999px;
+  background: rgba(12,11,10,.88);
+  color: #d9c08b;
+  font-size: .56rem;
+  white-space: nowrap;
+}
+.locked-item-badge .ui-icon { width: 11px; height: 11px; }
+.locked-slot-callout {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 11px;
+  border: 1px solid rgba(226,184,103,.30);
+  border-radius: 11px;
+  background: rgba(49,38,21,.42);
+}
+.locked-slot-callout > .ui-icon { width: 25px; height: 25px; color: var(--gold); }
+.locked-slot-callout strong, .locked-slot-callout span { display: block; }
+.locked-slot-callout span { margin-top: 3px; color: var(--muted); font-size: .8rem; }
+
+.level-up-card {
+  display: grid;
+  grid-template-columns: 82px minmax(0,1fr);
+  gap: 18px;
+  align-items: center;
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px solid rgba(239,202,126,.46);
+  border-radius: 16px;
+  background: radial-gradient(circle at 0 50%, rgba(230,188,95,.18), transparent 35%), linear-gradient(135deg, rgba(49,40,24,.96), rgba(20,18,15,.98));
+  box-shadow: 0 18px 36px rgba(0,0,0,.36), inset 0 0 0 1px rgba(255,255,255,.025);
+}
+.level-up-emblem {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(244,211,143,.64);
+  border-radius: 50%;
+  color: var(--gold-2);
+  background: radial-gradient(circle, rgba(240,202,119,.18), rgba(16,14,11,.92));
+  box-shadow: 0 0 28px rgba(223,178,82,.18);
+}
+.level-up-emblem .ui-icon { width: 35px; height: 35px; }
+.level-up-content h2 { margin: 3px 0 5px; color: var(--gold-2); }
+.level-up-content p { margin: 0; color: var(--muted); }
+.level-up-metrics { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.level-up-metrics span { padding: 6px 9px; border: 1px solid var(--line-soft); border-radius: 9px; color: var(--muted); background: rgba(255,255,255,.025); }
+.level-up-metrics strong { color: var(--text); }
+.unlock-reveal { margin-top: 13px; padding-top: 12px; border-top: 1px solid rgba(239,202,126,.16); }
+.unlock-reveal article { display: flex; align-items: center; gap: 10px; margin-top: 8px; padding: 9px; border: 1px solid rgba(105,188,121,.34); border-radius: 10px; background: rgba(28,66,35,.28); }
+.unlock-reveal article > .ui-icon { width: 26px; height: 26px; color: #8fdda0; }
+.unlock-reveal article strong, .unlock-reveal article span { display: block; }
+.unlock-reveal article span { margin-top: 2px; color: #b4cdb8; font-size: .76rem; }
+.next-unlock-line { margin-top: 11px; color: var(--muted); }
+
+.rune-reward-section {
+  display: grid;
+  grid-template-columns: minmax(180px,.65fr) minmax(0,1.35fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 13px;
+  border: 1px solid rgba(137,91,210,.30);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(48,31,68,.44), rgba(18,16,20,.96));
+}
+.rune-reward-section h3 { margin: 3px 0 0; }
+.rune-reward-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; }
+.rune-reward-grid article { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 8px; border: 1px solid rgba(161,114,226,.22); border-radius: 10px; background: rgba(20,15,25,.70); }
+.rune-reward-symbol { flex: 0 0 34px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; border: 1px solid rgba(194,150,245,.34); color: #d6b6ff; font-size: 1.05rem; }
+.rune-reward-grid strong, .rune-reward-grid article div > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rune-reward-grid article div > span { margin-top: 2px; color: var(--muted); font-size: .7rem; }
+
+.reward-loot-grid { align-items: stretch; }
+.reward-item-card { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.reward-item-card > .item-card { width: 100%; flex: 1 1 auto; }
+.reward-item-actions { min-height: 38px; display: flex; }
+.reward-item-actions .button, .reward-item-state { width: 100%; }
+.reward-item-state { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 36px; padding: 6px 8px; border: 1px solid var(--line-soft); border-radius: 9px; color: var(--muted); background: rgba(255,255,255,.025); text-align: center; font-size: .72rem; }
+.reward-item-state .ui-icon { width: 13px; height: 13px; }
+.reward-item-state.equipped { color: #a9dfb2; border-color: rgba(91,182,108,.38); background: rgba(32,74,40,.28); }
+.reward-item-state.at-risk { color: #e6ca8b; border-color: rgba(213,173,88,.34); }
+.reward-item-state.sold { color: #d5a09a; border-color: rgba(209,106,98,.30); }
+
+.route-actions { display: grid; grid-template-columns: auto auto minmax(0,1fr); }
+.auto-route-button { justify-content: center; color: var(--gold-2); }
+.inventory-capacity-warning, .inventory-capacity-ready {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 11px 0;
+  padding: 9px;
+  border-radius: 10px;
+}
+.inventory-capacity-warning { border: 1px solid rgba(209,106,98,.42); background: rgba(79,29,26,.28); }
+.inventory-capacity-ready { border: 1px solid var(--line-soft); color: var(--muted); background: rgba(255,255,255,.02); }
+.inventory-capacity-warning > .ui-icon, .inventory-capacity-ready > .ui-icon { flex: 0 0 20px; width: 20px; height: 20px; }
+.inventory-capacity-warning strong, .inventory-capacity-warning span { display: block; }
+.inventory-capacity-warning span { margin-top: 3px; color: #c8aaa5; font-size: .74rem; line-height: 1.35; }
+.planner-confirmation {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(3,3,3,.76);
+  backdrop-filter: blur(8px);
+}
+.planner-confirmation-card {
+  width: min(620px, 100%);
+  display: grid;
+  grid-template-columns: 56px minmax(0,1fr);
+  gap: 15px;
+  padding: 18px;
+  border: 1px solid rgba(209,106,98,.48);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(50,26,23,.99), rgba(18,15,14,.99));
+  box-shadow: 0 24px 70px rgba(0,0,0,.62);
+}
+.confirmation-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(209,106,98,.48); color: #e89a91; }
+.confirmation-icon .ui-icon { width: 27px; height: 27px; }
+.planner-confirmation h2 { margin: 3px 0 6px; }
+.planner-confirmation p { margin: 0; color: var(--muted); line-height: 1.45; }
+.inventory-warning-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+
+.ability-orb { cursor: help; pointer-events: auto; padding-bottom: 16px; }
+.ability-orb .ability-name { max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ability-cooldown { z-index: 1; background: linear-gradient(180deg, rgba(4,4,4,.34), rgba(0,0,0,.82)); transition: height .12s linear; }
+.ability-cooldown-text {
+  position: absolute !important;
+  left: 5px;
+  right: 5px;
+  bottom: 3px;
+  z-index: 4 !important;
+  padding: 2px 3px;
+  border-radius: 5px;
+  background: rgba(8,8,8,.78);
+  color: #b8b0a1;
+  font-size: .56rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.ability-orb.cooling { border-color: rgba(136,126,111,.34); filter: saturate(.72); }
+.ability-orb.cooling .ability-cooldown-text { color: #f0d18c; }
+.ability-orb.ready { border-color: rgba(108,188,122,.36); box-shadow: 0 0 0 1px rgba(108,188,122,.05), 0 8px 20px rgba(0,0,0,.28), inset 0 0 18px rgba(64,132,75,.06); }
+.ability-orb.ready .ability-cooldown-text { color: #9bdda7; }
+
+@media (max-width: 780px) {
+  .level-up-card { grid-template-columns: 58px minmax(0,1fr); padding: 13px; }
+  .level-up-emblem { width: 54px; height: 54px; }
+  .rune-reward-section { grid-template-columns: 1fr; }
+  .rune-reward-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .route-actions { grid-template-columns: 1fr 1fr; }
+  .auto-route-button { grid-column: 1 / -1; }
+}
+@media (max-width: 500px) {
+  .toast-stack { left: 8px !important; bottom: max(8px, env(safe-area-inset-bottom)) !important; width: calc(100vw - 16px); }
+  .level-up-card { grid-template-columns: 1fr; }
+  .level-up-emblem { margin: 0 auto; }
+  .rune-reward-grid { grid-template-columns: 1fr; }
+  .planner-confirmation-card { grid-template-columns: 1fr; }
+  .confirmation-icon { margin: 0 auto; }
+  .inventory-warning-actions { display: grid; grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -2909,7 +3110,7 @@ body::before {
 
 
   const RELEASE_PROFILE = Object.freeze({
-    channel: 'release-candidate', build: '1.1.6-combat-readability', dataPolicy: 'local-only', analytics: false,
+    channel: 'release-candidate', build: '1.1.7-ux-route' , dataPolicy: 'local-only', analytics: false,
     cloudSave: false, remoteRuntimeDependencies: false, minimumViewport: 320,
     supportedLanguages: ['en', 'pseudo'], soundtrack: 'adaptive-synth-original',
     artSet: 'wayfarer-procedural-items-route-skin-v1', contentRatingTarget: '12+'
@@ -2925,7 +3126,7 @@ body::before {
   });
 
   window.ED_DATA = Object.freeze({
-    VERSION: '1.1.6', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
+    VERSION: '1.1.7', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
     LEGENDARY_EFFECTS, SETS, RUNES, RUNEWORDS, ABILITIES, SKILL_BRANCHES,
     RELEASE_PROFILE, LOCALIZATION, CAMP_UPGRADES, REGIONAL_DROP_TABLES, REGIONAL_LOOT, NAMED_ELITES, CAMP_QUESTS, CAMPAIGN_CHAPTERS, MOUNTAIN_CAMPAIGN, MISSION_OBJECTIVES, ENDLESS_ENCOUNTERS, ENDGAME_BOSSES, ACHIEVEMENTS, CHALLENGES, PRESENTATION_PROFILES, COMBAT_PRESENTATION, ELITE_AFFIXES, DIFFICULTY_CONTRACTS, ENDLESS_MODIFIERS, REGIONS, REGION_RULES, BOSSES, ENEMIES, ROOM_TYPES, STAT_LABELS, BASE_STATS
   });
@@ -3057,10 +3258,11 @@ body::before {
       },
       lastMission: null
     };
+    // Fresh profiles only receive items that can be equipped immediately.
     initial.hero.inventory = [
-      generateItem(1, rng(1101), { forceSlot: 'helmet', forceRarity: 'magic' }),
-      generateItem(1, rng(1102), { forceSlot: 'gloves', forceRarity: 'rare' }),
-      generateItem(1, rng(1103), { forceSlot: 'amulet', forceRarity: 'magic' })
+      generateItem(1, rng(1101), { forceSlot: 'weapon', forceRarity: 'magic' }),
+      generateItem(1, rng(1102), { forceSlot: 'armor', forceRarity: 'rare' }),
+      generateItem(1, rng(1103), { forceSlot: 'ring1', forceRarity: 'magic' })
     ];
     initial.shop.items = generateShop(initial, initial.shop.seed);
     return initial;
@@ -3387,7 +3589,7 @@ body::before {
     const regional = region ? D.REGIONAL_LOOT[region.id] : null;
     const dropTable = region ? D.REGIONAL_DROP_TABLES?.[region.id] : null;
     const band = progressionBandForLevel(level);
-    const unlockedSlots = D.SLOTS.map(([slot]) => slot).filter(slot => D.SLOT_UNLOCK_LEVEL[slot] <= Math.max(1, level + 1));
+    const unlockedSlots = D.SLOTS.map(([slot]) => slot).filter(slot => D.SLOT_UNLOCK_LEVEL[slot] <= Math.max(1, level));
     const preferredSlots = regional?.slots?.filter(slot => unlockedSlots.includes(slot)) || [];
     const slot = options.forceSlot || (preferredSlots.length && random() < .58 ? pick(random, preferredSlots) : pick(random, unlockedSlots));
     const rarityLuck = Number(options.luck || 0) + Number(band.luck || 0) + Number(dropTable?.rarityLuck || 0) + Number(options.ancientLuck || 0);
@@ -3601,6 +3803,14 @@ body::before {
 
   function isSlotUnlocked(slot, inputState = state) {
     return inputState.hero.level >= D.SLOT_UNLOCK_LEVEL[slot];
+  }
+
+  function slotUnlocksBetween(fromLevel, toLevel) {
+    const from = Math.max(0, Math.round(Number(fromLevel || 0)));
+    const to = Math.max(from, Math.round(Number(toLevel || from)));
+    return D.SLOTS
+      .filter(([slot]) => D.SLOT_UNLOCK_LEVEL[slot] > from && D.SLOT_UNLOCK_LEVEL[slot] <= to)
+      .map(([slot, label, glyph]) => ({ slot, label, glyph, level: D.SLOT_UNLOCK_LEVEL[slot] }));
   }
 
   function equipItem(itemId) {
@@ -4098,6 +4308,53 @@ body::before {
     return { ok: true };
   }
 
+  function autoRoute(dungeon) {
+    if (!dungeon?.nodes?.length) return { ok: false, route: [0], spent: 0, full: false, message: 'No dungeon is available to plan.' };
+    const target = dungeon.nodes[dungeon.nodes.length - 1].id;
+    const budget = Math.max(1, Math.round(Number(dungeon.commandPoints || 1)));
+    const candidates = [];
+    const visited = new Set([0]);
+    const path = [0];
+    const walk = nodeId => {
+      const spent = path.length - 1;
+      if (spent > budget) return;
+      if (nodeId === target) {
+        candidates.push([...path]);
+        return;
+      }
+      if (spent === budget) return;
+      const nextNodes = adjacentNodes(dungeon, nodeId).sort((a, b) => a - b);
+      nextNodes.forEach(next => {
+        if (visited.has(next)) return;
+        visited.add(next);
+        path.push(next);
+        walk(next);
+        path.pop();
+        visited.delete(next);
+      });
+    };
+    walk(0);
+    if (!candidates.length) return { ok: false, route: [0], spent: 0, full: false, message: 'No valid route reaches the objective.' };
+    const score = route => {
+      const rooms = route.slice(1).map(id => dungeon.nodes.find(node => node.id === id)).filter(Boolean);
+      const utility = rooms.reduce((sum, node) => sum + Number(node.reward || 0) * 120 - Number(node.risk || 0) * 12
+        + (node.type === 'treasure' ? 55 : 0) + (node.type === 'shrine' ? 38 : 0) + (node.type === 'elite' ? 24 : 0), 0);
+      return (route.length - 1) * 100000 + utility;
+    };
+    const exact = candidates.filter(route => route.length - 1 === budget);
+    const pool = exact.length ? exact : candidates;
+    pool.sort((a, b) => score(b) - score(a) || a.join('-').localeCompare(b.join('-')));
+    const route = pool[0];
+    const spent = route.length - 1;
+    return {
+      ok: true,
+      route,
+      spent,
+      full: spent === budget,
+      message: spent === budget ? `Auto-route committed all ${budget} Command Points.` : `Auto-route found the longest valid path (${spent}/${budget} Command Points).`
+    };
+  }
+
   function getCampQuestState(questId, inputState = state) {
     const quest = D.CAMP_QUESTS[questId];
     if (!quest) return null;
@@ -4180,7 +4437,22 @@ body::before {
   function applyRewardPackage(rewards) {
     const gold = Math.max(0, Math.round(rewards.gold || 0));
     state.resources.gold += gold;
+    const previousLevel = state.hero.level;
+    const previousSkillPoints = state.hero.skillPoints;
     const levels = grantXp(rewards.xp || 0);
+    const newLevel = state.hero.level;
+    const levelUp = levels ? {
+      levels,
+      previousLevel,
+      newLevel,
+      skillPointsGained: Math.max(0, state.hero.skillPoints - previousSkillPoints),
+      unlockedSlots: slotUnlocksBetween(previousLevel, newLevel),
+      nextUnlocks: D.SLOTS
+        .filter(([slot]) => D.SLOT_UNLOCK_LEVEL[slot] > newLevel)
+        .sort((a, b) => D.SLOT_UNLOCK_LEVEL[a[0]] - D.SLOT_UNLOCK_LEVEL[b[0]])
+        .slice(0, 2)
+        .map(([slot, label, glyph]) => ({ slot, label, glyph, level: D.SLOT_UNLOCK_LEVEL[slot] }))
+    } : null;
     const acceptedLoot = [];
     const overflowGold = [];
     (rewards.loot || []).forEach(item => {
@@ -4197,7 +4469,7 @@ body::before {
     (rewards.recipes || []).forEach(recipeId => {
       if (D.RUNEWORDS[recipeId] && !state.hero.recipes.includes(recipeId)) state.hero.recipes.push(recipeId);
     });
-    return { gold, levels, acceptedLoot, overflowGold };
+    return { gold, levels, acceptedLoot, overflowGold, levelUp };
   }
 
   function recordExpeditionProgress(result) {
@@ -4497,11 +4769,11 @@ body::before {
   window.ED_CORE = {
     SAVE_KEY, BACKUP_KEY, CORRUPT_KEY, SAVE_SCHEMA_VERSION, uid, clamp, round, deepClone, hashString, rng, pick, randomInt, weightedPick,
     getState, replaceState, subscribe, save, createDefaultState, migrateState, normalizeState, dismissRecoveryNotice, completeOnboarding,
-    progressionBandForLevel, generateItem, effectiveItemStats, itemScore, analyzeBuild, calculateStats, inventoryCapacity, getCampUpgradeRank, buyCampUpgrade, isSlotUnlocked, equipItem, unequip, sellItem, bulkSellCandidates, bulkSellPreview, bulkSellItems, maximumRefinement, refinementCost, refineItem, salvageItem,
+    progressionBandForLevel, generateItem, effectiveItemStats, itemScore, analyzeBuild, calculateStats, inventoryCapacity, getCampUpgradeRank, buyCampUpgrade, isSlotUnlocked, slotUnlocksBetween, equipItem, unequip, sellItem, bulkSellCandidates, bulkSellPreview, bulkSellItems, maximumRefinement, refinementCost, refineItem, salvageItem,
     availableAbilities, toggleAbility, buySkill, allocatedSkillPoints, respecSkills, getSkillNode,
     generateShop, shopRestockCost, restockShop, buyShopItem, xpNeeded,
     contractLimit, normalizeContractIds, endlessModifierIds, applyMissionContracts, missionModifiers, rollEliteAffixes,
-    missionDefinitions, generateDungeon, adjacentNodes, validateRoute,
+    missionDefinitions, generateDungeon, adjacentNodes, validateRoute, autoRoute,
     getCampQuestState, availableCampQuests, updateCampQuests, claimCampQuest,
     achievementProgress, updateAchievements, challengeState, claimChallenge,
     completeExpedition, extractEndlessRun, craftRuneword, setSetting, exportSave, importSave, resetSave
@@ -7298,6 +7570,8 @@ body::before {
       this.combat = null;
       this.combatHud = null;
       this.result = null;
+      this.inventoryWarning = false;
+      this.inventoryWarningBypassed = false;
       this.toasts = [];
       this.logRevision = 0;
       this.inventoryFilters = { query: '', slot: 'all', rarity: 'all', sort: 'power-desc' };
@@ -7598,16 +7872,18 @@ body::before {
       const current = C.getState().hero.equipment[item.slot];
       const score = C.itemScore(item);
       const delta = current && current.id !== item.id ? score - C.itemScore(current) : null;
+      const slotUnlocked = C.isSlotUnlocked(item.slot);
       const clickable = options.clickable !== false;
       const tag = clickable ? 'button' : 'article';
-      const action = clickable ? `data-action="select-item" data-item="${item.id}" data-drag-item="${item.id}" draggable="true"` : '';
+      const action = clickable ? `data-action="select-item" data-item="${item.id}"${slotUnlocked ? ` data-drag-item="${item.id}" draggable="true"` : ''}` : '';
       const compareText = delta === null ? (current?.id === item.id ? 'Equipped' : 'Empty slot') : `${delta > 0 ? '+' : ''}${number(delta)}`;
-      const aria = `${item.name}, ${D.RARITIES[item.rarity]?.label || item.rarity} ${slotLabel(item.slot)}, power ${number(score)}, ${compareText}`;
+      const lockText = slotUnlocked ? '' : `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]}.`;
+      const aria = `${item.name}, ${D.RARITIES[item.rarity]?.label || item.rarity} ${slotLabel(item.slot)}, power ${number(score)}, ${compareText}${lockText ? `, ${lockText}` : ''}`;
       const band = D.PROGRESSION_BANDS.find(entry => entry.id === item.bandId)?.name || 'Initiate';
-      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''}" ${action} aria-label="${esc(aria)}" ${tooltipAttrs(item.name, this.itemTooltipBody(item), `Power ${number(score)} · ${compareText} · Drag to ${slotLabel(item.slot)}`)}>
+      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''} ${slotUnlocked ? '' : 'locked-slot-item'}" ${action} aria-label="${esc(aria)}" ${tooltipAttrs(item.name, `${this.itemTooltipBody(item)}${lockText ? ` · ${lockText}` : ''}`, `Power ${number(score)} · ${compareText}${slotUnlocked ? ` · Drag to ${slotLabel(item.slot)}` : ''}`)}>
         <span class="rarity-rail" aria-hidden="true"></span>
         <span class="item-level">L${item.level}${item.refinement ? ` · +${item.refinement}` : ''}</span>
-        <span class="drag-grip" aria-hidden="true">⋮⋮</span>
+        ${slotUnlocked ? '<span class="drag-grip" aria-hidden="true">⋮⋮</span>' : `<span class="locked-item-badge">${icon('lock')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`}
         <span class="item-visual">${itemArtSvg(item)}</span>
         <span class="item-name ${item.setId ? 'set-name' : rarityClass(item)}">${esc(item.name)}</span>
         <span class="item-meta"><span>${esc(slotLabel(item.slot))}</span><span>${esc(band)}</span></span>
@@ -7850,6 +8126,7 @@ body::before {
       const refineCost = C.refinementCost(item);
       const score = C.itemScore(item);
       const currentScore = current ? C.itemScore(current) : 0;
+      const slotUnlocked = C.isSlotUnlocked(item.slot);
       const scoreDiff = !equipped ? score - currentScore : 0;
       const compareStats = !equipped ? [...new Set([...Object.keys(effective), ...Object.keys(currentEffective || {})])]
         .sort((a, b) => Math.abs(Number(effective[b] || 0) - Number(currentEffective?.[b] || 0)) - Math.abs(Number(effective[a] || 0) - Number(currentEffective?.[a] || 0)))
@@ -7883,9 +8160,10 @@ body::before {
           ${item.legendary ? `<div class="divider"></div><div class="effect-block legendary-effect">${icon('power')}<div><div class="eyebrow">Legendary effect</div><strong>${esc(item.legendary.name)}</strong><div class="subtle">${esc(item.legendary.text)}</div></div></div>` : ''}
           ${item.runeword ? `<div class="divider"></div><div class="effect-block runeword-effect">${icon('runes')}<div><div class="eyebrow">Runeword · ${item.runeword.runes.map(rune => D.RUNES[rune].symbol).join(' ')}</div><strong class="set-name">${esc(item.runeword.name)}</strong><div class="subtle">${esc(item.runeword.text)}</div></div></div>` : ''}
           ${item.setId ? `<div class="divider"></div><div class="effect-block set-effect">${icon('crown')}<div><div class="eyebrow">Set piece</div><strong class="set-name">${esc(D.SETS[item.setId].name)}</strong>${Object.entries(D.SETS[item.setId].bonuses).map(([threshold, bonus]) => `<div class="subtle">${threshold} pieces: ${esc(bonus.text)}</div>`).join('')}</div></div>` : ''}
+          ${!equipped && !slotUnlocked ? `<div class="locked-slot-callout">${icon('lock')}<div><strong>${esc(slotLabel(item.slot))} unlocks at level ${D.SLOT_UNLOCK_LEVEL[item.slot]}</strong><span>This item is safe in the stash, but cannot be equipped until that hero level.</span></div></div>` : ''}
           <div class="divider"></div>
           <div class="item-actions sticky-actions">
-            ${equipped ? `<button class="button" data-action="unequip" data-slot="${item.slot}">Unequip</button>` : `<button class="button primary" data-action="equip-item" data-item="${item.id}">${icon('check', 'button-icon')} Equip</button><button class="button danger" data-action="sell-item" data-item="${item.id}">Sell · ${item.sellValue}</button><button class="button" data-action="salvage-item" data-item="${item.id}">Salvage</button>`}
+            ${equipped ? `<button class="button" data-action="unequip" data-slot="${item.slot}">Unequip</button>` : `<button class="button ${slotUnlocked ? 'primary' : ''}" data-action="equip-item" data-item="${item.id}" ${slotUnlocked ? '' : 'disabled'}>${slotUnlocked ? `${icon('check', 'button-icon')} Equip` : `${icon('lock', 'button-icon')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}`}</button><button class="button danger" data-action="sell-item" data-item="${item.id}">Sell · ${item.sellValue}</button><button class="button" data-action="salvage-item" data-item="${item.id}">Salvage</button>`}
             <button class="button ${item.refinement < refineCap ? 'primary' : ''}" data-action="refine-item" data-item="${item.id}" ${item.refinement < refineCap ? '' : 'disabled'}>${refineCap <= 0 ? 'Forge upgrade required' : item.refinement >= refineCap ? 'Refinement capped' : `Refine · ${refineCost.gold}g + ${refineCost.essence} essence`}</button>
             <button class="button" data-action="clear-selection">Close</button>
           </div>
@@ -7969,6 +8247,9 @@ body::before {
       const objectiveText = namedObjective?.text || boss?.mechanicText || objectiveDefinition.text;
       const selectedContracts = dungeon.mission.contracts || [];
       const modifiers = dungeon.mission.endlessModifiers || [];
+      const inventoryUsed = C.getState().hero.inventory.length;
+      const inventoryCapacity = C.inventoryCapacity();
+      const inventoryFull = inventoryUsed >= inventoryCapacity;
       return `<div class="modal-backdrop"><section class="modal large route-planner-modal" role="dialog" aria-modal="true"><div class="modal-header"><div><div class="eyebrow">Route planning</div><h2>${esc(D.REGIONS[dungeon.regionIndex].name)} · ${esc(dungeon.mission.name)}</h2></div><button class="icon-button" data-action="close-planner" aria-label="Close route planner" ${tooltipAttrs('Close planner', 'Discard the current planned route.')}>${icon('close')}</button></div><div class="modal-body planner-layout">
         <div>
           <div class="dungeon-map">
@@ -8022,13 +8303,16 @@ body::before {
             return `<div class="route-entry"><span>${index}. ${esc(title)}${affixes.length ? `<small>${esc(affixes.join(' · '))}</small>` : ''}</span><strong>${node.type === 'start' ? 'Start' : `${node.risk.toFixed(1)}×`}</strong></div>`;
           }).join('')}</div>
           <div class="divider"></div>
-          <div class="item-actions"><button class="button" data-action="route-undo" ${this.route.length <= 1 ? 'disabled' : ''}>Undo</button><button class="button" data-action="route-reset">Reset</button></div>
+          <div class="item-actions route-actions"><button class="button" data-action="route-undo" ${this.route.length <= 1 ? 'disabled' : ''}>Undo</button><button class="button" data-action="route-reset">Reset</button><button class="button auto-route-button" data-action="route-auto" ${tooltipAttrs('Auto-plan full route', 'Finds a valid route to the objective that spends every available Command Point whenever the dungeon graph permits it.', `${dungeon.commandPoints} Command Points available`)}>${icon('route', 'button-icon')} Auto-plan full route</button></div>
           <div class="divider"></div>
           <div class="transition-preview" aria-label="Room transition preview"><div class="preview-room"><span class="preview-hero exit"></span></div><span class="preview-blur"></span><div class="preview-room"><span class="preview-hero enter"></span></div><small>Exit right · soft veil · enter left</small></div>
+          ${inventoryFull ? `<div class="inventory-capacity-warning">${icon('risk')}<div><strong>Inventory full · ${inventoryUsed}/${inventoryCapacity}</strong><span>New item rewards may be converted to gold. Clean the stash before committing for full loot control.</span></div></div>` : `<div class="inventory-capacity-ready">${icon('inventory')} ${inventoryUsed}/${inventoryCapacity} inventory slots used</div>`}
           ${lastIsObjective ? '<div class="subtle">Route reaches the objective. Combat will resolve automatically after commitment.</div>' : '<div class="subtle">The route must end at the final objective.</div>'}
           <button class="button primary commit-button" data-action="commit-route" ${lastIsObjective ? '' : 'disabled'}>Commit expedition</button>
         </aside>
-      </div></section></div>`;
+      </div></section>
+      ${this.inventoryWarning ? `<section class="planner-confirmation" role="alertdialog" aria-modal="true" aria-labelledby="inventoryWarningTitle"><div class="planner-confirmation-card"><span class="confirmation-icon">${icon('risk')}</span><div><div class="eyebrow">Inventory capacity warning</div><h2 id="inventoryWarningTitle">Your stash is completely full</h2><p>Items found during this expedition cannot enter the stash and will be converted to their sell value. The route is preserved while you decide.</p><div class="inventory-warning-actions"><button class="button" data-action="cancel-full-inventory">Return to planner</button><button class="button" data-action="open-inventory-from-planner">Clean inventory</button><button class="button danger" data-action="proceed-full-inventory">Proceed anyway</button></div></div></div></section>` : ''}
+      </div>`;
     }
 
     renderCombatShell() {
@@ -8046,7 +8330,7 @@ body::before {
             <div class="target-health-track"><div id="targetHealthFill" class="target-health-fill"></div><div id="targetBarrierFill" class="target-barrier-fill"></div></div>
             <div id="targetHealthAffixes" class="target-health-affixes"></div>
           </section>
-          <div class="ability-hud">${state.hero.equippedAbilities.map(id => `<div class="ability-orb" id="ability_${id}" ${tooltipAttrs(D.ABILITIES[id].name, D.ABILITIES[id].text, `Cooldown ${D.ABILITIES[id].cooldown}s`)}><strong>${icon(abilityIconKey(D.ABILITIES[id]), 'ability-hud-icon')}</strong><span>${esc(D.ABILITIES[id].name)}</span><div class="ability-cooldown"></div></div>`).join('')}</div>
+          <div class="ability-hud">${state.hero.equippedAbilities.map(id => `<div class="ability-orb" id="ability_${id}" ${tooltipAttrs(D.ABILITIES[id].name, D.ABILITIES[id].text, `Base cooldown ${D.ABILITIES[id].cooldown}s · Hover, focus or tap to inspect`)}><strong>${icon(abilityIconKey(D.ABILITIES[id]), 'ability-hud-icon')}</strong><span class="ability-name">${esc(D.ABILITIES[id].name)}</span><div class="ability-cooldown"></div><span class="ability-cooldown-text">READY</span></div>`).join('')}</div>
         </section>
         <aside class="panel"><div class="panel-header"><div><div class="eyebrow">Combat telemetry</div><h2>Live resolution</h2></div></div><div id="combatLog" class="panel-body combat-log"></div></aside>
       </div></main></div>`;
@@ -8137,7 +8421,14 @@ body::before {
         const orb = document.getElementById(`ability_${id}`);
         if (!orb) return;
         const max = D.ABILITIES[id].cooldown;
-        orb.querySelector('.ability-cooldown').style.height = `${Math.min(100, cd / max * 100)}%`;
+        const remaining = Math.max(0, Number(cd || 0));
+        const cooldownLayer = orb.querySelector('.ability-cooldown');
+        const cooldownText = orb.querySelector('.ability-cooldown-text');
+        if (cooldownLayer) cooldownLayer.style.height = `${Math.min(100, remaining / max * 100)}%`;
+        orb.classList.toggle('cooling', remaining > .05);
+        orb.classList.toggle('ready', remaining <= .05);
+        if (cooldownText) cooldownText.textContent = remaining > .05 ? `${remaining.toFixed(1)}s` : 'READY';
+        orb.setAttribute('aria-label', `${D.ABILITIES[id].name}. ${D.ABILITIES[id].text}. ${remaining > .05 ? `${remaining.toFixed(1)} seconds remaining` : 'Ready'}.`);
       });
     }
 
@@ -8160,6 +8451,34 @@ body::before {
       this.render();
     }
 
+    levelUpResultCard(result, applied) {
+      const info = applied?.levelUp;
+      if (!info) return '';
+      const averageRoom = result.roomsCleared ? result.duration / result.roomsCleared : result.duration;
+      return `<section class="level-up-card" aria-label="Level up rewards"><div class="level-up-emblem">${icon('level')}</div><div class="level-up-content"><div class="eyebrow">Hero progression</div><h2>Level ${info.previousLevel} → ${info.newLevel}</h2><p>The Wayfarer gained ${info.skillPointsGained} skill point${info.skillPointsGained === 1 ? '' : 's'} during a ${seconds(result.duration)} expedition.</p><div class="level-up-metrics"><span><strong>${result.roomsCleared}</strong> rooms</span><span><strong>${result.kills}</strong> kills</span><span><strong>${seconds(averageRoom)}</strong> per room</span></div>${info.unlockedSlots?.length ? `<div class="unlock-reveal"><div class="eyebrow">New equipment unlocked</div>${info.unlockedSlots.map(unlock => `<article>${icon(slotIconKey(unlock.slot))}<div><strong>${esc(unlock.label)}</strong><span>Equipment slot available from level ${unlock.level}</span></div></article>`).join('')}</div>` : `<div class="next-unlock-line">${info.nextUnlocks?.length ? `Next slot: ${esc(info.nextUnlocks[0].label)} at level ${info.nextUnlocks[0].level}.` : 'All equipment slots are unlocked.'}</div>`}</div></section>`;
+    }
+
+    runeRewardSection(runes = {}) {
+      const entries = Object.entries(runes).filter(([id, count]) => D.RUNES[id] && Number(count) > 0);
+      if (!entries.length) return '';
+      return `<section class="rune-reward-section"><div><div class="eyebrow">Runes discovered</div><h3>${entries.reduce((sum, [, count]) => sum + Number(count), 0)} rune${entries.reduce((sum, [, count]) => sum + Number(count), 0) === 1 ? '' : 's'} secured</h3></div><div class="rune-reward-grid">${entries.map(([id, count]) => { const rune = D.RUNES[id]; return `<article ${tooltipAttrs(rune.name, rune.text || 'Used in runeword recipes and ritual crafting.', `${count} found this expedition`)}><span class="rune-reward-symbol">${esc(rune.symbol)}</span><div><strong>${esc(rune.name)}</strong><span>${count}× found</span></div></article>`; }).join('')}</div></section>`;
+    }
+
+    rewardItemCard(item, applied, endlessPending) {
+      const state = C.getState();
+      const accepted = new Set((applied?.acceptedLoot || []).map(entry => entry.id));
+      const equipped = Object.values(state.hero.equipment).some(entry => entry?.id === item.id);
+      const inStash = state.hero.inventory.some(entry => entry.id === item.id);
+      const slotUnlocked = C.isSlotUnlocked(item.slot);
+      let action = '';
+      if (endlessPending) action = `<span class="reward-item-state at-risk">At risk until extraction</span>`;
+      else if (equipped) action = `<span class="reward-item-state equipped">${icon('check')} Equipped</span>`;
+      else if ((accepted.has(item.id) || inStash) && slotUnlocked) action = `<button class="button small primary" data-action="equip-reward-item" data-item="${item.id}">${icon('check', 'button-icon')} Equip now</button>`;
+      else if ((accepted.has(item.id) || inStash) && !slotUnlocked) action = `<span class="reward-item-state locked">${icon('lock')} Slot unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`;
+      else action = `<span class="reward-item-state sold">Inventory overflow · converted to gold</span>`;
+      return `<div class="reward-item-card">${this.itemCard(item, false, { clickable: false })}<div class="reward-item-actions">${action}</div></div>`;
+    }
+
     resultModal() {
       const r = this.result;
       const applied = r.applied || {};
@@ -8174,14 +8493,16 @@ body::before {
           <div class="result-banner ${r.success ? '' : 'failure'}"><div class="eyebrow">${r.success ? 'Route cleared' : 'Expedition failed'}</div><h1>${r.success ? 'Success' : 'The build broke'}</h1><div class="subtle">${r.roomsCleared} rooms · ${r.kills} kills · ${seconds(r.duration)}${r.bossId ? ` · ${esc(D.BOSSES[r.bossId].name)}` : ''}</div></div>
           <div class="panel"><div class="panel-header"><h3>${endlessPending ? 'Haul currently at risk' : endlessFailed ? 'Consolation recovered' : 'Rewards secured'}</h3></div><div class="panel-body telemetry-list"><div class="telemetry-item"><span>Gold</span><strong>${number(rewardGold)}</strong></div><div class="telemetry-item"><span>Experience</span><strong>${number(rewardXp)}</strong></div><div class="telemetry-item"><span>Hero levels gained</span><strong>${endlessPending ? 'Pending' : applied.levels || 0}</strong></div><div class="telemetry-item"><span>Runes found</span><strong>${endlessPending ? Object.values(applied.cache.runes || {}).reduce((a,b)=>a+b,0) : Object.values(r.runes).reduce((a,b)=>a+b,0)}</strong></div></div></div>
         </div>
+        ${!endlessPending ? this.levelUpResultCard(r, applied) : ''}
         ${endlessPending ? `<div class="risk-callout"><strong>Nothing above is secured yet.</strong><span>Extract now to bank the entire haul. Continuing starts the next descent with every cached reward at risk.</span></div>` : ''}
         ${endlessFailed && applied.lost?.active ? `<div class="risk-callout failure"><strong>The descent collapsed at depth ${applied.lost.depth}.</strong><span>${number(applied.lost.gold)} cached gold and ${applied.lost.loot.length} cached items were lost. A small gold and XP consolation was recovered.</span></div>` : ''}
         ${(r.contracts?.length || r.endlessModifiers?.length) ? `<div class="result-modifiers">${(r.contracts || []).map(id => `<span class="modifier-chip">Contract · ${esc(D.DIFFICULTY_CONTRACTS[id].name)}</span>`).join('')}${(r.endlessModifiers || []).map(id => `<span class="modifier-chip">Depth · ${esc(D.ENDLESS_MODIFIERS[id].name)}</span>`).join('')}</div>` : ''}
         ${r.objectiveType ? `<div class="campaign-result"><strong>${esc(D.MISSION_OBJECTIVES[r.objectiveType]?.icon || '◇')} ${esc(D.MISSION_OBJECTIVES[r.objectiveType]?.name || r.objectiveType)}</strong><span>${r.success ? 'Objective completed.' : 'Objective failed before extraction.'}${r.finalBoss && r.success ? ' The First Witness has fallen; the principal campaign is complete.' : ''}</span></div>` : ''}
         ${r.namedElitesKilled?.length ? `<div class="named-victory"><div class="eyebrow">Named victories</div><strong>${r.namedElitesKilled.map(id => esc(D.NAMED_ELITES[id]?.name || id)).join(' · ')}</strong></div>` : ''}
         ${r.campaignStage ? `<div class="campaign-result"><strong>Great Mountains ascent ${r.campaignStage}/${D.MOUNTAIN_CAMPAIGN.length} ${r.success ? 'cleared' : 'attempted'}</strong><span>${r.campaignFinal && r.success ? 'The Gate of the Deep is open. The Endless Dark is now reachable.' : 'The next gate opens only after this stage is cleared.'}</span></div>` : ''}
+        ${this.runeRewardSection(r.runes)}
         <div class="divider"></div>
-        <div class="eyebrow">${endlessPending ? 'Loot added to the at-risk haul' : 'Loot'}</div><div class="loot-row" style="margin-top:9px">${r.loot.length ? r.loot.map(item => this.itemCard(item, false, { clickable: false })).join('') : '<div class="empty-state">No item was secured from the cleared rooms.</div>'}</div>
+        <div class="eyebrow">${endlessPending ? 'Loot added to the at-risk haul' : 'Loot · inspect, compare and equip immediately'}</div><div class="loot-row reward-loot-grid" style="margin-top:9px">${r.loot.length ? r.loot.map(item => this.rewardItemCard(item, applied, endlessPending)).join('') : '<div class="empty-state">No item was secured from the cleared rooms.</div>'}</div>
         ${r.recipes.length ? `<div class="divider"></div><div class="result-banner"><div class="eyebrow">Runeword recipe discovered</div><h2 class="set-name">${r.recipes.map(id => esc(D.RUNEWORDS[id].name)).join(', ')}</h2></div>` : ''}
         <div class="divider"></div>
         <div class="result-grid">
@@ -8417,6 +8738,7 @@ body::before {
       else if (action === 'select-equipment') { this.selectedEquipmentSlot = button.dataset.slot; this.selectedItemId = null; this.render(); }
       else if (action === 'clear-selection') { this.selectedItemId = null; this.selectedEquipmentSlot = null; this.render(); }
       else if (action === 'equip-item') this.handleResult(C.equipItem(button.dataset.item));
+      else if (action === 'equip-reward-item') { const result = C.equipItem(button.dataset.item); this.toast(result.message, result.ok ? 'good' : 'bad'); this.render(); }
       else if (action === 'unequip') this.handleResult(C.unequip(button.dataset.slot));
       else if (action === 'sell-item') this.handleResult(C.sellItem(button.dataset.item));
       else if (action === 'bulk-sell') {
@@ -8453,12 +8775,16 @@ Abilities that are no longer unlocked will be removed from the active loadout.`)
       else if (action === 'complete-onboarding') { C.completeOnboarding(); this.modal = null; this.render(); }
       else if (action === 'dismiss-recovery') { C.dismissRecoveryNotice(); this.render(); }
       else if (action === 'plan-mission') this.openPlanner(button.dataset.mission);
-      else if (action === 'close-planner') { this.planner = null; this.route = [0]; this.contracts = []; this.render(); }
+      else if (action === 'close-planner') { this.planner = null; this.route = [0]; this.contracts = []; this.inventoryWarning = false; this.inventoryWarningBypassed = false; this.render(); }
       else if (action === 'toggle-contract') this.toggleContract(button.dataset.contract);
       else if (action === 'route-node') this.addRouteNode(Number(button.dataset.node));
       else if (action === 'route-undo') { if (this.route.length > 1) this.route.pop(); this.render(); }
       else if (action === 'route-reset') { this.route = [0]; this.render(); }
+      else if (action === 'route-auto') this.applyAutoRoute();
       else if (action === 'commit-route') this.commitRoute();
+      else if (action === 'cancel-full-inventory') { this.inventoryWarning = false; this.render(); }
+      else if (action === 'open-inventory-from-planner') { this.inventoryWarning = false; this.inventoryWarningBypassed = false; this.planner = null; this.route = [0]; this.tab = 'inventory'; this.render(); }
+      else if (action === 'proceed-full-inventory') { this.inventoryWarning = false; this.inventoryWarningBypassed = true; this.commitRoute(true); }
       else if (action === 'combat-pause') { this.combat?.togglePause(); button.textContent = this.combat?.paused ? 'Resume' : 'Pause'; }
       else if (action === 'combat-speed') { const speed = Number(button.dataset.speed); this.combat?.setSpeed(speed); C.setSetting('combatSpeed', speed); button.parentElement?.querySelectorAll('[data-action=\"combat-speed\"]').forEach(entry => entry.classList.toggle('active-speed', entry === button)); }
       else if (action === 'extract-endless') this.handleResult(C.extractEndlessRun());
@@ -8513,6 +8839,8 @@ Abilities that are no longer unlocked will be removed from the active loadout.`)
       const contracted = C.applyMissionContracts(mission, this.contracts);
       this.planner = { seed, baseMission: mission, dungeon: C.generateDungeon(this.selectedRegionIndex, contracted, seed) };
       this.route = [0];
+      this.inventoryWarning = false;
+      this.inventoryWarningBypassed = false;
       this.render();
     }
 
@@ -8524,6 +8852,8 @@ Abilities that are no longer unlocked will be removed from the active loadout.`)
       const mission = C.applyMissionContracts(this.planner.baseMission, this.contracts);
       this.planner.dungeon = C.generateDungeon(this.selectedRegionIndex, mission, this.planner.seed);
       this.route = [0];
+      this.inventoryWarning = false;
+      this.inventoryWarningBypassed = false;
       this.render();
     }
 
@@ -8542,7 +8872,16 @@ Abilities that are no longer unlocked will be removed from the active loadout.`)
       this.render();
     }
 
-    commitRoute() {
+    applyAutoRoute() {
+      if (!this.planner) return;
+      const planned = C.autoRoute(this.planner.dungeon);
+      if (!planned.ok) { this.toast(planned.message, 'bad'); return; }
+      this.route = [...planned.route];
+      this.toast(planned.message, planned.full ? 'good' : '');
+      this.render();
+    }
+
+    commitRoute(ignoreInventoryWarning = false) {
       if (!this.planner) return;
       const validation = C.validateRoute(this.planner.dungeon, this.route);
       const bossId = this.planner.dungeon.nodes[this.planner.dungeon.nodes.length - 1].id;
@@ -8550,6 +8889,14 @@ Abilities that are no longer unlocked will be removed from the active loadout.`)
         this.toast(validation.ok ? 'The route must end at the final objective.' : validation.message, 'bad');
         return;
       }
+      const inventoryFull = C.getState().hero.inventory.length >= C.inventoryCapacity();
+      if (inventoryFull && !ignoreInventoryWarning && !this.inventoryWarningBypassed) {
+        this.inventoryWarning = true;
+        this.render();
+        return;
+      }
+      this.inventoryWarning = false;
+      this.inventoryWarningBypassed = false;
       this.combat = new B.CombatSession(this.planner.dungeon, this.route, {});
       this.planner = null;
       this.logRevision = 0;
