@@ -2090,6 +2090,79 @@ body::before {
   .confirmation-icon { margin: 0 auto; }
   .inventory-warning-actions { display: grid; grid-template-columns: 1fr; }
 }
+
+/* v1.1.8 merchant comparison and Classic-RPG item tooltip pass */
+.ui-tooltip {
+  width: min(390px, calc(100vw - 20px));
+  padding: 12px 13px;
+  border-radius: 3px;
+  border-color: rgba(201, 176, 123, .52);
+  background: linear-gradient(180deg, rgba(12, 12, 13, .995), rgba(5, 5, 6, .995));
+  box-shadow: 0 20px 56px rgba(0,0,0,.72), inset 0 0 0 1px rgba(255,255,255,.025);
+}
+.ui-tooltip:not(.wow-item-tooltip) strong { display:block; color:#f2d68e; font-size:.9rem; letter-spacing:.015em; }
+.ui-tooltip:not(.wow-item-tooltip) span { display:block; margin-top:3px; color:#f2eee5; font-size:.78rem; line-height:1.48; }
+.ui-tooltip:not(.wow-item-tooltip) small { display:block; margin-top:7px; padding-top:7px; border-top:1px solid rgba(201,176,123,.14); color:#a8a091; font-size:.7rem; line-height:1.4; }
+
+.wow-item-tooltip { gap: 0; padding: 12px 13px 11px; color:#f4f1e8; }
+.wow-tooltip-header { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+.wow-tooltip-header > strong { min-width:0; font-size:1rem; line-height:1.22; overflow-wrap:anywhere; }
+.wow-tooltip-header > span { flex:0 0 auto; color:#9f988c; font-size:.66rem; padding-top:2px; }
+.wow-tooltip-type { display:flex; justify-content:space-between; gap:14px; margin-top:4px; color:#e9e4d9; font-size:.74rem; }
+.wow-tooltip-power { display:flex; justify-content:space-between; align-items:center; margin-top:9px; padding:6px 8px; border:1px solid rgba(213,173,88,.17); background:rgba(213,173,88,.035); }
+.wow-tooltip-power span { color:#aaa294; font-size:.67rem; text-transform:uppercase; letter-spacing:.08em; }
+.wow-tooltip-power strong { color:#f5dfaa; font-size:.88rem; }
+.wow-tooltip-stats { display:grid; gap:2px; margin-top:8px; }
+.wow-item-stat { color:#f4f1e8; font-size:.77rem; line-height:1.42; }
+.wow-special { margin-top:7px; font-size:.75rem; line-height:1.42; }
+.wow-special.legendary { color:#ff9a43; }
+.wow-special.runeword { color:#c78cff; }
+.wow-special.set { color:#64d779; }
+.wow-special.imprint { color:#65d5c6; }
+.wow-requirement { margin-top:7px; color:#ff6a61; font-size:.73rem; line-height:1.35; }
+.wow-tooltip-divider { height:1px; margin:10px 0 8px; background:linear-gradient(90deg, transparent, rgba(213,173,88,.28), transparent); }
+.wow-compare-heading { display:grid; gap:3px; }
+.wow-compare-heading > span { color:#aaa294; font-size:.67rem; }
+.wow-compare-heading > strong { font-size:.82rem; }
+.wow-compare-heading .gain { color:#68dc7c; }
+.wow-compare-heading .loss { color:#ff766c; }
+.wow-compare-heading .neutral { color:#b8b0a3; }
+.wow-compare-list { display:grid; gap:3px; margin-top:7px; }
+.wow-compare-row { display:flex; justify-content:space-between; gap:12px; font-size:.73rem; line-height:1.35; }
+.wow-compare-row.gain { color:#68dc7c; }
+.wow-compare-row.loss { color:#ff766c; }
+.wow-compare-row strong { font-size:inherit; color:inherit; }
+.wow-compare-empty { margin-top:6px; color:#8f887d; font-size:.7rem; }
+.wow-tooltip-footer { display:flex; justify-content:space-between; gap:12px; margin-top:10px; padding-top:7px; border-top:1px solid rgba(255,255,255,.07); color:#8f887d; font-size:.65rem; }
+
+.merchant-toolbar > div:first-child { display:grid; gap:3px; }
+.merchant-legend { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; padding:8px 10px; border:1px solid var(--line-soft); border-radius:10px; color:var(--muted); font-size:.72rem; background:rgba(255,255,255,.015); }
+.merchant-legend > span:last-child { margin-left:auto; }
+.merchant-compare { display:inline-flex; align-items:center; justify-content:center; min-height:24px; padding:3px 7px; border-radius:999px; border:1px solid rgba(255,255,255,.08); font-size:.67rem; font-weight:800; white-space:nowrap; }
+.merchant-compare.up { color:#9ee7aa; border-color:rgba(95,193,113,.34); background:rgba(63,145,78,.15); }
+.merchant-compare.down { color:#f2aaa4; border-color:rgba(209,106,98,.34); background:rgba(160,68,62,.14); }
+.merchant-compare.empty, .merchant-compare.neutral { color:#d8cba9; border-color:rgba(213,173,88,.24); background:rgba(213,173,88,.08); }
+.shop-card { display:flex; flex-direction:column; gap:8px; min-width:0; }
+.shop-card:focus-visible { outline:2px solid var(--gold-2); outline-offset:2px; }
+.shop-card.set-piece { border-color:rgba(91,190,108,.42); box-shadow:0 0 18px rgba(66,157,82,.08); }
+.shop-item-head { display:grid; grid-template-columns:58px minmax(0,1fr) auto; gap:9px; align-items:center; }
+.shop-item-head > div { min-width:0; display:grid; gap:3px; }
+.shop-item-head > div strong { overflow-wrap:anywhere; line-height:1.2; }
+.shop-item-head > div span { color:var(--muted); font-size:.67rem; line-height:1.3; }
+.shop-item-art { width:58px; height:62px; display:grid; place-items:center; border:1px solid var(--line-soft); border-radius:10px; background:radial-gradient(circle,rgba(180,129,255,.10),transparent 60%),rgba(0,0,0,.16); }
+.shop-item-art-svg { width:46px; height:54px; filter:drop-shadow(0 7px 10px rgba(0,0,0,.45)); }
+.shop-versus { display:flex; justify-content:space-between; gap:10px; padding:6px 8px; border:1px solid var(--line-soft); border-radius:8px; background:rgba(255,255,255,.016); font-size:.68rem; }
+.shop-versus span { color:var(--muted); }
+.shop-versus strong { min-width:0; text-align:right; overflow-wrap:anywhere; }
+.shop-stat-preview { display:grid; gap:3px; padding:2px 1px; }
+.shop-card .button { margin-top:auto; }
+
+@media (max-width: 720px) {
+  .merchant-legend > span:last-child { width:100%; margin-left:0; }
+  .shop-item-head { grid-template-columns:52px minmax(0,1fr); }
+  .shop-item-head > .merchant-compare { grid-column:1 / -1; justify-self:start; }
+  .wow-tooltip-footer { flex-direction:column; gap:3px; }
+}
 </style>
 </head>
 <body>
@@ -3110,7 +3183,7 @@ body::before {
 
 
   const RELEASE_PROFILE = Object.freeze({
-    channel: 'release-candidate', build: '1.1.7-ux-route' , dataPolicy: 'local-only', analytics: false,
+    channel: 'release-candidate', build: '1.1.8-merchant-tooltips' , dataPolicy: 'local-only', analytics: false,
     cloudSave: false, remoteRuntimeDependencies: false, minimumViewport: 320,
     supportedLanguages: ['en', 'pseudo'], soundtrack: 'adaptive-synth-original',
     artSet: 'wayfarer-procedural-items-route-skin-v1', contentRatingTarget: '12+'
@@ -3126,7 +3199,7 @@ body::before {
   });
 
   window.ED_DATA = Object.freeze({
-    VERSION: '1.1.7', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
+    VERSION: '1.1.8', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
     LEGENDARY_EFFECTS, SETS, RUNES, RUNEWORDS, ABILITIES, SKILL_BRANCHES,
     RELEASE_PROFILE, LOCALIZATION, CAMP_UPGRADES, REGIONAL_DROP_TABLES, REGIONAL_LOOT, NAMED_ELITES, CAMP_QUESTS, CAMPAIGN_CHAPTERS, MOUNTAIN_CAMPAIGN, MISSION_OBJECTIVES, ENDLESS_ENCOUNTERS, ENDGAME_BOSSES, ACHIEVEMENTS, CHALLENGES, PRESENTATION_PROFILES, COMBAT_PRESENTATION, ELITE_AFFIXES, DIFFICULTY_CONTRACTS, ENDLESS_MODIFIERS, REGIONS, REGION_RULES, BOSSES, ENEMIES, ROOM_TYPES, STAT_LABELS, BASE_STATS
   });
@@ -3250,7 +3323,7 @@ body::before {
         achievements: {}, challenges: {}, objectiveClears: {}, endgameBossClears: {}, archetypeWins: {},
         finalBossDefeated: false, finalRewardClaimed: false, missionRecords: {}, extractedDepth: 0, runewordsCrafted: 0
       },
-      shop: { seed: hashString(`shop_${Date.now()}`), items: [], refreshes: 0 },
+      shop: { seed: hashString(`shop_${Date.now()}`), items: [], refreshes: 0, stockLevel: 1 },
       settings: {
         volume: .55, musicVolume: .28, reducedMotion: false, damageNumbers: true, autoPauseHidden: true,
         combatSpeed: 1, screenShake: true, highContrast: false, visualQuality: 'auto', cameraPunctuation: true, bossIntroductions: true,
@@ -3265,6 +3338,7 @@ body::before {
       generateItem(1, rng(1103), { forceSlot: 'ring1', forceRarity: 'magic' })
     ];
     initial.shop.items = generateShop(initial, initial.shop.seed);
+    initial.shop.stockLevel = initial.hero.level;
     return initial;
   }
 
@@ -3482,7 +3556,17 @@ body::before {
     merged.resources.gold = Math.max(0, Math.round(Number(merged.resources.gold) || 0));
     merged.resources.renown = Math.max(0, Math.round(Number(merged.resources.renown) || 0));
     merged.resources.essence = Math.max(0, Math.round(Number(merged.resources.essence) || 0));
-    if (!Array.isArray(merged.shop.items) || !merged.shop.items.length) merged.shop.items = generateShop(merged, merged.shop.seed);
+    merged.shop.refreshes = Math.max(0, Math.round(Number(merged.shop.refreshes || 0)));
+    merged.shop.stockLevel = Math.max(0, Math.round(Number(merged.shop.stockLevel || 0)));
+    const staleMerchantStock = merged.shop.stockLevel !== merged.hero.level;
+    if (!Array.isArray(merged.shop.items) || !merged.shop.items.length || staleMerchantStock) {
+      if (staleMerchantStock) {
+        merged.shop.seed = hashString(`${merged.shop.seed || 'shop'}_level_${merged.hero.level}`);
+        merged.shop.refreshes = 0;
+      }
+      merged.shop.items = generateShop(merged, merged.shop.seed);
+      merged.shop.stockLevel = merged.hero.level;
+    }
     merged.schemaVersion = SAVE_SCHEMA_VERSION;
     merged.version = D.VERSION;
     return merged;
@@ -3796,7 +3880,7 @@ body::before {
     state.progress.campUpgrades[upgradeId] = rank + 1;
     const gainedTraining = Math.max(0, Math.round(Number(upgrade.effects?.[rank]?.trainingPoint || 0)));
     if (gainedTraining) state.hero.skillPoints += gainedTraining;
-    if (upgradeId === 'merchant') state.shop.items = generateShop(state, state.shop.seed);
+    if (upgradeId === 'merchant') { state.shop.items = generateShop(state, state.shop.seed); state.shop.stockLevel = state.hero.level; }
     save('camp-upgrade');
     return { ok: true, message: `${upgrade.name} reached rank ${rank + 1}.` };
   }
@@ -4022,6 +4106,7 @@ body::before {
     state.shop.refreshes += 1;
     state.shop.seed = hashString(`${state.shop.seed}_${Date.now()}_${state.shop.refreshes}`);
     state.shop.items = generateShop(state, state.shop.seed);
+    state.shop.stockLevel = state.hero.level;
     save('shop-restock');
     return { ok: true, message: 'Merchant inventory refreshed.' };
   }
@@ -4051,6 +4136,12 @@ body::before {
       state.hero.level += 1;
       state.hero.skillPoints += 2;
       levels += 1;
+    }
+    if (levels > 0) {
+      state.shop.seed = hashString(`${state.shop.seed || 'shop'}_level_${state.hero.level}_${Date.now()}`);
+      state.shop.refreshes = 0;
+      state.shop.items = generateShop(state, state.shop.seed);
+      state.shop.stockLevel = state.hero.level;
     }
     return levels;
   }
@@ -7491,6 +7582,11 @@ body::before {
     return `tabindex="0" data-tooltip-title="${esc(title)}" data-tooltip-body="${esc(body)}"${meta ? ` data-tooltip-meta="${esc(meta)}"` : ''}`;
   }
 
+  function itemTooltipAttrs(item, context = '') {
+    if (!item?.id) return '';
+    return `tabindex="0" data-tooltip-kind="item" data-tooltip-item-id="${esc(item.id)}"${context ? ` data-tooltip-context="${esc(context)}"` : ''}`;
+  }
+
   function computeTooltipPosition(anchor, tooltip, viewport, margin = 10) {
     const vw = Math.max(0, Number(viewport?.width || 0));
     const vh = Math.max(0, Number(viewport?.height || 0));
@@ -7656,15 +7752,15 @@ body::before {
     topbar() {
       const state = C.getState();
       const build = C.calculateStats();
-      const resource = (iconName, label, value, extra = '') => `<div class="resource-pill ${extra}" ${tooltipAttrs(label, `${label}: ${value}`)}>${icon(iconName, 'resource-icon')}<span>${esc(label)}</span><strong>${esc(value)}</strong></div>`;
+      const resource = (iconName, label, value, extra = '', body = '', meta = '') => `<div class="resource-pill ${extra}" ${tooltipAttrs(label, body || `${label}: ${value}`, meta)}>${icon(iconName, 'resource-icon')}<span>${esc(label)}</span><strong>${esc(value)}</strong></div>`;
       return `
         <header class="topbar">
           <a class="skip-link" href="#campContent">Skip to camp content</a>
           <div class="brand"><div class="brand-mark"><span>${icon('runes', 'brand-icon')}</span></div><span>The Endless Dark</span></div>
           <div class="resource-row" aria-label="Hero resources">
-            ${resource('gold', 'Gold', number(state.resources.gold))}
-            ${resource('renown', 'Renown', number(state.resources.renown))}
-            ${resource('essence', 'Essence', number(state.resources.essence))}
+            ${resource('gold', 'Gold', number(state.resources.gold), '', 'General currency used by the merchant, item refinement and service costs.', 'Earned from expeditions, loot overflow and selling equipment.')}
+            ${resource('renown', 'Renown', number(state.resources.renown), '', 'Permanent camp-progression currency. Spend it in the Camp tab to upgrade the Forge, Merchant, Training Ground and other facilities.', 'Earned from successful expeditions, bosses and Endless Dark extraction.')}
+            ${resource('essence', 'Essence', number(state.resources.essence), '', 'Item-crafting material used together with gold to refine equipment in the item-detail panel.', 'Gain it by salvaging equipment and from selected expedition or quest rewards.')}
             ${resource('level', 'Level', String(state.hero.level))}
             ${resource('power', 'Power', number(build.stats.power))}
             ${state.progress.endlessRun?.active ? resource('risk', 'At risk', `${number(state.progress.endlessRun.gold)}g · D${state.progress.endlessRun.depth}`, 'at-risk') : ''}
@@ -7725,8 +7821,8 @@ body::before {
               const unlocked = C.isSlotUnlocked(slot);
               const item = state.hero.equipment[slot];
               const tipTitle = unlocked ? `${label}${item ? ` · ${item.name}` : ''}` : `${label} · Locked`;
-              const tipBody = item ? this.itemTooltipBody(item) : unlocked ? 'No item equipped in this slot.' : `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[slot]}.`;
-              return `<button class="equip-slot ${item ? rarityClass(item) : ''} ${item?.setId ? 'set-piece' : ''}" data-action="select-equipment" data-slot="${slot}" data-drop-slot="${slot}" ${item ? `draggable="true" data-drag-equipped="${slot}"` : ''} ${unlocked ? '' : 'aria-disabled="true"'} aria-label="${esc(tipTitle)}" ${tooltipAttrs(tipTitle, tipBody, item ? `Power ${number(C.itemScore(item))} · Drag to stash to unequip` : unlocked ? 'Drop a compatible item here' : '')}>
+              const tipBody = item ? '' : unlocked ? 'No item equipped in this slot.' : `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[slot]}.`;
+              return `<button class="equip-slot ${item ? rarityClass(item) : ''} ${item?.setId ? 'set-piece' : ''}" data-action="select-equipment" data-slot="${slot}" data-drop-slot="${slot}" ${item ? `draggable="true" data-drag-equipped="${slot}"` : ''} ${unlocked ? '' : 'aria-disabled="true"'} aria-label="${esc(tipTitle)}" ${item ? itemTooltipAttrs(item, 'equipped') : tooltipAttrs(tipTitle, tipBody, unlocked ? 'Drop a compatible item here' : '')}>
                 <span class="slot-icon">${item ? itemArtSvg(item, 'slot-item-art') : icon(slotIconKey(slot))}</span>
                 <span class="slot-copy"><span class="slot-name">${esc(label)}${unlocked ? '' : ` · L${D.SLOT_UNLOCK_LEVEL[slot]}`}</span>
                 <span class="slot-item ${item ? (item.setId ? 'set-name' : rarityClass(item)) : 'subtle'}">${item ? esc(item.name) : unlocked ? 'Drop item' : 'Locked'}</span></span>
@@ -7861,11 +7957,84 @@ body::before {
 
     itemTooltipBody(item) {
       const effective = C.effectiveItemStats(item);
-      const stats = Object.entries(effective).slice(0, 4).map(([stat, value]) => `${D.STAT_LABELS[stat] || stat}: ${statValue(stat, value)}`);
+      const stats = Object.entries(effective).slice(0, 4).map(([stat, value]) => `${D.STAT_LABELS[stat] || stat}: ${this.formatItemStat(stat, value, true)}`);
       if (item.legendary) stats.push(item.legendary.text);
       if (item.runeword) stats.push(item.runeword.text);
       if (item.setId) stats.push(`${D.SETS[item.setId].name} set piece`);
       return stats.join(' · ') || `${D.RARITIES[item.rarity]?.label || item.rarity} ${slotLabel(item.slot)}`;
+    }
+
+    formatItemStat(stat, value, signed = false) {
+      const numeric = Number(value || 0);
+      const percentStats = new Set(['attackSpeed', 'moveSpeed', 'critChance', 'critDamage', 'lifesteal', 'blockChance', 'dodgeChance', 'abilityPower', 'goldFind', 'hazardResist', 'potionPower', 'runeFind', 'recipeFind', 'restockDiscount']);
+      const sign = signed && numeric > 0 ? '+' : '';
+      if (percentStats.has(stat)) return `${sign}${(numeric * 100).toFixed(Math.abs(numeric * 100) < 10 ? 1 : 0)}%`;
+      if (Math.abs(numeric) < 1 && numeric !== 0) return `${sign}${numeric.toFixed(2)}`;
+      return `${sign}${number(numeric)}`;
+    }
+
+    findTooltipItem(itemId) {
+      const state = C.getState();
+      const pools = [
+        state.hero.inventory,
+        Object.values(state.hero.equipment || {}),
+        state.shop.items,
+        state.progress.endlessRun?.loot,
+        this.result?.loot,
+        this.result?.applied?.acceptedLoot
+      ];
+      for (const pool of pools) {
+        const item = Array.isArray(pool) ? pool.find(entry => entry?.id === itemId) : null;
+        if (item) return item;
+      }
+      return null;
+    }
+
+    itemComparison(item) {
+      const state = C.getState();
+      const equipped = state.hero.equipment[item.slot] || null;
+      const candidatePower = C.itemScore(item);
+      const equippedPower = equipped ? C.itemScore(equipped) : 0;
+      const delta = equipped?.id === item.id ? 0 : candidatePower - equippedPower;
+      return { equipped, candidatePower, equippedPower, delta, isEquipped: equipped?.id === item.id };
+    }
+
+    itemTooltipHtml(item, context = '') {
+      const comparison = this.itemComparison(item);
+      const candidate = C.effectiveItemStats(item);
+      const equippedStats = comparison.equipped && !comparison.isEquipped ? C.effectiveItemStats(comparison.equipped) : {};
+      const keys = [...new Set([...Object.keys(candidate), ...Object.keys(equippedStats)])];
+      const rarity = D.RARITIES[item.rarity]?.label || item.rarity;
+      const titleClass = item.setId ? 'set-name' : rarityClass(item);
+      const statRows = Object.entries(candidate).map(([stat, value]) => `<div class="wow-item-stat"><span>${esc(this.formatItemStat(stat, value, true))} ${esc(D.STAT_LABELS[stat] || stat)}</span></div>`).join('');
+      const changes = keys.map(stat => {
+        const delta = Number(candidate[stat] || 0) - Number(equippedStats[stat] || 0);
+        if (Math.abs(delta) < .0005) return '';
+        const cls = delta > 0 ? 'gain' : 'loss';
+        const arrow = delta > 0 ? '▲' : '▼';
+        return `<div class="wow-compare-row ${cls}"><span>${arrow} ${esc(D.STAT_LABELS[stat] || stat)}</span><strong>${esc(this.formatItemStat(stat, delta, true))}</strong></div>`;
+      }).filter(Boolean).join('');
+      const powerClass = comparison.delta > 0 ? 'gain' : comparison.delta < 0 ? 'loss' : 'neutral';
+      const compareLabel = comparison.isEquipped ? 'Currently equipped' : comparison.equipped ? `Compared with ${comparison.equipped.name}` : 'Compared with empty slot';
+      const powerText = comparison.isEquipped ? 'Equipped' : `${comparison.delta > 0 ? '+' : ''}${number(comparison.delta)} item power`;
+      const special = [
+        item.legendary ? `<div class="wow-special legendary">${esc(item.legendary.name || 'Legendary effect')}: ${esc(item.legendary.text)}</div>` : '',
+        item.runeword ? `<div class="wow-special runeword">${esc(item.runeword.name)}: ${esc(item.runeword.text)}</div>` : '',
+        item.setId ? `<div class="wow-special set">Set: ${esc(D.SETS[item.setId]?.name || item.setId)}${D.SETS[item.setId]?.bonuses ? ` · ${esc(Object.values(D.SETS[item.setId].bonuses).map(entry => entry.text).join(' · '))}` : ''}</div>` : '',
+        item.regionalImprint ? `<div class="wow-special imprint">${esc(item.regionalImprint.name)}: ${esc(item.regionalImprint.text || 'Regional imprint')}</div>` : ''
+      ].filter(Boolean).join('');
+      const locked = !C.isSlotUnlocked(item.slot) ? `<div class="wow-requirement">Requires hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]} to unlock ${esc(slotLabel(item.slot))}.</div>` : '';
+      const value = item.price ? `Merchant price: ${number(item.price)} gold` : `Sell value: ${number(item.sellValue || 0)} gold`;
+      return `<div class="wow-tooltip-header"><strong class="${titleClass}">${esc(item.name)}</strong><span>Item Level ${number(item.level)}</span></div>
+        <div class="wow-tooltip-type"><span>${esc(slotLabel(item.slot))}</span><span>${esc(rarity)}</span></div>
+        <div class="wow-tooltip-power"><span>Item Power</span><strong>${number(comparison.candidatePower)}</strong></div>
+        ${statRows ? `<div class="wow-tooltip-stats">${statRows}</div>` : ''}
+        ${special}
+        ${locked}
+        <div class="wow-tooltip-divider"></div>
+        <div class="wow-compare-heading"><span>${esc(compareLabel)}</span><strong class="${powerClass}">${esc(powerText)}</strong></div>
+        ${!comparison.isEquipped && changes ? `<div class="wow-compare-list">${changes}</div>` : `<div class="wow-compare-empty">${comparison.isEquipped ? 'This is the item currently supplying this slot.' : 'No individual stat changes.'}</div>`}
+        <div class="wow-tooltip-footer"><span>${esc(value)}</span><span>${esc(context === 'merchant' ? 'Merchant stock' : item.source || 'Equipment')}</span></div>`;
     }
 
     itemCard(item, selected = false, options = {}) {
@@ -7880,7 +8049,7 @@ body::before {
       const lockText = slotUnlocked ? '' : `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]}.`;
       const aria = `${item.name}, ${D.RARITIES[item.rarity]?.label || item.rarity} ${slotLabel(item.slot)}, power ${number(score)}, ${compareText}${lockText ? `, ${lockText}` : ''}`;
       const band = D.PROGRESSION_BANDS.find(entry => entry.id === item.bandId)?.name || 'Initiate';
-      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''} ${slotUnlocked ? '' : 'locked-slot-item'}" ${action} aria-label="${esc(aria)}" ${tooltipAttrs(item.name, `${this.itemTooltipBody(item)}${lockText ? ` · ${lockText}` : ''}`, `Power ${number(score)} · ${compareText}${slotUnlocked ? ` · Drag to ${slotLabel(item.slot)}` : ''}`)}>
+      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''} ${slotUnlocked ? '' : 'locked-slot-item'}" ${action} aria-label="${esc(aria)}" ${itemTooltipAttrs(item, options.tooltipContext || 'inventory')}>
         <span class="rarity-rail" aria-hidden="true"></span>
         <span class="item-level">L${item.level}${item.refinement ? ` · +${item.refinement}` : ''}</span>
         ${slotUnlocked ? '<span class="drag-grip" aria-hidden="true">⋮⋮</span>' : `<span class="locked-item-badge">${icon('lock')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`}
@@ -8023,15 +8192,23 @@ body::before {
 
     shopTab(state) {
       const cost = C.shopRestockCost();
+      const stockLevel = Number(state.shop.stockLevel || state.hero.level);
       return `
-        <div class="inventory-toolbar"><div><div class="eyebrow">Travelling merchant</div><strong>Curated equipment</strong></div><button class="button small" data-action="restock-shop">Restock · ${cost} gold</button></div>
-        <div class="shop-grid">${state.shop.items.length ? state.shop.items.map(item => `<article class="shop-card">
-          <div class="item-icon" ${tooltipAttrs(item.name, this.itemTooltipBody(item), `Power ${number(C.itemScore(item))}`)}>${icon(slotIconKey(item.slot), 'item-svg')}</div><strong class="${item.setId ? 'set-name' : rarityClass(item)}">${esc(item.name)}</strong>
-          <div class="subtle">Level ${item.level} ${esc(D.RARITIES[item.rarity].label)}</div>
-          <div class="divider"></div>
-          ${Object.entries(item.stats).slice(0, 4).map(([stat, value]) => `<div class="stat-line"><span>${esc(D.STAT_LABELS[stat] || stat)}</span><strong>${statValue(stat, value)}</strong></div>`).join('')}
-          <button class="button ${state.resources.gold >= item.price ? 'primary' : ''}" data-action="buy-shop" data-item="${item.id}" ${state.resources.gold < item.price ? 'disabled' : ''}>Buy · ${number(item.price)}</button>
-        </article>`).join('') : '<div class="empty-state">The merchant has sold out. Restock to generate a new selection.</div>'}</div>`;
+        <div class="inventory-toolbar merchant-toolbar"><div><div class="eyebrow">Travelling merchant</div><strong>Equipment curated for hero level ${state.hero.level}</strong><span class="subtle">Stock level ${stockLevel}. New stock is prepared automatically whenever the hero levels up.</span></div><button class="button small" data-action="restock-shop">Restock · ${cost} gold</button></div>
+        <div class="merchant-legend"><span class="merchant-compare up">▲ Upgrade</span><span class="merchant-compare down">▼ Downgrade</span><span class="merchant-compare empty">◇ Empty slot</span><span>Hover or focus any item for full vertical comparison.</span></div>
+        <div class="shop-grid">${state.shop.items.length ? state.shop.items.map(item => {
+          const comparison = this.itemComparison(item);
+          const compareClass = comparison.isEquipped || comparison.delta === 0 ? 'neutral' : comparison.delta > 0 ? 'up' : 'down';
+          const compareText = comparison.isEquipped ? 'Equipped' : !comparison.equipped ? 'Empty slot' : comparison.delta > 0 ? `+${number(comparison.delta)} power` : `${number(comparison.delta)} power`;
+          const equippedName = comparison.equipped ? comparison.equipped.name : 'Nothing equipped';
+          const effective = C.effectiveItemStats(item);
+          return `<article class="shop-card ${item.setId ? 'set-piece' : ''}" ${itemTooltipAttrs(item, 'merchant')}>
+            <div class="shop-item-head"><span class="shop-item-art">${itemArtSvg(item, 'shop-item-art-svg')}</span><div><strong class="${item.setId ? 'set-name' : rarityClass(item)}">${esc(item.name)}</strong><span>Level ${item.level} · ${esc(D.RARITIES[item.rarity].label)} ${esc(slotLabel(item.slot))}</span></div><span class="merchant-compare ${compareClass}">${compareClass === 'up' ? '▲' : compareClass === 'down' ? '▼' : '◇'} ${esc(compareText)}</span></div>
+            <div class="shop-versus"><span>Currently equipped</span><strong>${esc(equippedName)}</strong></div>
+            <div class="shop-stat-preview">${Object.entries(effective).slice(0, 4).map(([stat, value]) => `<div class="stat-line"><span>${esc(D.STAT_LABELS[stat] || stat)}</span><strong>${esc(this.formatItemStat(stat, value, true))}</strong></div>`).join('')}</div>
+            <button class="button ${state.resources.gold >= item.price ? 'primary' : ''}" data-action="buy-shop" data-item="${item.id}" ${state.resources.gold < item.price ? 'disabled' : ''}>Buy · ${number(item.price)} gold</button>
+          </article>`;
+        }).join('') : '<div class="empty-state">The merchant has sold out. Restock to generate a new selection.</div>'}</div>`;
     }
 
     runesTab(state) {
@@ -8476,7 +8653,7 @@ body::before {
       else if ((accepted.has(item.id) || inStash) && slotUnlocked) action = `<button class="button small primary" data-action="equip-reward-item" data-item="${item.id}">${icon('check', 'button-icon')} Equip now</button>`;
       else if ((accepted.has(item.id) || inStash) && !slotUnlocked) action = `<span class="reward-item-state locked">${icon('lock')} Slot unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`;
       else action = `<span class="reward-item-state sold">Inventory overflow · converted to gold</span>`;
-      return `<div class="reward-item-card">${this.itemCard(item, false, { clickable: false })}<div class="reward-item-actions">${action}</div></div>`;
+      return `<div class="reward-item-card">${this.itemCard(item, false, { clickable: false, tooltipContext: 'reward' })}<div class="reward-item-actions">${action}</div></div>`;
     }
 
     resultModal() {
@@ -8525,14 +8702,14 @@ body::before {
     }
 
     onTooltipEnter(event, immediate = false) {
-      const target = event.target?.closest?.('[data-tooltip-title]');
+      const target = event.target?.closest?.('[data-tooltip-title], [data-tooltip-kind="item"]');
       if (!target || C.getState().settings.richTooltips === false) return;
       clearTimeout(this.tooltipTimer);
       this.tooltipTimer = setTimeout(() => this.showTooltip(target), immediate ? 0 : 180);
     }
 
     onTooltipLeave(event) {
-      const target = event.target?.closest?.('[data-tooltip-title]');
+      const target = event.target?.closest?.('[data-tooltip-title], [data-tooltip-kind="item"]');
       if (!target) return;
       if (event.relatedTarget && target.contains?.(event.relatedTarget)) return;
       clearTimeout(this.tooltipTimer);
@@ -8546,10 +8723,17 @@ body::before {
       tooltip.id = 'uiTooltip';
       tooltip.className = 'ui-tooltip';
       tooltip.setAttribute('role', 'tooltip');
+      const kind = target.dataset.tooltipKind || '';
       const title = target.dataset.tooltipTitle || '';
       const body = target.dataset.tooltipBody || '';
       const meta = target.dataset.tooltipMeta || '';
-      tooltip.innerHTML = `<strong>${esc(title)}</strong>${body ? `<span>${esc(body)}</span>` : ''}${meta ? `<small>${esc(meta)}</small>` : ''}`;
+      if (kind === 'item') {
+        const item = this.findTooltipItem(target.dataset.tooltipItemId || '');
+        tooltip.classList.add('wow-item-tooltip');
+        tooltip.innerHTML = item ? this.itemTooltipHtml(item, target.dataset.tooltipContext || '') : '<strong>Item unavailable</strong><span>This item is no longer present.</span>';
+      } else {
+        tooltip.innerHTML = `<strong>${esc(title)}</strong>${body ? `<span>${esc(body)}</span>` : ''}${meta ? `<small>${esc(meta)}</small>` : ''}`;
+      }
       document.body.appendChild(tooltip);
       this.tooltipElement = tooltip;
       target.setAttribute('aria-describedby', tooltip.id);
