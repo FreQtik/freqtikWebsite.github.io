@@ -2163,6 +2163,79 @@ body::before {
   .shop-item-head > .merchant-compare { grid-column:1 / -1; justify-self:start; }
   .wow-tooltip-footer { flex-direction:column; gap:3px; }
 }
+
+/* v1.2.0 Combat Disciplines and progression clarity */
+.discipline-switcher {
+  width:100%; display:grid; grid-template-columns:42px minmax(0,1fr) auto; gap:10px; align-items:center;
+  padding:10px 11px; border:1px solid color-mix(in srgb,var(--discipline) 55%,rgba(230,193,116,.18)); border-radius:12px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--discipline) 10%,rgba(35,31,26,.98)),rgba(17,16,14,.98));
+  color:var(--text); text-align:left; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),0 10px 22px rgba(0,0,0,.28);
+}
+.discipline-switcher:hover { border-color:color-mix(in srgb,var(--discipline) 80%,#f1d08d); }
+.discipline-emblem { width:40px; height:40px; display:grid; place-items:center; border-radius:50%; border:1px solid color-mix(in srgb,var(--discipline) 70%,#d5ad58); color:var(--discipline); background:rgba(0,0,0,.28); font-size:1.2rem; }
+.discipline-switcher > span:nth-child(2) { min-width:0; display:grid; gap:1px; }
+.discipline-switcher small { color:var(--muted); text-transform:uppercase; letter-spacing:.08em; font-size:.62rem; }
+.discipline-switcher strong { color:#f3ead6; font-size:.92rem; }
+.discipline-switcher em { color:var(--muted); font-size:.7rem; font-style:normal; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.discipline-switch-label { color:var(--discipline); text-transform:uppercase; letter-spacing:.08em; font-size:.62rem; }
+
+.discipline-modal { width:min(1180px,100%); }
+.discipline-shared-rule { display:grid; grid-template-columns:46px 1fr; gap:12px; align-items:center; padding:13px; margin-bottom:12px; border:1px solid rgba(231,193,115,.17); border-radius:13px; background:rgba(255,255,255,.018); }
+.discipline-shared-rule > span { width:44px; height:44px; display:grid; place-items:center; color:var(--gold-2); border:1px solid rgba(231,193,115,.2); border-radius:11px; }
+.discipline-shared-rule p { margin:4px 0 0; color:var(--muted); line-height:1.45; }
+.discipline-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; }
+.discipline-card { position:relative; display:flex; flex-direction:column; gap:10px; min-height:430px; padding:14px; border:1px solid rgba(231,193,115,.14); border-radius:14px; background:linear-gradient(180deg,color-mix(in srgb,var(--discipline) 8%,rgba(36,32,26,.98)),rgba(16,15,13,.99)); box-shadow:0 16px 32px rgba(0,0,0,.34); }
+.discipline-card.active { border-color:color-mix(in srgb,var(--discipline) 70%,#f1d08d); box-shadow:0 0 0 1px color-mix(in srgb,var(--discipline) 14%,transparent),0 16px 32px rgba(0,0,0,.38); }
+.discipline-card.locked { opacity:.72; }
+.discipline-card-head { display:grid; grid-template-columns:48px 1fr; gap:10px; align-items:start; }
+.discipline-card-head > span { width:46px; height:46px; display:grid; place-items:center; border:1px solid color-mix(in srgb,var(--discipline) 70%,#d5ad58); border-radius:50%; color:var(--discipline); font-size:1.35rem; }
+.discipline-card h3 { margin:2px 0 0; color:#f3ead6; }
+.discipline-card p { margin:0; color:var(--muted); line-height:1.45; }
+.discipline-card-head p { font-size:.76rem; }
+.discipline-facts { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+.discipline-facts span { padding:7px; border:1px solid rgba(231,193,115,.1); border-radius:9px; color:var(--muted); font-size:.66rem; text-align:center; }
+.discipline-facts strong { display:block; color:#f3ead6; font-size:.95rem; }
+.discipline-loot { display:grid; gap:3px; padding:9px; border-left:2px solid var(--discipline); background:rgba(255,255,255,.018); border-radius:8px; }
+.discipline-loot span { color:var(--muted); font-size:.76rem; line-height:1.4; }
+.discipline-unlock { display:grid; gap:6px; margin-top:auto; padding:9px; border:1px solid color-mix(in srgb,var(--discipline) 34%,rgba(231,193,115,.12)); border-radius:10px; background:rgba(0,0,0,.18); }
+.discipline-unlock > div:first-child { display:flex; justify-content:space-between; gap:10px; font-size:.76rem; }
+.discipline-progress { height:8px; overflow:hidden; border:1px solid rgba(231,193,115,.13); border-radius:999px; background:#0d0d0c; }
+.discipline-progress i { display:block; height:100%; background:linear-gradient(90deg,color-mix(in srgb,var(--discipline) 72%,#745b2c),var(--discipline)); }
+.discipline-card > .button { margin-top:auto; width:100%; }
+.discipline-map-callout { display:grid; grid-template-columns:44px minmax(0,1fr) minmax(120px,220px); gap:11px; align-items:center; margin-bottom:12px; padding:11px 12px; border:1px solid color-mix(in srgb,var(--discipline) 50%,rgba(231,193,115,.14)); border-radius:13px; background:linear-gradient(90deg,color-mix(in srgb,var(--discipline) 10%,rgba(24,22,18,.98)),rgba(15,14,13,.98)); }
+.discipline-map-callout strong { color:#f3ead6; }
+.discipline-map-callout p { margin:3px 0 0; color:var(--muted); font-size:.76rem; }
+
+.salvage-cleanup { width:100%; margin-top:8px; border-top:1px solid rgba(231,193,115,.1); padding-top:8px; }
+.salvage-cleanup summary { display:inline-flex; align-items:center; gap:6px; color:#b9ae99; cursor:pointer; font-size:.76rem; user-select:none; }
+.salvage-cleanup[open] summary { margin-bottom:8px; color:var(--gold-2); }
+.salvage-cleanup .inventory-cleanup-actions { justify-content:flex-start; }
+.upgrade-focus { animation:forge-focus 1.1s ease-in-out 2; border-color:#f1d08d!important; }
+@keyframes forge-focus { 50% { box-shadow:0 0 0 2px rgba(241,208,141,.18),0 0 30px rgba(213,173,88,.22); } }
+.discipline-lock { border-color:rgba(153,115,221,.45); background:rgba(61,43,88,.16); }
+.discipline-requirement { color:#c9aef4!important; }
+.socket-line { color:#d7d1c6; }
+
+@media (max-width:900px) {
+  .discipline-grid { grid-template-columns:1fr; }
+  .discipline-card { min-height:0; }
+  .discipline-map-callout { grid-template-columns:44px 1fr; }
+  .discipline-map-callout > .discipline-progress { grid-column:1/-1; }
+}
+@media (max-width:500px) {
+  .discipline-switcher { grid-template-columns:38px minmax(0,1fr); }
+  .discipline-switch-label { display:none; }
+  .discipline-facts { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+
+/* v1.2.0 discipline onboarding and milestone results */
+.discipline-onboarding-note { display:grid; grid-template-columns:42px 1fr; gap:11px; align-items:start; margin-top:10px; padding:11px 12px; border:1px solid rgba(123,174,132,.25); border-radius:11px; background:rgba(55,99,63,.08); }
+.discipline-onboarding-note > span { width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(210,170,88,.3); border-radius:50%; color:var(--gold-2); }
+.discipline-onboarding-note p { margin:4px 0 0; color:var(--muted); font-size:.8rem; line-height:1.45; }
+.discipline-unlock-result { display:grid; grid-template-columns:54px minmax(0,1fr) auto; gap:13px; align-items:center; margin:12px 0; padding:13px; border:1px solid color-mix(in srgb,var(--discipline) 60%,rgba(231,193,115,.2)); border-radius:14px; background:linear-gradient(90deg,color-mix(in srgb,var(--discipline) 12%,rgba(28,25,21,.98)),rgba(16,15,13,.98)); }
+.discipline-unlock-result h3 { margin:2px 0 3px; color:#f3ead6; }
+.discipline-unlock-result p { margin:0; color:var(--muted); font-size:.79rem; line-height:1.4; }
+@media (max-width:620px) { .discipline-unlock-result { grid-template-columns:44px 1fr; } .discipline-unlock-result .button { grid-column:1/-1; width:100%; } }
 </style>
 </head>
 <body>
@@ -2760,6 +2833,136 @@ body::before {
     { id: 'command11', name: 'Calculated Risk', cost: 4, requires: 'command10', text: 'Unlock Calculated Gambit to convert unused route capacity into combat tempo.', unlockAbility: 'calculatedGambit' }
   );
 
+
+  // v1.2.0 Combat Disciplines: one shared account, three distinct combat identities.
+  const COMBAT_DISCIPLINES = {
+    wayfarer: {
+      id: 'wayfarer', name: 'Wayfarer', icon: '⚔', color: '#d2aa58', attackMode: 'melee', preferredRange: 34,
+      tagline: 'Adaptive melee expedition fighter',
+      text: 'Swords, axes, spears and shields. Close-range attacks combine Blood, Steel, Storm, Shadow and Command techniques.',
+      unlockText: 'Available from the beginning.', branchIds: ['blood', 'steel', 'storm', 'shadow', 'command'],
+      baseAbilities: ['cleave', 'ironWard', 'stormArc', 'shadowstep'],
+      lootText: 'Favours blades, heavy weapons, shields and martial off-hands.'
+    },
+    hunter: {
+      id: 'hunter', name: 'Hunter', icon: '➳', color: '#72b986', attackMode: 'bow', preferredRange: 238,
+      tagline: 'Mobile ranged pressure and target control',
+      text: 'Basic attacks become arrows. The Hunter maintains range, uses Multishot, Piercing Shot, poison, traps and evasive repositioning.',
+      unlockText: 'Defeat the First Witness with the Wayfarer.', branchIds: ['hunterMarksman', 'hunterTrapper', 'hunterSurvival'],
+      baseAbilities: ['multishot', 'piercingShot', 'huntersMark', 'evasiveRoll'],
+      lootText: 'Favours bows, quivers, precision, poison and mobility equipment.', ascensionTarget: 5
+    },
+    arcanist: {
+      id: 'arcanist', name: 'Arcanist', icon: '✦', color: '#9e7ee8', attackMode: 'arcane', preferredRange: 218,
+      tagline: 'Fragile spellcaster with explosive ability scaling',
+      text: 'Basic attacks become elemental bolts. Fireball, Frost Nova, Arcane Barrage and magical barriers trade durability for high area damage.',
+      unlockText: 'Complete five Hard or Endless Hunter Ascension victories.', branchIds: ['arcFire', 'arcFrost', 'arcAether'],
+      baseAbilities: ['fireball', 'frostNova', 'arcaneBarrage', 'manaBarrier'],
+      lootText: 'Favours wands, staves, spellbooks, ability power and magical barriers.'
+    }
+  };
+
+  Object.assign(ABILITIES, {
+    multishot: { name: 'Multishot', branch: 'hunterMarksman', icon: '≻', cooldown: 5.2, text: 'When at least two enemies are present, fire arrows at up to three targets for 90% weapon damage.' },
+    piercingShot: { name: 'Piercing Shot', branch: 'hunterMarksman', icon: '⇢', cooldown: 7.5, text: 'Against a dense line or elite, fire a heavy arrow through up to four enemies.' },
+    huntersMark: { name: 'Hunter’s Mark', branch: 'hunterMarksman', icon: '⌖', cooldown: 9, text: 'Mark an elite, boss or high-health enemy, increasing all damage dealt to it.' },
+    evasiveRoll: { name: 'Evasive Roll', branch: 'hunterSurvival', icon: '↝', cooldown: 8, text: 'When enemies close the distance, roll away and gain brief dodge and attack speed.' },
+    poisonVolley: { name: 'Poison Volley', branch: 'hunterTrapper', icon: '☠', cooldown: 8.5, text: 'Poison up to five enemies and deal immediate area pressure.' },
+    ricochet: { name: 'Ricochet', branch: 'hunterMarksman', icon: '⌁', cooldown: 9.5, text: 'A precision arrow rebounds through nearby targets with increasing speed.' },
+    trapField: { name: 'Trap Field', branch: 'hunterTrapper', icon: '✣', cooldown: 12, text: 'When surrounded, deploy traps that damage and slow nearby enemies.' },
+    rainOfArrows: { name: 'Rain of Arrows', branch: 'hunterMarksman', icon: '⇊', cooldown: 13, text: 'Against a large group, rain repeated arrows across the battlefield.' },
+    predatorFocus: { name: 'Predator Focus', branch: 'hunterSurvival', icon: '◉', cooldown: 14, text: 'Against an elite or boss, gain sustained attack speed and critical pressure.' },
+
+    fireball: { name: 'Fireball', branch: 'arcFire', icon: '●', cooldown: 4.8, text: 'Launch a volatile fireball that explodes around the target for powerful area damage.' },
+    frostNova: { name: 'Frost Nova', branch: 'arcFrost', icon: '❄', cooldown: 9, text: 'When enemies approach, release a freezing nova that damages and heavily slows them.' },
+    arcaneBarrage: { name: 'Arcane Barrage', branch: 'arcAether', icon: '✦', cooldown: 7.2, text: 'Fire several arcane bolts, concentrating them on elites and bosses.' },
+    manaBarrier: { name: 'Mana Barrier', branch: 'arcAether', icon: '◈', cooldown: 10, text: 'After a heavy hit or while wounded, convert magical power into a protective barrier.' },
+    chainLightningMage: { name: 'Chain Lightning', branch: 'arcAether', icon: 'ϟ', cooldown: 8.5, text: 'Arc lightning repeatedly through a group of enemies.' },
+    meteor: { name: 'Meteor', branch: 'arcFire', icon: '☄', cooldown: 14, text: 'Call down a meteor on a crowded formation for devastating area damage.' },
+    blink: { name: 'Blink', branch: 'arcAether', icon: '◇', cooldown: 8, text: 'Teleport away from nearby threats and gain brief avoidance.' },
+    iceLance: { name: 'Ice Lance', branch: 'arcFrost', icon: '↟', cooldown: 6.5, text: 'Shatter a slowed, frozen or priority target with concentrated frost damage.' },
+    elementalOverload: { name: 'Elemental Overload', branch: 'arcAether', icon: '✹', cooldown: 13, text: 'When several spells are cooling down, discharge stored elemental power and accelerate recovery.' }
+  });
+
+  const DISCIPLINE_SKILL_BRANCHES = {
+    wayfarer: SKILL_BRANCHES,
+    hunter: {
+      hunterMarksman: { name: 'Marksman', color: '#70b77f', discipline: 'hunter', nodes: [
+        { id: 'hm1', name: 'Long Draw', cost: 1, text: '+8% attack speed.', stats: { attackSpeed: .08 } },
+        { id: 'hm2', name: 'Broadhead', cost: 1, requires: 'hm1', text: '+4% critical chance.', stats: { critChance: .04 } },
+        { id: 'hm3', name: 'Split String', cost: 2, requires: 'hm2', text: 'Unlock Ricochet.', unlockAbility: 'ricochet' },
+        { id: 'hm4', name: 'True Flight', cost: 2, requires: 'hm3', text: 'Basic arrows deal increased damage at safe range.', proc: 'longshot' },
+        { id: 'hm5', name: 'Black Sky', cost: 3, requires: 'hm4', text: 'Unlock Rain of Arrows.', unlockAbility: 'rainOfArrows' }
+      ]},
+      hunterTrapper: { name: 'Trapper', color: '#6b9f74', discipline: 'hunter', nodes: [
+        { id: 'ht1', name: 'Venomcraft', cost: 1, text: '+8% ability power.', stats: { abilityPower: .08 } },
+        { id: 'ht2', name: 'Barbed Mixture', cost: 1, requires: 'ht1', text: 'Critical arrows poison targets.', proc: 'hunterVenom' },
+        { id: 'ht3', name: 'Toxic Volley', cost: 2, requires: 'ht2', text: 'Unlock Poison Volley.', unlockAbility: 'poisonVolley' },
+        { id: 'ht4', name: 'Snarecraft', cost: 2, requires: 'ht3', text: 'Slowed enemies take increased ranged damage.', proc: 'snarecraft' },
+        { id: 'ht5', name: 'Prepared Ground', cost: 3, requires: 'ht4', text: 'Unlock Trap Field.', unlockAbility: 'trapField' }
+      ]},
+      hunterSurvival: { name: 'Survival', color: '#8ebf83', discipline: 'hunter', nodes: [
+        { id: 'hs1', name: 'Light Armour', cost: 1, text: '+6% movement speed and +2% dodge.', stats: { moveSpeed: .06, dodgeChance: .02 } },
+        { id: 'hs2', name: 'Kiting Instinct', cost: 1, requires: 'hs1', text: 'Gain damage after creating distance.', proc: 'kitingInstinct' },
+        { id: 'hs3', name: 'Predator Focus', cost: 2, requires: 'hs2', text: 'Unlock Predator Focus.', unlockAbility: 'predatorFocus' },
+        { id: 'hs4', name: 'Field Dressing', cost: 2, requires: 'hs3', text: '+3% lifesteal.', stats: { lifesteal: .03 } },
+        { id: 'hs5', name: 'Never Cornered', cost: 3, requires: 'hs4', text: 'Evasive Roll resets faster after elite attacks.', proc: 'neverCornered' }
+      ]}
+    },
+    arcanist: {
+      arcFire: { name: 'Pyromancy', color: '#c46b4f', discipline: 'arcanist', nodes: [
+        { id: 'af1', name: 'Kindling', cost: 1, text: '+10% ability power.', stats: { abilityPower: .10 } },
+        { id: 'af2', name: 'Scorch', cost: 1, requires: 'af1', text: 'Fire spells leave a burning echo.', proc: 'scorch' },
+        { id: 'af3', name: 'Falling Star', cost: 2, requires: 'af2', text: 'Unlock Meteor.', unlockAbility: 'meteor' },
+        { id: 'af4', name: 'Combustion', cost: 2, requires: 'af3', text: '+5% critical chance.', stats: { critChance: .05 } },
+        { id: 'af5', name: 'Worldfire', cost: 3, requires: 'af4', text: 'Fireball explosions grow against dense packs.', proc: 'worldfire' }
+      ]},
+      arcFrost: { name: 'Cryomancy', color: '#78a8c8', discipline: 'arcanist', nodes: [
+        { id: 'ac1', name: 'Cold Memory', cost: 1, text: '+8% ability power and +4 armour.', stats: { abilityPower: .08, armor: 4 } },
+        { id: 'ac2', name: 'Brittle', cost: 1, requires: 'ac1', text: 'Slowed enemies take increased spell damage.', proc: 'brittle' },
+        { id: 'ac3', name: 'Ice Lance', cost: 2, requires: 'ac2', text: 'Unlock Ice Lance.', unlockAbility: 'iceLance' },
+        { id: 'ac4', name: 'Permafrost', cost: 2, requires: 'ac3', text: 'Frost Nova slows for longer.', proc: 'permafrost' },
+        { id: 'ac5', name: 'White Silence', cost: 3, requires: 'ac4', text: 'Frost effects reduce active cooldowns.', proc: 'whiteSilence' }
+      ]},
+      arcAether: { name: 'Aether', color: '#9e7ee8', discipline: 'arcanist', nodes: [
+        { id: 'aa1', name: 'Arcane Current', cost: 1, text: '+12% ability power.', stats: { abilityPower: .12 } },
+        { id: 'aa2', name: 'Spellweave', cost: 1, requires: 'aa1', text: 'Every fourth spell reduces all cooldowns.', proc: 'spellweave' },
+        { id: 'aa3', name: 'Chain Doctrine', cost: 2, requires: 'aa2', text: 'Unlock Chain Lightning.', unlockAbility: 'chainLightningMage' },
+        { id: 'aa4', name: 'Spatial Step', cost: 2, requires: 'aa3', text: 'Unlock Blink.', unlockAbility: 'blink' },
+        { id: 'aa5', name: 'Overload', cost: 3, requires: 'aa4', text: 'Unlock Elemental Overload.', unlockAbility: 'elementalOverload' }
+      ]}
+    }
+  };
+
+  Object.values(SKILL_BRANCHES).forEach(branch => { branch.discipline = 'wayfarer'; branch.nodes.forEach(node => { node.discipline = 'wayfarer'; }); });
+  Object.entries(DISCIPLINE_SKILL_BRANCHES).forEach(([disciplineId, branches]) => Object.values(branches).forEach(branch => branch.nodes.forEach(node => { node.discipline = disciplineId; })));
+  Object.assign(SKILL_BRANCHES, DISCIPLINE_SKILL_BRANCHES.hunter, DISCIPLINE_SKILL_BRANCHES.arcanist);
+
+  Object.values(BUILD_ARCHETYPES).forEach(entry => { entry.discipline = 'wayfarer'; });
+  Object.assign(BUILD_ARCHETYPES, {
+    hunterMarksman: { name: 'Deadeye Marksman', text: 'Range, critical arrows and multi-target precision.', branch: 'hunterMarksman', discipline: 'hunter', statWeights: { critChance: 650, attackSpeed: 75, moveSpeed: 55, maxDamage: 5 }, procs: ['longshot', 'hunterVenom'] },
+    hunterTrapper: { name: 'Venom Trapper', text: 'Poison, slows and prepared crowd control.', branch: 'hunterTrapper', discipline: 'hunter', statWeights: { abilityPower: 420, critChance: 420, moveSpeed: 60 }, procs: ['hunterVenom', 'snarecraft'] },
+    hunterSurvival: { name: 'Pathstalker', text: 'Kiting, avoidance and sustained elite hunting.', branch: 'hunterSurvival', discipline: 'hunter', statWeights: { dodgeChance: 760, moveSpeed: 95, lifesteal: 600 }, procs: ['kitingInstinct', 'neverCornered'] },
+    arcPyromancer: { name: 'Pyromancer', text: 'Explosive area damage and high-risk spell pressure.', branch: 'arcFire', discipline: 'arcanist', statWeights: { abilityPower: 700, critChance: 500, maxDamage: 3 }, procs: ['scorch', 'worldfire'] },
+    arcCryomancer: { name: 'Cryomancer', text: 'Control, slows and safe spell sequencing.', branch: 'arcFrost', discipline: 'arcanist', statWeights: { abilityPower: 620, armor: 5, maxHealth: 1 }, procs: ['brittle', 'permafrost', 'whiteSilence'] },
+    arcAetherist: { name: 'Aetherist', text: 'Barriers, cooldown cycling and concentrated arcane bolts.', branch: 'arcAether', discipline: 'arcanist', statWeights: { abilityPower: 760, critChance: 420, cooldownReduction: 1 }, procs: ['spellweave'] }
+  });
+
+  ITEM_BASES.weapon.push(
+    { name: 'Ashwood Longbow', icon: '➳', discipline: 'hunter', weaponFamily: 'bow', stats: { minDamage: 4, maxDamage: 7, attackSpeed: .04 } },
+    { name: 'Briar Recurve', icon: '⌁', discipline: 'hunter', weaponFamily: 'bow', stats: { minDamage: 3, maxDamage: 7, critChance: .025, moveSpeed: .02 } },
+    { name: 'Blackfeather Warbow', icon: '⇢', discipline: 'hunter', weaponFamily: 'bow', stats: { minDamage: 6, maxDamage: 10, attackSpeed: -.04 } },
+    { name: 'Ember Wand', icon: '✦', discipline: 'arcanist', weaponFamily: 'wand', stats: { minDamage: 2, maxDamage: 5, abilityPower: .09 } },
+    { name: 'Frostglass Staff', icon: '❄', discipline: 'arcanist', weaponFamily: 'staff', stats: { minDamage: 3, maxDamage: 6, abilityPower: .075, armor: 2 } },
+    { name: 'Aether Rod', icon: '◇', discipline: 'arcanist', weaponFamily: 'wand', stats: { minDamage: 2, maxDamage: 5, abilityPower: .11, critChance: .015 } }
+  );
+  ITEM_BASES.offhand.push(
+    { name: 'Scout Quiver', icon: '≻', discipline: 'hunter', weaponFamily: 'quiver', stats: { attackSpeed: .06, critChance: .018 } },
+    { name: 'Venom Satchel', icon: '☠', discipline: 'hunter', weaponFamily: 'quiver', stats: { abilityPower: .07, moveSpeed: .025 } },
+    { name: 'Ember Grimoire', icon: '▤', discipline: 'arcanist', weaponFamily: 'spellbook', stats: { abilityPower: .10, maxHealth: -4 } },
+    { name: 'Prismatic Focus', icon: '◈', discipline: 'arcanist', weaponFamily: 'focus', stats: { abilityPower: .08, blockChance: .02 } }
+  );
+
   const CAMP_UPGRADES = {
     cartography: {
       name: "Cartographer's Table", icon: '⌖', maxRank: 3, costs: [6, 14, 28],
@@ -3183,7 +3386,7 @@ body::before {
 
 
   const RELEASE_PROFILE = Object.freeze({
-    channel: 'release-candidate', build: '1.1.8-merchant-tooltips' , dataPolicy: 'local-only', analytics: false,
+    channel: 'release-candidate', build: '1.2.0-disciplines1' , dataPolicy: 'local-only', analytics: false,
     cloudSave: false, remoteRuntimeDependencies: false, minimumViewport: 320,
     supportedLanguages: ['en', 'pseudo'], soundtrack: 'adaptive-synth-original',
     artSet: 'wayfarer-procedural-items-route-skin-v1', contentRatingTarget: '12+'
@@ -3199,7 +3402,7 @@ body::before {
   });
 
   window.ED_DATA = Object.freeze({
-    VERSION: '1.1.8', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
+    VERSION: '1.2.0', SLOTS, SLOT_UNLOCK_LEVEL, RARITIES, PROGRESSION_BANDS, COMBAT_DISCIPLINES, DISCIPLINE_SKILL_BRANCHES, BUILD_ARCHETYPES, ITEM_BASES, AFFIXES,
     LEGENDARY_EFFECTS, SETS, RUNES, RUNEWORDS, ABILITIES, SKILL_BRANCHES,
     RELEASE_PROFILE, LOCALIZATION, CAMP_UPGRADES, REGIONAL_DROP_TABLES, REGIONAL_LOOT, NAMED_ELITES, CAMP_QUESTS, CAMPAIGN_CHAPTERS, MOUNTAIN_CAMPAIGN, MISSION_OBJECTIVES, ENDLESS_ENCOUNTERS, ENDGAME_BOSSES, ACHIEVEMENTS, CHALLENGES, PRESENTATION_PROFILES, COMBAT_PRESENTATION, ELITE_AFFIXES, DIFFICULTY_CONTRACTS, ENDLESS_MODIFIERS, REGIONS, REGION_RULES, BOSSES, ENEMIES, ROOM_TYPES, STAT_LABELS, BASE_STATS
   });
@@ -3219,10 +3422,11 @@ body::before {
   const SAVE_KEY = 'theEndlessDark.save.v1';
   const BACKUP_KEY = 'theEndlessDark.save.backup.v1';
   const CORRUPT_KEY = 'theEndlessDark.save.corrupt.v1';
-  const SAVE_SCHEMA_VERSION = 10;
-  const EXPORT_FORMAT = 'TED_SAVE_10';
+  const SAVE_SCHEMA_VERSION = 11;
+  const EXPORT_FORMAT = 'TED_SAVE_11';
   const listeners = new Set();
   let uidCounter = 0;
+  let activeDisciplineHint = 'wayfarer';
 
   function uid(prefix = 'id') {
     uidCounter += 1;
@@ -3273,20 +3477,57 @@ body::before {
     return slot === 'ring1' || slot === 'ring2' ? 'ring' : slot;
   }
 
-  function starterItem(slot, baseName, stats, icon) {
+  function starterItem(slot, baseName, stats, icon, extra = {}) {
     return {
       id: uid('starter'), slot, name: baseName, icon, level: 1, rarity: 'normal',
       stats: deepClone(stats), affixes: [], setId: null, legendary: null,
-      runeword: null, sockets: 0, refinement: 0, bandId: 'initiate', sellValue: 6, source: 'starter'
+      runeword: null, sockets: 0, refinement: 0, bandId: 'initiate', sellValue: 6, source: 'starter',
+      discipline: extra.discipline || (['weapon', 'offhand'].includes(slot) ? 'wayfarer' : 'all'),
+      weaponFamily: extra.weaponFamily || null
+    };
+  }
+
+  function emptyEquipment() { return Object.fromEntries(D.SLOTS.map(([slot]) => [slot, null])); }
+
+  function createDisciplineProfile(id = 'wayfarer') {
+    const discipline = D.COMBAT_DISCIPLINES?.[id] || D.COMBAT_DISCIPLINES?.wayfarer;
+    const equipment = emptyEquipment();
+    if (id === 'hunter') {
+      equipment.weapon = starterItem('weapon', 'Ashwood Longbow', { minDamage: 4, maxDamage: 7, attackSpeed: .04 }, '➳', { discipline: 'hunter', weaponFamily: 'bow' });
+      equipment.armor = starterItem('armor', 'Scout Jerkin', { armor: 4, maxHealth: 5, moveSpeed: .03 }, '▦', { discipline: 'all' });
+      equipment.boots = starterItem('boots', 'Trail Boots', { moveSpeed: .06, commandPoints: 1 }, '⌁', { discipline: 'all' });
+      equipment.ring1 = starterItem('ring1', 'Falcon Ring', { critChance: .018, maxDamage: 1 }, '○', { discipline: 'all' });
+    } else if (id === 'arcanist') {
+      equipment.weapon = starterItem('weapon', 'Ember Wand', { minDamage: 2, maxDamage: 5, abilityPower: .09 }, '✦', { discipline: 'arcanist', weaponFamily: 'wand' });
+      equipment.armor = starterItem('armor', 'Warded Robe', { armor: 2, maxHealth: 4, abilityPower: .05 }, '▧', { discipline: 'all' });
+      equipment.boots = starterItem('boots', 'Aether Slippers', { moveSpeed: .05, abilityPower: .025 }, '⌁', { discipline: 'all' });
+      equipment.ring1 = starterItem('ring1', 'Glass Ring', { critChance: .018, abilityPower: .025 }, '○', { discipline: 'all' });
+    } else {
+      equipment.weapon = starterItem('weapon', 'Militia Sabre', { minDamage: 4, maxDamage: 7 }, '⚔', { discipline: 'wayfarer', weaponFamily: 'blade' });
+      equipment.armor = starterItem('armor', 'Worn Hauberk', { armor: 7, maxHealth: 8 }, '▣', { discipline: 'all' });
+      equipment.boots = starterItem('boots', 'Trail Boots', { moveSpeed: 0.05, commandPoints: 1 }, '⌁', { discipline: 'all' });
+      equipment.ring1 = starterItem('ring1', 'Copper Ring', { minDamage: 1, maxDamage: 1 }, '○', { discipline: 'all' });
+    }
+    return {
+      equipment,
+      ownedSkills: [],
+      equippedAbilities: [...(discipline?.baseAbilities || ['cleave', 'ironWard', 'stormArc', 'shadowstep'])].slice(0, 4),
+      skillPoints: 3,
+      wins: 0,
+      hardWins: 0,
+      ascensionWins: 0,
+      bestDepth: 0,
+      expeditions: 0
     };
   }
 
   function createDefaultState() {
-    const equipment = Object.fromEntries(D.SLOTS.map(([slot]) => [slot, null]));
-    equipment.weapon = starterItem('weapon', 'Militia Sabre', { minDamage: 4, maxDamage: 7 }, '⚔');
-    equipment.armor = starterItem('armor', 'Worn Hauberk', { armor: 7, maxHealth: 8 }, '▣');
-    equipment.boots = starterItem('boots', 'Trail Boots', { moveSpeed: 0.05, commandPoints: 1 }, '⌁');
-    equipment.ring1 = starterItem('ring1', 'Copper Ring', { minDamage: 1, maxDamage: 1 }, '○');
+    const disciplines = {
+      wayfarer: createDisciplineProfile('wayfarer'),
+      hunter: createDisciplineProfile('hunter'),
+      arcanist: createDisciplineProfile('arcanist')
+    };
+    const equipment = deepClone(disciplines.wayfarer.equipment);
 
     const now = new Date().toISOString();
     const initial = {
@@ -3296,9 +3537,9 @@ body::before {
       meta: { saveRevision: 0, lastSavedAt: now, migratedFrom: null, recoveryNotice: '' },
       onboarding: { seen: false, completed: false, step: 0 },
       hero: {
-        name: 'The Wayfarer', level: 1, xp: 0, skillPoints: 3,
+        name: 'The Wayfarer', level: 1, xp: 0, activeDiscipline: 'wayfarer', disciplines, skillPoints: 3,
         equipment, inventory: [], ownedSkills: [],
-        equippedAbilities: ['cleave', 'ironWard', 'stormArc', 'shadowstep'],
+        equippedAbilities: [...disciplines.wayfarer.equippedAbilities],
         runes: { ash: 1, veil: 1, hunger: 0, spark: 1, oath: 0, stride: 0, crown: 0, dusk: 0 },
         recipes: [],
         lifetime: { kills: 0, deaths: 0, expeditions: 0, bosses: 0 }
@@ -3321,7 +3562,7 @@ body::before {
         storySeen: {},
         mountainSequence: 0,
         achievements: {}, challenges: {}, objectiveClears: {}, endgameBossClears: {}, archetypeWins: {},
-        finalBossDefeated: false, finalRewardClaimed: false, missionRecords: {}, extractedDepth: 0, runewordsCrafted: 0
+        finalBossDefeated: false, finalRewardClaimed: false, missionRecords: {}, extractedDepth: 0, runewordsCrafted: 0, disciplineProgress: { wayfarer: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 }, hunter: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 }, arcanist: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 } }
       },
       shop: { seed: hashString(`shop_${Date.now()}`), items: [], refreshes: 0, stockLevel: 1 },
       settings: {
@@ -3333,9 +3574,9 @@ body::before {
     };
     // Fresh profiles only receive items that can be equipped immediately.
     initial.hero.inventory = [
-      generateItem(1, rng(1101), { forceSlot: 'weapon', forceRarity: 'magic' }),
-      generateItem(1, rng(1102), { forceSlot: 'armor', forceRarity: 'rare' }),
-      generateItem(1, rng(1103), { forceSlot: 'ring1', forceRarity: 'magic' })
+      generateItem(1, rng(1101), { forceSlot: 'weapon', forceRarity: 'magic', disciplineId: 'wayfarer' }),
+      generateItem(1, rng(1102), { forceSlot: 'armor', forceRarity: 'rare', disciplineId: 'wayfarer' }),
+      generateItem(1, rng(1103), { forceSlot: 'ring1', forceRarity: 'magic', disciplineId: 'wayfarer' })
     ];
     initial.shop.items = generateShop(initial, initial.shop.seed);
     initial.shop.stockLevel = initial.hero.level;
@@ -3444,6 +3685,32 @@ body::before {
         roomTransitions: migrated.settings?.roomTransitions !== false
       };
     }
+    if (schema < 11) {
+      migrated.schemaVersion = 11;
+      migrated.meta = { ...(migrated.meta || {}), migratedFrom: migrated.meta?.migratedFrom || fromVersion };
+      const wayfarer = createDisciplineProfile('wayfarer');
+      wayfarer.equipment = deepClone(migrated.hero?.equipment || wayfarer.equipment);
+      wayfarer.ownedSkills = [...(migrated.hero?.ownedSkills || [])];
+      wayfarer.equippedAbilities = [...(migrated.hero?.equippedAbilities || wayfarer.equippedAbilities)];
+      wayfarer.skillPoints = Math.max(0, Number(migrated.hero?.skillPoints || 0));
+      migrated.hero = {
+        ...(migrated.hero || {}),
+        activeDiscipline: 'wayfarer',
+        disciplines: {
+          wayfarer,
+          hunter: createDisciplineProfile('hunter'),
+          arcanist: createDisciplineProfile('arcanist')
+        }
+      };
+      migrated.progress = {
+        ...(migrated.progress || {}),
+        disciplineProgress: migrated.progress?.disciplineProgress || {
+          wayfarer: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 },
+          hunter: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 },
+          arcanist: { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 }
+        }
+      };
+    }
     migrated.schemaVersion = SAVE_SCHEMA_VERSION;
     migrated.version = D.VERSION;
     return migrated;
@@ -3463,7 +3730,42 @@ body::before {
     normalized.sockets = Math.max(0, Math.round(Number(normalized.sockets || 0)));
     normalized.stats = normalized.stats && typeof normalized.stats === 'object' ? normalized.stats : {};
     normalized.affixes = Array.isArray(normalized.affixes) ? normalized.affixes : [];
+    if (!normalized.discipline) normalized.discipline = ['weapon', 'offhand'].includes(normalized.slot) ? 'wayfarer' : 'all';
+    normalized.weaponFamily = normalized.weaponFamily || null;
     return normalized;
+  }
+
+  function disciplineDefinition(id = 'wayfarer') { return D.COMBAT_DISCIPLINES?.[id] || D.COMBAT_DISCIPLINES?.wayfarer; }
+  function disciplineBranchIds(id = 'wayfarer') { return [...(disciplineDefinition(id)?.branchIds || [])]; }
+  function skillBranchesForDiscipline(id = null, inputState = null) {
+    const disciplineId = id || inputState?.hero?.activeDiscipline || (typeof state !== 'undefined' ? state.hero?.activeDiscipline : 'wayfarer') || 'wayfarer';
+    const allowed = new Set(disciplineBranchIds(disciplineId));
+    return Object.fromEntries(Object.entries(D.SKILL_BRANCHES || {}).filter(([branchId]) => allowed.has(branchId)));
+  }
+  function abilityBelongsToDiscipline(abilityId, disciplineId) {
+    const ability = D.ABILITIES?.[abilityId];
+    if (!ability) return false;
+    const definition = disciplineDefinition(disciplineId);
+    return (definition?.baseAbilities || []).includes(abilityId) || (definition?.branchIds || []).includes(ability.branch);
+  }
+  function normalizeDisciplineProfile(profile, disciplineId) {
+    const base = createDisciplineProfile(disciplineId);
+    const source = profile && typeof profile === 'object' ? profile : {};
+    const equipment = { ...base.equipment, ...(source.equipment || {}) };
+    Object.keys(equipment).forEach(slot => { equipment[slot] = normalizeItem(equipment[slot]); });
+    return {
+      ...base,
+      ...source,
+      equipment,
+      ownedSkills: Array.isArray(source.ownedSkills) ? [...new Set(source.ownedSkills)].filter(id => getSkillNode(id)?.discipline === disciplineId) : [],
+      equippedAbilities: Array.isArray(source.equippedAbilities) ? [...new Set(source.equippedAbilities)].filter(id => abilityBelongsToDiscipline(id, disciplineId)).slice(0, 4) : [...base.equippedAbilities],
+      skillPoints: Math.max(0, Math.round(Number(source.skillPoints ?? base.skillPoints))),
+      wins: Math.max(0, Math.round(Number(source.wins || 0))),
+      hardWins: Math.max(0, Math.round(Number(source.hardWins || 0))),
+      ascensionWins: Math.max(0, Math.round(Number(source.ascensionWins || 0))),
+      bestDepth: Math.max(0, Math.round(Number(source.bestDepth || 0))),
+      expeditions: Math.max(0, Math.round(Number(source.expeditions || 0)))
+    };
   }
 
   function normalizeState(candidate) {
@@ -3483,13 +3785,26 @@ body::before {
       shop: { ...base.shop, ...(source.shop || {}) },
       settings: { ...base.settings, ...(source.settings || {}) }
     };
-    merged.hero.equipment = { ...base.hero.equipment, ...(source.hero?.equipment || {}) };
+    merged.hero.activeDiscipline = D.COMBAT_DISCIPLINES?.[source.hero?.activeDiscipline] ? source.hero.activeDiscipline : 'wayfarer';
+    merged.hero.disciplines = {};
+    Object.keys(D.COMBAT_DISCIPLINES || { wayfarer: true }).forEach(id => {
+      merged.hero.disciplines[id] = normalizeDisciplineProfile(source.hero?.disciplines?.[id], id);
+    });
+    merged.hero.equipment = { ...base.hero.equipment, ...(source.hero?.equipment || merged.hero.disciplines[merged.hero.activeDiscipline].equipment) };
     Object.keys(merged.hero.equipment).forEach(slot => { merged.hero.equipment[slot] = normalizeItem(merged.hero.equipment[slot]); });
     merged.hero.inventory = Array.isArray(source.hero?.inventory) ? source.hero.inventory.map(normalizeItem).filter(Boolean).slice(0, 120) : base.hero.inventory;
-    merged.hero.ownedSkills = Array.isArray(source.hero?.ownedSkills) ? [...new Set(source.hero.ownedSkills)].filter(getSkillNode) : [];
+    merged.hero.ownedSkills = Array.isArray(source.hero?.ownedSkills) ? [...new Set(source.hero.ownedSkills)].filter(id => getSkillNode(id)?.discipline === merged.hero.activeDiscipline) : [];
     merged.hero.equippedAbilities = Array.isArray(source.hero?.equippedAbilities)
-      ? [...new Set(source.hero.equippedAbilities)].filter(id => D.ABILITIES[id]).slice(0, 4)
-      : base.hero.equippedAbilities;
+      ? [...new Set(source.hero.equippedAbilities)].filter(id => abilityBelongsToDiscipline(id, merged.hero.activeDiscipline)).slice(0, 4)
+      : [...merged.hero.disciplines[merged.hero.activeDiscipline].equippedAbilities];
+    merged.hero.skillPoints = Math.max(0, Math.round(Number(source.hero?.skillPoints ?? merged.hero.disciplines[merged.hero.activeDiscipline].skillPoints)));
+    merged.hero.disciplines[merged.hero.activeDiscipline] = {
+      ...merged.hero.disciplines[merged.hero.activeDiscipline],
+      equipment: deepClone(merged.hero.equipment),
+      ownedSkills: [...merged.hero.ownedSkills],
+      equippedAbilities: [...merged.hero.equippedAbilities],
+      skillPoints: merged.hero.skillPoints
+    };
     merged.hero.runes = { ...base.hero.runes, ...(source.hero?.runes || {}) };
     merged.hero.recipes = Array.isArray(source.hero?.recipes) ? [...new Set(source.hero.recipes)].filter(id => D.RUNEWORDS[id]) : [];
     merged.hero.lifetime = { ...base.hero.lifetime, ...(source.hero?.lifetime || {}) };
@@ -3540,6 +3855,16 @@ body::before {
     merged.progress.missionRecords = { ...(source.progress?.missionRecords || {}) };
     merged.progress.extractedDepth = Math.max(0, Math.round(Number(source.progress?.extractedDepth || 0)));
     merged.progress.runewordsCrafted = Math.max(0, Math.round(Number(source.progress?.runewordsCrafted || 0)));
+    merged.progress.disciplineProgress = {};
+    Object.keys(D.COMBAT_DISCIPLINES || { wayfarer: true }).forEach(id => {
+      const entry = source.progress?.disciplineProgress?.[id] || source.hero?.disciplines?.[id] || {};
+      merged.progress.disciplineProgress[id] = {
+        wins: Math.max(0, Math.round(Number(entry.wins || 0))),
+        hardWins: Math.max(0, Math.round(Number(entry.hardWins || 0))),
+        ascensionWins: Math.max(0, Math.round(Number(entry.ascensionWins || 0))),
+        bestDepth: Math.max(0, Math.round(Number(entry.bestDepth || 0)))
+      };
+    });
     Object.keys(merged.progress.campUpgrades).forEach(id => {
       if (!D.CAMP_UPGRADES[id]) delete merged.progress.campUpgrades[id];
       else merged.progress.campUpgrades[id] = clamp(Math.round(Number(merged.progress.campUpgrades[id]) || 0), 0, D.CAMP_UPGRADES[id].maxRank);
@@ -3610,6 +3935,7 @@ body::before {
   }
 
   let state = loadState();
+  activeDisciplineHint = state.hero?.activeDiscipline || 'wayfarer';
 
   function emit(reason = 'change') {
     for (const fn of listeners) {
@@ -3617,7 +3943,21 @@ body::before {
     }
   }
 
+  function syncActiveDisciplineProfile(inputState = state) {
+    const id = inputState.hero?.activeDiscipline || 'wayfarer';
+    if (!inputState.hero.disciplines) inputState.hero.disciplines = {};
+    const current = normalizeDisciplineProfile(inputState.hero.disciplines[id], id);
+    inputState.hero.disciplines[id] = {
+      ...current,
+      equipment: deepClone(inputState.hero.equipment || current.equipment),
+      ownedSkills: [...(inputState.hero.ownedSkills || [])],
+      equippedAbilities: [...(inputState.hero.equippedAbilities || [])],
+      skillPoints: Math.max(0, Math.round(Number(inputState.hero.skillPoints || 0)))
+    };
+  }
+
   function save(reason = 'save') {
+    syncActiveDisciplineProfile(state);
     state.version = D.VERSION;
     state.schemaVersion = SAVE_SCHEMA_VERSION;
     state.meta = { ...state.meta, saveRevision: (Number(state.meta?.saveRevision) || 0) + 1, lastSavedAt: new Date().toISOString() };
@@ -3635,8 +3975,56 @@ body::before {
   function subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); }
   function getState() { return state; }
 
+  function disciplineProgress(id, inputState = state) {
+    const entry = inputState.progress?.disciplineProgress?.[id] || {};
+    return {
+      wins: Math.max(0, Math.round(Number(entry.wins || 0))),
+      hardWins: Math.max(0, Math.round(Number(entry.hardWins || 0))),
+      ascensionWins: Math.max(0, Math.round(Number(entry.ascensionWins || 0))),
+      bestDepth: Math.max(0, Math.round(Number(entry.bestDepth || 0)))
+    };
+  }
+
+  function isDisciplineUnlocked(id, inputState = state) {
+    if (id === 'wayfarer') return true;
+    if (id === 'hunter') return Boolean(inputState.progress?.finalBossDefeated);
+    if (id === 'arcanist') return disciplineProgress('hunter', inputState).ascensionWins >= Number(D.COMBAT_DISCIPLINES?.hunter?.ascensionTarget || 5);
+    return false;
+  }
+
+  function disciplineUnlockStatus(id, inputState = state) {
+    if (id === 'wayfarer') return { unlocked: true, current: 1, target: 1, text: 'Available from the beginning.' };
+    if (id === 'hunter') return { unlocked: isDisciplineUnlocked(id, inputState), current: inputState.progress?.finalBossDefeated ? 1 : 0, target: 1, text: 'Defeat the First Witness with the Wayfarer.' };
+    if (id === 'arcanist') {
+      const target = Number(D.COMBAT_DISCIPLINES?.hunter?.ascensionTarget || 5);
+      const current = disciplineProgress('hunter', inputState).ascensionWins;
+      return { unlocked: current >= target, current, target, text: `Win ${target} Hard or Endless expeditions as the Hunter.` };
+    }
+    return { unlocked: false, current: 0, target: 1, text: 'Unknown discipline.' };
+  }
+
+  function switchDiscipline(id) {
+    if (!D.COMBAT_DISCIPLINES?.[id]) return { ok: false, message: 'Unknown combat discipline.' };
+    if (!isDisciplineUnlocked(id)) return { ok: false, message: disciplineUnlockStatus(id).text };
+    if (state.hero.activeDiscipline === id) return { ok: false, message: `${D.COMBAT_DISCIPLINES[id].name} is already active.` };
+    syncActiveDisciplineProfile(state);
+    const next = normalizeDisciplineProfile(state.hero.disciplines[id], id);
+    state.hero.activeDiscipline = id;
+    activeDisciplineHint = id;
+    state.hero.equipment = deepClone(next.equipment);
+    state.hero.ownedSkills = [...next.ownedSkills];
+    state.hero.equippedAbilities = [...next.equippedAbilities];
+    state.hero.skillPoints = next.skillPoints;
+    state.shop.seed = hashString(`discipline_${id}_${Date.now()}_${state.meta.saveRevision}`);
+    state.shop.items = generateShop(state, state.shop.seed);
+    state.shop.stockLevel = state.hero.level;
+    save('discipline-switch');
+    return { ok: true, message: `${D.COMBAT_DISCIPLINES[id].name} equipped. Its loadout, skills and attack behaviour are now active.`, disciplineId: id };
+  }
+
   function replaceState(next, reason = 'replace') {
     state = normalizeState(next);
+    activeDisciplineHint = state.hero?.activeDiscipline || 'wayfarer';
     save(reason);
   }
 
@@ -3679,9 +4067,14 @@ body::before {
     const rarityLuck = Number(options.luck || 0) + Number(band.luck || 0) + Number(dropTable?.rarityLuck || 0) + Number(options.ancientLuck || 0);
     const rarity = rarityForLevel(random, level, rarityLuck, options.forceRarity);
     const rarityData = D.RARITIES[rarity];
-    const basePool = D.ITEM_BASES[slotBaseKey(slot)];
-    const regionalBases = region ? basePool.filter(entry => entry.region === region.id) : [];
-    const base = regionalBases.length && random() < .62 ? pick(random, regionalBases) : pick(random, basePool);
+    const disciplineId = options.disciplineId || options.inputState?.hero?.activeDiscipline || activeDisciplineHint || 'wayfarer';
+    const completeBasePool = D.ITEM_BASES[slotBaseKey(slot)];
+    const basePool = ['weapon', 'offhand'].includes(slot)
+      ? completeBasePool.filter(entry => (entry.discipline || 'wayfarer') === disciplineId || entry.discipline === 'all')
+      : completeBasePool;
+    const safeBasePool = basePool.length ? basePool : completeBasePool;
+    const regionalBases = region ? safeBasePool.filter(entry => entry.region === region.id) : [];
+    const base = regionalBases.length && random() < .62 ? pick(random, regionalBases) : pick(random, safeBasePool);
     const scale = 1 + Math.max(0, level - 1) * .115;
     const stats = {};
     Object.entries(base.stats).forEach(([stat, value]) => {
@@ -3739,6 +4132,7 @@ body::before {
       id: uid('item'), slot, name: `${setPrefix}${regionalImprint ? `${regionalImprint.name} ` : ''}${prefix}${base.name}`.trim(), icon: base.icon,
       level, rarity, stats, affixes, setId, legendary, runeword: null,
       regionalImprint, regionId: regionalImprint ? region.id : null, bandId: band.id, refinement: 0,
+      discipline: base.discipline || (['weapon', 'offhand'].includes(slot) ? 'wayfarer' : 'all'), weaponFamily: base.weaponFamily || null,
       sockets: rarity === 'normal' ? randomInt(random, 1, Math.min(3, 1 + Math.floor(level / 4))) : (random() < Number(dropTable?.socketChance || 0) + Number(options.socketFind || 0) ? 1 : 0),
       sellValue: Math.max(4, Math.round((8 + level * 4) * rarityData.sell * (1 + D.PROGRESSION_BANDS.indexOf(band) * .08) * (regionalImprint ? 1.18 : 1))), source: options.source || 'loot'
     };
@@ -3827,6 +4221,18 @@ body::before {
     stats.minDamage += Math.floor((inputState.hero.level - 1) * 1.1);
     stats.maxDamage += Math.floor((inputState.hero.level - 1) * 1.6);
     stats.armor += Math.floor((inputState.hero.level - 1) * 1.2);
+    const disciplineId = inputState.hero.activeDiscipline || 'wayfarer';
+    if (disciplineId === 'hunter') {
+      stats.maxHealth = Math.round(stats.maxHealth * .9);
+      stats.armor = Math.round(stats.armor * .82);
+      stats.moveSpeed += .08;
+      stats.attackSpeed += .05;
+    } else if (disciplineId === 'arcanist') {
+      stats.maxHealth = Math.round(stats.maxHealth * .74);
+      stats.armor = Math.round(stats.armor * .62);
+      stats.abilityPower += .18;
+      stats.moveSpeed += .03;
+    }
     stats.attackSpeed = clamp(stats.attackSpeed, .35, 3.5);
     stats.critChance = clamp(stats.critChance, 0, .85);
     stats.blockChance = clamp(stats.blockChance, 0, .65);
@@ -3844,7 +4250,8 @@ body::before {
 
   function analyzeBuild(inputState = state) {
     const build = calculateStats(inputState);
-    const scores = Object.entries(D.BUILD_ARCHETYPES).map(([id, archetype]) => {
+    const disciplineId = inputState.hero.activeDiscipline || 'wayfarer';
+    const scores = Object.entries(D.BUILD_ARCHETYPES).filter(([, archetype]) => (archetype.discipline || 'wayfarer') === disciplineId).map(([id, archetype]) => {
       let score = Object.entries(archetype.statWeights || {}).reduce((sum, [stat, weight]) => sum + Number(build.stats[stat] || 0) * Number(weight || 0), 0);
       score += (archetype.procs || []).filter(proc => build.procs.includes(proc)).length * 95;
       score += inputState.hero.equippedAbilities.filter(abilityId => D.ABILITIES[abilityId]?.branch === archetype.branch).length * 55;
@@ -3889,6 +4296,13 @@ body::before {
     return inputState.hero.level >= D.SLOT_UNLOCK_LEVEL[slot];
   }
 
+  function itemDisciplineCompatible(item, disciplineId = state.hero.activeDiscipline) {
+    if (!item) return false;
+    if (!['weapon', 'offhand'].includes(item.slot)) return true;
+    const required = item.discipline || 'wayfarer';
+    return required === 'all' || required === disciplineId;
+  }
+
   function slotUnlocksBetween(fromLevel, toLevel) {
     const from = Math.max(0, Math.round(Number(fromLevel || 0)));
     const to = Math.max(from, Math.round(Number(toLevel || from)));
@@ -3902,6 +4316,10 @@ body::before {
     if (index < 0) return { ok: false, message: 'Item not found.' };
     const item = state.hero.inventory[index];
     if (!isSlotUnlocked(item.slot)) return { ok: false, message: `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]}.` };
+    if (!itemDisciplineCompatible(item)) {
+      const required = D.COMBAT_DISCIPLINES?.[item.discipline]?.name || item.discipline || 'another discipline';
+      return { ok: false, message: `${item.name} is ${required} equipment. Switch Combat Discipline from the hero panel to equip it.` };
+    }
     const old = state.hero.equipment[item.slot];
     state.hero.equipment[item.slot] = item;
     state.hero.inventory.splice(index, 1);
@@ -4013,25 +4431,65 @@ body::before {
     return { ok: true, message: `${item.name} refined to +${item.refinement}.`, item };
   }
 
+  function salvageYieldForItem(item, inputState = state) {
+    const rarityYield = { normal: 1, magic: 2, rare: 4, epic: 8, legendary: 14, ancient: 24 }[item?.rarity] || 1;
+    const bonus = clamp(calculateStats(inputState).stats.salvageYield || 0, 0, .75);
+    return Math.max(1, Math.round((rarityYield + Number(item?.level || 1) * .45 + Number(item?.refinement || 0) * 3) * (1 + bonus)));
+  }
+
   function salvageItem(itemId) {
     const index = state.hero.inventory.findIndex(item => item.id === itemId);
     if (index < 0) return { ok: false, message: 'Only unequipped inventory items can be salvaged.' };
     const [item] = state.hero.inventory.splice(index, 1);
-    const rarityYield = { normal: 1, magic: 2, rare: 4, epic: 8, legendary: 14, ancient: 24 }[item.rarity] || 1;
-    const bonus = clamp(calculateStats().stats.salvageYield || 0, 0, .75);
-    const essence = Math.max(1, Math.round((rarityYield + item.level * .45 + Number(item.refinement || 0) * 3) * (1 + bonus)));
+    const essence = salvageYieldForItem(item);
     state.resources.essence += essence;
     save('item-salvage');
     return { ok: true, message: `${item.name} salvaged for ${essence} essence.`, essence };
   }
 
+  function bulkSalvageCandidates(mode, inputState = state) {
+    const inventory = Array.isArray(inputState?.hero?.inventory) ? inputState.hero.inventory : [];
+    if (mode === 'all') return [...inventory];
+    if (mode === 'trash') return inventory.filter(item => item?.rarity === 'normal' && !isBulkProtectedItem(item));
+    if (mode === 'worse') {
+      return inventory.filter(item => {
+        if (!item || isBulkProtectedItem(item)) return false;
+        const equipped = inputState.hero.equipment?.[item.slot];
+        return Boolean(equipped) && itemScore(item) < itemScore(equipped);
+      });
+    }
+    return [];
+  }
+
+  function bulkSalvagePreview(mode, inputState = state) {
+    const items = bulkSalvageCandidates(mode, inputState);
+    const essence = items.reduce((sum, item) => sum + salvageYieldForItem(item, inputState), 0);
+    return { mode, count: items.length, essence, itemIds: items.map(item => item.id) };
+  }
+
+  function bulkSalvageItems(mode) {
+    if (!['trash', 'worse', 'all'].includes(mode)) return { ok: false, message: 'Unknown salvage cleanup mode.', count: 0, essence: 0 };
+    const preview = bulkSalvagePreview(mode);
+    if (!preview.count) {
+      const message = mode === 'trash' ? 'No grey trash items are available to salvage.' : mode === 'worse' ? 'No unprotected items are worse than their equipped counterpart.' : 'The inventory is already empty.';
+      return { ok: false, message, count: 0, essence: 0 };
+    }
+    const ids = new Set(preview.itemIds);
+    state.hero.inventory = state.hero.inventory.filter(item => !ids.has(item.id));
+    state.resources.essence += preview.essence;
+    save(`bulk-salvage-${mode}`);
+    const label = mode === 'trash' ? 'trash item' : mode === 'worse' ? 'inferior item' : 'unequipped item';
+    return { ok: true, message: `Salvaged ${preview.count} ${label}${preview.count === 1 ? '' : 's'} for ${preview.essence} essence.`, count: preview.count, essence: preview.essence, mode };
+  }
+
   function availableAbilities(inputState = state) {
-    const unlocked = new Set(['cleave', 'ironWard', 'stormArc', 'shadowstep', 'rally']);
+    const disciplineId = inputState.hero.activeDiscipline || 'wayfarer';
+    const unlocked = new Set(disciplineDefinition(disciplineId)?.baseAbilities || []);
     inputState.hero.ownedSkills.forEach(id => {
       const node = getSkillNode(id);
-      if (node?.unlockAbility) unlocked.add(node.unlockAbility);
+      if (node?.discipline === disciplineId && node?.unlockAbility) unlocked.add(node.unlockAbility);
     });
-    return [...unlocked].filter(id => D.ABILITIES[id]);
+    return [...unlocked].filter(id => D.ABILITIES[id] && abilityBelongsToDiscipline(id, disciplineId));
   }
 
   function toggleAbility(abilityId) {
@@ -4052,6 +4510,7 @@ body::before {
   function buySkill(nodeId) {
     const node = getSkillNode(nodeId);
     if (!node) return { ok: false, message: 'Unknown skill.' };
+    if ((node.discipline || 'wayfarer') !== (state.hero.activeDiscipline || 'wayfarer')) return { ok: false, message: 'This skill belongs to another Combat Discipline.' };
     if (state.hero.ownedSkills.includes(nodeId)) return { ok: false, message: 'Already learned.' };
     if (node.requires && !state.hero.ownedSkills.includes(node.requires)) return { ok: false, message: 'Previous node required.' };
     if (state.hero.skillPoints < node.cost) return { ok: false, message: 'Not enough skill points.' };
@@ -4072,13 +4531,13 @@ body::before {
     state.hero.skillPoints += refund;
     const available = availableAbilities(state);
     const retained = (state.hero.equippedAbilities || []).filter(id => available.includes(id));
-    for (const id of ['cleave', 'ironWard', 'stormArc', 'shadowstep', 'rally']) {
+    for (const id of disciplineDefinition(state.hero.activeDiscipline)?.baseAbilities || []) {
       if (retained.length >= 4) break;
       if (available.includes(id) && !retained.includes(id)) retained.push(id);
     }
     state.hero.equippedAbilities = retained.slice(0, 4);
     save('skill-respec');
-    return { ok: true, message: `${refund} skill point${refund === 1 ? '' : 's'} refunded. Rebuild your Wayfarer.`, refund };
+    return { ok: true, message: `${refund} skill point${refund === 1 ? '' : 's'} refunded. Rebuild your ${disciplineDefinition(state.hero.activeDiscipline)?.name || 'discipline'}.`, refund };
   }
 
 
@@ -4578,6 +5037,19 @@ body::before {
       return;
     }
     state.progress.regionClears[region.id] = (state.progress.regionClears[region.id] || 0) + 1;
+    const disciplineId = D.COMBAT_DISCIPLINES?.[result.disciplineId] ? result.disciplineId : (state.hero.activeDiscipline || 'wayfarer');
+    const disciplineEntry = state.progress.disciplineProgress[disciplineId] || { wins: 0, hardWins: 0, ascensionWins: 0, bestDepth: 0 };
+    disciplineEntry.wins = Math.max(0, Number(disciplineEntry.wins || 0)) + 1;
+    if (['hard', 'endless'].includes(result.difficulty)) disciplineEntry.hardWins = Math.max(0, Number(disciplineEntry.hardWins || 0)) + 1;
+    if (disciplineId === 'hunter' && state.progress.finalBossDefeated && ['hard', 'endless'].includes(result.difficulty)) disciplineEntry.ascensionWins = Math.max(0, Number(disciplineEntry.ascensionWins || 0)) + 1;
+    disciplineEntry.bestDepth = Math.max(Number(disciplineEntry.bestDepth || 0), Number(result.depth || 0));
+    state.progress.disciplineProgress[disciplineId] = disciplineEntry;
+    if (state.hero.disciplines?.[disciplineId]) {
+      state.hero.disciplines[disciplineId].wins = disciplineEntry.wins;
+      state.hero.disciplines[disciplineId].hardWins = disciplineEntry.hardWins;
+      state.hero.disciplines[disciplineId].ascensionWins = disciplineEntry.ascensionWins;
+      state.hero.disciplines[disciplineId].bestDepth = disciplineEntry.bestDepth;
+    }
     const objectiveType = result.objectiveType || 'clear';
     state.progress.objectiveClears[objectiveType] = (state.progress.objectiveClears[objectiveType] || 0) + 1;
     const buildIdentity = analyzeBuild().primary?.id;
@@ -4722,6 +5194,8 @@ body::before {
 
   function completeExpedition(result) {
     state.hero.lifetime.expeditions += 1;
+    const disciplineId = D.COMBAT_DISCIPLINES?.[result.disciplineId] ? result.disciplineId : (state.hero.activeDiscipline || 'wayfarer');
+    if (state.hero.disciplines?.[disciplineId]) state.hero.disciplines[disciplineId].expeditions = Math.max(0, Number(state.hero.disciplines[disciplineId].expeditions || 0)) + 1;
     state.hero.lifetime.kills += result.kills || 0;
     if (!result.success) state.hero.lifetime.deaths += 1;
     if (result.bossKilled) state.hero.lifetime.bosses += 1;
@@ -4854,13 +5328,14 @@ body::before {
 
   function resetSave() {
     state = createDefaultState();
+    activeDisciplineHint = 'wayfarer';
     save('reset');
   }
 
   window.ED_CORE = {
-    SAVE_KEY, BACKUP_KEY, CORRUPT_KEY, SAVE_SCHEMA_VERSION, uid, clamp, round, deepClone, hashString, rng, pick, randomInt, weightedPick,
-    getState, replaceState, subscribe, save, createDefaultState, migrateState, normalizeState, dismissRecoveryNotice, completeOnboarding,
-    progressionBandForLevel, generateItem, effectiveItemStats, itemScore, analyzeBuild, calculateStats, inventoryCapacity, getCampUpgradeRank, buyCampUpgrade, isSlotUnlocked, slotUnlocksBetween, equipItem, unequip, sellItem, bulkSellCandidates, bulkSellPreview, bulkSellItems, maximumRefinement, refinementCost, refineItem, salvageItem,
+    SAVE_KEY, BACKUP_KEY, CORRUPT_KEY, SAVE_SCHEMA_VERSION, EXPORT_FORMAT, uid, clamp, round, deepClone, hashString, rng, pick, randomInt, weightedPick,
+    getState, replaceState, subscribe, save, createDefaultState, migrateState, normalizeState, dismissRecoveryNotice, completeOnboarding, disciplineDefinition, disciplineBranchIds, skillBranchesForDiscipline, disciplineProgress, isDisciplineUnlocked, disciplineUnlockStatus, switchDiscipline,
+    progressionBandForLevel, generateItem, effectiveItemStats, itemScore, analyzeBuild, calculateStats, inventoryCapacity, getCampUpgradeRank, buyCampUpgrade, isSlotUnlocked, itemDisciplineCompatible, slotUnlocksBetween, equipItem, unequip, sellItem, bulkSellCandidates, bulkSellPreview, bulkSellItems, maximumRefinement, refinementCost, refineItem, salvageItem, salvageYieldForItem, bulkSalvageCandidates, bulkSalvagePreview, bulkSalvageItems,
     availableAbilities, toggleAbility, buySkill, allocatedSkillPoints, respecSkills, getSkillNode,
     generateShop, shopRestockCost, restockShop, buyShopItem, xpNeeded,
     contractLimit, normalizeContractIds, endlessModifierIds, applyMissionContracts, missionModifiers, rollEliteAffixes,
@@ -4898,6 +5373,8 @@ body::before {
       this.unusedCommand = Math.max(0, Number(this.dungeon.commandPoints || 0) - Math.max(0, this.route.length - 1));
       if (this.procs.has('routeMastery')) this.stats.abilityPower += this.unusedCommand * .055;
       this.state = options.state || C.getState();
+      this.disciplineId = this.state.hero?.activeDiscipline || 'wayfarer';
+      this.discipline = D.COMBAT_DISCIPLINES?.[this.disciplineId] || D.COMBAT_DISCIPLINES?.wayfarer || { attackMode: 'melee', preferredRange: 34 };
       this.modifiers = this.dungeon.modifiers || C.missionModifiers(this.dungeon.mission);
       const anchorProtection = this.procs.has('voidAnchor') || this.procs.has('finalLantern');
       const rawHealthMult = Number(this.modifiers.hero?.maxHealthMult || 1);
@@ -5971,11 +6448,11 @@ body::before {
         Object.keys(enemy.statuses || {}).forEach(key => {
           const status = enemy.statuses[key];
           status.duration -= dt;
-          if (key === 'poison' || key === 'bleed') {
+          if (key === 'poison' || key === 'bleed' || key === 'burn') {
             status.tick -= dt;
             if (status.tick <= 0) {
               status.tick += Number(status.interval || .5);
-              this.damageEnemy(enemy, status.damage, { source: key === 'bleed' ? 'Rupture bleed' : 'Poison', proc: true, canCrit: false });
+              this.damageEnemy(enemy, status.damage, { source: key === 'bleed' ? 'Rupture bleed' : key === 'burn' ? 'Scorch' : 'Poison', proc: true, canCrit: false });
             }
           }
           if (status.duration <= 0) delete enemy.statuses[key];
@@ -5995,20 +6472,29 @@ body::before {
       const stackTempo = 1 + Number(this.hero.statuses.pursuitStacks || 0) * .018 + Number(this.hero.statuses.marchStacks || 0) * .016;
       const tempoMult = (this.hero.statuses.killHaste ? 1.24 : 1) * (this.hero.statuses.smokeVeil ? 1.18 : 1) * (this.hero.statuses.tacticalReset ? 1.22 : 1) * (this.hero.statuses.warBanner ? 1.18 : 1) * stackTempo;
       const moveMult = (this.hero.statuses.rally ? 1.3 : 1) * (this.hero.statuses.rooted ? .78 : 1) * (this.hero.statuses.rootbound ? 1.08 : 1) * tempoMult;
-      if (dist > 37) {
-        const dx = target.x - this.hero.x;
-        const dy = target.y - this.hero.y;
-        const len = Math.max(1, dist);
-        const speed = 92 * this.stats.moveSpeed * moveMult;
+      const rangedDiscipline = this.discipline.attackMode !== 'melee';
+      const preferred = Math.max(34, Number(this.discipline.preferredRange || 34));
+      const minimum = rangedDiscipline ? preferred * .58 : 0;
+      const maximum = rangedDiscipline ? preferred * 1.18 : 37;
+      const dx = target.x - this.hero.x;
+      const dy = target.y - this.hero.y;
+      const len = Math.max(1, dist);
+      const speed = 92 * this.stats.moveSpeed * moveMult;
+      if (dist > maximum) {
         this.setHeroAnimation('run', .14, { facing: dx >= 0 ? 1 : -1 });
         this.hero.x += dx / len * speed * dt;
         this.hero.y += dy / len * speed * dt;
+      } else if (rangedDiscipline && dist < minimum) {
+        this.setHeroAnimation('run', .14, { facing: dx >= 0 ? -1 : 1 });
+        this.hero.x = C.clamp(this.hero.x - dx / len * speed * 1.12 * dt, 32, this.width - 32);
+        this.hero.y = C.clamp(this.hero.y - dy / len * speed * 1.12 * dt, 54, this.height - 54);
       } else {
         this.hero.attackTimer -= dt;
         const rageMult = this.hero.statuses.bloodRage ? 1.35 : 1;
         const rootMult = this.hero.statuses.rooted ? .78 : 1;
+        const predatorMult = this.hero.statuses.predatorFocus ? 1.3 : 1;
         if (this.hero.attackTimer <= 0) {
-          this.hero.attackTimer += 1 / (this.stats.attackSpeed * rageMult * rootMult * tempoMult);
+          this.hero.attackTimer += 1 / (this.stats.attackSpeed * rageMult * rootMult * tempoMult * predatorMult);
           this.basicAttack(target);
         }
       }
@@ -6016,9 +6502,12 @@ body::before {
 
     basicAttack(target) {
       this.hero.attackCount += 1;
-      this.setHeroAnimation('attack', .24, { facing: target.x >= this.hero.x ? 1 : -1, recoil: 1 });
+      const attackMode = this.discipline.attackMode || 'melee';
+      this.setHeroAnimation(attackMode === 'melee' ? 'attack' : 'cast', .24, { facing: target.x >= this.hero.x ? 1 : -1, recoil: attackMode === 'melee' ? 1 : .35, castKind: attackMode });
       this.setEnemyAnimation(target, 'hurt', .13, { recoil: 1 });
-      this.emitPresentation('hero-attack', { target: target.name });
+      this.emitPresentation('hero-attack', { target: target.name, discipline: this.disciplineId, attackMode });
+      if (attackMode === 'bow') this.launchProjectile({ x: this.hero.x, y: this.hero.y, target: target.id, speed: 690, life: .42, color: '#d8c994', kind: 'arrow', width: 2, trail: 1, source: 'Bow attack', impact: 'pierce' });
+      else if (attackMode === 'arcane') this.launchProjectile({ x: this.hero.x, y: this.hero.y, target: target.id, speed: 540, life: .48, color: '#b996ff', kind: 'arcane-bolt', width: 4, trail: 1, source: 'Arcane bolt', impact: 'storm' });
       const changedTarget = Boolean(this.hero.sameTargetId && this.hero.sameTargetId !== target.id);
       if (changedTarget && this.procs.has('cinderPursuit')) {
         this.damageEnemy(target, this.stats.maxDamage * .55, { source: 'Cinder Pursuit', proc: true });
@@ -6046,7 +6535,8 @@ body::before {
       const iron = 1 + this.hero.ironStacks * .03;
       const pursuit = 1 + Number(this.hero.statuses.pursuitStacks || 0) * .025 + Number(this.hero.statuses.marchStacks || 0) * .02;
       const gambit = this.hero.statuses.calculatedGambit ? 1 + Number(this.hero.flags.gambitPower || 0) : 1;
-      let damage = base * rally * banner * iron * pursuit * gambit * (crit ? this.stats.critDamage : 1);
+      const disciplineMultiplier = attackMode === 'bow' ? (this.procs.has('longshot') && distance(this.hero, target) > 170 ? 1.14 : .94) : attackMode === 'arcane' ? (.78 + this.stats.abilityPower * .34) : 1;
+      let damage = base * rally * banner * iron * pursuit * gambit * disciplineMultiplier * (crit ? this.stats.critDamage : 1);
       if (this.procs.has('bloodDebt')) damage *= 1 + Math.max(0, 1 - this.hero.hp / this.hero.maxHp) * .38;
       if (this.procs.has('executioner') && target.hp / target.maxHp < .25) damage *= 1.3;
       if (this.procs.has('duelist') && alive(this.enemies).length === 1) damage *= 1.24;
@@ -6061,7 +6551,11 @@ body::before {
       }
       const dealt = this.damageEnemy(target, damage, { source: crit ? 'Critical attack' : 'Basic attack', crit, basic: true });
       this.telemetry.attackDamage += dealt;
-      this.spawnImpact(target.x, target.y, crit ? '#ffe2a1' : '#b8b0a0', crit ? 'critical' : 'slash', crit ? 'critical' : 'melee');
+      const impactColor = attackMode === 'bow' ? '#d6c894' : attackMode === 'arcane' ? '#b996ff' : (crit ? '#ffe2a1' : '#b8b0a0');
+      const impactKind = attackMode === 'bow' ? 'pierce' : attackMode === 'arcane' ? 'storm' : (crit ? 'critical' : 'slash');
+      this.spawnImpact(target.x, target.y, impactColor, impactKind, crit ? 'critical' : attackMode);
+      if (attackMode === 'bow' && this.procs.has('hunterVenom') && crit && target.hp > 0) target.statuses.poison = { duration: 4.5, tick: .5, damage: this.stats.maxDamage * .075 };
+      if (attackMode === 'arcane' && this.procs.has('scorch') && target.hp > 0) target.statuses.burn = { duration: 3.5, tick: .45, interval: .6, damage: this.stats.maxDamage * .09 * (1 + this.stats.abilityPower) };
       if (crit) { this.cameraImpact(.24, 1.022, .12); this.presentation.flash = Math.max(this.presentation.flash, .035); this.presentation.flashColor = '#ffe3a4'; this.emitPresentation('hero-crit', { damage: dealt, target: target.name }); }
 
       if (crit) this.onCritical(target, dealt);
@@ -6185,7 +6679,8 @@ body::before {
         const preferred = enemy.range || 34;
         const frenzy = enemy.statuses?.frenzy?.intensity || 0;
         const haste = enemy.statuses?.hasted ? 1.22 : 1;
-        const speedMult = (1 + frenzy * .38) * haste;
+        const slow = enemy.statuses?.slow ? .55 : 1;
+        const speedMult = (1 + frenzy * .38) * haste * slow;
         const wantsDistance = enemy.behavior === 'skirmisher' && dist < preferred * .72;
         if (wantsDistance) {
           const dx = enemy.x - this.hero.x;
@@ -6666,6 +7161,116 @@ body::before {
         this.hero.flags.gambitPower = Math.min(.42, spendable * .075);
         return true;
       }
+
+      // Hunter Discipline
+      if (id === 'multishot' && enemies.length >= 2) {
+        enemies.slice(0, 3).forEach(enemy => {
+          this.launchProjectile({ x: this.hero.x, y: this.hero.y, target: enemy.id, speed: 680, life: .4, color: '#d8c994', kind: 'arrow', width: 2, trail: 1, source: 'Multishot', impact: 'pierce' });
+          this.damageEnemy(enemy, this.stats.maxDamage * .9 * power, { source: 'Multishot', proc: true, canCrit: true });
+        });
+        return true;
+      }
+      if (id === 'piercingShot' && enemies.length) {
+        const target = enemies.find(enemy => enemy.role === 'elite' || enemy.role === 'boss') || enemies.sort((a,b)=>distance(b,this.hero)-distance(a,this.hero))[0];
+        if (target && (enemies.length >= 3 || target.role === 'elite' || target.role === 'boss')) {
+          enemies.sort((a,b)=>distance(a,target)-distance(b,target)).slice(0,4).forEach((enemy,index) => this.damageEnemy(enemy, this.stats.maxDamage * (1.55 - index * .18) * power, { source: 'Piercing Shot', proc: true, canCrit: true }));
+          return true;
+        }
+      }
+      if (id === 'huntersMark') {
+        const target = enemies.find(enemy => (enemy.role === 'elite' || enemy.role === 'boss') && !enemy.statuses.marked) || enemies.find(enemy => enemy.hp / enemy.maxHp > .8 && !enemy.statuses.marked);
+        if (target) { target.statuses.marked = { duration: 8 }; return true; }
+      }
+      if (id === 'evasiveRoll' && (nearby.length >= 1 || this.hero.hp / this.hero.maxHp < .55) && !this.hero.statuses.evasiveRoll) {
+        const threat = nearby[0] || enemies[0];
+        if (threat) {
+          const dx = this.hero.x - threat.x; const dy = this.hero.y - threat.y; const len = Math.max(1, Math.hypot(dx,dy));
+          this.hero.x = C.clamp(this.hero.x + dx / len * 145, 35, this.width - 35);
+          this.hero.y = C.clamp(this.hero.y + dy / len * 145, 55, this.height - 55);
+        }
+        this.hero.statuses.evasiveRoll = 3.5;
+        this.hero.statuses.smokeVeil = Math.max(this.hero.statuses.smokeVeil || 0, 2.4);
+        return true;
+      }
+      if (id === 'poisonVolley' && enemies.length >= 3) {
+        enemies.slice(0,5).forEach(enemy => {
+          this.damageEnemy(enemy, this.stats.maxDamage * .55 * power, { source: 'Poison Volley', proc: true });
+          if (enemy.hp > 0) enemy.statuses.poison = { duration: 5, tick: .45, interval: .6, damage: this.stats.maxDamage * .09 * power };
+        });
+        return true;
+      }
+      if (id === 'ricochet' && enemies.length >= 2) {
+        const origin = enemies.find(enemy => enemy.id === this.hero.targetId) || enemies[0];
+        this.damageEnemy(origin, this.stats.maxDamage * 1.05 * power, { source: 'Ricochet', proc: true, canCrit: true });
+        this.chainDamage(origin, this.stats.maxDamage * .72 * power, Math.min(5, enemies.length - 1), 'Ricochet');
+        return true;
+      }
+      if (id === 'trapField' && nearby.length >= 3) {
+        nearby.forEach(enemy => { enemy.statuses.slow = { duration: this.procs.has('snarecraft') ? 5.5 : 4 }; this.damageEnemy(enemy, this.stats.maxDamage * .78 * power, { source: 'Trap Field', proc: true }); });
+        return true;
+      }
+      if (id === 'rainOfArrows' && enemies.length >= 5) {
+        for (let i = 0; i < Math.min(12, enemies.length + 5); i += 1) {
+          const target = enemies[Math.floor(this.random() * enemies.length)];
+          if (target?.hp > 0) this.damageEnemy(target, this.stats.maxDamage * .58 * power, { source: 'Rain of Arrows', proc: true, canCrit: true });
+        }
+        return true;
+      }
+      if (id === 'predatorFocus') {
+        const target = enemies.find(enemy => enemy.role === 'elite' || enemy.role === 'boss');
+        if (target && !this.hero.statuses.predatorFocus) { this.hero.statuses.predatorFocus = 7; target.statuses.marked = { duration: 7 }; return true; }
+      }
+
+      // Arcanist Discipline
+      if (id === 'fireball' && enemies.length) {
+        const target = enemies.find(enemy => enemy.role === 'elite' || enemy.role === 'boss') || enemies[0];
+        this.launchProjectile({ x: this.hero.x, y: this.hero.y, target: target.id, speed: 500, life: .45, color: '#ff9a66', kind: 'fireball', width: 6, trail: 1, source: 'Fireball', impact: 'fire' });
+        this.damageEnemy(target, this.stats.maxDamage * 1.35 * power, { source: 'Fireball', proc: true, canCrit: true });
+        this.areaDamage(target.x, target.y, this.procs.has('worldfire') ? 145 : 112, this.stats.maxDamage * .72 * power, 'Fireball', target.id);
+        return true;
+      }
+      if (id === 'frostNova' && nearby.length >= 2) {
+        nearby.forEach(enemy => { enemy.statuses.slow = { duration: this.procs.has('permafrost') ? 6 : 4 }; this.damageEnemy(enemy, this.stats.maxDamage * .75 * power, { source: 'Frost Nova', proc: true }); });
+        return true;
+      }
+      if (id === 'arcaneBarrage' && enemies.length) {
+        const priority = enemies.find(enemy => enemy.role === 'boss' || enemy.role === 'elite');
+        for (let i = 0; i < 5; i += 1) {
+          const target = priority || enemies[i % enemies.length];
+          if (target?.hp > 0) this.damageEnemy(target, this.stats.maxDamage * .62 * power, { source: 'Arcane Barrage', proc: true, canCrit: true });
+        }
+        return true;
+      }
+      if (id === 'manaBarrier' && (this.hero.flags.heavyHit || this.hero.hp / this.hero.maxHp < .65) && this.hero.barrier < this.hero.maxHp * .18) {
+        const gain = this.hero.maxHp * (.2 + this.stats.abilityPower * .08) * power;
+        const before = this.hero.barrier; this.hero.barrier = Math.min(this.hero.maxHp * .6, this.hero.barrier + gain); this.telemetry.barrierGained += Math.max(0, this.hero.barrier - before); return true;
+      }
+      if (id === 'chainLightningMage' && enemies.length >= 3) {
+        const origin = enemies.find(enemy => enemy.id === this.hero.targetId) || enemies[0];
+        this.damageEnemy(origin, this.stats.maxDamage * .9 * power, { source: 'Chain Lightning', proc: true });
+        this.chainDamage(origin, this.stats.maxDamage * .82 * power, Math.min(7, enemies.length - 1), 'Chain Lightning'); return true;
+      }
+      if (id === 'meteor' && enemies.length >= 4) {
+        const target = enemies.reduce((best, enemy) => !best || enemies.filter(other => distance(other, enemy) < 125).length > best.count ? { enemy, count: enemies.filter(other => distance(other, enemy) < 125).length } : best, null)?.enemy || enemies[0];
+        this.damageEnemy(target, this.stats.maxDamage * 1.8 * power, { source: 'Meteor', proc: true, crit: true });
+        this.areaDamage(target.x, target.y, 155, this.stats.maxDamage * 1.35 * power, 'Meteor', target.id); return true;
+      }
+      if (id === 'blink' && nearby.length >= 1) {
+        const threat = nearby[0]; const dx = this.hero.x - threat.x; const dy = this.hero.y - threat.y; const len = Math.max(1, Math.hypot(dx,dy));
+        this.hero.x = C.clamp(this.hero.x + dx / len * 170, 35, this.width - 35); this.hero.y = C.clamp(this.hero.y + dy / len * 170, 55, this.height - 55); this.hero.statuses.smokeVeil = 2; return true;
+      }
+      if (id === 'iceLance') {
+        const target = enemies.find(enemy => enemy.statuses.slow || enemy.role === 'boss' || enemy.role === 'elite');
+        if (target) { this.damageEnemy(target, this.stats.maxDamage * (target.statuses.slow ? 1.8 : 1.3) * power, { source: 'Ice Lance', proc: true, crit: Boolean(target.statuses.slow) }); return true; }
+      }
+      if (id === 'elementalOverload') {
+        const active = Object.entries(this.hero.cooldowns).filter(([otherId, cooldown]) => otherId !== id && cooldown > .5);
+        if (active.length >= 3 && enemies.length) {
+          const origin = enemies.find(enemy => enemy.id === this.hero.targetId) || enemies[0];
+          this.chainDamage(origin, this.stats.maxDamage * 1.05 * power, Math.min(8, enemies.length - 1), 'Elemental Overload');
+          active.forEach(([otherId, cooldown]) => { this.hero.cooldowns[otherId] = Math.max(0, cooldown - 2); }); return true;
+        }
+      }
       return false;
     }
 
@@ -6712,7 +7317,7 @@ body::before {
       if (unknown.length && bossKilled && (this.state.hero.recipes.length === 0 || random() < .24 + Number(this.stats.recipeFind || 0))) recipes.push(unknown[Math.floor(random() * unknown.length)]);
       const xp = Math.round((18 + this.telemetry.kills * 2.2 + this.telemetry.elitesKilled * 12) * mission.reward * (success ? 1 : .55));
       return {
-        success, bossKilled, bossId: bossKilled ? this.dungeon.bossId : null, regionIndex: this.dungeon.regionIndex,
+        success, bossKilled, bossId: bossKilled ? this.dungeon.bossId : null, regionIndex: this.dungeon.regionIndex, disciplineId: this.disciplineId,
         difficulty: mission.difficulty, missionId: mission.id, depth: Number(mission.depth || 0),
         contracts: [...(mission.contracts || [])], endlessModifiers: [...(mission.endlessModifiers || [])],
         namedElitesKilled: [...this.telemetry.namedElitesKilled],
@@ -6823,7 +7428,7 @@ body::before {
       const colorByBranch = { blood: '#c85f56', steel: '#9fc4d9', storm: '#8ec9ff', shadow: '#a694bc', command: '#d8bd72' };
       const ability = D.ABILITIES[id];
       const color = colorByBranch[ability?.branch] || '#d8bd72';
-      const kind = ['bloodstorm', 'cleave', 'shieldBurst', 'aegisMarch'].includes(id) ? 'ring' : ['stormArc', 'tempest', 'overcharge', 'thunderhead'].includes(id) ? 'storm' : ['shadowstep', 'smokeVeil', 'markedPrey'].includes(id) ? 'smoke' : 'sigil';
+      const kind = ['bloodstorm', 'cleave', 'shieldBurst', 'aegisMarch', 'frostNova', 'trapField'].includes(id) ? 'ring' : ['stormArc', 'tempest', 'overcharge', 'thunderhead', 'chainLightningMage', 'elementalOverload'].includes(id) ? 'storm' : ['shadowstep', 'smokeVeil', 'markedPrey', 'evasiveRoll', 'blink'].includes(id) ? 'smoke' : 'sigil';
       this.spawnVfx(kind, h.x, h.y, { color, count: kind === 'ring' ? 22 : 16, speed: kind === 'smoke' ? 38 : 105, life: kind === 'smoke' ? .75 : .5, size: kind === 'sigil' ? 4 : 3, priority: 4 });
       this.cameraImpact(['execution', 'bloodstorm', 'thunderhead', 'aegisMarch'].includes(id) ? .5 : .22, ['execution', 'bloodstorm', 'thunderhead'].includes(id) ? 1.04 : 1.018, .2);
     }
@@ -7545,11 +8150,15 @@ body::before {
   const RARITY_ACCENTS = { normal: '#a9a091', magic: '#6fa3e8', rare: '#dfc45f', epic: '#b378d5', legendary: '#df8b46', ancient: '#ef6f61' };
 
   function itemArtSvg(item, className = 'item-art-svg') {
-    const slot = item?.slot === 'ring1' || item?.slot === 'ring2' ? 'ring' : (item?.slot || 'charm');
+    const baseSlot = item?.slot === 'ring1' || item?.slot === 'ring2' ? 'ring' : (item?.slot || 'charm');
+    const slot = item?.weaponFamily === 'bow' ? 'bow' : item?.weaponFamily === 'wand' ? 'wand' : item?.weaponFamily === 'staff' ? 'staff' : baseSlot;
     const accent = RARITY_ACCENTS[item?.rarity] || RARITY_ACCENTS.normal;
     const id = `ia_${String(item?.id || slot).replace(/[^a-zA-Z0-9_-]/g, '').slice(-18)}`;
     const shapes = {
       weapon: '<path d="M21 6 12.8 31l4.7 4.7L42 10.5 43.5 4z"/><path d="m12.5 29-5 5 6.5 6.5 5-5M8 38l-4 4"/>',
+      bow: '<path d="M13 5c17 8 17 38 0 46M13 5c-8 11-8 35 0 46M13 5l23 23M13 51l23-23" fill="none"/><path d="M8 28h30M33 24l5 4-5 4"/>',
+      wand: '<path d="M13 47 31 12M28 13l5-8 8 5-7 7z"/><circle cx="35" cy="9" r="5"/>',
+      staff: '<path d="M14 51 29 14M25 15l4-10 9 3-2 9-7 4z"/><path d="M27 11c7-6 13 2 8 8" fill="none"/>',
       offhand: '<path d="M24 5 42 12v13c0 13-7 21-18 26C13 46 6 38 6 25V12z"/><path d="M14 25h20M24 15v20"/>',
       helmet: '<path d="M8 29C8 14 15 6 24 6s16 8 16 23v15h-9V31h-4v18h-6V31h-4v13H8z"/><path d="M12 24h24"/>',
       amulet: '<path d="M10 6c2 14 6 20 14 20S36 20 38 6"/><path d="m24 25 10 9-10 16-10-16z"/><path d="m19 35 5-5 5 5-5 8z"/>',
@@ -7569,7 +8178,7 @@ body::before {
   function statIconKey(stat) {
     return ({ maxHealth: 'health', minDamage: 'damage', maxDamage: 'damage', attackSpeed: 'speed', moveSpeed: 'speed', commandPoints: 'command', armor: 'armorStat', blockChance: 'shield', critChance: 'crit', critDamage: 'crit', lifesteal: 'lifesteal', dodgeChance: 'dodge', abilityPower: 'ability' })[stat] || 'power';
   }
-  function abilityIconKey(ability) { return ({ blood: 'burst', steel: 'shield', storm: 'power', shadow: 'dodge', command: 'command' })[ability?.branch] || 'ability'; }
+  function abilityIconKey(ability) { return ({ blood: 'burst', steel: 'shield', storm: 'power', shadow: 'dodge', command: 'command', hunterMarksman: 'target', hunterTrapper: 'filter', hunterSurvival: 'dodge', arcFire: 'burst', arcFrost: 'health', arcAether: 'ability' })[ability?.branch] || 'ability'; }
   function objectiveIconKey(type) { return ({ clear: 'route', purge: 'burst', relic: 'relic', survival: 'shield', ritual: 'rune', boss: 'crown', named: 'target' })[type] || 'route'; }
   function roomIconKey(type) { return ({ start: 'route', battle: 'enemy', swarm: 'burst', ranged: 'target', elite: 'target', treasure: 'inventory', shrine: 'health', hazard: 'risk', boss: 'crown', purge: 'burst', relic: 'relic', survival: 'shield', ritual: 'rune' })[type] || 'enemy'; }
   function roomSkinKey(type) { return ({ start: 'entrance', battle: 'combat', swarm: 'crowded', ranged: 'ranged', elite: 'elite', treasure: 'chest', shrine: 'well', boss: 'boss', purge: 'objective', relic: 'objective', survival: 'objective', ritual: 'objective', hazard: 'objective' })[type] || 'combat'; }
@@ -7658,7 +8267,8 @@ body::before {
       this.selectedItemId = null;
       this.selectedEquipmentSlot = null;
       this.selectedRegionIndex = C.getState().progress.unlockedRegion;
-      this.skillBranch = 'blood';
+      this.skillBranch = C.disciplineBranchIds(C.getState().hero.activeDiscipline)[0] || 'blood';
+      this.focusCampUpgrade = null;
       this.modal = C.getState().onboarding?.seen ? null : 'onboarding';
       this.planner = null;
       this.route = [0];
@@ -7806,6 +8416,9 @@ body::before {
       }[top?.rarity || 'normal'];
       const cape = state.hero.equipment.cape?.rarity === 'ancient' ? '#6c2928' : state.hero.equipment.cape ? '#443743' : '#312b28';
       const xp = C.xpNeeded(state.hero.level);
+      const disciplineId = state.hero.activeDiscipline || 'wayfarer';
+      const discipline = D.COMBAT_DISCIPLINES[disciplineId];
+      const disciplineProgress = C.disciplineProgress(disciplineId);
       return `
         <div class="panel-header"><div><div class="eyebrow">Persistent hero</div><h2>${esc(state.hero.name)}</h2></div><span class="subtle">${number(state.hero.xp)}/${number(xp)} XP</span></div>
         <div class="panel-body hero-card">
@@ -7816,6 +8429,9 @@ body::before {
               <div class="hero-leg left"></div><div class="hero-leg right"></div><div class="hero-weapon"></div>
             </div>
           </div>
+          <button class="discipline-switcher" data-action="open-disciplines" style="--discipline:${discipline.color}" ${tooltipAttrs('Combat Discipline', `${discipline.name}: ${discipline.text}`, `${disciplineProgress.wins} victories · Open to inspect or switch`)}>
+            <span class="discipline-emblem">${esc(discipline.icon)}</span><span><small>Combat Discipline</small><strong>${esc(discipline.name)}</strong><em>${esc(discipline.tagline)}</em></span><span class="discipline-switch-label">Inspect</span>
+          </button>
           <div class="slot-grid">
             ${D.SLOTS.map(([slot, label]) => {
               const unlocked = C.isSlotUnlocked(slot);
@@ -7870,6 +8486,7 @@ body::before {
       const mountainProgress = Number(state.progress.mountainSequence || 0);
       return `
         <div class="panel-header" style="margin:-14px -14px 14px"><div><div class="eyebrow">Expedition map</div><h2>${esc(region.name)}</h2></div><span class="subtle">Plan before committing</span></div>
+        ${state.hero.activeDiscipline === 'hunter' && !C.isDisciplineUnlocked('arcanist', state) ? (() => { const progress = C.disciplineProgress('hunter'); const target = D.COMBAT_DISCIPLINES.hunter.ascensionTarget; return `<section class="discipline-map-callout" style="--discipline:${D.COMBAT_DISCIPLINES.hunter.color}"><span class="discipline-emblem">${D.COMBAT_DISCIPLINES.hunter.icon}</span><div><div class="eyebrow">Hunter Ascension</div><strong>${progress.ascensionWins}/${target} Hard or Endless victories</strong><p>Complete this harder mastery track to unlock the Arcanist discipline.</p></div><div class="discipline-progress"><i style="width:${Math.min(100, progress.ascensionWins / target * 100)}%"></i></div></section>`; })() : ''}
         <div class="region-strip">
           ${D.REGIONS.map((entry, index) => {
             const locked = index > state.progress.unlockedRegion;
@@ -7931,6 +8548,9 @@ body::before {
       const trashPreview = C.bulkSellPreview('trash');
       const worsePreview = C.bulkSellPreview('worse');
       const allPreview = C.bulkSellPreview('all');
+      const salvageTrash = C.bulkSalvagePreview('trash');
+      const salvageWorse = C.bulkSalvagePreview('worse');
+      const salvageAll = C.bulkSalvagePreview('all');
       return `
         <div class="inventory-toolbar"><div><div class="eyebrow">Stash inventory</div><strong>${total}/${capacity} slots · ${number(state.resources.essence)} essence</strong></div><div class="subtle">${items.length === total ? 'Drag to equip, inspect, compare, refine or salvage equipment.' : `${items.length} of ${total} items match the current view.`}</div></div>
         <section class="inventory-cleanup" aria-label="Inventory cleanup actions">
@@ -7940,6 +8560,11 @@ body::before {
             <button class="button small" data-action="bulk-sell" data-mode="worse" ${worsePreview.count ? '' : 'disabled'} ${tooltipAttrs('Sell Worse', 'Sell unprotected inventory items with lower power than the item equipped in the same slot.', `${worsePreview.count} items · ${worsePreview.gold} gold`)}>${icon('compare', 'button-icon')} Sell Worse · ${worsePreview.count}</button>
             <button class="button small danger" data-action="bulk-sell" data-mode="all" ${allPreview.count ? '' : 'disabled'} ${tooltipAttrs('Sell All Unequipped', 'Sell every item currently in the stash, including set and unique build pieces. A confirmation is required.', `${allPreview.count} items · ${allPreview.gold} gold`)}>${icon('inventory', 'button-icon')} Sell All Unequipped · ${allPreview.count}</button>
           </div>
+          <details class="salvage-cleanup"><summary>${icon('runes', 'button-icon')} Salvage cleanup</summary><div class="inventory-cleanup-actions">
+            <button class="button small" data-action="bulk-salvage" data-mode="trash" ${salvageTrash.count ? '' : 'aria-disabled="true"'} ${tooltipAttrs('Salvage Trash', 'Convert all grey Normal items that are not special build pieces into Essence.', `${salvageTrash.count} items · ${salvageTrash.essence} essence`)}>Salvage Trash · ${salvageTrash.count}</button>
+            <button class="button small" data-action="bulk-salvage" data-mode="worse" ${salvageWorse.count ? '' : 'aria-disabled="true"'} ${tooltipAttrs('Salvage Worse', 'Convert unprotected items weaker than equipped gear into Essence.', `${salvageWorse.count} items · ${salvageWorse.essence} essence`)}>Salvage Worse · ${salvageWorse.count}</button>
+            <button class="button small danger" data-action="bulk-salvage" data-mode="all" ${salvageAll.count ? '' : 'aria-disabled="true"'} ${tooltipAttrs('Salvage All Unequipped', 'Convert the entire stash into Essence, including set and unique items. Confirmation required.', `${salvageAll.count} items · ${salvageAll.essence} essence`)}>Salvage All · ${salvageAll.count}</button>
+          </div></details>
         </section>
         <section class="inventory-controls" aria-label="Inventory filters">
           <label class="inventory-search"><span>${icon('search')}</span><input type="search" value="${esc(this.inventoryFilters.query)}" placeholder="Search items, sets or effects" data-inventory-filter="query" aria-label="Search inventory"></label>
@@ -7992,7 +8617,9 @@ body::before {
 
     itemComparison(item) {
       const state = C.getState();
-      const equipped = state.hero.equipment[item.slot] || null;
+      const comparisonDiscipline = item.discipline && item.discipline !== 'all' ? item.discipline : state.hero.activeDiscipline;
+      const loadout = comparisonDiscipline === state.hero.activeDiscipline ? state.hero.equipment : state.hero.disciplines?.[comparisonDiscipline]?.equipment;
+      const equipped = loadout?.[item.slot] || null;
       const candidatePower = C.itemScore(item);
       const equippedPower = equipped ? C.itemScore(equipped) : 0;
       const delta = equipped?.id === item.id ? 0 : candidatePower - equippedPower;
@@ -8029,6 +8656,8 @@ body::before {
         <div class="wow-tooltip-type"><span>${esc(slotLabel(item.slot))}</span><span>${esc(rarity)}</span></div>
         <div class="wow-tooltip-power"><span>Item Power</span><strong>${number(comparison.candidatePower)}</strong></div>
         ${statRows ? `<div class="wow-tooltip-stats">${statRows}</div>` : ''}
+        ${item.sockets > 0 ? `<div class="wow-item-stat socket-line"><span>${item.sockets} Socket${item.sockets === 1 ? '' : 's'}</span></div>` : ''}
+        ${item.discipline && item.discipline !== 'all' ? `<div class="wow-requirement discipline-requirement">${esc(D.COMBAT_DISCIPLINES[item.discipline]?.name || item.discipline)} equipment${C.itemDisciplineCompatible(item) ? '' : ` · Switch Combat Discipline to equip`}</div>` : ''}
         ${special}
         ${locked}
         <div class="wow-tooltip-divider"></div>
@@ -8038,21 +8667,25 @@ body::before {
     }
 
     itemCard(item, selected = false, options = {}) {
-      const current = C.getState().hero.equipment[item.slot];
+      const itemState = C.getState();
+      const comparisonDiscipline = item.discipline && item.discipline !== 'all' ? item.discipline : itemState.hero.activeDiscipline;
+      const comparisonLoadout = comparisonDiscipline === itemState.hero.activeDiscipline ? itemState.hero.equipment : itemState.hero.disciplines?.[comparisonDiscipline]?.equipment;
+      const current = comparisonLoadout?.[item.slot] || null;
       const score = C.itemScore(item);
       const delta = current && current.id !== item.id ? score - C.itemScore(current) : null;
       const slotUnlocked = C.isSlotUnlocked(item.slot);
+      const disciplineCompatible = C.itemDisciplineCompatible(item);
       const clickable = options.clickable !== false;
       const tag = clickable ? 'button' : 'article';
-      const action = clickable ? `data-action="select-item" data-item="${item.id}"${slotUnlocked ? ` data-drag-item="${item.id}" draggable="true"` : ''}` : '';
+      const action = clickable ? `data-action="select-item" data-item="${item.id}"${slotUnlocked && disciplineCompatible ? ` data-drag-item="${item.id}" draggable="true"` : ''}` : '';
       const compareText = delta === null ? (current?.id === item.id ? 'Equipped' : 'Empty slot') : `${delta > 0 ? '+' : ''}${number(delta)}`;
-      const lockText = slotUnlocked ? '' : `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]}.`;
+      const lockText = !slotUnlocked ? `Unlocks at hero level ${D.SLOT_UNLOCK_LEVEL[item.slot]}.` : !disciplineCompatible ? `Requires ${D.COMBAT_DISCIPLINES[item.discipline]?.name || item.discipline} discipline.` : '';
       const aria = `${item.name}, ${D.RARITIES[item.rarity]?.label || item.rarity} ${slotLabel(item.slot)}, power ${number(score)}, ${compareText}${lockText ? `, ${lockText}` : ''}`;
       const band = D.PROGRESSION_BANDS.find(entry => entry.id === item.bandId)?.name || 'Initiate';
-      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''} ${slotUnlocked ? '' : 'locked-slot-item'}" ${action} aria-label="${esc(aria)}" ${itemTooltipAttrs(item, options.tooltipContext || 'inventory')}>
+      return `<${tag} class="item-card ${selected ? 'selected' : ''} ${rarityClass(item)} ${item.setId ? 'set-piece' : ''} ${slotUnlocked && disciplineCompatible ? '' : 'locked-slot-item'}" ${action} aria-label="${esc(aria)}" ${itemTooltipAttrs(item, options.tooltipContext || 'inventory')}>
         <span class="rarity-rail" aria-hidden="true"></span>
         <span class="item-level">L${item.level}${item.refinement ? ` · +${item.refinement}` : ''}</span>
-        ${slotUnlocked ? '<span class="drag-grip" aria-hidden="true">⋮⋮</span>' : `<span class="locked-item-badge">${icon('lock')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`}
+        ${slotUnlocked && disciplineCompatible ? '<span class="drag-grip" aria-hidden="true">⋮⋮</span>' : `<span class="locked-item-badge">${icon(!slotUnlocked ? 'lock' : 'target')} ${!slotUnlocked ? `Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}` : esc(D.COMBAT_DISCIPLINES[item.discipline]?.name || 'Other discipline')}</span>`}
         <span class="item-visual">${itemArtSvg(item)}</span>
         <span class="item-name ${item.setId ? 'set-name' : rarityClass(item)}">${esc(item.name)}</span>
         <span class="item-meta"><span>${esc(slotLabel(item.slot))}</span><span>${esc(band)}</span></span>
@@ -8064,15 +8697,17 @@ body::before {
 
     skillsTab(state) {
       const available = C.availableAbilities();
-      const selectedId = D.SKILL_BRANCHES[this.skillBranch] ? this.skillBranch : Object.keys(D.SKILL_BRANCHES)[0];
-      const branch = D.SKILL_BRANCHES[selectedId];
+      const branches = C.skillBranchesForDiscipline(state.hero.activeDiscipline, state);
+      const selectedId = branches[this.skillBranch] ? this.skillBranch : Object.keys(branches)[0];
+      const branch = branches[selectedId];
+      this.skillBranch = selectedId;
       const analysis = C.analyzeBuild();
       const refund = C.allocatedSkillPoints(state);
       return `
         <div class="skill-workspace">
-          <div class="inventory-toolbar"><div><div class="eyebrow">Skill tree</div><strong>${state.hero.skillPoints} points available · ${state.hero.ownedSkills.length}/${Object.values(D.SKILL_BRANCHES).reduce((sum, entry) => sum + entry.nodes.length, 0)} learned</strong></div><div class="skill-toolbar-actions"><span class="subtle">Choose one branch at a time. Nothing is hidden beyond the right edge.</span><button class="button small" data-action="respec-skills" ${refund ? '' : 'disabled'} ${tooltipAttrs('Respec Skills', refund ? `Refund all ${refund} allocated skill points and rebuild the Wayfarer.` : 'No allocated skill points to refund.', 'Equipped abilities that are no longer unlocked will be removed safely.')}>Respec Skills · ${refund}</button></div></div>
+          <div class="inventory-toolbar"><div><div class="eyebrow">Skill tree</div><strong>${state.hero.skillPoints} points available · ${state.hero.ownedSkills.length}/${Object.values(branches).reduce((sum, entry) => sum + entry.nodes.length, 0)} learned</strong></div><div class="skill-toolbar-actions"><span class="subtle">Choose one branch at a time. Nothing is hidden beyond the right edge.</span><button class="button small" data-action="respec-skills" ${refund ? '' : 'disabled'} ${tooltipAttrs('Respec Skills', refund ? `Refund all ${refund} allocated skill points and rebuild the active ${D.COMBAT_DISCIPLINES[state.hero.activeDiscipline].name} discipline.` : 'No allocated skill points to refund.', 'Equipped abilities that are no longer unlocked will be removed safely.')}>Respec Skills · ${refund}</button></div></div>
           <nav class="skill-branch-tabs" role="tablist" aria-label="Skill branches">
-            ${Object.entries(D.SKILL_BRANCHES).map(([branchId, entry]) => {
+            ${Object.entries(branches).map(([branchId, entry]) => {
               const owned = entry.nodes.filter(node => state.hero.ownedSkills.includes(node.id)).length;
               return `<button class="skill-branch-tab ${branchId === selectedId ? 'active' : ''}" role="tab" aria-selected="${branchId === selectedId}" data-action="select-skill-branch" data-branch="${branchId}" style="--branch:${entry.color}" ${tooltipAttrs(entry.name, `Open this discipline. ${owned} of ${entry.nodes.length} nodes learned.`)}><span class="skill-tab-icon">${icon('skills')}</span><strong>${esc(entry.name)}</strong><span>${owned}/${entry.nodes.length}</span></button>`;
             }).join('')}
@@ -8135,11 +8770,11 @@ body::before {
           const rank = C.getCampUpgradeRank(id);
           const complete = rank >= upgrade.maxRank;
           const cost = complete ? 0 : upgrade.costs[rank];
-          return `<article class="camp-upgrade ${complete ? 'complete' : ''}">
+          return `<article id="camp-upgrade-${id}" class="camp-upgrade ${complete ? 'complete' : ''} ${this.focusCampUpgrade === id ? 'upgrade-focus' : ''}">
             <div class="upgrade-heading"><span>${upgrade.icon}</span><div><div class="eyebrow">Rank ${rank}/${upgrade.maxRank}</div><h3>${esc(upgrade.name)}</h3></div></div>
             <p>${esc(upgrade.text)}</p>
             <div class="upgrade-ranks">${upgrade.rankText.map((text, index) => `<div class="${index < rank ? 'owned' : index === rank ? 'next' : ''}"><span>${index < rank ? '✓' : index === rank ? '→' : '○'}</span><span>${esc(text)}</span></div>`).join('')}</div>
-            <button class="button ${!complete && state.resources.renown >= cost ? 'primary' : ''}" data-action="buy-camp-upgrade" data-upgrade="${id}" ${complete || state.resources.renown < cost ? 'disabled' : ''}>${complete ? 'Fully upgraded' : `Upgrade · ${cost} renown`}</button>
+            <button class="button ${!complete && state.resources.renown >= cost ? 'primary' : ''}" data-action="buy-camp-upgrade" data-upgrade="${id}" ${complete || state.resources.renown < cost ? 'aria-disabled="true"' : ''} ${tooltipAttrs(upgrade.name, complete ? 'This facility is fully upgraded.' : state.resources.renown < cost ? `Earn ${cost - state.resources.renown} more Renown from expeditions, bosses or Endless extraction.` : `Spend ${cost} Renown to unlock: ${upgrade.rankText[rank]}`, id === 'forge' ? 'Camp tab · Wayfarer Forge enables item refinement and improves salvage yield.' : 'Permanent shared account upgrade')}>${complete ? 'Fully upgraded' : `Upgrade · ${cost} renown`}</button>
           </article>`;
         }).join('')}</div>
         <div class="divider"></div>
@@ -8295,7 +8930,10 @@ body::before {
     }
 
     itemDetail(item, equipped) {
-      const current = C.getState().hero.equipment[item.slot];
+      const itemState = C.getState();
+      const comparisonDiscipline = item.discipline && item.discipline !== 'all' ? item.discipline : itemState.hero.activeDiscipline;
+      const comparisonLoadout = comparisonDiscipline === itemState.hero.activeDiscipline ? itemState.hero.equipment : itemState.hero.disciplines?.[comparisonDiscipline]?.equipment;
+      const current = comparisonLoadout?.[item.slot] || null;
       const effective = C.effectiveItemStats(item);
       const currentEffective = current ? C.effectiveItemStats(current) : null;
       const band = D.PROGRESSION_BANDS.find(entry => entry.id === item.bandId) || C.progressionBandForLevel(item.level);
@@ -8304,6 +8942,7 @@ body::before {
       const score = C.itemScore(item);
       const currentScore = current ? C.itemScore(current) : 0;
       const slotUnlocked = C.isSlotUnlocked(item.slot);
+      const disciplineCompatible = C.itemDisciplineCompatible(item);
       const scoreDiff = !equipped ? score - currentScore : 0;
       const compareStats = !equipped ? [...new Set([...Object.keys(effective), ...Object.keys(currentEffective || {})])]
         .sort((a, b) => Math.abs(Number(effective[b] || 0) - Number(currentEffective?.[b] || 0)) - Math.abs(Number(effective[a] || 0) - Number(currentEffective?.[a] || 0)))
@@ -8325,7 +8964,7 @@ body::before {
             <div class="stat-line"><span>Item power</span><strong>${number(score)}</strong></div>
             <div class="stat-line"><span>Refinement</span><strong>+${item.refinement || 0}/${refineCap}</strong></div>
             <div class="stat-line"><span>Slot</span><strong>${icon(slotIconKey(item.slot), 'inline-icon')} ${esc(slotLabel(item.slot))}</strong></div>
-            <div class="stat-line"><span>Sockets</span><strong>${item.sockets || 0}</strong></div>
+            ${item.sockets > 0 ? `<div class="stat-line"><span>Sockets</span><strong>${item.sockets}</strong></div>` : ''}
           </div>
           <div class="divider"></div>
           <div class="stat-list">${Object.entries(effective).map(([stat, value]) => {
@@ -8338,10 +8977,13 @@ body::before {
           ${item.runeword ? `<div class="divider"></div><div class="effect-block runeword-effect">${icon('runes')}<div><div class="eyebrow">Runeword · ${item.runeword.runes.map(rune => D.RUNES[rune].symbol).join(' ')}</div><strong class="set-name">${esc(item.runeword.name)}</strong><div class="subtle">${esc(item.runeword.text)}</div></div></div>` : ''}
           ${item.setId ? `<div class="divider"></div><div class="effect-block set-effect">${icon('crown')}<div><div class="eyebrow">Set piece</div><strong class="set-name">${esc(D.SETS[item.setId].name)}</strong>${Object.entries(D.SETS[item.setId].bonuses).map(([threshold, bonus]) => `<div class="subtle">${threshold} pieces: ${esc(bonus.text)}</div>`).join('')}</div></div>` : ''}
           ${!equipped && !slotUnlocked ? `<div class="locked-slot-callout">${icon('lock')}<div><strong>${esc(slotLabel(item.slot))} unlocks at level ${D.SLOT_UNLOCK_LEVEL[item.slot]}</strong><span>This item is safe in the stash, but cannot be equipped until that hero level.</span></div></div>` : ''}
+          ${!equipped && slotUnlocked && !disciplineCompatible ? `<div class="locked-slot-callout discipline-lock">${icon('target')}<div><strong>${esc(D.COMBAT_DISCIPLINES[item.discipline]?.name || item.discipline)} equipment</strong><span>Open the Combat Discipline selector beneath the hero and switch loadouts to equip this item.</span></div></div>` : ''}
           <div class="divider"></div>
           <div class="item-actions sticky-actions">
-            ${equipped ? `<button class="button" data-action="unequip" data-slot="${item.slot}">Unequip</button>` : `<button class="button ${slotUnlocked ? 'primary' : ''}" data-action="equip-item" data-item="${item.id}" ${slotUnlocked ? '' : 'disabled'}>${slotUnlocked ? `${icon('check', 'button-icon')} Equip` : `${icon('lock', 'button-icon')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}`}</button><button class="button danger" data-action="sell-item" data-item="${item.id}">Sell · ${item.sellValue}</button><button class="button" data-action="salvage-item" data-item="${item.id}">Salvage</button>`}
-            <button class="button ${item.refinement < refineCap ? 'primary' : ''}" data-action="refine-item" data-item="${item.id}" ${item.refinement < refineCap ? '' : 'disabled'}>${refineCap <= 0 ? 'Forge upgrade required' : item.refinement >= refineCap ? 'Refinement capped' : `Refine · ${refineCost.gold}g + ${refineCost.essence} essence`}</button>
+            ${equipped ? `<button class="button" data-action="unequip" data-slot="${item.slot}">Unequip</button>` : `<button class="button ${slotUnlocked && disciplineCompatible ? 'primary' : ''}" data-action="equip-item" data-item="${item.id}" ${slotUnlocked && disciplineCompatible ? '' : 'aria-disabled="true"'} ${!disciplineCompatible ? tooltipAttrs(`${D.COMBAT_DISCIPLINES[item.discipline]?.name || 'Discipline'} equipment`, 'Switch Combat Discipline from the fixed selector beneath the hero before equipping this item.', 'Each discipline keeps its own equipment loadout.') : ''}>${!slotUnlocked ? `${icon('lock', 'button-icon')} Unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}` : !disciplineCompatible ? `${icon('target', 'button-icon')} ${esc(D.COMBAT_DISCIPLINES[item.discipline]?.name || 'Other discipline')}` : `${icon('check', 'button-icon')} Equip`}</button><button class="button danger" data-action="sell-item" data-item="${item.id}">Sell · ${item.sellValue}</button><button class="button" data-action="salvage-item" data-item="${item.id}">Salvage</button>`}
+            ${refineCap <= 0
+              ? `<button class="button" data-action="open-forge" ${tooltipAttrs('Wayfarer Forge required', 'Open the Camp tab and upgrade the Wayfarer Forge with Renown. Forge Rank 1 unlocks +1 item refinement and improves salvage Essence.', 'Camp → Wayfarer Forge')}>${icon('camp', 'button-icon')} Open Camp Forge</button>`
+              : `<button class="button ${item.refinement < refineCap ? 'primary' : ''}" data-action="refine-item" data-item="${item.id}" ${item.refinement >= refineCap ? 'aria-disabled="true"' : ''} ${tooltipAttrs('Refine item', item.refinement >= refineCap ? `This item is at its current +${refineCap} refinement cap.` : `Spend ${refineCost.gold} Gold and ${refineCost.essence} Essence to improve all scalable stats by 6.5%.`, 'Essence comes from salvaging equipment. Higher Forge ranks raise the refinement cap.')}>${item.refinement >= refineCap ? 'Refinement capped' : `Refine · ${refineCost.gold}g + ${refineCost.essence} essence`}</button>`}
             <button class="button" data-action="clear-selection">Close</button>
           </div>
         </div>`;
@@ -8349,11 +8991,34 @@ body::before {
 
     modalHtml() {
       if (this.planner) return this.plannerModal();
+      if (this.modal === 'disciplines') return this.disciplineModal();
       if (this.modal === 'onboarding') return this.onboardingModal();
       if (this.modal === 'help') return this.helpModal();
       if (this.modal === 'settings') return this.settingsModal();
       if (this.result) return this.resultModal();
       return '';
+    }
+
+    disciplineModal() {
+      const state = C.getState();
+      const activeId = state.hero.activeDiscipline || 'wayfarer';
+      return `<div class="modal-backdrop"><section class="modal discipline-modal" role="dialog" aria-modal="true" aria-labelledby="disciplineTitle"><div class="modal-header"><div><div class="eyebrow">Persistent combat identity</div><h2 id="disciplineTitle">Combat Disciplines</h2></div><button class="icon-button" data-action="close-modal" aria-label="Close disciplines">${icon('close')}</button></div><div class="modal-body">
+        <div class="discipline-shared-rule"><span>${icon('camp')}</span><div><strong>One account. Distinct fighters.</strong><p>Camp upgrades, Renown, Essence, runes, achievements and campaign access are shared. Each discipline keeps its own equipment loadout, skill tree, abilities and victory record.</p></div></div>
+        <div class="discipline-grid">${Object.entries(D.COMBAT_DISCIPLINES).map(([id, discipline]) => {
+          const status = C.disciplineUnlockStatus(id, state);
+          const progress = C.disciplineProgress(id, state);
+          const active = id === activeId;
+          const percentage = status.target ? Math.min(100, status.current / status.target * 100) : 0;
+          return `<article class="discipline-card ${active ? 'active' : ''} ${status.unlocked ? 'unlocked' : 'locked'}" style="--discipline:${discipline.color}">
+            <div class="discipline-card-head"><span>${esc(discipline.icon)}</span><div><div class="eyebrow">${active ? 'Active discipline' : status.unlocked ? 'Unlocked' : 'Locked'}</div><h3>${esc(discipline.name)}</h3><p>${esc(discipline.tagline)}</p></div></div>
+            <p>${esc(discipline.text)}</p>
+            <div class="discipline-facts"><span><strong>${progress.wins}</strong> victories</span><span><strong>${progress.hardWins}</strong> hard wins</span><span><strong>${progress.bestDepth}</strong> best depth</span></div>
+            <div class="discipline-loot"><strong>Loot identity</strong><span>${esc(discipline.lootText)}</span></div>
+            ${!status.unlocked ? `<div class="discipline-unlock"><div><span>Unlock progress</span><strong>${status.current}/${status.target}</strong></div><div class="discipline-progress"><i style="width:${percentage}%"></i></div><p>${esc(status.text)}</p></div>` : id === 'hunter' && !C.isDisciplineUnlocked('arcanist', state) ? `<div class="discipline-unlock ascension"><div><span>Hunter Ascension</span><strong>${progress.ascensionWins}/${D.COMBAT_DISCIPLINES.hunter.ascensionTarget}</strong></div><div class="discipline-progress"><i style="width:${Math.min(100, progress.ascensionWins / D.COMBAT_DISCIPLINES.hunter.ascensionTarget * 100)}%"></i></div><p>Hard or Endless victories as Hunter unlock the Arcanist.</p></div>` : ''}
+            <button class="button ${status.unlocked && !active ? 'primary' : ''}" data-action="switch-discipline" data-discipline="${id}" ${!status.unlocked || active ? 'aria-disabled="true"' : ''}>${active ? 'Currently active' : status.unlocked ? `Use ${esc(discipline.name)}` : 'Locked'}</button>
+          </article>`;
+        }).join('')}</div>
+      </div></section></div>`;
     }
 
     onboardingModal() {
@@ -8363,7 +9028,7 @@ body::before {
           <article><span>2</span><div><strong>Plan</strong><p>Spend Command Points to draw a route through visible threats, rewards, shrines and the final objective.</p></div></article>
           <article><span>3</span><div><strong>Commit</strong><p>The expedition resolves automatically. Study the report, repair the weakness and return stronger.</p></div></article>
         </div>
-        <div class="premium-callout"><strong>The rule of The Endless Dark</strong><span>Combat never hides why the build succeeded or failed. You control preparation; the hero proves the result.</span></div>
+        <div class="premium-callout"><strong>The rule of The Endless Dark</strong><span>Combat never hides why the build succeeded or failed. You control preparation; the hero proves the result.</span></div><div class="discipline-onboarding-note"><span>⚔</span><div><strong>One hero profile, three future combat identities</strong><p>Begin as the Wayfarer. Completing the principal campaign unlocks the ranged Hunter; mastering the Hunter Ascension unlocks the spellcasting Arcanist. The fixed selector beneath the hero keeps this progression visible without adding another navigation tab.</p></div></div>
         <button class="button primary onboarding-start" data-action="complete-onboarding">Enter the camp</button>
       </div></section></div>`;
     }
@@ -8372,7 +9037,7 @@ body::before {
       return `<div class="modal-backdrop"><section class="modal" role="dialog" aria-modal="true"><div class="modal-header"><div><div class="eyebrow">Field guide</div><h2>Plan → Commit → Understand → Rebuild</h2></div><button class="icon-button" data-action="close-modal" aria-label="Close dialog" ${tooltipAttrs('Close', 'Return to the previous screen.')}>${icon('close')}</button></div><div class="modal-body guide-grid">
         <article><strong>Route planning</strong><span>Every room costs one Command Point. A route must reach the disclosed objective; relic, purge, survival and ritual missions resolve differently. Named hunts are authored tests; safer paths yield less while elite paths improve rune and item chances.</span></article>
         <article><strong>Automatic behaviour</strong><span>Abilities activate only when their written condition is met. Cooldowns, target access and enemy composition determine whether they contribute.</span></article>
-        <article><strong>Build routes</strong><span>Legendary effects, set thresholds and runewords compete for equipment space. Strong builds create a coherent engine rather than stacking random rarity.</span></article>
+        <article><strong>Build routes</strong><span>Legendary effects, set thresholds and runewords compete for equipment space. Strong builds create a coherent engine rather than stacking random rarity.</span></article><article><strong>Combat Disciplines</strong><span>The fixed selector beneath the hero switches between separate Wayfarer, Hunter and Arcanist loadouts. Camp progress, currencies, runes and achievements remain shared.</span></article>
         <article><strong>Campaign progression</strong><span>Regional loot, named hunts, camp quests and the four Great Mountains gates all feed the same persistent hero. The Endless Dark opens only after the final ascent.</span></article><article><strong>Failure reports</strong><span>Use incoming-damage sources, healing, prevention and strongest proc to identify whether the next change should improve sustain, access or damage.</span></article>
       </div></section></div>`;
     }
@@ -8647,11 +9312,13 @@ body::before {
       const equipped = Object.values(state.hero.equipment).some(entry => entry?.id === item.id);
       const inStash = state.hero.inventory.some(entry => entry.id === item.id);
       const slotUnlocked = C.isSlotUnlocked(item.slot);
+      const disciplineCompatible = C.itemDisciplineCompatible(item);
       let action = '';
       if (endlessPending) action = `<span class="reward-item-state at-risk">At risk until extraction</span>`;
       else if (equipped) action = `<span class="reward-item-state equipped">${icon('check')} Equipped</span>`;
-      else if ((accepted.has(item.id) || inStash) && slotUnlocked) action = `<button class="button small primary" data-action="equip-reward-item" data-item="${item.id}">${icon('check', 'button-icon')} Equip now</button>`;
+      else if ((accepted.has(item.id) || inStash) && slotUnlocked && disciplineCompatible) action = `<button class="button small primary" data-action="equip-reward-item" data-item="${item.id}">${icon('check', 'button-icon')} Equip now</button>`;
       else if ((accepted.has(item.id) || inStash) && !slotUnlocked) action = `<span class="reward-item-state locked">${icon('lock')} Slot unlocks L${D.SLOT_UNLOCK_LEVEL[item.slot]}</span>`;
+      else if ((accepted.has(item.id) || inStash) && !disciplineCompatible) action = `<button class="button small" data-action="open-disciplines">${icon('target', 'button-icon')} Switch to ${esc(D.COMBAT_DISCIPLINES[item.discipline]?.name || 'discipline')}</button>`;
       else action = `<span class="reward-item-state sold">Inventory overflow · converted to gold</span>`;
       return `<div class="reward-item-card">${this.itemCard(item, false, { clickable: false, tooltipContext: 'reward' })}<div class="reward-item-actions">${action}</div></div>`;
     }
@@ -8675,6 +9342,8 @@ body::before {
         ${endlessFailed && applied.lost?.active ? `<div class="risk-callout failure"><strong>The descent collapsed at depth ${applied.lost.depth}.</strong><span>${number(applied.lost.gold)} cached gold and ${applied.lost.loot.length} cached items were lost. A small gold and XP consolation was recovered.</span></div>` : ''}
         ${(r.contracts?.length || r.endlessModifiers?.length) ? `<div class="result-modifiers">${(r.contracts || []).map(id => `<span class="modifier-chip">Contract · ${esc(D.DIFFICULTY_CONTRACTS[id].name)}</span>`).join('')}${(r.endlessModifiers || []).map(id => `<span class="modifier-chip">Depth · ${esc(D.ENDLESS_MODIFIERS[id].name)}</span>`).join('')}</div>` : ''}
         ${r.objectiveType ? `<div class="campaign-result"><strong>${esc(D.MISSION_OBJECTIVES[r.objectiveType]?.icon || '◇')} ${esc(D.MISSION_OBJECTIVES[r.objectiveType]?.name || r.objectiveType)}</strong><span>${r.success ? 'Objective completed.' : 'Objective failed before extraction.'}${r.finalBoss && r.success ? ' The First Witness has fallen; the principal campaign is complete.' : ''}</span></div>` : ''}
+        ${r.success && r.finalBoss && C.isDisciplineUnlocked('hunter') ? `<section class="discipline-unlock-result" style="--discipline:${D.COMBAT_DISCIPLINES.hunter.color}"><span class="discipline-emblem">${D.COMBAT_DISCIPLINES.hunter.icon}</span><div><div class="eyebrow">New Combat Discipline</div><h3>Hunter unlocked</h3><p>Bow attacks, range control and the Hunter Ascension are now available from the fixed selector beneath the hero.</p></div><button class="button primary" data-action="open-disciplines">Inspect Hunter</button></section>` : ''}
+        ${r.success && r.disciplineId === 'hunter' && C.isDisciplineUnlocked('arcanist') && C.disciplineProgress('hunter').ascensionWins === D.COMBAT_DISCIPLINES.hunter.ascensionTarget ? `<section class="discipline-unlock-result" style="--discipline:${D.COMBAT_DISCIPLINES.arcanist.color}"><span class="discipline-emblem">${D.COMBAT_DISCIPLINES.arcanist.icon}</span><div><div class="eyebrow">Hunter Ascension complete</div><h3>Arcanist unlocked</h3><p>Wands, elemental bolts and the Arcanist spell trees are now available.</p></div><button class="button primary" data-action="open-disciplines">Inspect Arcanist</button></section>` : ''}
         ${r.namedElitesKilled?.length ? `<div class="named-victory"><div class="eyebrow">Named victories</div><strong>${r.namedElitesKilled.map(id => esc(D.NAMED_ELITES[id]?.name || id)).join(' · ')}</strong></div>` : ''}
         ${r.campaignStage ? `<div class="campaign-result"><strong>Great Mountains ascent ${r.campaignStage}/${D.MOUNTAIN_CAMPAIGN.length} ${r.success ? 'cleared' : 'attempted'}</strong><span>${r.campaignFinal && r.success ? 'The Gate of the Deep is open. The Endless Dark is now reachable.' : 'The next gate opens only after this stage is cleared.'}</span></div>` : ''}
         ${this.runeRewardSection(r.runes)}
@@ -8916,6 +9585,14 @@ body::before {
 
       this.hideTooltip();
       if (action === 'tab') { this.tab = button.dataset.tab; this.selectedItemId = null; this.selectedEquipmentSlot = null; this.render(); }
+      else if (action === 'open-disciplines') { this.modal = 'disciplines'; this.render(); }
+      else if (action === 'switch-discipline') {
+        const result = C.switchDiscipline(button.dataset.discipline);
+        if (result.ok) this.skillBranch = C.disciplineBranchIds(button.dataset.discipline)[0] || this.skillBranch;
+        this.modal = result.ok ? null : 'disciplines';
+        this.toast(result.message, result.ok ? 'good' : 'bad');
+        this.render();
+      }
       else if (action === 'clear-inventory-filters') { this.inventoryFilters = { query: '', slot: 'all', rarity: 'all', sort: 'power-desc' }; this.selectedItemId = null; this.render(); }
       else if (action === 'select-region') { this.selectedRegionIndex = Number(button.dataset.region); this.render(); }
       else if (action === 'select-item') { this.selectedItemId = button.dataset.item; this.selectedEquipmentSlot = null; if (this.result) return; this.render(); }
@@ -8934,7 +9611,22 @@ body::before {
         if (needsConfirmation && !window.confirm(`Sell ${label}?\n\n${preview.count} items for ${preview.gold} gold.`)) return;
         this.handleResult(C.bulkSellItems(mode));
       }
+      else if (action === 'bulk-salvage') {
+        const mode = button.dataset.mode;
+        const preview = C.bulkSalvagePreview(mode);
+        if (!preview.count) { this.handleResult(C.bulkSalvageItems(mode)); return; }
+        const needsConfirmation = mode !== 'trash';
+        const label = mode === 'worse' ? 'all unprotected items worse than equipped gear' : 'every unequipped item, including set and unique pieces';
+        if (needsConfirmation && !window.confirm(`Salvage ${label}?
+
+${preview.count} items for ${preview.essence} essence.`)) return;
+        this.handleResult(C.bulkSalvageItems(mode));
+      }
       else if (action === 'salvage-item') { this.handleResult(C.salvageItem(button.dataset.item)); this.selectedItemId = null; }
+      else if (action === 'open-forge') {
+        this.tab = 'camp'; this.focusCampUpgrade = 'forge'; this.selectedItemId = null; this.selectedEquipmentSlot = null; this.render();
+        requestAnimationFrame(() => { const forge = this.root.querySelector('#camp-upgrade-forge'); forge?.scrollIntoView?.({ behavior: C.getState().settings.reducedMotion ? 'auto' : 'smooth', block: 'center' }); setTimeout(() => { this.focusCampUpgrade = null; forge?.classList.remove('upgrade-focus'); }, 2400); });
+      }
       else if (action === 'refine-item') this.handleResult(C.refineItem(button.dataset.item));
       else if (action === 'select-skill-branch') { this.skillBranch = button.dataset.branch; this.render(); }
       else if (action === 'buy-skill') this.handleResult(C.buySkill(button.dataset.skill));
