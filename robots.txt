@@ -1,11 +1,14 @@
-# Public FreQtik pages are available to search engines and answer engines.
-# Legally required pages containing personal information are excluded from crawler access.
+# Google Search may crawl the full public website.
+# Legal pages contain their own noindex directives.
 
-User-agent: *
+User-agent: Googlebot
 Allow: /
-Disallow: /impressum.html
-Disallow: /privacy.html
-Disallow: /terms.html
+
+User-agent: Storebot-Google
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -55,13 +58,13 @@ Disallow: /impressum.html
 Disallow: /privacy.html
 Disallow: /terms.html
 
-User-agent: Google-Extended
+User-agent: CCBot
 Allow: /
 Disallow: /impressum.html
 Disallow: /privacy.html
 Disallow: /terms.html
 
-User-agent: CCBot
+User-agent: *
 Allow: /
 Disallow: /impressum.html
 Disallow: /privacy.html
