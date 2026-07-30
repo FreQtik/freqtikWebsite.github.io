@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+  <channel>
+    <title>FreQtik Product Feed</title>
+    <link>https://freqtik.com/</link>
+    <description>Official Google Merchant Center product data feed for FreQtik.</description>
+    <item>
+      <g:id>IMPULSE-ANVIL-WIN-FULL</g:id>
+      <g:title>Impulse Anvil – Impulse Response Designer &amp; Convolution VST3 Plugin for Windows</g:title>
+      <g:description>Impulse Anvil is a Windows 10/11 64-bit VST3 plugin for designing, morphing, auditioning and exporting custom impulse responses. Load two impulse responses, recordings or found sounds, shape each source, morph their time, spectral and stereo structure, preview the result through convolution, and bake reusable standard WAV impulse responses. The full license includes 126 handmade IRs and two license seats.</g:description>
+      <g:link>https://freqtik.com/impulse-anvil.html</g:link>
+      <g:image_link>https://freqtik.com/assets/impulse-anvil-plugin-ui.png</g:image_link>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:price>49.00 EUR</g:price>
+      <g:sale_price>29.00 EUR</g:sale_price>
+      <g:brand>FreQtik</g:brand>
+      <g:mpn>IMPULSE-ANVIL-001</g:mpn>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>4952</g:google_product_category>
+      <g:product_type>Audio Software &gt; Audio Plugins &gt; Convolution &amp; Impulse Response Tools</g:product_type>
+      <g:product_highlight>Design impulse responses from two IRs, recordings or found sounds.</g:product_highlight>
+      <g:product_highlight>Six morph modes plus mode-aware A-to-B Lerp.</g:product_highlight>
+      <g:product_highlight>Bake reusable standard WAV impulse responses.</g:product_highlight>
+      <g:product_highlight>Includes 126 handmade impulse responses.</g:product_highlight>
+      <g:product_highlight>Windows 10/11 64-bit VST3 with two license seats.</g:product_highlight>
+      <g:product_detail>
+        <g:section_name>Compatibility</g:section_name>
+        <g:attribute_name>Operating system</g:attribute_name>
+        <g:attribute_value>Windows 10/11</g:attribute_value>
+      </g:product_detail>
+      <g:product_detail>
+        <g:section_name>Compatibility</g:section_name>
+        <g:attribute_name>Plugin format</g:attribute_name>
+        <g:attribute_value>64-bit VST3</g:attribute_value>
+      </g:product_detail>
+      <g:product_detail>
+        <g:section_name>Delivery</g:section_name>
+        <g:attribute_name>Delivery method</g:attribute_name>
+        <g:attribute_value>Digital ZIP download</g:attribute_value>
+      </g:product_detail>
+      <g:product_detail>
+        <g:section_name>License</g:section_name>
+        <g:attribute_name>License seats</g:attribute_name>
+        <g:attribute_value>2</g:attribute_value>
+      </g:product_detail>
+      <g:product_detail>
+        <g:section_name>Content</g:section_name>
+        <g:attribute_name>Included impulse responses</g:attribute_name>
+        <g:attribute_value>126</g:attribute_value>
+      </g:product_detail>
+    </item>
+  </channel>
+</rss>
