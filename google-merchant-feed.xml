@@ -16,9 +16,9 @@
       <g:sale_price>29.00 EUR</g:sale_price>
       <g:brand>FreQtik</g:brand>
       <g:mpn>IMPULSE-ANVIL-001</g:mpn>
-      <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>4952</g:google_product_category>
       <g:product_type>Audio Software &gt; Audio Plugins &gt; Convolution &amp; Impulse Response Tools</g:product_type>
+      <g:adult>no</g:adult>
       <g:product_highlight>Design impulse responses from two IRs, recordings or found sounds.</g:product_highlight>
       <g:product_highlight>Six morph modes plus mode-aware A-to-B Lerp.</g:product_highlight>
       <g:product_highlight>Bake reusable standard WAV impulse responses.</g:product_highlight>
@@ -41,6 +41,11 @@
       </g:product_detail>
       <g:product_detail>
         <g:section_name>License</g:section_name>
+        <g:attribute_name>License type</g:attribute_name>
+        <g:attribute_value>One-time software license</g:attribute_value>
+      </g:product_detail>
+      <g:product_detail>
+        <g:section_name>License</g:section_name>
         <g:attribute_name>License seats</g:attribute_name>
         <g:attribute_value>2</g:attribute_value>
       </g:product_detail>
@@ -49,6 +54,924 @@
         <g:attribute_name>Included impulse responses</g:attribute_name>
         <g:attribute_value>126</g:attribute_value>
       </g:product_detail>
+      <g:shipping>
+        <g:country>DZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>AO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>AR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>AU</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>AT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BD</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BY</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>BG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>KH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CM</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CL</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CI</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>HR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CY</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>DK</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>DO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>EC</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>EG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SV</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>EE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ET</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>FR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>GE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>DE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>GH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>GR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>GT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>HK</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>HU</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>IN</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ID</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>IE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>IL</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>IT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>JP</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>JO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>KZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>KE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>KW</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>LV</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>LI</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>LT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>LU</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MY</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MU</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MX</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>MM</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NP</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NL</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NI</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>NO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>OM</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PK</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PY</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PL</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PT</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>PR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>RO</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SN</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SK</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ZA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>KR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ES</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>LK</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>SE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>CH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>TW</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>TZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>TH</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>TN</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>TR</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>UG</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>AE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>GB</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>UY</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>UZ</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>VE</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>VN</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ZM</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
+      <g:shipping>
+        <g:country>ZW</g:country>
+        <g:service>Digital delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+        <g:min_handling_time>0</g:min_handling_time>
+        <g:max_handling_time>0</g:max_handling_time>
+        <g:min_transit_time>0</g:min_transit_time>
+        <g:max_transit_time>1</g:max_transit_time>
+      </g:shipping>
     </item>
   </channel>
 </rss>
