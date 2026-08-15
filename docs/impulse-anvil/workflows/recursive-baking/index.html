@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recursive Baking — Impulse Anvil Documentation</title><meta name="description" content="Recursive Baking A Bake does not have to be the final result. It can become the next ingredient . The basic idea Make something: Then load C back into Anvil: Then do it again: By G, the original ingredients may no…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/recursive-baking/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Recursive Baking — Impulse Anvil Documentation"><meta property="og:description" content="Recursive Baking A Bake does not have to be the final result. It can become the next ingredient . The basic idea Make something: Then load C back into Anvil: Then do it again: By G, the original ingredients may no…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/recursive-baking/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Recursive Baking", "url": "https://freqtik.com/docs/impulse-anvil/workflows/recursive-baking/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a class="active" href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Recursive Baking</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="recursive-baking">Recursive Baking</h1>
+<p>A Bake does not have to be the final result.</p>
+<p>It can become the <strong>next ingredient</strong>.</p>
+<h2 id="the-basic-idea">The basic idea</h2>
+<p>Make something:</p>
+<pre><code class="language-text">A + B → Bake C
+</code></pre>
+<p>Then load C back into Anvil:</p>
+<pre><code class="language-text">C + D → Bake E
+</code></pre>
+<p>Then do it again:</p>
+<pre><code class="language-text">E + recording F → Bake G
+</code></pre>
+<p>By G, the original ingredients may no longer be obvious at all.</p>
+<h2 id="build-it">Build it</h2>
+<ol>
+<li>Create a useful A/B result.</li>
+<li>Bake it.</li>
+<li>Load that Bake back into A.</li>
+<li>Put a different source in B.</li>
+<li>Change the Morph mode, Color, EDIT region or stereo treatment.</li>
+<li>Bake again.</li>
+</ol>
+<h2 id="do-not-make-only-one-lineage">Do not make only one lineage</h2>
+<p>Instead of:</p>
+<pre><code class="language-text">A+B → C → D → E → F
+</code></pre>
+<p>try branches:</p>
+<pre><code class="language-text">A+B → C1
+A+B → C2
+
+C1 + metal → D1
+C2 + room  → D2
+
+D1 + D2 → E
+</code></pre>
+<p>Branches give you more different material to recombine later.</p>
+<h2 id="keep-generations-under-control">Keep generations under control</h2>
+<p>Recursive design can quickly become dense.</p>
+<p>When that happens:</p>
+<ul>
+<li>use EDIT to keep only the useful section;</li>
+<li>Normalize deliberately;</li>
+<li>use HP/LP to remove useless buildup;</li>
+<li>compare against an earlier generation;</li>
+<li>stop adding layers when the new Bake is only &quot;more&quot; rather than better.</li>
+</ul>
+<h2 id="strong-combination">Strong combination</h2>
+<p>Recursive Baking becomes especially powerful with <a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a>, because each generation can preserve a different spatial relationship before the next Morph begins.</p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/found-sounds/"><small>Previous</small>Found Sounds</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/"><small>Next</small>Multi-Morph Stereo Worlds</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

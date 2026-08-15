@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Phase &amp; Comb Textures with Color — Impulse Anvil Documentation</title><meta name="description" content="Phase &amp; Comb Textures with Color Color can do much more than create obvious echoes or extra layers. When the Color copy is almost the same length and timing as the original IR , the two versions interfere with each…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/color-phase/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Phase &amp; Comb Textures with Color — Impulse Anvil Documentation"><meta property="og:description" content="Phase &amp; Comb Textures with Color Color can do much more than create obvious echoes or extra layers. When the Color copy is almost the same length and timing as the original IR , the two versions interfere with each…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/color-phase/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Phase & Comb Textures with Color", "url": "https://freqtik.com/docs/impulse-anvil/workflows/color-phase/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a class="active" href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Phase &amp; Comb with Color</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="phase-amp-comb-textures-with-color">Phase &amp; Comb Textures with Color</h1>
+<p>Color can do much more than create obvious echoes or extra layers.</p>
+<p>When the Color copy is <strong>almost the same length and timing as the original IR</strong>, the two versions interfere with each other. Tiny movements can create large tonal changes.</p>
+<p>This works with almost any IR.</p>
+<h2 id="recipe-1-time-only-phase-color">Recipe 1 — Time-only phase color</h2>
+<h3 id="goal">Goal</h3>
+<p>Create a phasey, metallic or comb-like version of an IR without using Offset.</p>
+<h3 id="build-it">Build it</h3>
+<ol>
+<li>Load an IR into <strong>A</strong>.</li>
+<li>Click A so you are hearing that slot.</li>
+<li>Enable <strong>C1</strong>.</li>
+<li>Keep <strong>Offset at 0 ms</strong>.</li>
+<li>Move C1 <strong>Time slightly away from 1.00</strong>.</li>
+<li>Try small differences first: around <strong>0.99 / 1.01</strong>, then <strong>0.95 / 1.05</strong>, then further if useful.</li>
+<li>Adjust Amount by ear.</li>
+</ol>
+<h3 id="listen-for">Listen for</h3>
+<p>Do not listen for &quot;more reverb.&quot;</p>
+<p>Listen for the <strong>tone itself bending</strong>: hollowness, metallic peaks, notches, nasal colors, widening/narrowing impressions, or a completely different cabinet-like character.</p>
+<aside class="docs-admonition docs-tip"><div class="docs-admonition-title">Tip</div><div class="docs-admonition-body"><p>The important thing is the <strong>difference from 1.00</strong>, not one magic value. A tiny change can be dramatic on one IR and subtle on another.</p>
+</div></aside>
+<h2 id="recipe-2-offset-only-comb-color">Recipe 2 — Offset-only comb color</h2>
+<h3 id="goal-2">Goal</h3>
+<p>Keep the Color copy at the same length but move it slightly later.</p>
+<h3 id="build-it-2">Build it</h3>
+<ol>
+<li>Enable C1.</li>
+<li>Keep <strong>Time at 1.00</strong>.</li>
+<li>Move <strong>Offset slowly from about 1–20 ms</strong>.</li>
+<li>Adjust Amount.</li>
+</ol>
+<h3 id="listen-for-2">Listen for</h3>
+<p>Very small offsets can sound like tonal filtering rather than a separate echo.</p>
+<p>As Offset gets larger, the extra copy starts to feel more like a distinct reflection.</p>
+<h2 id="recipe-3-mixed-time-offset-phasing">Recipe 3 — Mixed Time + Offset phasing</h2>
+<h3 id="goal-3">Goal</h3>
+<p>Create a less predictable interference pattern by changing both the length and position of the Color copy.</p>
+<h3 id="build-it-3">Build it</h3>
+<ol>
+<li>Start with C1 Time only slightly different from 1.00 — for example <strong>0.95 or 1.05</strong>.</li>
+<li>Add a tiny Offset, roughly <strong>1–20 ms</strong>.</li>
+<li>Move Time by very small amounts.</li>
+<li>Move Offset again.</li>
+<li>Keep alternating between the two until you hit a useful pocket.</li>
+</ol>
+<h3 id="listen-for-3">Listen for</h3>
+<p>This is where the tone can become very complex because the copy is both <strong>drifting in time</strong> and <strong>starting from a different position</strong>.</p>
+<p>Small movements matter more than large ones.</p>
+<h2 id="add-c2">Add C2</h2>
+<p>Once C1 gives you a useful color:</p>
+<ol>
+<li>enable C2;</li>
+<li>keep one Color layer subtle;</li>
+<li>let the other one use a different Time or Offset relationship.</li>
+</ol>
+<p>You can create two different interference patterns inside the same IR before Texture or Morph even begins.</p>
+<h2 id="add-texture-carefully">Add Texture carefully</h2>
+<p>Texture repeats the Color transformation in generations.</p>
+<p>With a phasey Color setup, even <strong>Depth 1 or 2</strong> can become very dense.</p>
+<p>Do not assume higher Depth is better. Stop when the character becomes useful.</p>
+<h2 id="bake-the-sweet-spot">Bake the sweet spot</h2>
+<p>If one tiny combination sounds special, Bake it.</p>
+<p>You can then use that phase-colored IR as new source material instead of trying to remember the exact settings.</p>
+<details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>Color mixes a time-resampled and optionally delayed copy of the IR back with the original. When two related signals differ by small amounts in time, some frequencies reinforce while others cancel. The result is frequency-dependent comb filtering. Changing Color Time makes that relationship evolve across the IR instead of behaving like a single fixed delay.</p>
+</div></details></article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/path-time-routing/"><small>Previous</small>Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/found-sounds/"><small>Next</small>Found Sounds</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

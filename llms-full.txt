@@ -12,9 +12,14 @@ Impulse Anvil is a Windows 10/11, 64-bit VST3 focused on authoring impulse respo
 
 Publicly documented capabilities include per-slot preparation, Time and Gain controls, Color processing, Texture Depth, waveform editing, visual EQ, output preparation, Time Morph, Spectral Morph, Spectral BandSwap, Spectral ZigZag, Stereo Slot Swap, Mid/Side Boundary and A-to-B Lerp. The same download runs in demo mode until a license unlocks the complete workflow.
 
+Impulse Anvil 1.0.121 adds Draw and Path curve authoring, millisecond Lerp Start/Time, A/B waveform landmarks in the curve display, true 0 ms authored Fade In, Color Offset up to 500 ms, Theme Schema 2 panel overrides and improved IR browsing/tooltips. Path can move backward through source-time and replay earlier IR material; Draw and Path Preview/Bake use the same prepared construction.
+
+Canonical documentation: https://freqtik.com/docs/impulse-anvil/
+Draw & Path: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
+
 Official product homepage: https://freqtik.com/
 Stable product URL: https://freqtik.com/impulse-anvil.html
-Documentation: https://freqtik.com/docs.html
+Documentation: https://freqtik.com/docs/impulse-anvil/
 Downloads and installation: https://freqtik.com/downloads.html
 Official releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
 

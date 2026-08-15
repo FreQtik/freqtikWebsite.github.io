@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FAQ — Impulse Anvil Documentation</title><meta name="description" content="FAQ Can I use ordinary recordings as impulse responses? Yes. Impulse Anvil can load compatible audio material and use it as convolution material. Short intentional fragments are usually easier to control than long…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/faq/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="FAQ — Impulse Anvil Documentation"><meta property="og:description" content="FAQ Can I use ordinary recordings as impulse responses? Yes. Impulse Anvil can load compatible audio material and use it as convolution material. Short intentional fragments are usually easier to control than long…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/faq/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "FAQ", "url": "https://freqtik.com/docs/impulse-anvil/faq/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a class="active" href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / FAQ</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="faq">FAQ</h1>
+<h2 id="can-i-use-ordinary-recordings-as-impulse-responses">Can I use ordinary recordings as impulse responses?</h2>
+<p>Yes. Impulse Anvil can load compatible audio material and use it as convolution material. Short intentional fragments are usually easier to control than long unedited recordings.</p>
+<h2 id="can-i-take-a-tiny-part-from-the-tail-of-an-ir-and-export-it">Can I take a tiny part from the tail of an IR and export it?</h2>
+<p>Yes. Use <strong>Start</strong> and <strong>End</strong> to isolate the region. Link them when you want to scan a fixed-length window through a longer response, then press <strong>Bake</strong>.</p>
+<h2 id="can-i-reverse-only-one-selected-region">Can I reverse only one selected region?</h2>
+<p>Yes. Move <strong>Start later than End</strong>. The region between the endpoints becomes a reversed slice.</p>
+<h2 id="can-i-morph-two-irs-and-save-the-result">Can I morph two IRs and save the result?</h2>
+<p>Yes. Load A and B, click <strong>Morph</strong>, choose the relationship you want, then press <strong>Bake</strong>.</p>
+<h2 id="can-an-ir-evolve-from-a-to-b-inside-one-file">Can an IR evolve from A to B inside one file?</h2>
+<p>Yes. Enable <strong>A→B Lerp</strong>. The selected Morph mode and curve define how the response develops from A toward B over time.</p>
+<h2 id="are-lerp-start-and-lerp-time-percentages">Are Lerp Start and Lerp Time percentages?</h2>
+<p>No. They are <strong>absolute milliseconds</strong>.</p>
+<ul>
+<li>Lerp Start = when the transition begins</li>
+<li>Lerp Time = how long it takes</li>
+</ul>
+<p>Lerp Time can be 0 ms for an instant switch.</p>
+<h2 id="can-i-draw-my-own-morph-lerp-curve">Can I draw my own Morph/Lerp curve?</h2>
+<p>Yes. Choose <strong>Draw</strong> in the Curve menu and paint the A/B movement directly.</p>
+<p>Use U/S/N/F/R for Undo, Smooth, precision Nodes, Free endpoints and Reset.</p>
+<h2 id="can-draw-start-or-end-on-a-blend-instead-of-pure-a-b">Can Draw start or end on a blend instead of pure A/B?</h2>
+<p>Yes. Enable <strong>F</strong> in Draw.</p>
+<p>The first and last points can then sit anywhere between A and B.</p>
+<h2 id="what-does-path-do">What does Path do?</h2>
+<p>Path controls both <strong>A/B blend and source-time travel</strong>.</p>
+<p>Moving right reads later source-time. Moving left reads earlier source-time again, so a Path can create replayed or reversed sections inside the new IR.</p>
+<h2 id="why-can-path-make-the-ir-longer">Why can Path make the IR longer?</h2>
+<p>A straight Path reads the Lerp time span once.</p>
+<p>Horizontal backtracking adds extra travel through that span, so the rendered IR becomes longer.</p>
+<h2 id="does-path-work-in-bake">Does Path work in Bake?</h2>
+<p>Yes. Path Preview and Bake use the same prepared Path result.</p>
+<h2 id="what-are-the-waveforms-behind-the-draw-path-graph">What are the waveforms behind the Draw/Path graph?</h2>
+<p>They show the current A and B source shapes behind the curve editor.</p>
+<p>Use them as visual landmarks when drawing transitions or Path routes—for example, to line up a blend change with a transient, return to an earlier event, or follow a tail by eye.</p>
+<h2 id="can-i-load-a-baked-ir-back-into-anvil">Can I load a baked IR back into Anvil?</h2>
+<p>Yes. A Bake is a standard WAV file, so it can become A or B in another design pass.</p>
+<h2 id="is-there-a-separate-bake-a-b-button">Is there a separate Bake A→B button?</h2>
+<p>No. The current interface uses one <strong>Bake</strong> button for every prepared state, including Lerp, Draw and Path.</p>
+<h2 id="does-out-change-the-exported-wav">Does Out change the exported WAV?</h2>
+<p>No. <strong>Out</strong> is final playback output only. <strong>IR In</strong> changes the prepared/baked IR level.</p>
+<h2 id="does-dry-wet-change-the-exported-wav">Does Dry/Wet change the exported WAV?</h2>
+<p>No. Dry/Wet and Wet Level affect how you hear the plugin on the track, not the IR stored by Bake.</p>
+<h2 id="does-0-ms-fade-still-change-the-endpoint">Does 0 ms Fade still change the endpoint?</h2>
+<p>No. Fade In = 0 ms or Fade Out = 0 ms leaves that endpoint unshaped.</p>
+<h2 id="how-far-can-color-offset-go">How far can Color Offset go?</h2>
+<p>Color Offset runs from <strong>0–500 ms</strong>.</p>
+<p>Tiny offsets are useful for phase/comb tone. Larger values can create clearly separated secondary events.</p>
+<h2 id="does-anvil-remember-where-i-browse-for-irs">Does Anvil remember where I browse for IRs?</h2>
+<p>Yes. A successful manual load remembers that folder and uses it as the first choice next time.</p>
+<h2 id="can-i-customize-a-b-and-the-other-panels-separately">Can I customize A, B and the other panels separately?</h2>
+<p>Yes. Open <strong>Options → Design → Customize Current Theme…</strong> and enable panel-specific colors for A, B, Morph, EQ, EDIT or OUT.</p>
+<h2 id="can-i-export-a-theme">Can I export a theme?</h2>
+<p>Yes. Use <strong>Options → Design → Export Current Theme</strong>. The exported JSON can be edited, shared and imported again.</p>
+<h2 id="how-do-i-switch-between-hearing-a-b-and-morph">How do I switch between hearing A, B and Morph?</h2>
+<p>Click the <strong>A</strong>, <strong>B</strong> or <strong>Morph</strong> panel.</p>
+<h2 id="can-i-make-tiny-millisecond-adjustments-more-easily">Can I make tiny millisecond adjustments more easily?</h2>
+<p>Yes. Hold <strong>Shift before dragging</strong> for fine movement or <strong>Ctrl before dragging</strong> for very fine movement.</p>
+<h2 id="what-can-align-remove">What can Align remove?</h2>
+<p>Align can shift a source so its important peak begins earlier. If useful material existed before that peak, that pre-peak material can be lost. Compare Align on and off when the lead-in matters.</p>
+<h2 id="how-do-i-reset-only-one-part-of-anvil">How do I reset only one part of Anvil?</h2>
+<p>Double-click <strong>Color</strong>, <strong>EQ</strong>, <strong>EDIT</strong> or <strong>OUT</strong> to reset that section.</p>
+<p>To reset the whole control state while keeping A/B files loaded, use <strong>Options → Init / Reset Controls (keep IRs)</strong>.</p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/reference/formats-paths/"><small>Previous</small>Formats &amp; Paths</a><a href="/docs/impulse-anvil/troubleshooting/common/"><small>Next</small>Troubleshooting</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

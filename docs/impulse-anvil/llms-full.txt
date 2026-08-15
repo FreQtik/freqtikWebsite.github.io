@@ -1,0 +1,32 @@
+# Impulse Anvil — AI-readable product facts
+
+Version documented: 1.0.121
+Public format: Windows 64-bit VST3
+
+Impulse Anvil is a creative convolution and impulse-response design tool. It can load IRs or compatible recordings into A/B, reshape them, combine them, and Bake the current prepared result as a 32-bit floating-point WAV.
+
+## Current user-facing facts
+
+- A/B/Morph audition is selected by clicking the corresponding panel.
+- A and B have independent Normalize controls; Gain remains usable after Normalize.
+- Shift-drag is fine movement; Ctrl-drag is very fine movement.
+- Six Morph modes: Time Morph, Spectral, Spectral BandSwap, Spectral ZigZag, Stereo Slot Swap, Mid/Side Boundary.
+- A-to-B Lerp uses Lerp Start and Lerp Time in absolute milliseconds.
+- Lerp Time may be 0 ms for an instantaneous switch at Lerp Start.
+- Draw lets users paint an A/B transition curve.
+- Draw tools: U Undo, S Smooth, N precision Nodes, F Free endpoints, R Reset.
+- Free Draw allows the first and last A/B blend to be anywhere from A to B.
+- Path uses horizontal position as source-time and vertical position as A/B blend. Point order is playback order.
+- Moving left in Path reads earlier source-time again, enabling reverse/replayed sections.
+- Horizontal Path backtracking adds output duration.
+- The Draw/Path graph shows A and B waveforms as visual landmarks for placing transitions and time routes.
+- Color Offset range is 0–500 ms.
+- Fade In/Out at 0 ms leaves the authored endpoint unshaped.
+- Theme Schema 2 allows optional per-panel colors for A, B, Morph, EQ, EDIT and OUT.
+- Manual IR Load remembers the last successfully browsed folder; bundled Factory IRs are a fresh-install fallback.
+- Bake includes current Morph/Lerp/Draw/Path and the prepared IR shaping chain.
+- Input, Wet Level, Dry/Wet and final Out are playback-only and are not embedded into Bake.
+- Bake exports 32-bit float WAV.
+- Successful Bake/theme export offers Show File.
+
+- Theme Schema 2 can be exported, edited externally, and imported again. This enables AI-assisted theme generation from a reference image while preserving the required Impulse Anvil JSON structure.

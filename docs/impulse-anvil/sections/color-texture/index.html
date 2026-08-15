@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Color &amp; Texture — Impulse Anvil Documentation</title><meta name="description" content="Color &amp; Texture Color and Texture are where one IR can start turning into something it was not before. Color Color makes a changed copy of the current IR and mixes that copy back in. That gives you three simple…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/sections/color-texture/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Color &amp; Texture — Impulse Anvil Documentation"><meta property="og:description" content="Color &amp; Texture Color and Texture are where one IR can start turning into something it was not before. Color Color makes a changed copy of the current IR and mixes that copy back in. That gives you three simple…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/sections/color-texture/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Color & Texture", "url": "https://freqtik.com/docs/impulse-anvil/sections/color-texture/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a class="active" href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Color &amp; Texture</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="color-amp-texture">Color &amp; Texture</h1>
+<p>Color and Texture are where one IR can start turning into something it was not before.</p>
+<h2 id="color">Color</h2>
+<p>Color makes a changed copy of the current IR and mixes that copy back in.</p>
+<p>That gives you three simple questions:</p>
+<h3 id="time-how-different-should-the-copy-s-timing-be">Time — how different should the copy's timing be?</h3>
+<p>Leave Time near <strong>1.00</strong> for small differences.</p>
+<p>Move it further away when you want the copy to become obviously shorter or longer.</p>
+<p>Very small differences around 1.00 can create phasey, metallic or comb-like tone changes because the original IR and its altered copy interfere with each other.</p>
+<h3 id="offset-how-much-later-should-the-copy-begin">Offset — how much later should the copy begin?</h3>
+<p>Small Offset values can make the interference change dramatically.</p>
+<p>Larger values can feel more like a separate ghost event, reflection or slap inside the IR.</p>
+<p><strong>Offset ranges from 0–500 ms.</strong> The first few milliseconds are useful for phase/comb color; the wider range can create clearly separated reflections and rhythmic spacing.</p>
+<h3 id="amount-how-much-of-the-copy-do-you-want">Amount — how much of the copy do you want?</h3>
+<p>Start lower than you think.</p>
+<p>The useful point is often where you notice the new character without losing the original IR completely.</p>
+<h2 id="c1-and-c2">C1 and C2</h2>
+<p>A and B each have two Color layers.</p>
+<p>That means you can create one subtle extra layer with C1 and then use C2 for something different—for example:</p>
+<ul>
+<li>C1 very close in Time for a phasey tone;</li>
+<li>C2 further away with Offset for a second reflection or texture.</li>
+</ul>
+<h2 id="texture-depth">Texture Depth</h2>
+<p>Texture repeats the Color idea in generations.</p>
+<p>Think:</p>
+<blockquote>
+<p><strong>Color makes another version. Texture lets that version make another version.</strong></p>
+</blockquote>
+<ul>
+<li><strong>0</strong> = off</li>
+<li><strong>1</strong> = one extra generation</li>
+<li><strong>2–4</strong> = deeper and denser</li>
+</ul>
+<p>Start at 1. More depth is not automatically better.</p>
+<aside class="docs-admonition docs-example"><div class="docs-admonition-title">Try this: instant phase color</div><div class="docs-admonition-body"><ol>
+<li>Load any IR into A.</li>
+<li>Enable <strong>C1</strong>.</li>
+<li>Leave Offset at 0.</li>
+<li>Move C1 <strong>Time only slightly away from 1.00</strong> — for example 0.95 or 1.05.</li>
+<li>Slowly adjust Amount.</li>
+</ol>
+<p>Tiny Time differences can completely change the tone. The exact useful value depends on the IR.</p>
+</div></aside>
+<p><a href="/docs/impulse-anvil/workflows/color-phase/">See more Color phase recipes →</a></p>
+<h2 id="random-and-reset">Random and reset</h2>
+<p>The small <strong>Random</strong> button beside Color keeps the current file and tries a new Time/Color/Texture treatment.</p>
+<p>Double-click <strong>Color</strong> to reset Color and Texture for that slot without replacing the loaded IR.</p>
+<details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>A Color layer is a time-resampled, delayed and gain-scaled copy of the slot that is summed back with the original. When two closely related versions are combined, their timing differences create frequency-dependent reinforcement and cancellation—what you hear as phasey or comb-like coloration. Texture recursively feeds each new Color generation into the next.</p>
+</div></details></article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/slots/"><small>Previous</small>IR A / IR B</a><a href="/docs/impulse-anvil/sections/morph/"><small>Next</small>Morph &amp; A→B Lerp</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

@@ -1,0 +1,128 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Curves, Draw &amp; Path — Impulse Anvil Documentation</title><meta name="description" content="Curves, Draw &amp; Path The Curve area controls how A→B movement develops over time . For Draw and Path, the graph reads: Vertical position = A/B blend. Time normally moves from left to right. Built in curves Linear Moves…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/sections/curves-path/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Curves, Draw &amp; Path — Impulse Anvil Documentation"><meta property="og:description" content="Curves, Draw &amp; Path The Curve area controls how A→B movement develops over time . For Draw and Path, the graph reads: Vertical position = A/B blend. Time normally moves from left to right. Built in curves Linear Moves…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/sections/curves-path/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Curves, Draw & Path", "url": "https://freqtik.com/docs/impulse-anvil/sections/curves-path/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a class="active" href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Curves, Draw &amp; Path</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="curves-draw-amp-path">Curves, Draw &amp; Path</h1>
+<p>The Curve area controls <strong>how A→B movement develops over time</strong>.</p>
+<p>For Draw and Path, the graph reads:</p>
+<pre><code class="language-text">B  ───────────────────────── top
+
+        transition area
+
+A  ───────────────────────── bottom
+   start                  end
+</code></pre>
+<p>Vertical position = A/B blend.</p>
+<p>Time normally moves from left to right.</p>
+<h2 id="built-in-curves">Built-in curves</h2>
+<h3 id="linear">Linear</h3>
+<p>Moves from A toward B at a steady rate.</p>
+<h3 id="exp">Exp</h3>
+<p>Spends more of the transition closer to one end, then changes faster later.</p>
+<p>Use <strong>K</strong> to strengthen or soften the curve.</p>
+<h3 id="log">Log</h3>
+<p>Moves more strongly earlier, then settles toward the other end.</p>
+<p>Use <strong>K</strong> to adjust the shape.</p>
+<h3 id="s-curve">S-Curve</h3>
+<p>Creates a smoother slow-fast-slow transition.</p>
+<h3 id="draw">Draw</h3>
+<p>Lets you paint the A/B movement directly.</p>
+<h3 id="path">Path</h3>
+<p>Lets you paint both <strong>A/B movement and source-time travel</strong>.</p>
+<h2 id="draw-2">Draw</h2>
+<p>Choose <strong>Draw</strong> in the Curve menu.</p>
+<p>Drag across the graph to paint the transition.</p>
+<ul>
+<li>bottom = A</li>
+<li>top = B</li>
+<li>left to right = the Lerp timeline</li>
+</ul>
+<p>The Draw curve is saved with plugin state, presets and DAW sessions.</p>
+<p>Switching to another curve does not erase your Draw shape.</p>
+<h3 id="draw-tools">Draw tools</h3>
+<p>The small buttons under the graph are:</p>
+<ul>
+<li><strong>U</strong> — Undo the last edit</li>
+<li><strong>S</strong> — Smooth the shape</li>
+<li><strong>N</strong> — show precision nodes</li>
+<li><strong>F</strong> — Free endpoints</li>
+<li><strong>R</strong> — Reset to a straight A→B line</li>
+</ul>
+<h3 id="n-precision-nodes">N — precision nodes</h3>
+<p>Enable <strong>N</strong> when you want exact control.</p>
+<ul>
+<li>drag a node to reshape the curve</li>
+<li>double-click empty curve space to add a node</li>
+<li>double-click an internal node to remove it</li>
+<li><strong>Shift + drag</strong> = fine</li>
+<li><strong>Ctrl + drag</strong> = very fine</li>
+</ul>
+<h2 id="f-free-endpoints">F — Free endpoints</h2>
+<p>With F off, Draw begins on A and finishes on B.</p>
+<p>With <strong>F on</strong>, the first and last blend can sit anywhere between A and B.</p>
+<p>Example:</p>
+<pre><code class="language-text">normal Draw:
+A → movement → B
+
+Free Draw:
+30% B → movement → 65% B
+</code></pre>
+<p>Outside the active Lerp timing window, Free Draw holds the authored start/end blend instead of forcing pure A or B.</p>
+<p>Turning F off restores the endpoints to A and B while keeping the interior Draw shape.</p>
+<h2 id="path-2">Path</h2>
+<p>Path changes the meaning of the horizontal direction.</p>
+<p>In Path mode:</p>
+<ul>
+<li><strong>x / left-right</strong> = which point in source-time is being read</li>
+<li><strong>y / bottom-top</strong> = A/B blend</li>
+<li><strong>the order you draw</strong> = playback order in the new IR</li>
+</ul>
+<h3 id="forward-motion">Forward motion</h3>
+<p>Move right:</p>
+<pre><code class="language-text">→ → → → →
+</code></pre>
+<p>Anvil reads later source-time normally.</p>
+<h3 id="backward-motion">Backward motion</h3>
+<p>Move left during the Path:</p>
+<pre><code class="language-text">→ → ← ← → →
+</code></pre>
+<p>The new IR goes back and reads earlier source-time again.</p>
+<p>That creates reversed/replayed sections inside the rendered response.</p>
+<h3 id="why-path-can-make-the-ir-longer">Why Path can make the IR longer</h3>
+<p>A straight Path from left to right uses the normal Lerp duration.</p>
+<p>Backtracking adds travel:</p>
+<pre><code class="language-text">straight:
+0 -------------------------- 1
+
+backtracking:
+0 --------&gt; ----&lt;---- ------&gt; 1
+</code></pre>
+<p>That extra horizontal travel becomes extra output time.</p>
+<p>The length increase comes from the route itself, not from an automatic stretch.</p>
+<h2 id="path-tools">Path tools</h2>
+<p>The same tools remain available:</p>
+<ul>
+<li><strong>U</strong> — Undo</li>
+<li><strong>S</strong> — smooth the A/B vertical movement while keeping the forward/backward time route</li>
+<li><strong>N</strong> — precision Path nodes</li>
+<li><strong>F</strong> — free the A/B blend at the beginning/end</li>
+<li><strong>R</strong> — restore a straight forward A→B Path</li>
+</ul>
+<p>In N mode, internal Path nodes can cross left or right past neighboring x positions. Their order stays intact, so backward-time sections remain part of the route.</p>
+<h2 id="lerp-start-and-lerp-time">Lerp Start and Lerp Time</h2>
+<p>Path operates inside the current Lerp window.</p>
+<p><strong>Lerp Start</strong> chooses where that window begins.</p>
+<p><strong>Lerp Time</strong> chooses the normal forward span available to the Path.</p>
+<p>If the Path backtracks, the final rendered IR can become longer than Lerp Time because it travels through part of that source-time more than once.</p>
+<h2 id="use-the-waveforms-as-visual-landmarks">Use the waveforms as visual landmarks</h2>
+<p>The graph shows the <strong>A and B waveforms</strong> behind the Draw/Path area.</p>
+<p>That means the drawing surface is also a visual map of the source material.</p>
+<p>For example, you can see a transient or tail in A and deliberately draw the Path so it:</p>
+<ul>
+<li>reaches B around that event;</li>
+<li>returns to an earlier visible section;</li>
+<li>stays near A through one region;</li>
+<li>crosses toward B around another recognizable shape.</li>
+</ul>
+<p>This is especially useful in Path mode because you can line up forward/backward time movement with actual visible events in the IR instead of drawing blindly.</p>
+<h2 id="preview-and-bake">Preview and Bake</h2>
+<p>Path Preview and Bake use the same rendered Path result.</p>
+<p>Bake exports what the prepared IR is currently doing, including the authored forward/backward route.</p>
+<details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>Path stores an ordered 2-D route. Horizontal travel is accumulated by absolute x-distance, so leftward travel is preserved rather than sorted away. Each output position maps to source-time x and A/B blend y. A straight 0→1 route is duration-neutral; horizontal backtracking adds mapped frames. Output remains bounded by Anvil's prepared-IR safety limits.</p>
+</div></details></article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/morph/"><small>Previous</small>Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/edit/"><small>Next</small>Edit</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bend Time with Path — Impulse Anvil Documentation</title><meta name="description" content="Bend Time with Path Path can move through the Lerp source time in both directions. One IR can move forward, return to earlier material, then continue forward again. Goal Create an IR with replayed or reversed internal…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/path-time-routing/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Bend Time with Path — Impulse Anvil Documentation"><meta property="og:description" content="Bend Time with Path Path can move through the Lerp source time in both directions. One IR can move forward, return to earlier material, then continue forward again. Goal Create an IR with replayed or reversed internal…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/path-time-routing/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Bend Time with Path", "url": "https://freqtik.com/docs/impulse-anvil/workflows/path-time-routing/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a class="active" href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Bend Time with Path</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="bend-time-with-path">Bend Time with Path</h1>
+<p>Path can move through the Lerp source-time in both directions.</p>
+<p>One IR can move forward, return to earlier material, then continue forward again.</p>
+<h2 id="goal">Goal</h2>
+<p>Create an IR with replayed or reversed internal time sections while the A/B blend changes at the same time.</p>
+<h2 id="build-it">Build it</h2>
+<ol>
+<li>Load A and B.</li>
+<li>Enable <strong>A→B Lerp</strong>.</li>
+<li>Choose <strong>Path</strong>.</li>
+<li>Set a clear Lerp Start and Lerp Time.</li>
+<li>Draw from left toward the middle.</li>
+<li>Move back to the left.</li>
+<li>Continue toward the right edge.</li>
+</ol>
+<p>Example:</p>
+<pre><code class="language-text">START  ───────→
+             ←────
+                  ─────────→ END
+</code></pre>
+<p>The leftward part reads earlier source-time again.</p>
+<h2 id="add-a-b-movement">Add A/B movement</h2>
+<p>Vertical position still controls A/B blend.</p>
+<p>So one Path can shape both dimensions:</p>
+<pre><code class="language-text">B          /----\
+          /      \__
+A  ______/          \____
+   →→→→     ←←     →→→→
+</code></pre>
+<p>The IR can move toward B while going forward, return toward earlier source-time, then continue forward with a different A/B balance.</p>
+<h2 id="use-the-waveforms-as-landmarks">Use the waveforms as landmarks</h2>
+<p>A and B are visible behind the Path editor.</p>
+<p>Use those waveforms like a map.</p>
+<p>If you can see a strong event, tail or gap, you can deliberately route the Path through it, return to it, or move toward the other source at exactly that point.</p>
+<p>This makes Path useful for <strong>designed time movement</strong>, not only abstract drawing.</p>
+<h2 id="use-n-for-precise-reversals">Use N for precise reversals</h2>
+<p>Enable <strong>N</strong>.</p>
+<p>Move an internal node left past another x position. The Path keeps its authored order, so that leftward section remains a backward-time route.</p>
+<h2 id="s-keeps-the-route">S keeps the route</h2>
+<p><strong>S</strong> smooths the A/B movement without removing the forward/backward time travel.</p>
+<p>Use it when the vertical blend feels jagged but the timing route is already good.</p>
+<h2 id="reset">Reset</h2>
+<p>Press <strong>R</strong> for a straight forward A→B Path.</p>
+<p>That removes the extra backtracking and returns to normal forward time.</p>
+<h2 id="listen-for">Listen for</h2>
+<p>Path can create:</p>
+<ul>
+<li>repeated internal events</li>
+<li>reversed fragments inside a forward IR</li>
+<li>stretched-feeling tails without simple time stretching</li>
+<li>rhythmic returns to an earlier moment</li>
+<li>A/B changes that happen differently on repeated source-time</li>
+</ul>
+<h2 id="why-the-ir-can-become-longer">Why the IR can become longer</h2>
+<p>Every backward section adds travel.</p>
+<p>A straight route reads the Lerp window once.</p>
+<p>A route that goes forward, backward and forward again reads part of that window more than once, so the rendered IR becomes longer.</p>
+<h2 id="push-it-further">Push it further</h2>
+<p>Bake a Path IR and use it as one side of a new Morph.</p>
+<p>A Path-generated time structure combined later with Spectral, Stereo Slot Swap or Mid/Side Boundary can create responses whose time and stereo structures were designed in separate generations.</p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/draw-transition/"><small>Previous</small>Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/color-phase/"><small>Next</small>Phase &amp; Comb with Color</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

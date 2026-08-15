@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Found Sounds as IR Material — Impulse Anvil Documentation</title><meta name="description" content="Found Sounds as IR Material A recording does not need to be a measured room response to become useful convolution material. The easiest way to understand this is simply to try it. Good first recordings Record something…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/found-sounds/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Found Sounds as IR Material — Impulse Anvil Documentation"><meta property="og:description" content="Found Sounds as IR Material A recording does not need to be a measured room response to become useful convolution material. The easiest way to understand this is simply to try it. Good first recordings Record something…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/found-sounds/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Found Sounds as IR Material", "url": "https://freqtik.com/docs/impulse-anvil/workflows/found-sounds/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a class="active" href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Found Sounds</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="found-sounds-as-ir-material">Found Sounds as IR Material</h1>
+<p>A recording does not need to be a measured room response to become useful convolution material.</p>
+<p>The easiest way to understand this is simply to try it.</p>
+<h2 id="good-first-recordings">Good first recordings</h2>
+<p>Record something with a clear character:</p>
+<ul>
+<li>metal, glass or ceramic hits;</li>
+<li>cloth, paper or leaves;</li>
+<li>doors, tools and mechanical objects;</li>
+<li>water, gravel or footsteps;</li>
+<li>a clap or snap in an unusual room;</li>
+<li>a breath or short vocal sound;</li>
+<li>a short noise or texture.</li>
+</ul>
+<h2 id="build-it">Build it</h2>
+<ol>
+<li>Load the recording into <strong>A</strong>.</li>
+<li>Click A so you are hearing it.</li>
+<li>Use <strong>Start/End</strong> to isolate one interesting region.</li>
+<li>Link Start and End if you want to scan a fixed-size window through the recording.</li>
+<li>Fade the edges if the cut feels too abrupt.</li>
+<li>Try Color or Texture.</li>
+<li>Use EQ only if the material needs cleanup.</li>
+<li>Bake several promising versions.</li>
+</ol>
+<h2 id="listen-for-the-small-moments">Listen for the small moments</h2>
+<p>A long recording may sound obviously like &quot;a recording.&quot;</p>
+<p>A tiny part of the same file can behave like something completely different:</p>
+<ul>
+<li>a resonant filter;</li>
+<li>a strange cabinet;</li>
+<li>a sharp transient space;</li>
+<li>a metallic tonal fingerprint;</li>
+<li>a tiny impossible room.</li>
+</ul>
+<p>That is why EDIT is so useful with found sounds.</p>
+<h2 id="scan-instead-of-guessing">Scan instead of guessing</h2>
+<p>Create a short Start/End window and link it.</p>
+<p>Then move the window through the recording while audio plays.</p>
+<ul>
+<li><strong>Shift + drag</strong> = fine</li>
+<li><strong>Ctrl + drag</strong> = very fine</li>
+</ul>
+<p>When a position suddenly does something interesting to the track, stop and Bake it.</p>
+<h2 id="push-it-further">Push it further</h2>
+<p>Take one good fragment and:</p>
+<ul>
+<li>phase-color it with <a href="/docs/impulse-anvil/workflows/color-phase/">Color</a>;</li>
+<li>Morph it with a normal room IR;</li>
+<li>Bake it and use it again;</li>
+<li>create several different fragments from the same recording and Morph those together.</li>
+</ul>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/color-phase/"><small>Previous</small>Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/recursive-baking/"><small>Next</small>Recursive Baking</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

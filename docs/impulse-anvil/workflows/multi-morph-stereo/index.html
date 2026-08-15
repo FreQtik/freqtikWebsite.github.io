@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Multi-Morph Stereo Worlds — Impulse Anvil Documentation</title><meta name="description" content="Multi Morph Stereo Worlds One Morph does not have to be the end of the design. Because Anvil can Bake the result, you can create one stereo relationship, freeze it into a new IR, then combine that new IR with another…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/multi-morph-stereo/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Multi-Morph Stereo Worlds — Impulse Anvil Documentation"><meta property="og:description" content="Multi Morph Stereo Worlds One Morph does not have to be the end of the design. Because Anvil can Bake the result, you can create one stereo relationship, freeze it into a new IR, then combine that new IR with another…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/multi-morph-stereo/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Multi-Morph Stereo Worlds", "url": "https://freqtik.com/docs/impulse-anvil/workflows/multi-morph-stereo/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a class="active" href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Multi-Morph Stereo Worlds</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="multi-morph-stereo-worlds">Multi-Morph Stereo Worlds</h1>
+<p>One Morph does not have to be the end of the design.</p>
+<p>Because Anvil can Bake the result, you can create one stereo relationship, freeze it into a new IR, then combine that new IR with another differently built response.</p>
+<p>This is <strong>multi-morphing</strong>.</p>
+<h2 id="basic-multi-morph">Basic multi-morph</h2>
+<h3 id="goal">Goal</h3>
+<p>Build a response whose stereo and tonal behavior comes from more than one Morph generation.</p>
+<h3 id="build-it">Build it</h3>
+<ol>
+<li>Load A and B.</li>
+<li>Choose <strong>Stereo Slot Swap</strong>.</li>
+<li>Move Morph toward a useful A-left / B-right relationship rather than automatically centering it.</li>
+<li>Bake that result as <strong>IR 1</strong>.</li>
+<li>Create another result from two sources—new ones or the same ones.</li>
+<li>Use a different Morph mode.</li>
+<li>Bake it as <strong>IR 2</strong>.</li>
+<li>Load IR 1 into A and IR 2 into B.</li>
+<li>Morph those two Bakes again—for example with <strong>Spectral</strong>.</li>
+<li>Bake the new generation.</li>
+</ol>
+<h3 id="what-happened">What happened?</h3>
+<p>The last Morph is no longer working with two simple source IRs.</p>
+<p>It is working with <strong>two already-designed soundfields</strong>.</p>
+<p>That is why the result can become much more complex than one Morph pass.</p>
+<h2 id="advanced-recipe-stereo-slot-swap-mid-side-boundary-spectral">Advanced recipe — Stereo Slot Swap + Mid/Side Boundary + Spectral</h2>
+<p>This is a strong starting recipe for very large or unusual stereo responses.</p>
+<h3 id="stage-1-build-a-left-right-relationship">Stage 1 — build a left/right relationship</h3>
+<ol>
+<li>Load two interesting IRs.</li>
+<li>Choose <strong>Stereo Slot Swap</strong>.</li>
+<li>Find a position where the A/B relationship gives you useful left/right contrast.</li>
+<li>Bake it as <code>StereoSwap.wav</code>.</li>
+</ol>
+<p>Stereo Slot Swap lets the left side travel A→B while the right side travels B→A, so the two sides can carry different source relationships.</p>
+<h3 id="stage-2-build-a-center-side-relationship">Stage 2 — build a center/side relationship</h3>
+<ol>
+<li>Load two other sources—or reuse the same ones with different settings.</li>
+<li>Choose <strong>Mid/Side Boundary</strong>.</li>
+<li>Find a position where A gives you a strong center and B gives you an interesting outside field.</li>
+<li>Bake it as <code>MidSide.wav</code>.</li>
+</ol>
+<h3 id="stage-3-morph-the-two-finished-soundfields">Stage 3 — morph the two finished soundfields</h3>
+<ol>
+<li>Load <code>StereoSwap.wav</code> into A.</li>
+<li>Load <code>MidSide.wav</code> into B.</li>
+<li>Start with <strong>Time Morph</strong> just to hear the two complete structures together.</li>
+<li>Then try <strong>Spectral</strong>.</li>
+<li>Move Morph slowly.</li>
+<li>Bake anything that creates a stereo world you could not get from either generation alone.</li>
+</ol>
+<h2 id="why-this-can-become-huge">Why this can become huge</h2>
+<p>You are combining:</p>
+<ul>
+<li>a response where left and right already carry different A/B relationships;</li>
+<li>a response with a deliberate center/side structure;</li>
+<li>then a third Morph operation that combines those finished responses again.</li>
+</ul>
+<p>The result can contain a dense center, different side information, and spectral changes across a stereo field that was already complex before the final Morph began.</p>
+<aside class="docs-admonition docs-tip"><div class="docs-admonition-title">Do not chase maximum width</div><div class="docs-admonition-body"><p>Huge does not always mean useful. Check the result in context with your track and pull Width back if the center starts feeling weak or disconnected.</p>
+</div></aside>
+<h2 id="push-it-further">Push it further</h2>
+<p>After the final Bake:</p>
+<ul>
+<li>put the result back into A and add a room IR in B;</li>
+<li>use Color with tiny Time differences on only one generation;</li>
+<li>use EDIT to keep only the best section of the final stereo response;</li>
+<li>reverse a fragment;</li>
+<li>create two branches and Morph those branches again.</li>
+</ul>
+<p>That is the point where an IR can become a designed sound world rather than a recognizable mixture of its original sources.</p>
+<details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>Stereo Slot Swap processes the left field from A toward B while the right field travels from B toward A. Mid/Side Boundary keeps A as the center foundation while B contributes the side field. Baking each stage collapses that processing into new stereo IR data, so a later Morph treats the already-complex outputs as new source material.</p>
+</div></details></article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/recursive-baking/"><small>Previous</small>Recursive Baking</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/"><small>Next</small>AI Theme Design</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

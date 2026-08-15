@@ -1,0 +1,150 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Control Reference — Impulse Anvil Documentation</title><meta name="description" content="Control Reference Reference for Impulse Anvil 1.0.121 . Morph modes Mode Producer description Time Morph Direct time domain A/B blend Spectral Tonal/frequency fusion Spectral BandSwap Different frequency areas can favor…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/reference/control-reference/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Control Reference — Impulse Anvil Documentation"><meta property="og:description" content="Control Reference Reference for Impulse Anvil 1.0.121 . Morph modes Mode Producer description Time Morph Direct time domain A/B blend Spectral Tonal/frequency fusion Spectral BandSwap Different frequency areas can favor…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/reference/control-reference/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Control Reference", "url": "https://freqtik.com/docs/impulse-anvil/reference/control-reference/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a class="active" href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Controls</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="control-reference">Control Reference</h1>
+<p>Reference for Impulse Anvil <strong>1.0.121</strong>.</p>
+<h2 id="morph-modes">Morph modes</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Producer description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time Morph</td>
+<td>Direct time-domain A/B blend</td>
+</tr>
+<tr>
+<td>Spectral</td>
+<td>Tonal/frequency fusion</td>
+</tr>
+<tr>
+<td>Spectral BandSwap</td>
+<td>Different frequency areas can favor different sources</td>
+</tr>
+<tr>
+<td>Spectral ZigZag</td>
+<td>More divided/artificial spectral combination</td>
+</tr>
+<tr>
+<td>Stereo Slot Swap</td>
+<td>Left/right travel through A/B in opposite directions</td>
+</tr>
+<tr>
+<td>Mid/Side Boundary</td>
+<td>A forms more of the center; B enters the sides</td>
+</tr>
+</tbody>
+</table>
+<h2 id="curve-choices">Curve choices</h2>
+<table>
+<thead>
+<tr>
+<th>Curve</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear</td>
+<td>Steady A→B movement</td>
+</tr>
+<tr>
+<td>Exp</td>
+<td>Exponential curve; K changes intensity</td>
+</tr>
+<tr>
+<td>Log</td>
+<td>Logarithmic curve; K changes intensity</td>
+</tr>
+<tr>
+<td>S-Curve</td>
+<td>Smooth slow-fast-slow movement</td>
+</tr>
+<tr>
+<td>Draw</td>
+<td>Paint the A/B movement directly</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>Paint A/B movement plus forward/backward source-time travel</td>
+</tr>
+</tbody>
+</table>
+<h2 id="draw-path-tools">Draw / Path tools</h2>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U</td>
+<td>Undo</td>
+</tr>
+<tr>
+<td>S</td>
+<td>Smooth</td>
+</tr>
+<tr>
+<td>N</td>
+<td>Precision nodes</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Free A/B endpoints</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Reset</td>
+</tr>
+</tbody>
+</table>
+<h2 id="important-ranges">Important ranges</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A/B Time</td>
+<td>0.50×–2.00×</td>
+</tr>
+<tr>
+<td>Color Time</td>
+<td>0.50×–2.00×</td>
+</tr>
+<tr>
+<td>Color Offset</td>
+<td>0–500 ms</td>
+</tr>
+<tr>
+<td>Texture Depth</td>
+<td>0–4</td>
+</tr>
+<tr>
+<td>Lerp Start</td>
+<td>0 ms to current available IR domain</td>
+</tr>
+<tr>
+<td>Lerp Time</td>
+<td>0 ms to remaining available IR domain</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interaction">Interaction</h2>
+<ul>
+<li>Click A, B or Morph to choose the audition state.</li>
+<li>Shift + drag = fine movement.</li>
+<li>Ctrl + drag = very fine movement.</li>
+<li>Double-click Color, EQ, EDIT or OUT to reset that section.</li>
+<li>Options → Init / Reset Controls (keep IRs) resets controls without unloading A/B.</li>
+</ul>
+<h2 id="bake-scope">Bake scope</h2>
+<p>Bake includes the prepared IR state, including Morph/Lerp/Draw/Path, EDIT, EQ, Width, IR In, Normalize and IR-side limiting.</p>
+<p>Input, Wet Level, Dry/Wet and final Out are playback controls and are not embedded in the exported IR.</p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/ai-theme-design/"><small>Previous</small>AI Theme Design</a><a href="/docs/impulse-anvil/reference/formats-paths/"><small>Next</small>Formats &amp; Paths</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

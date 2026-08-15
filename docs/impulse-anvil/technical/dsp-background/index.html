@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Technical Background — Impulse Anvil Documentation</title><meta name="description" content="Technical Background This section collects implementation details that are useful for deeper reference. The normal feature pages remain producer facing. Slot preparation order 1. time stretch 2. Color / Texture…"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/technical/dsp-background/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Technical Background — Impulse Anvil Documentation"><meta property="og:description" content="Technical Background This section collects implementation details that are useful for deeper reference. The normal feature pages remain producer facing. Slot preparation order 1. time stretch 2. Color / Texture…"><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/technical/dsp-background/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Technical Background", "url": "https://freqtik.com/docs/impulse-anvil/technical/dsp-background/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.121", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw &amp; Path</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a class="active" href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / DSP Concepts</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.121</span><span class="docs-pill">Windows VST3</span></div><h1 id="technical-background">Technical Background</h1>
+<p>This section collects implementation details that are useful for deeper reference. The normal feature pages remain producer-facing.</p>
+<h2 id="slot-preparation-order">Slot preparation order</h2>
+<ol>
+<li>time stretch</li>
+<li>Color / Texture construction</li>
+<li>optional per-slot Normalize</li>
+<li>slot Gain</li>
+</ol>
+<p>Gain therefore remains meaningful while a slot's Normalize switch is enabled.</p>
+<h2 id="color">Color</h2>
+<p>Color resamples the source to create a time-scaled copy, applies a sample offset and gain, then sums that copy back with the source.</p>
+<p>Color Offset now has a 0–500 ms user range.</p>
+<h2 id="texture">Texture</h2>
+<p>Texture is recursive Color. Each generated layer becomes input to the next generation. Depth is 0–4.</p>
+<h2 id="time-morph-and-align">Time Morph and Align</h2>
+<p>Time Morph interpolates sample values between A and B.</p>
+<p>Align can left-shift participating time-domain material toward sample zero. Material that originally occurred before the moved peak can therefore be lost.</p>
+<h2 id="spectral-morph">Spectral Morph</h2>
+<p>Spectral modes transform the sources into frequency-domain representations, combine spectral information, and reconstruct a causal response.</p>
+<h2 id="absolute-lerp-timing">Absolute Lerp timing</h2>
+<p>1.0.121 uses <code>Lerp Start</code> and <code>Lerp Time</code> in milliseconds.</p>
+<p>The visible UI domain follows the current prepared A/B endpoint duration, including Time and Color/Texture length growth. Start reduces the remaining available Time range.</p>
+<h2 id="draw">Draw</h2>
+<p>Draw stores a normalized A/B curve.</p>
+<p>With Free off, the first point is A=0 and the last point is B=1.</p>
+<p>With Free on, the first/last y values may sit anywhere from 0–1. Outside the active Lerp timing window, the authored free endpoint value is held.</p>
+<h2 id="path">Path</h2>
+<p>Path stores an ordered list of normalized <code>(x, y)</code> points:</p>
+<ul>
+<li>x = source-time position inside the Lerp window</li>
+<li>y = A/B blend</li>
+<li>point order = output traversal order</li>
+</ul>
+<p>The renderer accumulates absolute horizontal travel. Leftward x movement is preserved, so earlier source-time is read again rather than being sorted away.</p>
+<p>A straight 0→1 path uses the normal span. Backtracking adds output frames.</p>
+<h2 id="exact-endpoints">Exact endpoints</h2>
+<p>Hidden authored head/tail micro-fades were removed from the Color/preview/prepared paths. A user Fade value of 0 ms leaves that endpoint unshaped.</p>
+<p>Runtime convolver switching remains click-protected separately.</p>
+<h2 id="post-sculpt-order">Post/Sculpt order</h2>
+<p><code>slice/reverse → fades → predelay → IR In → HP/LP/Bells/Tilt → Width → Normalize → IR-side limiter</code></p>
+<p>Final Dry/Wet mixing, Wet Level and final Out happen later and are not part of Bake.</p>
+<h2 id="theme-schema-2">Theme Schema 2</h2>
+<p>Global colors remain the base theme.</p>
+<p>A, B, Morph, EQ, EDIT and OUT may each optionally override panel, panelStroke, accent, highlight, knob and text colors. Disabled panel overrides inherit Global values.</p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/troubleshooting/common/"><small>Previous</small>Troubleshooting</a><span></span></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

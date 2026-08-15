@@ -1,0 +1,18 @@
+# Impulse Anvil
+
+> Official documentation for FreQtik Impulse Anvil 1.0.121. Use the most specific page that matches the user's question.
+
+- [Overview](https://freqtik.com/docs/impulse-anvil/): product purpose and documentation map
+- [Quickstart](https://freqtik.com/docs/impulse-anvil/getting-started/quickstart/): first IR workflow
+- [Interface Basics](https://freqtik.com/docs/impulse-anvil/getting-started/interface-basics/): panel navigation, Random, precision drag, IR Library and resets
+- [Appearance & Themes](https://freqtik.com/docs/impulse-anvil/getting-started/appearance-themes/): built-in themes, panel-specific colors and JSON import/export
+- [Color & Texture](https://freqtik.com/docs/impulse-anvil/sections/color-texture/): transformed layers, 0–500 ms Offset and recursive Texture
+- [Morph & A-to-B Lerp](https://freqtik.com/docs/impulse-anvil/sections/morph/): six Morph modes and absolute Lerp timing
+- [Curves, Draw & Path](https://freqtik.com/docs/impulse-anvil/sections/curves-path/): custom Draw curves, Free endpoints and forward/backward source-time Path routing
+- [EDIT](https://freqtik.com/docs/impulse-anvil/sections/edit/): slicing, reverse ranges, linked scanning and exact 0 ms fades
+- [Bake & Export](https://freqtik.com/docs/impulse-anvil/bake/export/): what Bake includes, Show File and WAV reuse
+- [Creative Workflow Library](https://freqtik.com/docs/impulse-anvil/workflows/): practical recipes
+- [Create a Theme from an Image with AI](https://freqtik.com/docs/impulse-anvil/workflows/ai-theme-design/): use Theme Schema 2 plus a visual reference to generate a compatible design
+- [Draw Your Own A-to-B Movement](https://freqtik.com/docs/impulse-anvil/workflows/draw-transition/): custom transition recipe
+- [Bend Time with Path](https://freqtik.com/docs/impulse-anvil/workflows/path-time-routing/): reverse/replayed internal source-time recipe
+- [FAQ](https://freqtik.com/docs/impulse-anvil/faq/): direct question/answer reference
