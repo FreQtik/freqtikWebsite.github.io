@@ -857,7 +857,7 @@ function buildAnvil(){ return `
 <a href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear it</a>
 <a href="#" onclick="iaScrollTo('ia-workflow'); return false;">How it works</a>
 <a href="#" onclick="iaScrollTo('ia-usecases'); return false;">Record the world</a>
-<a href="#" onclick="iaScrollTo('ia-morph'); return false;">Morph modes</a><a href="#" onclick="iaScrollTo('ia-draw-path'); return false;">Draw &amp; Path</a>
+<a href="#" onclick="iaScrollTo('ia-morph'); return false;">Morph modes</a><a href="#" onclick="iaScrollTo('ia-authoring'); return false;">Draw / Path / Glue</a>
 <a href="#" onclick="iaScrollTo('ia-interface'); return false;">Interface</a>
 <a href="#" onclick="iaScrollTo('ia-trust'); return false;">Honest fit</a>
 <a href="#" onclick="iaScrollTo('ia-pricing'); return false;">Pricing</a>
@@ -874,7 +874,7 @@ function buildAnvil(){ return `
 <a data-ia-target="ia-sound" href="#" onclick="iaScrollTo('ia-sound'); return false;">&#9654;<span class="ia-side-label">Hear it</span></a>
 <a data-ia-target="ia-workflow" href="#" onclick="iaScrollTo('ia-workflow'); return false;">3<span class="ia-side-label">How it works</span></a>
 <a data-ia-target="ia-usecases" href="#" onclick="iaScrollTo('ia-usecases'); return false;">R<span class="ia-side-label">Record the world</span></a>
-<a data-ia-target="ia-morph" href="#" onclick="iaScrollTo('ia-morph'); return false;">M<span class="ia-side-label">Morph modes</span></a><a data-ia-target="ia-draw-path" href="#" onclick="iaScrollTo('ia-draw-path'); return false;">P<span class="ia-side-label">Draw &amp; Path</span></a>
+<a data-ia-target="ia-morph" href="#" onclick="iaScrollTo('ia-morph'); return false;">M<span class="ia-side-label">Morph modes</span></a><a data-ia-target="ia-authoring" href="#" onclick="iaScrollTo('ia-authoring'); return false;">P<span class="ia-side-label">Draw / Path / Glue</span></a>
 <a data-ia-target="ia-interface" href="#" onclick="iaScrollTo('ia-interface'); return false;">UI<span class="ia-side-label">Interface</span></a>
 <a data-ia-target="ia-trust" href="#" onclick="iaScrollTo('ia-trust'); return false;">&#10003;<span class="ia-side-label">Honest fit</span></a>
 <a data-ia-target="ia-faq" href="#" onclick="iaScrollTo('ia-faq'); return false;">?<span class="ia-side-label">FAQ</span></a>
@@ -897,9 +897,9 @@ function buildAnvil(){ return `
 
 <div class="ia-actions">
 
-<a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a>
+<a class="ia-btn ia-hero-buy" href="/downloads.html">Download free demo</a>
 
-<a class="ia-btn ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get full license &middot; &euro;49</a>
+<a class="ia-btn ia-btn-primary ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get Impulse Anvil &middot; &euro;49</a>
 
 <a class="ia-btn ia-btn-dark" href="#" onclick="iaScrollTo('ia-sound'); return false;">Hear transformations</a>
 
@@ -1263,7 +1263,7 @@ function buildAnvil(){ return `
 
 <ul class="ia-list"><li>Complete 21-mode Morph relationship library</li><li>Core Morph, Residual / Decompose and Acoustic Interaction families</li><li>Draw, Path and Glue Path authoring</li><li>Mode-aware A&rarr;B Lerp and standard WAV baking</li><li>Focus View, IR Browser, Morph browser and global Undo / Redo</li><li>Two Color rows per IR plus Texture Depth</li><li>Edit, visual EQ, width and final IR preparation</li><li>2 seats per license</li></ul>
 
-<div class="ia-actions"><a class="ia-btn ia-btn-primary lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get full license &middot; &euro;49</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
+<div class="ia-actions"><a class="ia-btn ia-btn-primary lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get Impulse Anvil &middot; &euro;49</a><a class="ia-btn ia-btn-dark" href="/downloads.html">Install and activation</a></div>
 
 </article>
 
@@ -1322,7 +1322,7 @@ function buildAnvil(){ return `
 <span class="ia-kicker">Impulse Anvil</span>
 <h2>Morph IRs.<br/><span class="ia-cyan">Bake WAVs.</span></h2>
 <p>Start with the free demo. Load your own sounds, explore the included library and hear what Impulse Anvil does inside your own music.</p>
-<div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-btn-primary ia-hero-buy" href="/downloads.html">Download free demo</a><a class="ia-btn ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Buy full license · €49</a></div>
+<div class="ia-actions" style="justify-content:center"><a class="ia-btn ia-hero-buy" href="/downloads.html">Download free demo</a><a class="ia-btn ia-btn-primary ia-hero-buy lemonsqueezy-button" href="https://freqtik.lemonsqueezy.com/checkout/buy/4b848f45-e481-4b69-9203-aaea3b9afdd4?embed=1">Get Impulse Anvil · €49</a></div>
 </div>
 </div>
 </section>
