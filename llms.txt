@@ -6,13 +6,22 @@ FreQtik is the independent work of a producer and developer. The complete public
 
 ## Complete public project list
 
-- [Impulse Anvil](https://freqtik.com/): Windows 10/11, 64-bit VST3 for preparing, morphing, sculpting, auditioning and baking reusable WAV impulse responses.
-  - Stable product URL: https://freqtik.com/impulse-anvil.html
+- [Impulse Anvil](https://freqtik.com/impulse-anvil.html): Windows 10/11 64-bit VST3 impulse-response design workstation. Load two IRs or compatible recordings, construct their relationship, author movement through Draw/Path/Glue, audition the result through convolution and Bake reusable WAV IRs.
+
   - Documentation: https://freqtik.com/docs/impulse-anvil/
+
+  - Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
+
+  - Draw, Path & Glue: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
+
+  - Acoustic bodies & comparison: https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/
+
   - Downloads and setup: https://freqtik.com/downloads.html
-  - Current release: 1.0.121 — Draw custom A→B curves, use Path to move forward/backward through source-time, and bake the prepared result as WAV.
-  - Draw & Path: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
+
+  - Current release: 1.0.122
+
   - Releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
+
 - [Master Desktop Tap](https://freqtik.com/master-desktop-tap.html): free Windows VST3 utility that mirrors a DAW master signal to connected Windows output devices for Discord, OBS and screen-sharing workflows.
 - [Contrast Rules for Producers](https://freqtik.com/contrast-rules-for-producers.html): free practical guide about context, contrast, attention, timing, arrangement, sound design and mixing decisions.
 - [Learning to Bear](https://freqtik.com/learning-to-bear.html): surreal single-player 3D puzzle-platformer with movement abilities, logic puzzles and more than 40 handcrafted levels.

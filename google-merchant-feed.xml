@@ -6,26 +6,25 @@
     <description>Official Google Merchant Center product feed for FreQtik.</description>
     <item>
       <g:id>IMPULSE-ANVIL-WIN-FULL</g:id>
-      <g:title>Impulse Anvil – Build Custom Impulse Responses from Two Sounds | Windows VST3</g:title>
-      <g:short_title>Build Custom Impulse Responses from Two Sounds</g:short_title>
-      <g:description>Impulse Anvil is a Windows 10/11 VST3 workstation for building new impulse responses from two IRs, recordings or found sounds. Shape each source, morph their time, spectral and stereo structure, audition the result through convolution, then bake it as a reusable standard WAV. The full license unlocks all six morph modes, mode-aware A-to-B Lerp, both Color rows, Texture Depth, waveform editing, visual EQ, width and level preparation, WAV export, and two activation seats. A library of 126 handmade IRs is included with the download and can also be explored in demo mode.</g:description>
+      <g:title>Impulse Anvil - Impulse-Response Design Workstation &amp; Convolution VST3 for Windows</g:title>
+      <g:short_title>Design New Impulse Responses from Two Sources</g:short_title>
+      <g:description>Impulse Anvil is a Windows 10/11 64-bit VST3 impulse-response design workstation. Load two IRs, recordings or found sounds, shape A and B, choose from 21 Morph relationships, author movement and source-time with Draw, Path and Glue Path, audition through convolution, then Bake reusable WAV impulse responses. The full license includes the complete Morph library, two Color rows, Texture Depth, editing, visual EQ, Focus View, the IR Browser, global Undo/Redo, WAV baking, 126 included IRs and two license seats.</g:description>
       <g:link>https://freqtik.com/impulse-anvil.html</g:link>
       <g:image_link>https://freqtik.com/assets/impulse-anvil-plugin-ui.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>49.00 EUR</g:price>
-      <g:sale_price>29.00 EUR</g:sale_price>
       <g:brand>FreQtik</g:brand>
       <g:mpn>IMPULSE-ANVIL-001</g:mpn>
       <g:google_product_category>4952</g:google_product_category>
       <g:product_type>Audio Software &gt; Audio Plugins &gt; Convolution &amp; Impulse Response Tools</g:product_type>
       <g:adult>no</g:adult>
       <g:product_highlight>Build new impulse responses from two IRs, recordings or found sounds.</g:product_highlight>
-      <g:product_highlight>Morph time, spectral and stereo structure through six full-version modes.</g:product_highlight>
-      <g:product_highlight>Bake designed results and mode-aware A-to-B movement as standard WAV IRs.</g:product_highlight>
-      <g:product_highlight>Full license unlocks both Color rows, Texture Depth, editing, EQ and export.</g:product_highlight>
-      <g:product_highlight>Windows 10/11 64-bit VST3 with two activation seats.</g:product_highlight>
-      <g:product_highlight>Includes 126 handmade IRs in both demo and full-version downloads.</g:product_highlight>
+      <g:product_highlight>21 Morph relationships across Core Morph, Residual / Decompose and Acoustic Interaction.</g:product_highlight>
+      <g:product_highlight>Author A/B movement and source-time with Draw, Path and Glue Path.</g:product_highlight>
+      <g:product_highlight>Bake designed results as reusable standard WAV impulse responses.</g:product_highlight>
+      <g:product_highlight>Focus View, IR Browser, Morph Browser and global Undo / Redo support deeper exploration.</g:product_highlight>
+      <g:product_highlight>Windows 10/11 64-bit VST3 with 126 included IRs and two activation seats.</g:product_highlight>
       <g:product_detail>
         <g:section_name>Compatibility</g:section_name>
         <g:attribute_name>Operating system</g:attribute_name>
@@ -54,7 +53,7 @@
       <g:product_detail>
         <g:section_name>Full version</g:section_name>
         <g:attribute_name>Structural morph modes</g:attribute_name>
-        <g:attribute_value>6</g:attribute_value>
+        <g:attribute_value>21</g:attribute_value>
       </g:product_detail>
       <g:product_detail>
         <g:section_name>Full version</g:section_name>

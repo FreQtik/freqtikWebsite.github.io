@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Acoustic Bodies & IR Comparison — Impulse Anvil Documentation</title><meta name="description" content="Use guitar, violin, cabinet and resonant-body captures as IR material, compare two responses with Common/Unique/Residual modes, and understand the limits of one IR measurement."><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Acoustic Bodies & IR Comparison — Impulse Anvil Documentation"><meta property="og:description" content="Use guitar, violin, cabinet and resonant-body captures as IR material, compare two responses with Common/Unique/Residual modes, and understand the limits of one IR measurement."><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Acoustic Bodies & IR Comparison", "url": "https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.122", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/focus-view/">Focus View</a><a href="/docs/impulse-anvil/getting-started/ir-browser/">IR Browser</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path &amp; Glue</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Acoustic Bodies &amp; IR Comparison</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.122</span><span class="docs-pill">Creative workflow</span></div>
+
+<h1 id="acoustic-bodies-comparison">Acoustic Bodies &amp; IR Comparison</h1>
+
+<p><strong>Yes: an instrument body can become useful convolution material. No: one IR is not a complete clone of the physical instrument.</strong></p>
+
+<p>This page answers the practical version of the question: what can you learn or create if you capture the response of a guitar body, violin body, cabinet or other resonant object?</p>
+
+<h2 id="electric-to-acoustic">Can a guitar-body IR make an electric guitar sound acoustic?</h2>
+
+<p>A body response can impose some of its captured resonances and filtering onto a DI electric-guitar signal. That can move the tone toward a body-like acoustic character and can be very useful creatively.</p>
+
+<p>It will not fully turn the electric guitar into the measured acoustic guitar. A real acoustic instrument also depends on string/bridge/body coupling, radiation in different directions, microphone position, playing dynamics and behaviors that one fixed linear impulse response does not contain.</p>
+
+<h2 id="capture">Can I tap or click the body and record it?</h2>
+
+<p>For creative sound design, a clean tap/click recording can absolutely be interesting material. For a controlled comparison, use the most repeatable excitation and recording setup you can: same position, same microphone, same gain, same room and as little background sound as practical.</p>
+
+<p>A casual tap recording should not be presented as a laboratory measurement. It can still be a great IR-design source.</p>
+
+<h2 id="two-instruments">Can I compare two guitars or violins?</h2>
+
+<p>Yes - especially when both captures were made under matched conditions. Load one into A and the other into B, then choose the question:</p>
+
+<ul>
+
+<li><strong>Common</strong> - what response component appears shared?</li>
+
+<li><strong>Unique A / Unique B</strong> - what remains characteristic of one side after estimated shared material is removed?</li>
+
+<li><strong>Aligned Difference</strong> - what is left after main events are aligned and subtracted?</li>
+
+<li><strong>Matched Residual</strong> - what remains after alignment and broadband level matching?</li>
+
+<li><strong>Difference Focus</strong> - where do they disagree most?</li>
+
+<li><strong>Spectro-Temporal Residual</strong> - where do differences change across both time and frequency?</li>
+
+<li><strong>Transfer</strong> - what stabilized filter-like operator describes movement from A toward B, or B toward A?</li>
+
+</ul>
+
+<h2 id="expensive-violin">Can this tell me why an old expensive violin sounds better?</h2>
+
+<p>It can help you <strong>hear and inspect differences in the captured linear response</strong>. It cannot prove why one instrument is better, more valuable or preferred. Construction, radiation, dynamic behavior, performer interaction and the measurement setup itself all matter beyond one captured IR.</p>
+
+<p>Treat the result as one acoustic view of the instruments, not a verdict.</p>
+
+<h2 id="only-b">Can I add only the part of B that A does not already have?</h2>
+
+<p><strong>Unique B</strong> is the closest direct answer. It estimates what remains characteristic of B after the component shared with A is removed. This is useful when B has a crisp, resonant or spatial quality you want to study without simply crossfading the entire B response over A.</p>
+
+<p>It is not semantic magic: capture timing, level and environment influence what the algorithm sees as shared or unique. If the two recordings were made very differently, some of the "difference" may be the measurement rather than the instrument.</p>
+
+<h2 id="bake">Bake the useful relationship</h2>
+
+<p>Once the relationship sounds useful, Bake it. That lets you audition the extracted or transformed response as its own WAV IR, compare it later, or load it back into Anvil for another generation.</p>
+
+<div class="docs-callout"><strong>Practical rule:</strong> use matched captures for comparison; use anything interesting for creative sound design.</div>
+
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/workflows/found-sounds/"><small>Previous</small>Found Sounds</a><a href="/docs/impulse-anvil/workflows/recursive-baking/"><small>Next</small>Recursive Baking</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>
