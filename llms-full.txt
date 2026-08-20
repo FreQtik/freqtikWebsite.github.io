@@ -8,43 +8,24 @@ FreQtik created Impulse Anvil, Master Desktop Tap, Contrast Rules for Producers,
 
 ## Impulse Anvil
 
+Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 impulse-response design workstation. Its central idea is that the impulse response is material to be constructed rather than only a preset to be selected. A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
 
+The full Morph library is organized as Core Morph, Residual / Decompose and Acoustic Interaction. It includes direct time/spectral/stereo relationships; Raw, Aligned and Matched Difference/Residual approaches; Common and Unique A/B; Difference Focus; Spectro-Temporal Residual; and Nest, Transfer, Ghost, Eclipse and Spectral Time Shear.
 
-Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 impulse-response design workstation. Its central idea is that the impulse response is material to be constructed rather than only a preset to be selected. A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a source-verified library of 21 Morph relationships.
+The curve system includes Linear, Exp, Log, S-Curve, Draw, Path, Glue Path and Omni Path. Draw authors A/B or selected-mode depth. Path adds forward/backward source-time travel and uses horizontal route distance as its output clock. Glue Path appends separate source-time strokes and keeps its own horizontal-distance timing independent of Lerp Start/Time. Omni Path keeps X as source-time and Y as A/B or selected-mode depth, but measures output time from the full ordered 2-D route using Euclidean arc length. Horizontal, vertical, diagonal, backward and looping movement can therefore generate duration. Omni uses the selected Lerp Start/Time source window as its X domain.
 
+The interface supports Overview plus Focus View for A, Morph, B, EQ, Edit and Out; an in-plugin IR Browser with inspection/Compare behavior; a dedicated Morph Mode browser; global Undo/Redo for deliberate editing gestures; and a persistent DESIGN workflow. Liquid Slate is the default design.
 
-
-The current full Morph library is organized as Core Morph, Residual / Decompose and Acoustic Interaction. It includes direct time/spectral/stereo relationships; Raw, Aligned and Matched Difference/Residual approaches; Common and Unique A/B; Difference Focus; Spectro-Temporal Residual; and the Acoustic Interaction modes Nest, Transfer, Ghost, Eclipse and Spectral Time Shear.
-
-
-
-The curve system includes Linear, Exp, Log, S-Curve, Draw, Path and Glue Path. Draw authors A/B or mode depth. Path adds forward/backward source-time travel. Glue Path assembles separate source-time strokes sequentially and derives its own duration from the route rather than Lerp Start/Time.
-
-
-
-The interface supports Overview plus Focus View for A, Morph, B, EQ, Edit and Out; an in-plugin IR Browser with inspection/Compare behavior; a dedicated Morph Mode browser; global Undo/Redo for deliberate editing gestures; and a persistent DESIGN workflow. Liquid Slate is the current default design.
-
-
-
-Bake turns the prepared response into a reusable WAV impulse response. Creative workflows include found sounds, recursive baking and matched acoustic-body comparison. An acoustic-body IR can impart captured linear resonances but is not a complete physical model of an instrument.
-
-
+Bake turns the prepared response into a reusable WAV impulse response. Draw, Path, Glue and Omni use the prepared Preview/Bake construction path.
 
 Official product page: https://freqtik.com/impulse-anvil.html
-
 Documentation: https://freqtik.com/docs/impulse-anvil/
-
 Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
-
-Draw, Path & Glue: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
-
+Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
+Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
 Acoustic bodies & comparison: https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/
-
 Downloads and installation: https://freqtik.com/downloads.html
-
 Official releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
-
-
 
 ## Master Desktop Tap
 
