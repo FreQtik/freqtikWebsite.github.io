@@ -13,7 +13,7 @@
 <li>per-slot Normalize and Gain</li>
 <li>Morph</li>
 <li>A→B Lerp</li>
-<li>Draw or Path movement</li>
+<li>authored routes: Draw, Path, Glue or Omni</li>
 <li>Start/End slicing or reverse slicing</li>
 <li>fades and Pre</li>
 <li>IR In</li>
@@ -48,17 +48,16 @@
 C + D → Bake E
 E + recording → Bake F
 </code></pre>
-<h2 id="baking-lerp-draw-and-path">Baking Lerp, Draw and Path</h2>
-<p>There is one visible Bake button.</p>
-<p>If A→B Lerp, Draw or Path is active in the prepared result, Bake includes it.</p>
-<p>Path's forward/backward source-time route is rendered into the exported IR as part of the prepared response.</p>
+<h2 id="baking-lerp-draw-and-path">Baking Lerp and authored routes</h2>
+<span id="draw-path-glue-bake"></span>
+<p>There is one visible Bake button. If A→B Lerp or an authored route is part of the prepared result, Bake includes it.</p>
+<ul>
+<li><strong>Draw</strong> writes relationship movement into the ordinary output timeline.</li>
+<li><strong>Path</strong> renders forward/backward source-time travel using its horizontal-distance clock.</li>
+<li><strong>Glue Path</strong> appends separate painted pieces and owns its duration independently of Lerp Start/Time.</li>
+<li><strong>Omni Path</strong> uses the selected Lerp source window while horizontal and vertical 2-D route travel both create output time.</li>
+</ul>
+<p>Bake commits the resulting prepared construction exactly as used by the prepared Preview path.</p>
 <details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>Bake writes the current prepared IR as 32-bit float WAV. The prepared-IR chain is bounded by a 30-second safety budget at ordinary sample rates. Final track playback mixing happens afterwards and is not embedded in the WAV.</p>
 </div></details>
-
-<h2 id="draw-path-glue-bake">Draw, Path, Glue and Omni</h2>
-
-<p>Draw and Path author the selected Morph relationship across the prepared response. Glue Path builds a sequential response from separate strokes and owns its duration from the source-time distance travelled by those strokes.</p>
-
-<p>When Glue is active, Lerp Start/Time are intentionally not the duration source. Bake commits the resulting prepared construction.</p>
-
 </article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/eq-output/"><small>Previous</small>EQ &amp; Output</a><a href="/docs/impulse-anvil/workflows/"><small>Next</small>Workflow Library</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

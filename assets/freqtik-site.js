@@ -974,9 +974,9 @@ function buildAnvil(){ return `
 
 <article class="ia-position-card"><span class="ia-number">01</span><h3>Load material</h3><p>Choose two impulse responses, compatible WAV recordings, textures or found sounds. Prepare A and B independently.</p></article>
 
-<article class="ia-position-card"><span class="ia-number">02</span><h3>Build the relationship</h3><p>Choose how the sources meet. Morph them, reveal what they share or what differs, then Draw, Path or Glue the movement you want.</p></article>
+<article class="ia-position-card"><span class="ia-number">02</span><h3>Build the relationship</h3><p>Choose how the sources meet. Morph them, reveal what they share or what differs, then Draw, Path, Glue or Omni the movement you want.</p></article>
 
-<article class="ia-position-card"><span class="ia-number">03</span><h3>Bake and own it</h3><p>Trim, Color, Texture, EQ, widen and level the finished response. Bake it as a WAV and use it again whenever you want.</p></article>
+<article class="ia-position-card"><span class="ia-number">03</span><h3>Bake and reuse it</h3><p>Trim, Color, Texture, EQ, widen and level the finished response. Bake it as a WAV and use it again whenever you want.</p></article>
 
 </div>
 
@@ -995,7 +995,7 @@ function buildAnvil(){ return `
 
 <div class="ia-material-arrow" aria-hidden="true">&rarr;</div>
 
-<div class="ia-material-core"><span>IMPULSE ANVIL</span><strong>Design the relationship</strong><small>Morph · Draw · Path · Glue · sculpt</small></div>
+<div class="ia-material-core"><span>IMPULSE ANVIL</span><strong>Design the relationship</strong><small>Morph · Draw · Path · Glue · Omni · sculpt</small></div>
 
 <div class="ia-material-arrow ia-material-arrow-back" aria-hidden="true">&larr;</div>
 
@@ -1049,7 +1049,7 @@ function buildAnvil(){ return `
 
 <div class="ia-shell">
 
-<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">A and B can meet in different ways</span><h2>Choose the relationship,<br/>not just the amount.</h2><p>The full workstation contains 21 source-verified Morph relationships. You do not need to learn all of them first. Start with the question you are trying to answer.</p></div></div>
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">A and B can meet in different ways</span><h2>Choose the relationship,<br/>not just the amount.</h2><p>The full workstation contains 21 Morph relationships. You do not need to learn all of them first. Start with the question you are trying to answer.</p></div></div>
 
 <figure class="ia-feature-shot ia-feature-shot-wide"><img src="/assets/impulse-anvil/v122/IA_06_Morph_Mode_Browser.webp" width="1128" height="698" loading="lazy" decoding="async" alt="Impulse Anvil Morph Mode browser showing the relationship library and selected-mode explanation"/><figcaption>Choose by intention first. The browser then explains what the relationship is for, how Morph behaves and the deeper technical model.</figcaption></figure>
 <div class="ia-mode-stage">
@@ -1114,7 +1114,7 @@ function buildAnvil(){ return `
 
 <article class="ia-card"><h3>Focus the module</h3><p>Open A, Morph, B, EQ, Edit or Out into a larger workspace. Use the Focus control or double-click genuine empty panel space; Esc or the exposed background brings the overview back.</p></article>
 
-<article class="ia-card"><h3>Explore without losing the good version</h3><p>Global Undo and Redo treat deliberate edits as meaningful steps, including IR loads, Morph changes and Draw/Path/Glue gestures. The local curve Undo remains available for curve editing.</p></article>
+<article class="ia-card"><h3>Explore without losing the good version</h3><p>Global Undo and Redo treat deliberate edits as meaningful steps, including IR loads, Morph changes and Draw/Path/Glue/Omni gestures. The local curve Undo remains available for curve editing.</p></article>
 
 <article class="ia-card"><h3>Browse before you commit</h3><p>The IR Browser lets you search, inspect waveforms and stats, compare against the current slot and load only when the candidate is worth keeping.</p></article>
 
@@ -1147,7 +1147,7 @@ function buildAnvil(){ return `
 
 </section>
 
-<section class="ia-section" id="ia-draw-path"><div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Four authoring ideas</span><h2>They look related.<br/>Their clocks are not.</h2><p>The same curve surface can describe four different construction jobs. The key difference is what the route means when Impulse Anvil turns it into an IR.</p></div></div><div class="ia-grid ia-grid-two"><article class="ia-card"><span class="ia-tag">Draw</span><h3>Ordinary authored timeline</h3><p>Draw shapes the relationship through normal left-to-right time.</p></article><article class="ia-card"><span class="ia-tag">Path</span><h3>Horizontal-distance clock</h3><p>Only horizontal source-time travel creates output time. Backtracking lengthens the route.</p></article><article class="ia-card"><span class="ia-tag">Glue Path</span><h3>Stroke assembly</h3><p>Separate strokes are appended in order. Glue owns its own timing and does not use Lerp Start/Time.</p></article><article class="ia-card"><span class="ia-tag">Omni Path</span><h3>2-D arc-length clock</h3><p>The ordered route uses full Euclidean travel. Vertical holds, diagonals and loops all create duration while X remains source-time.</p></article></div><div class="ia-portable-note"><strong>Truthful distinction:</strong> Omni does not turn Y into another source-position axis. X remains source-time. Y remains A/B or effect depth. The new part is that movement on both axes consumes output time.</div></div></section>
+<div aria-hidden="true" id="ia-draw-path"></div>
 <section class="ia-section" id="ia-interface">
 
 <div class="ia-shell">
@@ -1162,7 +1162,7 @@ function buildAnvil(){ return `
 
 <div class="ia-callout"><h3>A / B material</h3><p>Load factory IRs, your own IRs or compatible recordings. Inspect candidates in the IR Browser, then prepare Time, Gain, Color, Texture and Normalize per source.</p></div>
 
-<div class="ia-callout"><h3>Morph relationships</h3><p>Choose from the organized Morph browser, set the direction where the relationship needs one, then use the Morph amount or author it through Draw, Path or Glue.</p></div>
+<div class="ia-callout"><h3>Morph relationships</h3><p>Choose from the organized Morph browser, set the direction where the relationship needs one, then use the Morph amount or author it through Draw, Path, Glue or Omni.</p></div>
 
 <div class="ia-callout"><h3>Focus when it matters</h3><p>Expand A, Morph, B, EQ, Edit or Out without creating a second set of controls. The same state returns to Overview when Focus closes.</p></div>
 
@@ -1248,7 +1248,7 @@ function buildAnvil(){ return `
 
 </section>
 <section class="ia-section" id="ia-docs">
-<div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup and manual</span><h2>Detailed when you need it.<br/>Out of the way when you do not.</h2><p>The documentation covers Quickstart, every Morph mode, Draw and Path, Color/Texture, editing, EQ/output, Bake, installation, troubleshooting and focused creative workflows.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/docs/impulse-anvil/">Open documentation</a><a class="ia-btn" href="/downloads.html">Downloads and setup</a><a class="ia-btn ia-btn-dark" href="https://discord.gg/qUetz23QPq" rel="noopener" target="_blank"><svg aria-hidden="true" class="ia-discord-icon" focusable="false" viewbox="0 0 24 24"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z" fill="currentColor"></path></svg>Community support</a></div></div>
+<div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Setup and manual</span><h2>Detailed when you need it.<br/>Out of the way when you do not.</h2><p>The documentation covers Quickstart, every Morph relationship, Draw, Path, Glue and Omni, Color/Texture, editing, EQ/output, Bake, installation, troubleshooting and focused creative workflows.</p></div></div><div class="ia-actions"><a class="ia-btn ia-btn-primary" href="/docs/impulse-anvil/">Open documentation</a><a class="ia-btn" href="/downloads.html">Downloads and setup</a><a class="ia-btn ia-btn-dark" href="https://discord.gg/qUetz23QPq" rel="noopener" target="_blank"><svg aria-hidden="true" class="ia-discord-icon" focusable="false" viewbox="0 0 24 24"><path d="M20.3 4.4A19.6 19.6 0 0 0 15.5 3l-.2.4c1.7.5 2.5 1.2 2.5 1.2a15.8 15.8 0 0 0-5.8-1.8 15.8 15.8 0 0 0-5.8 1.8s.8-.7 2.6-1.2L8.5 3a19.6 19.6 0 0 0-4.8 1.4C.7 8.8-.1 13.1.3 17.3A19.8 19.8 0 0 0 6.2 20l.7-1.1c-1.3-.4-2.5-1.1-3.5-2 .3.2.6.4.9.6 3.6 2 8.4 2.6 13.7 0 .3-.2.6-.4.9-.6-1 .9-2.2 1.6-3.5 2l.7 1.1a19.8 19.8 0 0 0 5.9-2.7c.5-4.8-.8-9-1.7-12.9ZM8.1 14.7c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Zm7.8 0c-1.1 0-2-1-2-2.2 0-1.2.9-2.2 2-2.2s2 1 2 2.2c0 1.2-.9 2.2-2 2.2Z" fill="currentColor"></path></svg>Community support</a></div></div>
 </section>
 <section class="ia-section" id="ia-faq">
 
@@ -1264,7 +1264,7 @@ function buildAnvil(){ return `
 
 <details><summary>Do A and B only crossfade?</summary><p>No. The full version contains 21 relationships across Core Morph, Residual / Decompose and Acoustic Interaction families. They include direct and spectral blends, stereo structures, shared/unique material, residual relationships and more experimental transformations.</p></details>
 
-<details><summary>What are Draw, Path, Glue and Omni Path?</summary><p>Draw paints how the selected relationship changes over the IR. Path adds source-time travel, including real backward travel through earlier material. Glue Path assembles separate painted source-time pieces into a new sequential IR and owns its duration independently of Lerp Start/Time.</p></details>
+<details><summary>What are Draw, Path, Glue and Omni Path?</summary><p>Draw paints how the selected relationship changes over the IR. Path adds forward/backward source-time travel. Glue Path appends separate painted pieces and owns its duration independently of Lerp Start/Time. Omni Path keeps X as source-time and Y as relationship depth, while both horizontal and vertical route travel create output time.</p></details>
 
 <details><summary>What does A&rarr;B Lerp do?</summary><p>It creates one prepared IR whose relationship changes internally over its duration. The selected Morph mode and curve/path define the construction, and the result can be baked into one WAV instead of requiring live automation.</p></details>
 

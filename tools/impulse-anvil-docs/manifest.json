@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "heading": "Start Here",
+      "items": [
+        [
+          "/docs/impulse-anvil/",
+          "Overview"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/quickstart/",
+          "5-Minute Quickstart"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/interface-basics/",
+          "Interface Basics"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/focus-view/",
+          "Focus View"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/ir-browser/",
+          "IR Browser"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/appearance-themes/",
+          "Appearance &amp; Themes"
+        ],
+        [
+          "/docs/impulse-anvil/getting-started/install-activate/",
+          "Install &amp; Activate"
+        ]
+      ]
+    },
+    {
+      "heading": "Learn Anvil",
+      "items": [
+        [
+          "/docs/impulse-anvil/concepts/what-anvil-does/",
+          "What Anvil Does"
+        ],
+        [
+          "/docs/impulse-anvil/concepts/signal-path/",
+          "Signal Path"
+        ],
+        [
+          "/docs/impulse-anvil/sections/slots/",
+          "IR A / IR B"
+        ],
+        [
+          "/docs/impulse-anvil/sections/color-texture/",
+          "Color &amp; Texture"
+        ],
+        [
+          "/docs/impulse-anvil/sections/morph/",
+          "Morph &amp; A→B Lerp"
+        ],
+        [
+          "/docs/impulse-anvil/sections/curves-path/",
+          "Curves, Draw, Path, Glue &amp; Omni"
+        ],
+        [
+          "/docs/impulse-anvil/sections/edit/",
+          "Edit"
+        ],
+        [
+          "/docs/impulse-anvil/sections/eq-output/",
+          "EQ &amp; Output"
+        ],
+        [
+          "/docs/impulse-anvil/bake/export/",
+          "Bake &amp; Export"
+        ]
+      ]
+    },
+    {
+      "heading": "Creative Workflows",
+      "items": [
+        [
+          "/docs/impulse-anvil/workflows/",
+          "Workflow Library"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/draw-transition/",
+          "Draw A→B Movement"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/path-time-routing/",
+          "Bend Time with Path"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/omni-path/",
+          "Omni Path · 2-D Time"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/color-phase/",
+          "Phase &amp; Comb with Color"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/found-sounds/",
+          "Found Sounds"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/acoustic-bodies/",
+          "Acoustic Bodies &amp; Comparison"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/recursive-baking/",
+          "Recursive Baking"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/multi-morph-stereo/",
+          "Multi-Morph Stereo Worlds"
+        ],
+        [
+          "/docs/impulse-anvil/workflows/ai-theme-design/",
+          "AI Theme Design"
+        ]
+      ]
+    },
+    {
+      "heading": "Reference",
+      "items": [
+        [
+          "/docs/impulse-anvil/reference/control-reference/",
+          "Controls"
+        ],
+        [
+          "/docs/impulse-anvil/reference/formats-paths/",
+          "Formats &amp; Paths"
+        ],
+        [
+          "/docs/impulse-anvil/faq/",
+          "FAQ"
+        ],
+        [
+          "/docs/impulse-anvil/troubleshooting/common/",
+          "Troubleshooting"
+        ]
+      ]
+    },
+    {
+      "heading": "Technical Background",
+      "items": [
+        [
+          "/docs/impulse-anvil/technical/dsp-background/",
+          "DSP Concepts"
+        ]
+      ]
+    }
+  ],
+  "stalePatterns": [
+    "Options → Design",
+    "Custom IR Folder",
+    "Choose Custom IR Folder",
+    "Draw or Path movement",
+    "Baking Lerp, Draw and Path",
+    "source-verified Morph relationships",
+    "Bake and own it"
+  ]
+}
