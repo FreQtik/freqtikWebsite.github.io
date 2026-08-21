@@ -91,11 +91,11 @@ A user should usually be able to understand the instruction for one card in well
 
 Gamification is a teaching aid, not a gate:
 - core docs remain freely navigable;
-- Show all lessons must bypass the unlock order;
+- normal reference docs remain freely navigable; Course Mode itself keeps future lessons locked;
 - completion is self-checked;
 - progress/history remain browser-local;
 - no accounts/backend merely for learning progress;
-- no certification or professional-qualification claim;
+- a fun completion certificate is allowed, but it must not imply professional certification or qualification;
 - when the curriculum is replaced with different lesson IDs/meaning, bump the local progress namespace instead of reusing unrelated completion or Show-all state.
 
 ### Product truths that must stay central
@@ -109,6 +109,77 @@ Gamification is a teaching aid, not a gate:
 Never let A→B Lerp become a secondary footnote in the learning sequence.
 
 If a page is explicitly described as demo-friendly, verify it against the current license gates. Guided Learning itself is intentionally the full-workstation course.
+
+
+## Course Mode architecture
+
+Guided Learning has two layers:
+
+1. **Guided Learning page = course lobby**
+2. **Impulse Anvil — Basics Course = focused Course Mode**
+
+The lobby introduces the course and launches it. It must not permanently render the full curriculum.
+
+Course Mode lives outside the normal documentation chrome at:
+`/learn/impulse-anvil-basics/`
+
+Once the user enters Course Mode:
+- show one lesson card at a time;
+- keep the rest of the website visually out of the way;
+- Exit is always available;
+- Previous is always available for already reached lessons;
+- Next remains locked until the current lesson has been marked Done;
+- the Overview is on-demand, never permanently visible;
+- Overview may open completed lessons and the current lesson, but not future lessons;
+- URL/hash navigation must never grant progress or unlock future lessons;
+- only a contiguous sequence of completed canonical lesson IDs counts toward completion.
+
+Animation is feedback, not delay:
+- completed card leaves cleanly;
+- the next card enters from above with a short fade/slide;
+- target roughly 300–400 ms total perceived transition;
+- always respect `prefers-reduced-motion`.
+
+### Course wording
+
+**Sound first. IR second. "Material" almost never.**
+
+When the musician is loading audio, call it a sound, IR or file according to what it actually is. Keep abstract architecture vocabulary such as "material" out of the beginner course unless it genuinely helps.
+
+Curiosity is optional:
+- a beginner must be able to continue without learning technical vocabulary;
+- "But I want to know" / hover explanations may reward curiosity with a real explanation;
+- the explanation should still use ordinary language first.
+
+### Local progress and completion
+
+Course progress remains local to the browser/device.
+
+The current Basics curriculum keeps:
+`freqtik.impulseAnvil.learning.v2`
+
+Because the lesson IDs and meanings are unchanged, existing sequential v2 progress may be preserved.
+
+Old Show-all or out-of-order completion state must not unlock Course Mode. Only the contiguous completed prefix counts.
+
+Track **active course time**, not wall-clock time:
+- count time only while the Course Mode tab is visible;
+- pause on `visibilitychange` / `pagehide`;
+- resume when visible again.
+
+A local **Certificate of Completion** is allowed as a fun reward after all canonical lessons are complete.
+
+It may show:
+- Impulse Anvil — Basics Course;
+- ANVIL OPERATOR;
+- completion date/time;
+- active course duration;
+- optional locally entered name;
+- local PNG save.
+
+It must not claim professional certification, formal qualification or externally verified skill.
+
+The certificate is generated locally. Nothing is uploaded.
 
 ## Acceptance test
 

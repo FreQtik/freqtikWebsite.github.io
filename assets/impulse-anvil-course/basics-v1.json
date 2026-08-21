@@ -1,0 +1,285 @@
+{
+  "schema": 1,
+  "id": "impulse-anvil-basics",
+  "title": "Impulse Anvil — Basics Course",
+  "productVersion": "1.0.122",
+  "storageKey": "freqtik.impulseAnvil.learning.v2",
+  "fullWorkstationCourse": true,
+  "chapters": [
+    {
+      "id": "A",
+      "title": "Meet A",
+      "description": "Learn one slot before you think about two. By the end of this chapter, A should already feel like an instrument."
+    },
+    {
+      "id": "S",
+      "title": "Shape the result",
+      "description": "You made complexity. Now learn how to remove what you don't want, keep the part you do want, and finish the IR."
+    },
+    {
+      "id": "B",
+      "title": "Build B yourself",
+      "description": "Everything you learned inside A also exists in B. This time the course gives you less help on purpose."
+    },
+    {
+      "id": "M",
+      "title": "Meet Morph",
+      "description": "You built A. You built B. Now let Anvil create relationships between them."
+    },
+    {
+      "id": "L",
+      "title": "Write movement into the IR",
+      "description": "This is where static Morph becomes A→B Lerp."
+    },
+    {
+      "id": "R",
+      "title": "Baking is not the end",
+      "description": "A baked IR can immediately become the starting point for the next one."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "A01",
+      "chapter": "A",
+      "title": "Load your first sound",
+      "goal": "Learn how to load a sound into Anvil.",
+      "bodyHtml": "<ol>\n<li>Click the <strong>A panel</strong> once to select it.</li>\n<li>Click the current <strong>filename</strong> in A. This opens the IR Browser.</li>\n<li>Pick any file you like.</li>\n<li><strong>Double-click the file</strong> to load it instantly.</li>\n</ol>\n<p><strong>Notice:</strong> your track changes because A now has something shaping it.</p><p>That sound is now being used as your IR.</p>\n<p class=\"ia-quest-note\">Alternative: drag a WAV, AIF, AIFF or FLAC directly onto A.</p>"
+    },
+    {
+      "id": "A02",
+      "chapter": "A",
+      "title": "Before you go wild: Undo",
+      "goal": "Know that experimenting is reversible.",
+      "bodyHtml": "<ol>\n<li>Move <strong>Time</strong> far enough that you clearly hear a change.</li>\n<li>Press <strong>Undo</strong>.</li>\n<li>Press <strong>Redo</strong>.</li>\n</ol>\n<p><strong>Remember:</strong> if something sounded amazing two seconds ago and you think “OH NO, I broke it,” use Undo.</p>"
+    },
+    {
+      "id": "A03",
+      "chapter": "A",
+      "title": "Turn Time",
+      "goal": "Hear how much one IR can change before you add anything else.",
+      "bodyHtml": "<ol>\n<li>Turn <strong>Time</strong> down and listen.</li>\n<li>Turn it up and listen again.</li>\n<li>Move between both extremes a few times.</li>\n</ol>\n<p><strong>Notice:</strong> you are still using the same file, but the underlying IR can change dramatically.</p>"
+    },
+    {
+      "id": "A04",
+      "chapter": "A",
+      "title": "Normalize and Gain",
+      "goal": "Learn automatic loudness first, then manual loudness.",
+      "bodyHtml": "<p>If the IR is very quiet, turn on <strong>Norm</strong> in A. Normalize automatically brings that slot up for you.</p>\n<p>Then use <strong>Gain</strong> to set the level where you actually want it.</p>\n<p><strong>Notice:</strong> A Gain still works after A Normalize.</p>"
+    },
+    {
+      "id": "A05",
+      "chapter": "A",
+      "title": "Add your first Color",
+      "goal": "Create a changed copy of A and hear it immediately.",
+      "bodyHtml": "<ol>\n<li>Turn <strong>Color 1 · Time</strong>. Moving a Color knob turns that Color on automatically.</li>\n<li>Make the Time change obvious.</li>\n<li>Move it back and forth while your track plays.</li>\n</ol>\n<p><strong>Listen:</strong> Color Time changes the added Color layer without replacing your original A.</p>"
+    },
+    {
+      "id": "A06",
+      "chapter": "A",
+      "title": "Control how much Color you hear",
+      "goal": "Meet Amount.",
+      "bodyHtml": "<p>Move <strong>Color 1 · Amount</strong> down, then up.</p>\n<p><strong>Listen:</strong> Amount controls how loud that added Color layer is. Use it to make the change subtle or let it take over.</p>"
+    },
+    {
+      "id": "A07",
+      "chapter": "A",
+      "title": "Push Offset all the way out",
+      "goal": "Make delay/spacing impossible to miss.",
+      "bodyHtml": "<ol>\n<li>Set <strong>Color 1 · Offset</strong> close to <strong>500 ms</strong>.</li>\n<li>Listen.</li>\n<li>Now make Offset very small.</li>\n<li>Go back and forth between tiny and huge values.</li>\n</ol>\n<p><strong>Notice:</strong> small Offset values overlap closely with the original. Large values separate the Color farther in time.</p>"
+    },
+    {
+      "id": "A08",
+      "chapter": "A",
+      "title": "Build a texture",
+      "goal": "See what Texture Depth does instead of reading a definition.",
+      "bodyHtml": "<ol>\n<li>Set <strong>Texture Depth</strong> to <strong>2</strong>.</li>\n<li>Look at the waveform in <strong>EDIT</strong>.</li>\n<li>Move Color 1 Offset and watch/listen to how the repeated sound moves.</li>\n<li>Set Texture Depth to <strong>4</strong>.</li>\n<li>Try a very small Offset and then a very large one.</li>\n</ol>\n<p><strong>Notice:</strong> compare Depth 2 with Depth 4. Don't memorize it — hear and see the difference.</p>"
+    },
+    {
+      "id": "A09",
+      "chapter": "A",
+      "title": "Add Color 2",
+      "goal": "Hear how two Colors change the texture.",
+      "bodyHtml": "<ol>\n<li>Move <strong>Color 2 · Time</strong> to turn Color 2 on.</li>\n<li>Change Color 2 Amount and Offset.</li>\n<li>Move Texture Depth again.</li>\n<li>Change Color 1, then Color 2, and listen to how the texture reacts.</li>\n</ol>\n<p><strong>Notice:</strong> with two Colors active, Texture has two different Color layers to work with instead of reusing only one.</p>\n<details><summary>What happens underneath?</summary><p>With one Color active, Texture reuses that Color. With both active, the extra layers alternate Color 1 / Color 2.</p></details>"
+    },
+    {
+      "id": "A10",
+      "chapter": "A",
+      "title": "Reset Color — then bring it back",
+      "goal": "Learn the reset gesture without throwing away the texture you just built.",
+      "bodyHtml": "<ol>\n<li>Double-click the <strong>COLOR</strong> title in A.</li>\n<li><strong>Notice:</strong> the slot's Color/Texture setup resets while the IR stays loaded.</li>\n<li>Now press <strong>Undo</strong> to bring your Color/Texture work back.</li>\n</ol>\n<p><strong>Keep it:</strong> Chapter 2 will use the complexity you just built.</p>"
+    },
+    {
+      "id": "S01",
+      "chapter": "S",
+      "title": "Move an EQ Bell",
+      "goal": "Layering can create frequencies you don't like. That's why EQ is here.",
+      "bodyHtml": "<ol>\n<li>Open <strong>EQ</strong>.</li>\n<li>Drag the selected Bell point left/right and up/down.</li>\n<li>Use the mouse wheel over the graph to make that Bell wider or narrower.</li>\n</ol>\n<p><strong>Tip:</strong> double-click another Bell point to select that Bell.</p>\n<p><strong>Listen:</strong> move it until something annoying disappears or something interesting appears.</p>"
+    },
+    {
+      "id": "S02",
+      "chapter": "S",
+      "title": "Cut lows and highs",
+      "goal": "Meet Highpass and Lowpass by using them.",
+      "bodyHtml": "<p>Move <strong>HP</strong> up until you clearly hear low frequencies disappear.</p>\n<p>Move <strong>LP</strong> down until you clearly hear high frequencies disappear.</p>\n<p>Then put both somewhere that makes the sound more useful or more interesting.</p>"
+    },
+    {
+      "id": "S03",
+      "chapter": "S",
+      "title": "Keep only the part you like",
+      "goal": "This is what EDIT is for.",
+      "bodyHtml": "<p>Imagine you like your current IR, but only one spot of it.</p>\n<ol>\n<li>Open <strong>EDIT</strong>.</li>\n<li>Move <strong>Start</strong>.</li>\n<li>Move <strong>End</strong>.</li>\n<li>Keep moving them while the track plays until you isolate something interesting.</li>\n</ol>\n<p><strong>Notice:</strong> you are surgically choosing which part of the current IR is allowed to remain.</p>"
+    },
+    {
+      "id": "S04",
+      "chapter": "S",
+      "title": "Turn Start + End into a search window",
+      "goal": "Scan through the IR without changing the size of your selection.",
+      "bodyHtml": "<ol>\n<li>Put Start and End around a short piece.</li>\n<li>Click the tiny <strong>link</strong> between Start and End.</li>\n<li>Move Start or End and scan that fixed-size window through the IR.</li>\n<li>Start a new drag while holding <strong>Shift</strong> for fine movement.</li>\n<li>Start a new drag while holding <strong>Ctrl</strong> for very fine movement.</li>\n</ol>\n<p><strong>Use this when:</strong> you know there is one good little spot somewhere, but you don't know exactly where yet.</p>"
+    },
+    {
+      "id": "S05",
+      "chapter": "S",
+      "title": "Reverse it, then shape the edges",
+      "goal": "Learn three creative EDIT tricks at once because they belong together.",
+      "bodyHtml": "<ol>\n<li>Move <strong>End before Start</strong>. The selected IR plays backwards.</li>\n<li>Try <strong>Fade In</strong>.</li>\n<li>Try a normal <strong>Fade Out</strong>.</li>\n<li>Turn on <strong>Fade Out +</strong>.</li>\n<li>Change the Fade Out length again.</li>\n</ol>\n<p><strong>Notice:</strong> Fade Out + flips the ending behavior so the end can swell upward instead of simply fading away.</p>"
+    },
+    {
+      "id": "S06",
+      "chapter": "S",
+      "title": "Meet OUT Normalize and Limiter",
+      "goal": "Understand the two switches that are on by default.",
+      "bodyHtml": "<p><strong>OUT Normalize manages the loudness of the final IR automatically.</strong></p>\n<p>This is different from Norm in A or B: A/B Normalize belongs to that one slot. OUT Normalize happens to the final prepared IR, whether you are hearing A, B or Morph.</p>\n<p><strong>Limiter</strong> is also on by default and catches peaks that become too strong.</p>"
+    },
+    {
+      "id": "S07",
+      "chapter": "S",
+      "title": "Take manual control with IR In",
+      "goal": "Hear why IR In can seem less useful while OUT Normalize is on.",
+      "bodyHtml": "<ol>\n<li>Move <strong>IR In</strong> while OUT Normalize is on.</li>\n<li>Turn <strong>OUT Normalize off</strong>.</li>\n<li>Move IR In again.</li>\n</ol>\n<p><strong>Notice:</strong> with Normalize off, IR In becomes your direct control over the prepared/baked IR level.</p>"
+    },
+    {
+      "id": "S08",
+      "chapter": "S",
+      "title": "Width — then the listening controls",
+      "goal": "Separate what changes the IR from what only changes how you hear it in the plugin.",
+      "bodyHtml": "<p><strong>Width = 0</strong> makes the prepared IR mono. <strong>Width = 1</strong> keeps its original width. Go above 1 to widen the stereo information that is already there.</p>\n<p>Now look at <strong>Wet Level</strong>, <strong>Dry/Wet</strong> and <strong>Out</strong>. These are for how you listen inside the plugin.</p>\n<p>At 100% Dry/Wet, you are hearing only the wet result, so Wet Level becomes the main playback level for that processed sound.</p>\n<div class=\"ia-core-rule\"><strong>Important:</strong> Bake keeps the IR you've built. Dry/Wet, Wet Level and Out are only for how you listen to it inside the plugin, so those three aren't baked.</div>"
+    },
+    {
+      "id": "S09",
+      "chapter": "S",
+      "title": "Bake your first IR",
+      "goal": "Turn what you hear into a file you can keep.",
+      "bodyHtml": "<ol>\n<li>Make sure A is the active panel.</li>\n<li>Press <strong>BAKE</strong>.</li>\n<li>Name the file something obvious like <strong>My first IR</strong>.</li>\n<li>Save it.</li>\n</ol>\n<p><strong>Congratulations:</strong> you just created your first own IR.</p>"
+    },
+    {
+      "id": "B01",
+      "chapter": "B",
+      "title": "Make a B you like",
+      "goal": "Try to remember the A workflow instead of reading it again.",
+      "bodyHtml": "<p>Load a different IR into <strong>B</strong> and shape B until you like it.</p>\n<p>Use B's Time, Normalize/Gain, Colors and Texture if you want them.</p>\n<p><strong>For now:</strong> don't change EQ, EDIT or OUT. Try to build B from the slot controls alone.</p>\n<p>If you forget something, use Previous or open the Overview. That's part of learning it.</p>"
+    },
+    {
+      "id": "B02",
+      "chapter": "B",
+      "title": "Notice what A and B share",
+      "goal": "Understand where EQ, EDIT and OUT sit in the workflow.",
+      "bodyHtml": "<p>Click A, then B, and listen.</p>\n<p><strong>Notice:</strong> the same EQ, EDIT and OUT settings affect whichever prepared result you are hearing. They are not a second private set of controls for B.</p>\n<p>Double-click the <strong>EQ</strong>, <strong>EDIT</strong> or <strong>OUT</strong> title to reset that section to default.</p>"
+    },
+    {
+      "id": "B03",
+      "chapter": "B",
+      "title": "Reset everything except your files",
+      "goal": "Know the clean-start button before Morph gets involved.",
+      "bodyHtml": "<p>Open <strong>OPTIONS</strong> and find:</p>\n<p><strong>Init / Reset Controls (keep IRs)</strong></p>\n<p>You don't have to use it right now. Just know where it is: it resets the controls while keeping your chosen A and B files in place.</p>"
+    },
+    {
+      "id": "M01",
+      "chapter": "M",
+      "title": "Make one static Morph",
+      "goal": "Learn what Morph does before movement is involved.",
+      "bodyHtml": "<ol>\n<li>Click <strong>Morph</strong>.</li>\n<li>Choose <strong>Time Morph</strong>.</li>\n<li>Turn the <strong>Morph knob</strong> from A toward B.</li>\n</ol>\n<p>The more you move toward A, the more the result favors A. Move toward B and it favors B.</p>\n<p>If one side overwhelms the other, go back to A/B and adjust their Gain until the transition feels more even.</p>\n<div class=\"ia-core-rule\"><strong>Right now the IR is static.</strong> The Morph knob chooses one position and Anvil builds that one result.</div>"
+    },
+    {
+      "id": "M02",
+      "chapter": "M",
+      "title": "Change the curve, then turn Morph again",
+      "goal": "Hear that the same knob can travel between A and B differently.",
+      "bodyHtml": "<p>Try <strong>Linear</strong>, <strong>Exp</strong>, <strong>Log</strong> and <strong>S-Curve</strong>. Move the Morph knob after each change.</p>\n<p><strong>Notice:</strong> the knob is still choosing one static Morph position, but the curve changes how that position is shaped between A and B.</p>\n<p>Save Draw, Path, Glue and Omni for a little later.</p>"
+    },
+    {
+      "id": "M03",
+      "chapter": "M",
+      "title": "Taste every Morph",
+      "goal": "No studying allowed.",
+      "bodyHtml": "<p>The Morph collection can look scary. Treat it like a box of candy for five minutes.</p>\n<ol>\n<li>Keep the same A and B.</li>\n<li>Go through the Morph modes one by one.</li>\n<li>Move Morph for each one.</li>\n<li>Just listen.</li>\n</ol>\n<p>Some may sound similar. Some may sound broken in a useful way. Some may immediately give you an idea.</p>\n<p><strong>You don't need to understand them yet. You only need to have heard them once.</strong></p>\n<p><a href=\"/docs/impulse-anvil/sections/morph/\" target=\"_blank\" rel=\"noopener\">When you want the meaning behind a mode, use the human-first Morph cards →</a></p>"
+    },
+    {
+      "id": "L01",
+      "chapter": "L",
+      "title": "Turn on A→B Lerp",
+      "goal": "This is the switch that makes the movement part of the IR.",
+      "bodyHtml": "<p>Imagine the Morph knob moving by itself, and that whole movement being written into one IR.</p>\n<p><strong>That's A→B Lerp.</strong></p>\n<ol>\n<li>Choose <strong>Time Morph</strong>.</li>\n<li>Choose a simple <strong>Linear</strong> curve.</li>\n<li>Turn on <strong>A→B Lerp</strong>.</li>\n</ol>\n<div class=\"ia-core-rule\"><strong>Without A→B Lerp, Morph gives you one static position.</strong><br/><strong>With A→B Lerp, the movement itself becomes part of the IR.</strong></div>\n<p>You don't have to automate Morph later. Bake can keep that movement inside the file.</p>"
+    },
+    {
+      "id": "L02",
+      "chapter": "L",
+      "title": "Choose where the movement starts — and how long it takes",
+      "goal": "Meet Lerp Start and Lerp Time only after you know why Lerp exists.",
+      "bodyHtml": "<p><strong>Move Lerp Start.</strong> This decides where the A→B movement begins inside the IR.</p>\n<p><strong>Move Lerp Time.</strong> This decides how long the movement takes.</p>\n<p>Make Lerp Time short and the change happens faster. Make it long and the movement spreads across more of the IR.</p>\n<p>Make the difference obvious first. Fine-tune later.</p>"
+    },
+    {
+      "id": "L03",
+      "chapter": "L",
+      "title": "Draw the movement yourself",
+      "goal": "Stop choosing a preset curve and paint what A→B Lerp should do.",
+      "bodyHtml": "<ol>\n<li>Keep <strong>A→B Lerp on</strong>.</li>\n<li>Choose <strong>Draw</strong>.</li>\n<li>Paint an obvious movement from A toward B and back.</li>\n<li>Listen.</li>\n</ol>\n<p><strong>Notice:</strong> the curve is now your movement instead of a predefined shape.</p>\n<p>The tiny controls around the curve are there to make editing easier. Hover them if you forget what one does.</p>"
+    },
+    {
+      "id": "L04",
+      "chapter": "L",
+      "title": "Use Path to go backward in the source",
+      "goal": "Learn that the route can choose which point in time is read.",
+      "bodyHtml": "<ol>\n<li>Choose <strong>Path</strong>.</li>\n<li>Draw forward.</li>\n<li>Move backward in X.</li>\n<li>Continue forward again.</li>\n</ol>\n<p><strong>Listen:</strong> moving backward in X can revisit an earlier part of the source instead of forcing time to move only forward.</p>"
+    },
+    {
+      "id": "L05",
+      "chapter": "L",
+      "title": "Glue separate pieces together",
+      "goal": "Build a response from several strokes instead of one continuous trip.",
+      "bodyHtml": "<ol>\n<li>Choose <strong>Glue Path</strong>.</li>\n<li>Paint one stroke over something interesting.</li>\n<li>Paint a second stroke somewhere else.</li>\n<li>Listen to the result as one new sequence.</li>\n</ol>\n<p><strong>Notice:</strong> Glue builds its own sequence from your strokes. Its timing comes from horizontal source-time travel rather than Lerp Start/Time.</p>"
+    },
+    {
+      "id": "L06",
+      "chapter": "L",
+      "title": "Make the gesture itself create time with Omni",
+      "goal": "Hear why Omni is not just another Path.",
+      "bodyHtml": "<ol>\n<li>Choose <strong>Omni Path</strong>.</li>\n<li>Paint a mostly horizontal stroke.</li>\n<li>Paint a steep stroke with a lot of vertical travel.</li>\n<li>Compare them.</li>\n</ol>\n<p><strong>Notice:</strong> in Omni, horizontal <em>and</em> vertical travel consume output time. X still chooses source-time. Y still chooses the A/B relationship depth.</p>"
+    },
+    {
+      "id": "L07",
+      "chapter": "L",
+      "title": "Bake movement into one file",
+      "goal": "Complete the A→B Lerp idea.",
+      "bodyHtml": "<p>Choose any Morph mode and any authored movement you like. Keep <strong>A→B Lerp on</strong>.</p>\n<p>Press <strong>BAKE</strong>.</p>\n<p><strong>Listen to the idea:</strong> the movement is no longer something your hand has to perform. It lives inside the baked IR.</p>"
+    },
+    {
+      "id": "R01",
+      "chapter": "R",
+      "title": "Make Generation 2",
+      "goal": "Use your own result as the next IR.",
+      "bodyHtml": "<ol>\n<li>Load one of your baked IRs back into A.</li>\n<li>Put something different in B.</li>\n<li>Choose another Morph mode or another curve.</li>\n<li>Bake again.</li>\n</ol>\n<p>There is no rule saying Bake has to be the end. Repeated baking can build dense and complex soundfields from very simple starting sounds.</p>"
+    },
+    {
+      "id": "R02",
+      "chapter": "R",
+      "title": "Make one IR you would actually use",
+      "goal": "No recipe. This one is yours.",
+      "bodyHtml": "<ol>\n<li>Choose your own A and B.</li>\n<li>Shape them for a reason.</li>\n<li>Choose a Morph relationship because you like what it does.</li>\n<li>Keep it static or turn on A→B Lerp and author movement.</li>\n<li>Use EQ / EDIT / OUT only where you need them.</li>\n<li>Bake the result and give it a name you will recognize later.</li>\n</ol>\n<p><strong>Success:</strong> you can explain what you wanted, what you changed, what you heard, and why you kept it.</p>"
+    }
+  ],
+  "certificate": {
+    "title": "Impulse Anvil — Basics Certificate",
+    "stamp": "ANVIL OPERATOR",
+    "completionText": "Completed all 34 hands-on lessons"
+  }
+}

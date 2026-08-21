@@ -1,7 +1,7 @@
 "use strict";
 (() => {
   const TERM_DEFS = {
-    "impulse-response": "For this course, think of an IR as the file that shapes what your sound turns into inside Anvil. You do not need the technical definition to use it.",
+    "impulse-response": "An IR (impulse response) is basically a recording of what a space or system does after a tiny click. Use that recording on another sound and the sound takes on its tone, reflections and tail. In Anvil, ordinary sounds can be used as IRs too.",
     "convolution": "Convolution is the process that uses an IR to change your sound. You can ignore the math unless you actually want it.",
     "spectrum": "Spectrum just means how much low, middle and high-frequency energy a sound contains.",
     "phase": "Phase describes tiny timing relationships inside a waveform.",
