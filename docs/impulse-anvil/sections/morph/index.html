@@ -1,91 +1,225 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Morph Relationships & A→B Lerp — Impulse Anvil Documentation</title><meta name="description" content="Guide to all 21 Impulse Anvil Morph relationships: Core Morph, Residual / Decompose and Acoustic Interaction, plus direction, Draw/Path/Glue/Omni and A-to-B Lerp."><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/sections/morph/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Morph Relationships & A→B Lerp — Impulse Anvil Documentation"><meta property="og:description" content="Guide to all 21 Impulse Anvil Morph relationships: Core Morph, Residual / Decompose and Acoustic Interaction, plus direction, Draw/Path/Glue/Omni and A-to-B Lerp."><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/sections/morph/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Morph Relationships & A→B Lerp", "url": "https://freqtik.com/docs/impulse-anvil/sections/morph/", "about": {"@type": "SoftwareApplication", "name": "Impulse Anvil", "softwareVersion": "1.0.122", "operatingSystem": "Windows 10/11"}, "author": {"@type": "Organization", "name": "FreQtik", "url": "https://freqtik.com/"}}</script></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/focus-view/">Focus View</a><a href="/docs/impulse-anvil/getting-started/ir-browser/">IR Browser</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a class="active" href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/omni-path/">Omni Path · 2-D Time</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/acoustic-bodies/">Acoustic Bodies &amp; Comparison</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Morph Relationships &amp; A&rarr;B Lerp</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.122</span><span class="docs-pill">Windows VST3</span></div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Morph Relationships & A→B Lerp — Impulse Anvil Documentation</title><meta name="description" content="Human-first guide to all 21 Impulse Anvil Morph relationships: what each mode means, what to listen for, when to try it and optional technical details."><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"><link rel="canonical" href="https://freqtik.com/docs/impulse-anvil/sections/morph/"><link rel="icon" href="/assets/tinylogoQ.png" type="image/png"><link rel="stylesheet" href="/docs/impulse-anvil/assets/docs.css"><meta property="og:site_name" content="FreQtik"><meta property="og:type" content="article"><meta property="og:title" content="Morph Relationships & A→B Lerp — Impulse Anvil Documentation"><meta property="og:description" content="Human-first guide to all 21 Impulse Anvil Morph relationships: what each mode means, what to listen for, when to try it and optional technical details."><meta property="og:url" content="https://freqtik.com/docs/impulse-anvil/sections/morph/"><meta property="og:image" content="https://freqtik.com/assets/impulse-anvil-plugin-ui.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Morph Relationships & A→B Lerp","url":"https://freqtik.com/docs/impulse-anvil/sections/morph/","about":{"@type":"SoftwareApplication","name":"Impulse Anvil","softwareVersion":"1.0.122","operatingSystem":"Windows 10/11"},"author":{"@type":"Organization","name":"FreQtik","url":"https://freqtik.com/"}}</script><link rel="stylesheet" href="/docs/impulse-anvil/assets/learning.css"></head><body><header class="docs-top"><a class="docs-brand" href="/docs/impulse-anvil/"><img src="/assets/tinylogoQ.png" alt=""><span>FREQTIK<small>IMPULSE ANVIL DOCUMENTATION</small></span></a><div class="docs-top-actions"><button class="docs-btn docs-mobile-toggle" type="button" data-docs-toggle>Sections</button><a class="docs-btn hide-mobile" href="/impulse-anvil.html">Product</a><a class="docs-btn" href="/downloads.html">Download</a></div></header><div class="docs-layout"><aside class="docs-sidebar"><div class="docs-search-wrap"><input class="docs-search" data-docs-search type="search" placeholder="Search documentation" aria-label="Search documentation"><div class="docs-search-results" data-docs-results></div></div><nav class="docs-nav" aria-label="Documentation sections"><div class="docs-nav-group"><div class="docs-nav-heading">Start Here</div><a href="/docs/impulse-anvil/">Overview</a><a href="/docs/impulse-anvil/getting-started/quickstart/">5-Minute Quickstart</a><a href="/docs/impulse-anvil/getting-started/guided-learning/">Guided Learning</a><a href="/docs/impulse-anvil/getting-started/interface-basics/">Interface Basics</a><a href="/docs/impulse-anvil/getting-started/focus-view/">Focus View</a><a href="/docs/impulse-anvil/getting-started/ir-browser/">IR Browser</a><a href="/docs/impulse-anvil/getting-started/appearance-themes/">Appearance &amp; Themes</a><a href="/docs/impulse-anvil/getting-started/install-activate/">Install &amp; Activate</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Learn Anvil</div><a href="/docs/impulse-anvil/concepts/what-anvil-does/">What Anvil Does</a><a href="/docs/impulse-anvil/concepts/signal-path/">Signal Path</a><a href="/docs/impulse-anvil/sections/slots/">IR A / IR B</a><a href="/docs/impulse-anvil/sections/color-texture/">Color &amp; Texture</a><a class="active" href="/docs/impulse-anvil/sections/morph/">Morph &amp; A→B Lerp</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a><a href="/docs/impulse-anvil/sections/edit/">Edit</a><a href="/docs/impulse-anvil/sections/eq-output/">EQ &amp; Output</a><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Creative Workflows</div><a href="/docs/impulse-anvil/workflows/">Workflow Library</a><a href="/docs/impulse-anvil/workflows/draw-transition/">Draw A→B Movement</a><a href="/docs/impulse-anvil/workflows/path-time-routing/">Bend Time with Path</a><a href="/docs/impulse-anvil/workflows/omni-path/">Omni Path · 2-D Time</a><a href="/docs/impulse-anvil/workflows/color-phase/">Phase &amp; Comb with Color</a><a href="/docs/impulse-anvil/workflows/found-sounds/">Found Sounds</a><a href="/docs/impulse-anvil/workflows/acoustic-bodies/">Acoustic Bodies &amp; Comparison</a><a href="/docs/impulse-anvil/workflows/recursive-baking/">Recursive Baking</a><a href="/docs/impulse-anvil/workflows/multi-morph-stereo/">Multi-Morph Stereo Worlds</a><a href="/docs/impulse-anvil/workflows/ai-theme-design/">AI Theme Design</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Reference</div><a href="/docs/impulse-anvil/reference/control-reference/">Controls</a><a href="/docs/impulse-anvil/reference/formats-paths/">Formats &amp; Paths</a><a href="/docs/impulse-anvil/faq/">FAQ</a><a href="/docs/impulse-anvil/troubleshooting/common/">Troubleshooting</a></div><div class="docs-nav-group"><div class="docs-nav-heading">Technical Background</div><a href="/docs/impulse-anvil/technical/dsp-background/">DSP Concepts</a></div></nav></aside><main class="docs-content"><div class="docs-breadcrumb"><a href="/">FreQtik</a> / <a href="/docs/impulse-anvil/">Impulse Anvil Docs</a> / Morph Relationships &amp; A&rarr;B Lerp</div><article class="docs-card"><div class="docs-page-meta"><span class="docs-pill">Impulse Anvil 1.0.122</span><span class="docs-pill">Windows VST3</span></div>
+<h1 id="morph-and-a-b-lerp">Morph &amp; A&rarr;B Lerp</h1>
 
-<h1 id="morph-and-a-b-lerp">Morph &amp; A&rarr;B Lerp</h1><figure class="docs-figure "><img src="/assets/impulse-anvil/v122/IA_06_Morph_Mode_Browser.webp" width="1128" height="698" loading="lazy" decoding="async" alt="Impulse Anvil Morph Mode browser"/><figcaption>The Morph browser groups the current relationship library and explains the selected mode.</figcaption></figure><figure class="docs-figure "><img src="/assets/impulse-anvil/v122/IA_02_Morph_Focus.webp" width="1129" height="699" loading="lazy" decoding="async" alt="Impulse Anvil Morph Focus View"/><figcaption>Morph Focus keeps the selected relationship, A-to-B Lerp and authored curve visible at working scale.</figcaption></figure>
+<figure class="docs-figure "><img src="/assets/impulse-anvil/v122/IA_06_Morph_Mode_Browser.webp" width="1128" height="698" loading="lazy" decoding="async" alt="Impulse Anvil Morph Mode browser"/><figcaption>The Morph browser groups the relationship library and lets you inspect the selected mode.</figcaption></figure>
 
-<p><strong>Morph decides what relationship should exist between A and B.</strong></p>
+<p class="ia-lead"><strong>A Morph mode answers one question: what relationship should Anvil create between A and B?</strong></p>
+<p>The Morph amount controls how far you move into that relationship. Draw, Path, Glue and Omni can then make the relationship change through the response instead of staying at one fixed amount.</p>
 
-<p>Sometimes that means a direct blend. Sometimes the useful result is what the sources share, what only one source contains, or a new acoustic relationship built from both.</p>
+<div class="ia-core-rule"><strong>If you are new:</strong> start with <strong>Time Morph</strong>. It is the baseline. Every other mode is easier to understand once you have heard the straightforward version first.</div>
 
-<h2 id="three-families">Three families in the current full build</h2>
+<h2 id="choose-by-intention">Choose by intention</h2>
+<div class="ia-choice-grid">
+  <div><strong>I just want A to become B.</strong><span>Start with Time Morph.</span></div>
+  <div><strong>I want their tonal character to combine differently.</strong><span>Try Spectral, BandSwap or ZigZag.</span></div>
+  <div><strong>I want to hear what they share.</strong><span>Try Common.</span></div>
+  <div><strong>I want to hear what separates them.</strong><span>Try Aligned Difference, Matched Residual or Difference Focus.</span></div>
+  <div><strong>I want something deliberately unnatural.</strong><span>Try Ghost, Eclipse, Nest or Spectral Time Shear.</span></div>
+  <div><strong>I want the relationship to move inside the IR.</strong><span>Choose a mode first, then use Lerp, Draw, Path, Glue or Omni.</span></div>
+</div>
 
-<p>The Morph browser groups the 21 modes into a core set plus two named families. The browser itself explains <strong>Use it for</strong>, <strong>How Morph behaves</strong> and <strong>Technical</strong> for the selected mode.</p>
+<h2 id="core-morph">Core Morph — move or redistribute A and B</h2>
+<div class="ia-mode-grid">
 
-<h3 id="core-morph">Core Morph</h3>
+<section class="ia-mode-card" id="time-morph" data-morph-mode="Time Morph">
+<h3>Time Morph</h3>
+<p class="ia-mode-idea"><strong>Move directly between A and B.</strong></p>
+<p><strong>Listen for:</strong> the clearest, most literal A-to-B transition. It is the easiest reference point for every other mode.</p>
+<p><strong>Try it when:</strong> you want to understand two new source responses before getting experimental.</p>
+<details><summary>Technical details</summary><p>Direct sample-by-sample movement between the prepared A and B responses.</p></details>
+</section>
 
-<ul>
+<section class="ia-mode-card" id="spectral" data-morph-mode="Spectral">
+<h3>Spectral</h3>
+<p class="ia-mode-idea"><strong>Move more of the frequency character of A toward B.</strong></p>
+<p><strong>Listen for:</strong> a tonal change that can feel different from a direct waveform blend.</p>
+<p><strong>Try it when:</strong> A and B have obviously different dark, bright, resonant or filtered characters.</p>
+<details><summary>Technical details</summary><p>Moves the frequency-magnitude structure of A toward B while maintaining a stable phase relationship.</p></details>
+</section>
 
-<li><strong>Time Morph</strong> - direct sample-by-sample movement between prepared A and B.</li>
+<section class="ia-mode-card" id="spectral-bandswap" data-morph-mode="Spectral BandSwap">
+<h3>Spectral BandSwap</h3>
+<p class="ia-mode-idea"><strong>Let A control some broad frequency areas and B control others.</strong></p>
+<p><strong>Listen for:</strong> hybrids where lows, mids and highs can feel as if they come from different sources.</p>
+<p><strong>Try it when:</strong> you want a more obviously constructed hybrid instead of a smooth blend.</p>
+<details><summary>Technical details</summary><p>Alternates broad <button class="docs-term" type="button" data-docs-term="spectrum" aria-expanded="false">spectral</button> bands between A and B and swaps their ownership through Morph.</p></details>
+</section>
 
-<li><strong>Spectral</strong> - move the frequency-magnitude structure of A toward B with a stable phase relationship.</li>
+<section class="ia-mode-card" id="spectral-zigzag" data-morph-mode="Spectral ZigZag">
+<h3>Spectral ZigZag</h3>
+<p class="ia-mode-idea"><strong>Interleave A and B more tightly across frequency.</strong></p>
+<p><strong>Listen for:</strong> sharper, fractured and more synthetic hybrids.</p>
+<p><strong>Try it when:</strong> BandSwap is interesting but still feels too broad or orderly.</p>
+<details><summary>Technical details</summary><p>Uses denser alternating spectral stripes for a more finely interleaved frequency relationship.</p></details>
+</section>
 
-<li><strong>Spectral BandSwap</strong> - alternate broad spectral bands between A and B and swap their ownership through Morph.</li>
+<section class="ia-mode-card" id="stereo-slot-swap" data-morph-mode="Stereo Slot Swap">
+<h3>Stereo Slot Swap</h3>
+<p class="ia-mode-idea"><strong>Make the left and right sides travel through A and B in opposite directions.</strong></p>
+<p><strong>Listen for:</strong> asymmetrical width and stereo movement.</p>
+<p><strong>Try it when:</strong> the two responses have interesting stereo differences.</p>
+<details><summary>Technical details</summary><p>Sends the A/B relationship in opposite directions across left and right channels.</p></details>
+</section>
 
-<li><strong>Spectral ZigZag</strong> - use denser alternating spectral stripes for more fractured hybrids.</li>
+<section class="ia-mode-card" id="mid-side-boundary" data-morph-mode="Mid/Side Boundary">
+<h3>Mid/Side Boundary</h3>
+<p class="ia-mode-idea"><strong>Keep more of A in the center while B increasingly defines the sides.</strong></p>
+<p><strong>Listen for:</strong> a stable middle with a different texture or space around it.</p>
+<p><strong>Try it when:</strong> you want width without making the center disappear.</p>
+<details><summary>Technical details</summary><p>Uses <button class="docs-term" type="button" data-docs-term="mid-side" aria-expanded="false">Mid/Side</button> structure so A remains more of the center/mid anchor while B increasingly defines the outside/side field.</p></details>
+</section>
+</div>
 
-<li><strong>Stereo Slot Swap</strong> - send the A/B relationship in opposite directions across left and right.</li>
+<h2 id="residual-decompose">Residual / Decompose — ask what they share and what separates them</h2>
+<p>A <button class="docs-term" type="button" data-docs-term="residual" aria-expanded="false">residual</button> is simply what remains after some estimated part has been removed. These modes are most useful when you stop thinking “blend A and B” and start thinking “what is actually different here?”</p>
+<div class="ia-mode-grid">
 
-<li><strong>Mid/Side Boundary</strong> - keep A as the centre/mid anchor while B increasingly defines the outside/side field.</li>
+<section class="ia-mode-card" id="raw-difference" data-morph-mode="Raw Difference">
+<h3>Raw Difference</h3>
+<p class="ia-mode-idea"><strong>Subtract one response from the other exactly as they are.</strong></p>
+<p><strong>Listen for:</strong> remaining differences, plus potentially strong combing or ringing when timing/level do not match.</p>
+<p><strong>Try it when:</strong> you want the most literal and potentially unruly version of “what is different?”</p>
+<details><summary>Technical details</summary><p>Literal directional subtraction. Timing and level mismatches remain part of the result.</p></details>
+</section>
 
-</ul>
+<section class="ia-mode-card" id="aligned-difference" data-morph-mode="Aligned Difference">
+<h3>Aligned Difference</h3>
+<p class="ia-mode-idea"><strong>Line up the main events first, then subtract.</strong></p>
+<p><strong>Listen for:</strong> less of the difference caused only by arrival timing and more of what remains afterward.</p>
+<p><strong>Try it when:</strong> A and B are related captures whose important hit/event does not start at exactly the same point.</p>
+<details><summary>Technical details</summary><p>Aligns the dominant events of A and B before directional subtraction.</p></details>
+</section>
 
-<h3 id="residual-decompose">Residual / Decompose</h3>
+<section class="ia-mode-card" id="matched-residual" data-morph-mode="Matched Residual">
+<h3>Matched Residual</h3>
+<p class="ia-mode-idea"><strong>Line them up, bring their overall levels closer, then hear what remains.</strong></p>
+<p><strong>Listen for:</strong> differences that are less dominated by simple timing and broadband loudness mismatch.</p>
+<p><strong>Try it when:</strong> you are comparing related responses recorded at slightly different levels.</p>
+<details><summary>Technical details</summary><p>Aligns and broadband level-matches the responses before subtraction.</p></details>
+</section>
 
-<ul>
+<section class="ia-mode-card" id="spectral-carve" data-morph-mode="Spectral Carve">
+<h3>Spectral Carve</h3>
+<p class="ia-mode-idea"><strong>Carve the reference away by different amounts at different frequencies.</strong></p>
+<p><strong>Listen for:</strong> differences that appear in specific low, mid or high regions instead of one uniform subtraction.</p>
+<p><strong>Try it when:</strong> two responses feel similar overall but clearly differ in particular frequency areas.</p>
+<details><summary>Technical details</summary><p>Uses bounded frequency-dependent subtraction instead of removing the same amount everywhere.</p></details>
+</section>
 
-<li><strong>Raw Difference</strong> - literal directional subtraction; timing and level mismatches remain part of the result.</li>
+<section class="ia-mode-card" id="similarity-residual" data-morph-mode="Similarity Residual">
+<h3>Similarity Residual</h3>
+<p class="ia-mode-idea"><strong>Remove more where A and B already appear similar.</strong></p>
+<p><strong>Listen for:</strong> contrasting material becoming more exposed as shared-looking regions are reduced.</p>
+<p><strong>Try it when:</strong> the sources are related enough that a plain subtraction feels too crude.</p>
+<details><summary>Technical details</summary><p>Removes the reference more strongly where A and B appear genuinely similar.</p></details>
+</section>
 
-<li><strong>Aligned Difference</strong> - align the main events first, then subtract.</li>
+<section class="ia-mode-card" id="common" data-morph-mode="Common">
+<h3>Common</h3>
+<p class="ia-mode-idea"><strong>Keep more of what A and B appear to share.</strong></p>
+<p><strong>Listen for:</strong> a response that can feel like a shared core with some unique material reduced.</p>
+<p><strong>Try it when:</strong> A and B are related rooms, resonances, captures or variations of similar material.</p>
+<details><summary>Technical details</summary><p>Estimates the response component shared by A and B.</p></details>
+</section>
 
-<li><strong>Matched Residual</strong> - align and broadband level-match before subtraction.</li>
+<section class="ia-mode-card" id="unique-a" data-morph-mode="Unique A">
+<h3>Unique A</h3>
+<p class="ia-mode-idea"><strong>Keep more of what makes A different from B.</strong></p>
+<p><strong>Listen for:</strong> A's contrasting material after estimated shared content is reduced.</p>
+<p><strong>Try it when:</strong> A and B are similar and you want to explore what separates A from B.</p>
+<details><summary>Technical details</summary><p>Keeps what remains characteristic of A after estimated shared material is removed.</p></details>
+</section>
 
-<li><strong>Spectral Carve</strong> - use bounded frequency-dependent subtraction instead of removing the same amount everywhere.</li>
+<section class="ia-mode-card" id="unique-b" data-morph-mode="Unique B">
+<h3>Unique B</h3>
+<p class="ia-mode-idea"><strong>Keep more of what makes B different from A.</strong></p>
+<p><strong>Listen for:</strong> B's contrasting material after estimated shared content is reduced.</p>
+<p><strong>Try it when:</strong> B contains a resonance, space or texture you want to examine without simply crossfading all of B over A.</p>
+<details><summary>Technical details</summary><p>Keeps what remains characteristic of B after estimated shared material is removed.</p></details>
+</section>
 
-<li><strong>Similarity Residual</strong> - remove the reference more strongly where A and B appear genuinely similar.</li>
+<section class="ia-mode-card" id="difference-focus" data-morph-mode="Difference Focus">
+<h3>Difference Focus</h3>
+<p class="ia-mode-idea"><strong>Turn the disagreement up and the agreement down.</strong></p>
+<p><strong>Listen for:</strong> the regions where A and B contrast most strongly becoming more obvious.</p>
+<p><strong>Try it when:</strong> you want a more exaggerated difference rather than a literal residual.</p>
+<details><summary>Technical details</summary><p>Emphasizes regions where the two responses disagree most strongly.</p></details>
+</section>
 
-<li><strong>Common</strong> - estimate the component shared by A and B.</li>
+<section class="ia-mode-card" id="spectro-temporal-residual" data-morph-mode="Spectro-Temporal Residual">
+<h3>Spectro-Temporal Residual</h3>
+<p class="ia-mode-idea"><strong>Find differences that change across both time and frequency.</strong></p>
+<p><strong>Listen for:</strong> local fragments and textures that can appear only at particular moments or frequency regions.</p>
+<p><strong>Try it when:</strong> the interesting difference is not constant through the whole response.</p>
+<details><summary>Technical details</summary><p>Varies similarity and subtraction locally across both time and frequency.</p></details>
+</section>
+</div>
 
-<li><strong>Unique A</strong> - keep what remains characteristic of A after estimated shared material is removed.</li>
+<h2 id="acoustic-interaction">Acoustic Interaction — make the responses operate on each other</h2>
+<div class="ia-mode-grid">
 
-<li><strong>Unique B</strong> - keep what remains characteristic of B after estimated shared material is removed.</li>
+<section class="ia-mode-card" id="nest" data-morph-mode="Nest">
+<h3>Nest</h3>
+<p class="ia-mode-idea"><strong>Pass one acoustic response through the other.</strong></p>
+<p><strong>Listen for:</strong> a combined response that behaves more like stacked acoustic systems than a crossfade.</p>
+<p><strong>Try it when:</strong> the idea of “cabinet through room” or “resonant object through space” is more interesting than blending.</p>
+<details><summary>Technical details</summary><p>Cascades A and B as acoustic transfer functions, effectively placing one response through the other.</p></details>
+</section>
 
-<li><strong>Difference Focus</strong> - emphasize regions where the two responses disagree most.</li>
+<section class="ia-mode-card" id="transfer" data-morph-mode="Transfer">
+<h3>Transfer</h3>
+<p class="ia-mode-idea"><strong>Estimate the filter-like transformation that moves one response toward the other.</strong></p>
+<p><strong>Listen for:</strong> the relationship between the sources becoming the material, rather than either source by itself.</p>
+<p><strong>Try it when:</strong> A and B are related enough that “what changes A into B?” is an interesting question.</p>
+<details><summary>Technical details</summary><p>Builds a stabilized A&rarr;B or B&rarr;A transfer operator. This is an estimated DSP relationship, not semantic recognition of the physical source.</p></details>
+</section>
 
-<li><strong>Spectro-Temporal Residual</strong> - vary similarity and subtraction locally across both time and frequency.</li>
+<section class="ia-mode-card" id="ghost" data-morph-mode="Ghost">
+<h3>Ghost</h3>
+<p class="ia-mode-idea"><strong>Use the tonal shape of one response with the phase structure of the other.</strong></p>
+<p><strong>Listen for:</strong> a familiar frequency body behaving with a different internal timing/phase character.</p>
+<p><strong>Try it when:</strong> A and B have very different tonal and temporal personalities.</p>
+<details><summary>Technical details</summary><p>Combines the magnitude structure of one response with the <button class="docs-term" type="button" data-docs-term="phase" aria-expanded="false">phase</button> structure of the other.</p></details>
+</section>
 
-</ul>
+<section class="ia-mode-card" id="eclipse" data-morph-mode="Eclipse">
+<h3>Eclipse</h3>
+<p class="ia-mode-idea"><strong>Push A and B toward deep cancellation, then keep what survives.</strong></p>
+<p><strong>Listen for:</strong> hollow, carved, sparse or unstable responses.</p>
+<p><strong>Try it when:</strong> A and B are related and you want something more extreme than an ordinary difference mode.</p>
+<details><summary>Technical details</summary><p>Searches for a stable deep-cancellation relationship and keeps the surviving residual.</p></details>
+</section>
 
-<h3 id="acoustic-interaction">Acoustic Interaction</h3>
-
-<ul>
-
-<li><strong>Nest</strong> - cascade A and B as acoustic transfer functions, effectively placing one response through the other.</li>
-
-<li><strong>Transfer</strong> - build a stabilized A&rarr;B or B&rarr;A transfer operator.</li>
-
-<li><strong>Ghost</strong> - combine the magnitude/body of one response with the phase structure of the other.</li>
-
-<li><strong>Eclipse</strong> - search for a stable deep-cancellation relationship and keep the surviving residual.</li>
-
-<li><strong>Spectral Time Shear</strong> - create a time-frequency hybrid where low, mid and high regions follow different A/B trajectories.</li>
-
-</ul>
+<section class="ia-mode-card" id="spectral-time-shear" data-morph-mode="Spectral Time Shear">
+<h3>Spectral Time Shear</h3>
+<p class="ia-mode-idea"><strong>Let lows, mids and highs follow different A/B journeys through time.</strong></p>
+<p><strong>Listen for:</strong> a response whose frequency regions seem to evolve on different timelines.</p>
+<p><strong>Try it when:</strong> you want motion that is more complex than the whole spectrum moving together.</p>
+<details><summary>Technical details</summary><p>Creates a time-frequency hybrid where low, mid and high regions follow different A/B trajectories.</p></details>
+</section>
+</div>
 
 <h2 id="direction">Direction matters in some modes</h2>
+<p>Some Residual and Acoustic Interaction modes expose a small direction control because “A relative to B” is not the same question as “B relative to A.” <strong>Unique A</strong> and <strong>Unique B</strong> already state their direction in the name.</p>
 
-<p>Residual and Acoustic Interaction modes can expose a small direction control because the question changes when A is the base instead of B. <strong>Unique A</strong> and <strong>Unique B</strong> already encode their direction in the mode name.</p>
-
-<h2 id="curves">Morph amount can become an authored timeline</h2>
-
-<p>Built-in curves, <a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a> can control how the selected relationship develops through the response. In residual modes, vertical depth means moving from the selected base toward the residual/common/unique target.</p>
+<h2 id="curves">Choose the relationship, then author its behavior</h2>
+<p>A fixed Morph amount chooses one position in the selected relationship. Built-in curves, Draw, Path, Glue and Omni can turn that amount into movement through the response.</p>
+<ul>
+<li><strong>Draw:</strong> paint how relationship depth changes.</li>
+<li><strong>Path:</strong> also route which point in <button class="docs-term" type="button" data-docs-term="source-time" aria-expanded="false">source-time</button> is read, including backward travel.</li>
+<li><strong>Glue Path:</strong> assemble separate painted pieces into a new sequence; Glue owns its constructed duration independently of Lerp Start/Time.</li>
+<li><strong>Omni Path:</strong> keep X as source-time and Y as relationship depth while both horizontal and vertical route travel create output time inside the selected Lerp source window.</li>
+</ul>
+<p><a href="/docs/impulse-anvil/sections/curves-path/">Learn Draw, Path, Glue and Omni &rarr;</a></p>
 
 <h2 id="lerp">A&rarr;B Lerp</h2>
+<p>A&rarr;B Lerp builds one static IR whose internal relationship changes over time. It is not a DAW automation recording. The selected Morph mode and authored curve/path become part of the prepared response, and Bake can commit that construction to WAV.</p>
 
-<p>A&rarr;B Lerp builds one static IR whose internal relationship changes over time. It is not simply a DAW automation recording. The selected Morph mode and curve/path are part of the response construction, and Bake can commit that construction to WAV.</p>
+<details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body">
+<p>The longer prepared A/B endpoint defines the main Lerp source domain. Absolute Lerp Start and Time are clamped to the available endpoint duration. Time Morph can run as a continuous time-varying blend; spectral/spatial relationships use mode-aware rendering so Preview and Bake share the same prepared result.</p>
+</div></details>
 
-<div class="docs-callout"><strong>Glue Path is different.</strong> Glue owns its constructed duration from the strokes you paint and ignores Lerp Start/Time.</div>
-
-<h2 id="where-next">Useful next pages</h2>
-
-<ul><li><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a></li><li><a href="/docs/impulse-anvil/workflows/acoustic-bodies/">Acoustic Bodies &amp; Comparison</a></li><li><a href="/docs/impulse-anvil/bake/export/">Bake &amp; Export</a></li></ul>
-
-</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/color-texture/"><small>Previous</small>Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>
+<h2 id="try-it">Try it instead of memorizing it</h2>
+<p>You do not need to learn 21 definitions before using Morph. Load two contrasting responses, start with Time Morph, switch one mode at a time and listen to what question each mode asks differently.</p>
+<p><a class="ia-primary-link" href="/docs/impulse-anvil/getting-started/guided-learning/">Open the Guided Learning quests &rarr;</a></p>
+</article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/color-texture/"><small>Previous</small>Color &amp; Texture</a><a href="/docs/impulse-anvil/sections/curves-path/">Curves, Draw, Path, Glue &amp; Omni</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script><script src="/docs/impulse-anvil/assets/learning.js" defer></script></body></html>
