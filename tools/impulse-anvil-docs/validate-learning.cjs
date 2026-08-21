@@ -106,6 +106,40 @@ for (const required of [
     fail("Source-truth ledger missing: " + required);
 }
 
+// FIX6: discovery/search consistency guard
+const searchIndex = JSON.parse(read("docs/impulse-anvil/search-index.json"));
+const searchEntry = url => searchIndex.filter(x => x && x.url === url);
+const guidedSearchEntries = searchEntry("/docs/impulse-anvil/getting-started/guided-learning/");
+if (guidedSearchEntries.length !== 1) fail("Guided Learning docs-search entry is missing or duplicated.");
+const guidedSearchText = String(guidedSearchEntries[0].text || "");
+for (const forbidden of ["Show all quests", "0 / 9 quests complete", "QUEST 01 Ready", "QUEST 01 Locked"]) {
+  if (guidedSearchText.includes(forbidden)) fail("Guided Learning docs-search index is stale: " + forbidden);
+}
+for (const required of ["BASICS COURSE", "34 hands-on lessons", "future lessons stay locked"]) {
+  if (!guidedSearchText.includes(required)) fail("Guided Learning docs-search index is missing current course copy: " + required);
+}
+const overviewSearchEntries = searchEntry("/docs/impulse-anvil/");
+if (overviewSearchEntries.length !== 1) fail("Docs Overview search entry is missing or duplicated.");
+if (String(overviewSearchEntries[0].text || "").includes("Work through short optional quests"))
+  fail("Docs Overview search entry still contains the legacy Guided Learning card copy.");
+const sitemap = read("sitemap.xml");
+for (const required of [
+  "https://freqtik.com/docs/impulse-anvil/getting-started/guided-learning/",
+  "https://freqtik.com/learn/impulse-anvil-basics/"
+]) if (!sitemap.includes(`<loc>${required}</loc>`)) fail("sitemap.xml is missing learning URL: " + required);
+const robots = read("robots.txt");
+if (!robots.includes("Sitemap: https://freqtik.com/sitemap.xml")) fail("robots.txt no longer advertises sitemap.xml.");
+const courseShell = read("learn/impulse-anvil-basics/index.html");
+for (const required of [
+  `<meta name="robots" content="index, follow, max-image-preview:large">`,
+  `<link rel="canonical" href="https://freqtik.com/learn/impulse-anvil-basics/">`,
+  `"@type":"Course"`
+]) if (!courseShell.includes(required)) fail("Course discoverability metadata missing: " + required);
+for (const rel of ["llms.txt", "llms-full.txt"]) {
+  if (!read(rel).includes("https://freqtik.com/learn/impulse-anvil-basics/"))
+    fail(rel + " is missing the public Basics Course URL.");
+}
+
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,

@@ -20,6 +20,7 @@ Bake turns the prepared response into a reusable WAV impulse response. Draw, Pat
 
 Official product page: https://freqtik.com/impulse-anvil.html
 Documentation: https://freqtik.com/docs/impulse-anvil/
+Basics course: https://freqtik.com/learn/impulse-anvil-basics/
 Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
 Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
 Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/

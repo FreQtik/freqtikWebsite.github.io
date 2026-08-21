@@ -9,6 +9,7 @@ FreQtik is the independent work of a producer and developer. The complete public
 - [Impulse Anvil](https://freqtik.com/impulse-anvil.html): Windows 10/11 64-bit VST3 impulse-response design workstation. Load two IRs or compatible recordings, construct their relationship, author movement through Draw/Path/Glue/Omni, audition the result through convolution and Bake reusable WAV IRs.
 
   - Documentation: https://freqtik.com/docs/impulse-anvil/
+- Basics Course: https://freqtik.com/learn/impulse-anvil-basics/
   - Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
   - Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
   - Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
