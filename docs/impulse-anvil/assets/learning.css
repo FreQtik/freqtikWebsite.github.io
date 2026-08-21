@@ -149,7 +149,7 @@
 .ia-secondary-button{color:#dff8fc;background:rgba(255,255,255,.06)}
 .ia-complete-button{color:#123d49;background:rgba(51,224,255,.15)}
 .ia-secondary-button:hover,.ia-complete-button:hover{border-color:#168ca3}
-.ia-secondary-button:focus-visible,.ia-complete-button:focus-visible,.ia-file-button:focus-within{
+.ia-secondary-button:focus-visible,.ia-complete-button:focus-visible{
   outline:2px solid #168ca3;outline-offset:2px
 }
 .ia-quest-list{display:grid;gap:.85rem;margin:1rem 0 1.5rem}
@@ -191,34 +191,62 @@
 .ia-history{padding-left:1.3rem}
 .ia-history li{margin:.35rem 0}
 .ia-history-empty{color:#64717b;font-style:italic}
-.ia-local-audition{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:.7rem;
-  align-items:center;
-  padding:1rem;
-  background:rgba(255,255,255,.5);
-  border:1px solid rgba(143,153,164,.4);
-  border-radius:11px;
+
+.ia-license-summary{
+  margin:1rem 0 1.25rem;
+  padding:.85rem 1rem;
+  color:#31444d;
+  background:rgba(255,255,255,.52);
+  border:1px solid rgba(143,153,164,.42);
+  border-left:3px solid #168ca3;
+  border-radius:0 11px 11px 0;
 }
-.ia-local-audition audio{grid-column:1/-1;width:100%}
-.ia-file-button{
+.ia-quest-top>span:first-child{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+.ia-license-chip{
   display:inline-flex;
   align-items:center;
-  justify-content:center;
-  padding:.65rem .8rem;
-  border:1px solid rgba(22,140,163,.4);
-  border-radius:8px;
-  color:#123d49;
-  background:rgba(51,224,255,.13);
-  font-size:.78rem;
-  font-weight:850;
-  cursor:pointer;
+  min-height:20px;
+  padding:.15rem .42rem;
+  border-radius:999px;
+  font-size:.58rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  white-space:nowrap;
 }
-.ia-file-button input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ia-license-demo{
+  color:#176071;
+  background:rgba(51,224,255,.11);
+  border:1px solid rgba(22,140,163,.28);
+}
+.ia-license-full{
+  color:#5d4a1f;
+  background:rgba(210,167,71,.10);
+  border:1px solid rgba(160,120,40,.28);
+}
+.ia-license-boundary{
+  margin:1.5rem 0 1.05rem;
+  padding:1.05rem 1.1rem;
+  color:#e8f5f8;
+  background:linear-gradient(145deg,#102731,#0a1821);
+  border:1px solid rgba(51,224,255,.30);
+  border-radius:13px;
+}
+.docs-card .ia-license-boundary h2{
+  margin:.35rem 0 .55rem!important;
+  padding:0!important;
+  color:#f1fbfd;
+}
+.ia-license-boundary h2:before{display:none!important}
+.ia-license-boundary p{color:#b9cbd1}
+.ia-license-boundary a{color:#68e5fa!important;font-weight:800}
+
 @media(max-width:760px){
   .ia-mental-model,.ia-choice-grid,.ia-mode-grid{grid-template-columns:1fr}
-  .ia-local-audition{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){
   .ia-progress-track span{transition:none}

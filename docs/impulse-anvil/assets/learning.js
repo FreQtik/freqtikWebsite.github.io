@@ -218,31 +218,5 @@
     });
   }
 
-  const fileInput = track.querySelector("[data-learning-audio-file]");
-  const audio = track.querySelector("[data-learning-audio-player]");
-  const audioName = track.querySelector("[data-learning-audio-name]");
-  let objectUrl = null;
-
-  if (fileInput && audio) {
-    fileInput.addEventListener("change", () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      objectUrl = null;
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) {
-        audio.hidden = true;
-        audio.removeAttribute("src");
-        if (audioName) audioName.textContent = "No file selected.";
-        return;
-      }
-      objectUrl = URL.createObjectURL(file);
-      audio.src = objectUrl;
-      audio.hidden = false;
-      if (audioName) audioName.textContent = file.name;
-    });
-    window.addEventListener("pagehide", () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    });
-  }
-
   render();
 })();

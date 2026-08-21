@@ -45,6 +45,8 @@ Reference pages are for lookup. Do not force tutorials into every reference tabl
 - Do not anthropomorphize DSP. Say what is calculated/estimated/emphasized, not what the algorithm "understands."
 - Friendly metaphors may explain an idea, but source truth always wins.
 - Important limits, directionality, duration changes, destructive/non-destructive behavior and license restrictions must remain visible.
+- A learning task must declare its license boundary before asking for a full-only action.
+- A demo-friendly task must not require WAV Bake, A→B Lerp/Draw/Path/Glue/Omni, or a Morph relationship other than Time Morph.
 - Technical terms may use optional hover/focus definitions at first contact. Do not auto-wrap every occurrence.
 - Do not use baby talk, fake excitement or marketing superlatives in reference documentation.
 
@@ -63,19 +65,24 @@ Gamification is a teaching aid, not a gate.
 - Do not imply certification, licensing status or professional qualification.
 - Do not add accounts/backends merely to track learning.
 - Prefer a dated local history over streaks or daily-pressure mechanics.
+- Do not add local file pickers merely as decoration. If user-created artifacts are not meaningfully persisted or used in a real learning action, leave them out.
 
 ## Acceptance test
 
-A newcomer who has never heard the term "impulse response" should be able to:
+A newcomer who has never heard the term "impulse response" should be able to use the free demo to:
 
 1. understand roughly why an IR matters;
 2. load factory material;
-3. create an A/B relationship;
-4. hear what changing the relationship does;
-5. Draw movement;
-6. trim/sculpt a useful result;
-7. Bake it;
+3. create and hear the Time Morph A/B relationship;
+4. change one source before Morph;
+5. trim/sculpt a useful result;
 
-without leaving the Getting Started / Guided Learning path.
+without being instructed to use a locked feature.
+
+With the full license, the same path should then continue naturally into:
+
+6. additional Morph relationships;
+7. Draw/Path/Glue/Omni authoring;
+8. WAV Bake and reuse.
 
 A technical user must still be able to open Technical details or Reference and find precise terminology.
