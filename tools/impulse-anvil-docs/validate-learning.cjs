@@ -199,6 +199,34 @@ for (const rel of ["llms.txt", "llms-full.txt"]) {
     fail(rel + " must keep Acoustic Bodies in deep docs, not the top-level machine-readable product highlights.");
 }
 
+// FIX10: optional-Bake semantic sync guard
+const homePageFix10 = read("index.html");
+for (const required of [
+  "hear the result immediately while you work",
+  "<h3>Keep it your way</h3>",
+  "Save the complete setup as a preset",
+  "Bake the response when you want a portable WAV"
+]) if (!homePageFix10.includes(required)) fail("Homepage lost optional-Bake semantic rule: " + required);
+for (const forbidden of [
+  "keep that response as reusable WAV IR material",
+  "<h3>Keep the result</h3>",
+  "Refine the response, Bake it as a portable WAV IR"
+]) if (homePageFix10.includes(forbidden)) fail("Homepage contains legacy Bake-as-destination copy: " + forbidden);
+for (const required of [
+  "first useful transformation",
+  "Bake can export the response as a WAV"
+]) if (!overview.includes(required)) fail("Docs Overview lost FIX10 wording: " + required);
+for (const forbidden of ["first useful Bake", "Bake keeps it."]) {
+  if (overview.includes(forbidden)) fail("Docs Overview contains legacy Bake-as-destination wording: " + forbidden);
+}
+const overviewSearchFix10 = String(searchEntry("/docs/impulse-anvil/")[0].text || "");
+for (const required of ["first useful transformation", "Bake can export the response as a WAV"]) {
+  if (!overviewSearchFix10.includes(required)) fail("Docs-search Overview is missing FIX10 wording: " + required);
+}
+for (const forbidden of ["first useful Bake", "Bake keeps it."]) {
+  if (overviewSearchFix10.includes(forbidden)) fail("Docs-search Overview contains legacy FIX10 wording: " + forbidden);
+}
+
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,
