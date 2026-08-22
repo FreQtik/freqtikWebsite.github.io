@@ -227,6 +227,9 @@ for (const forbidden of ["first useful Bake", "Bake keeps it."]) {
   if (overviewSearchFix10.includes(forbidden)) fail("Docs-search Overview contains legacy FIX10 wording: " + forbidden);
 }
 
+// FIX11: main-product Acoustic Bodies scope guard
+if (productPage.includes("An acoustic-body capture is a measured/recorded linear response"))
+  fail("Product page must keep Acoustic Bodies in deep docs, not the main Honest fit sales narrative.");
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,
