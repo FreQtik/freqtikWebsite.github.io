@@ -8,7 +8,7 @@ FreQtik created Impulse Anvil, Master Desktop Tap, Contrast Rules for Producers,
 
 ## Impulse Anvil
 
-Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 impulse-response design workstation. Its central idea is that the impulse response is material to be constructed rather than only a preset to be selected. A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
+Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation. Its producer-facing idea is to start with audio already in a track and design the response it needs instead of first searching for a replacement. A custom convolution response can reshape multiple perceptual qualities together, including tone, resonance, texture, apparent depth, space, decay and stereo character; this does not mean Anvil replaces dedicated processors. The mechanism is impulse-response construction: A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
 
 The full Morph library is organized as Core Morph, Residual / Decompose and Acoustic Interaction. It includes direct time/spectral/stereo relationships; Raw, Aligned and Matched Difference/Residual approaches; Common and Unique A/B; Difference Focus; Spectro-Temporal Residual; and Nest, Transfer, Ghost, Eclipse and Spectral Time Shear.
 
