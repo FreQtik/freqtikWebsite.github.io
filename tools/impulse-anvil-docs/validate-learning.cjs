@@ -140,6 +140,20 @@ for (const rel of ["llms.txt", "llms-full.txt"]) {
     fail(rel + " is missing the public Basics Course URL.");
 }
 
+// FIX7: Basics Course terminology consistency guard
+for (const forbidden of ["Open the Guided Learning quests", "Show all quests", "0 / 9 quests complete"]) {
+  if (morph.includes(forbidden)) fail("Morph docs contain legacy course terminology: " + forbidden);
+}
+if (!morph.includes("Open the Basics Course &rarr;"))
+  fail("Morph docs are missing the Basics Course CTA.");
+const morphSearchEntries = searchEntry("/docs/impulse-anvil/sections/morph/");
+if (morphSearchEntries.length !== 1) fail("Morph docs-search entry is missing or duplicated.");
+const morphSearchText = String(morphSearchEntries[0].text || "");
+if (morphSearchText.includes("Open the Guided Learning quests"))
+  fail("Morph docs-search entry contains legacy course terminology.");
+if (!morphSearchText.includes("Open the Basics Course →"))
+  fail("Morph docs-search entry is missing the Basics Course CTA.");
+
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,
