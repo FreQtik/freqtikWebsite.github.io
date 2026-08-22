@@ -512,7 +512,7 @@ body.ia-course-page{
   border-radius:8px;
   cursor:pointer;
 }
-.ia-course-completion-actions .ia-course-primary{color:#031015;border:0}
+.ia-course-completion-actions .ia-course-primary{color:#031015;background:linear-gradient(180deg,#81edff,#5ddbf4);border:0;box-shadow:0 8px 22px rgba(109,231,255,.13)}
 .ia-course-certificate-note{font-size:.72rem!important;color:#73818a!important}
 
 /* Error --------------------------------------------------------------- */

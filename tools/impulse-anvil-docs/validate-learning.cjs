@@ -230,6 +230,10 @@ for (const forbidden of ["first useful Bake", "Bake keeps it."]) {
 // FIX11: main-product Acoustic Bodies scope guard
 if (productPage.includes("An acoustic-body capture is a measured/recorded linear response"))
   fail("Product page must keep Acoustic Bodies in deep docs, not the main Honest fit sales narrative.");
+// FIX12: certificate primary-action contrast guard
+const courseCss = read("assets/impulse-anvil-course/basics-v1.css");
+if (!courseCss.includes(".ia-course-completion-actions .ia-course-primary{color:#031015;background:linear-gradient(180deg,#81edff,#5ddbf4);border:0;box-shadow:0 8px 22px rgba(109,231,255,.13)}"))
+  fail("Certificate Save PNG button lost the visible primary-action gradient.");
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,
