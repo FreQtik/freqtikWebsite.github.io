@@ -8,7 +8,7 @@ FreQtik created Impulse Anvil, Master Desktop Tap, Contrast Rules for Producers,
 
 ## Impulse Anvil
 
-Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation. Its producer-facing idea is to start with audio already in a track and design the response it needs instead of first searching for a replacement. A custom convolution response can reshape multiple perceptual qualities together, including tone, resonance, texture, apparent depth, space, decay and stereo character; this does not mean Anvil replaces dedicated processors. The mechanism is impulse-response construction: A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
+Impulse Anvil 1.0.122 is a Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation with its own stereo convolution engine. Its producer-facing idea is to put Anvil on audio already playing in a track and design the response that sound needs instead of first searching for a replacement. Anvil itself processes the track through the response while it is being designed; no separate IR loader is required. A custom convolution response can reshape multiple perceptual qualities together, including tone, resonance, texture, apparent depth, space, decay and stereo character; this does not mean Anvil replaces dedicated processors. The mechanism is impulse-response construction: A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
 
 The full Morph library is organized as Core Morph, Residual / Decompose and Acoustic Interaction. It includes direct time/spectral/stereo relationships; Raw, Aligned and Matched Difference/Residual approaches; Common and Unique A/B; Difference Focus; Spectro-Temporal Residual; and Nest, Transfer, Ghost, Eclipse and Spectral Time Shear.
 
@@ -16,7 +16,7 @@ The curve system includes Linear, Exp, Log, S-Curve, Draw, Path, Glue Path and O
 
 The interface supports Overview plus Focus View for A, Morph, B, EQ, Edit and Out; an in-plugin IR Browser with inspection/Compare behavior; a dedicated Morph Mode browser; global Undo/Redo for deliberate editing gestures; and a persistent DESIGN workflow. Liquid Slate is the default design.
 
-Bake turns the prepared response into a reusable WAV impulse response. Draw, Path, Glue and Omni use the prepared Preview/Bake construction path.
+The current response is already the effect you hear through Anvil. Save/load presets in OPTIONS when you want to preserve the complete Anvil setup. Bake is optional export: it turns the prepared response itself into a reusable WAV impulse response for reloading into Anvil or using in another compatible convolution tool. Draw, Path, Glue and Omni use the same prepared construction for Anvil playback and Bake.
 
 Official product page: https://freqtik.com/impulse-anvil.html
 Documentation: https://freqtik.com/docs/impulse-anvil/
@@ -24,7 +24,6 @@ Basics course: https://freqtik.com/learn/impulse-anvil-basics/
 Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
 Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
 Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
-Acoustic bodies & comparison: https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/
 Downloads and installation: https://freqtik.com/downloads.html
 Official releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
 

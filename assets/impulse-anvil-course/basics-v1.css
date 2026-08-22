@@ -95,6 +95,7 @@ body.ia-course-page{
   border-color:rgba(109,231,255,.52);
   box-shadow:0 20px 48px rgba(5,14,21,.20),inset 0 1px rgba(255,255,255,.06);
 }
+.ia-course-launch:focus-visible{outline:3px solid rgba(109,231,255,.42);outline-offset:3px}
 .ia-course-launch-product{
   color:#67e7fb;
   font-size:.65rem;
@@ -106,11 +107,19 @@ body.ia-course-page{
   letter-spacing:.015em;
 }
 .ia-course-launch-action{
-  margin-top:.4rem;
-  color:#fff;
-  font-size:.8rem;
-  font-weight:900;
-  letter-spacing:.08em;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:.72rem;
+  padding:.64rem .92rem;
+  color:#061017;
+  font-size:.76rem;
+  font-weight:950;
+  letter-spacing:.065em;
+  border:1px solid rgba(255,255,255,.62);
+  border-radius:10px;
+  background:linear-gradient(180deg,#8cf0ff,#58d9f1);
+  box-shadow:0 8px 22px rgba(35,187,218,.20),inset 0 1px rgba(255,255,255,.65);
 }
 .ia-course-launch small{color:#a9bac3}
 .ia-course-launch-progress{

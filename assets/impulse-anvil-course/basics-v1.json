@@ -43,7 +43,7 @@
       "chapter": "A",
       "title": "Load your first sound",
       "goal": "Learn how to load a sound into Anvil.",
-      "bodyHtml": "<ol>\n<li>Click the <strong>A panel</strong> once to select it.</li>\n<li>Click the current <strong>filename</strong> in A. This opens the IR Browser.</li>\n<li>Pick any file you like.</li>\n<li><strong>Double-click the file</strong> to load it instantly.</li>\n</ol>\n<p><strong>Notice:</strong> your track changes because A now has something shaping it.</p><p>That sound is now being used as your IR.</p>\n<p class=\"ia-quest-note\">Alternative: drag a WAV, AIF, AIFF or FLAC directly onto A.</p>"
+      "bodyHtml": "<p><strong>Before loading anything:</strong> put Anvil on an instrument or audio track that is already producing sound. Start playback—a short loop is ideal—and keep it running while you work. The course is meant to be heard through that track as you tweak.</p>\n<ol>\n<li>Click the <strong>A panel</strong> once to select it.</li>\n<li>Click the current <strong>filename</strong> in A. This opens the IR Browser.</li>\n<li>Pick any file you like.</li>\n<li><strong>Double-click the file</strong> to load it instantly.</li>\n</ol>\n<p><strong>Notice:</strong> your track changes because A now has something shaping it.</p><p>That sound is now being used as your IR.</p>\n<p class=\"ia-quest-note\">Alternative: drag a WAV, AIF, AIFF or FLAC directly onto A.</p>"
     },
     {
       "id": "A02",
@@ -188,9 +188,9 @@
     {
       "id": "B03",
       "chapter": "B",
-      "title": "Reset everything except your files",
-      "goal": "Know the clean-start button before Morph gets involved.",
-      "bodyHtml": "<p>Open <strong>OPTIONS</strong> and find:</p>\n<p><strong>Init / Reset Controls (keep IRs)</strong></p>\n<p>You don't have to use it right now. Just know where it is: it resets the controls while keeping your chosen A and B files in place.</p>"
+      "title": "Save the setup — or reset it",
+      "goal": "Know the difference between saving an Anvil setup, resetting controls and Baking a WAV.",
+      "bodyHtml": "<p>Open <strong>OPTIONS</strong> and find the preset <strong>Save / Load</strong> controls.</p>\n<p><strong>Preset = the whole Anvil setup.</strong> Save one when you want to return to this tweaking session later or keep a favorite setup. Load it next time to restore that setup.</p>\n<p>Also find <strong>Init / Reset Controls (keep IRs)</strong>. It resets the controls while keeping your chosen A and B files in place.</p>\n<p><strong>Bake is different:</strong> Bake exports the designed response itself as a WAV. You do not need to Bake just to keep using Anvil on the track.</p>"
     },
     {
       "id": "M01",
@@ -274,7 +274,7 @@
       "chapter": "R",
       "title": "Make one IR you would actually use",
       "goal": "No recipe. This one is yours.",
-      "bodyHtml": "<ol>\n<li>Choose your own A and B.</li>\n<li>Shape them for a reason.</li>\n<li>Choose a Morph relationship because you like what it does.</li>\n<li>Keep it static or turn on A→B Lerp and author movement.</li>\n<li>Use EQ / EDIT / OUT only where you need them.</li>\n<li>Bake the result and give it a name you will recognize later.</li>\n</ol>\n<p><strong>Success:</strong> you can explain what you wanted, what you changed, what you heard, and why you kept it.</p>"
+      "bodyHtml": "<ol>\n<li>Choose your own A and B.</li>\n<li>Shape them for a reason.</li>\n<li>Choose a Morph relationship because you like what it does.</li>\n<li>Keep it static or turn on A→B Lerp and author movement.</li>\n<li>Use EQ / EDIT / OUT only where you need them.</li>\n<li>Bake the result and give it a name you will recognize later.</li>\n</ol>\n<p><strong>Success:</strong> you can explain what you wanted, what you changed, what you heard, and why you kept it.</p>\n<p>If you want to return to the complete Anvil setup later—not only the baked response—save a preset in <strong>OPTIONS</strong>.</p>"
     }
   ],
   "certificate": {

@@ -4,6 +4,8 @@
 <p><strong>Keep this IR.</strong></p>
 </blockquote>
 <p>Whatever prepared response you are hearing can be turned into a reusable WAV.</p>
+<div class="ia-core-rule"><strong>Bake is optional export.</strong> Anvil is already the effect while you design: its own stereo convolution engine is processing the track through the current response. Bake only when you want that response itself as a portable WAV.</div>
+<p>Want to return to the complete tweaking setup later? Save a preset in <strong>OPTIONS</strong>. Preset = Anvil setup. Bake = response WAV.</p>
 <h2 id="what-bake-keeps">What Bake keeps</h2>
 <p>Bake can include:</p>
 <ul>
@@ -57,7 +59,7 @@ E + recording → Bake F
 <li><strong>Glue Path</strong> appends separate painted pieces and owns its duration independently of Lerp Start/Time.</li>
 <li><strong>Omni Path</strong> uses the selected Lerp source window while horizontal and vertical 2-D route travel both create output time.</li>
 </ul>
-<p>Bake commits the resulting prepared construction exactly as used by the prepared Preview path.</p>
+<p>Bake commits the resulting prepared construction exactly as used by Anvil's playback/convolution path.</p>
 <details class="docs-admonition docs-info"><summary>Technical background</summary><div class="docs-admonition-body"><p>Bake writes the current prepared IR as 32-bit float WAV. The prepared-IR chain is bounded by a 30-second safety budget at ordinary sample rates. Final track playback mixing happens afterwards and is not embedded in the WAV.</p>
 </div></details>
 </article><nav class="docs-prevnext" aria-label="Previous and next documentation pages"><a href="/docs/impulse-anvil/sections/eq-output/"><small>Previous</small>EQ &amp; Output</a><a href="/docs/impulse-anvil/workflows/"><small>Next</small>Workflow Library</a></nav><footer class="docs-footer">FreQtik · Impulse Anvil documentation · <a href="/impulse-anvil.html" style="color:#8fa6b0">Product</a> · <a href="/downloads.html" style="color:#8fa6b0">Downloads</a></footer></main></div><script src="/docs/impulse-anvil/assets/docs.js" defer></script></body></html>

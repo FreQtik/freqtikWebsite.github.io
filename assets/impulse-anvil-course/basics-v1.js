@@ -115,8 +115,8 @@
 
     if (action) {
       action.textContent = done === 0
-        ? "START COURSE"
-        : (done === course.lessons.length ? "COURSE COMPLETE · OPEN" : `CONTINUE · ${pct}%`);
+        ? "START BASICS COURSE →"
+        : (done === course.lessons.length ? "COURSE COMPLETE · OPEN →" : `CONTINUE COURSE · ${pct}% →`);
     }
     if (status) {
       status.textContent = done === 0

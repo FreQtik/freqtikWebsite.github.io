@@ -154,6 +154,51 @@ if (morphSearchText.includes("Open the Guided Learning quests"))
 if (!morphSearchText.includes("Open the Basics Course →"))
   fail("Morph docs-search entry is missing the Basics Course CTA.");
 
+// FIX9: live-effect / preset / optional-Bake communication guard
+const productPage = read("impulse-anvil.html");
+const whatPage = read("docs/impulse-anvil/concepts/what-anvil-does/index.html");
+const faqPage = read("docs/impulse-anvil/faq/index.html");
+const bakePage = read("docs/impulse-anvil/bake/export/index.html");
+const courseData = JSON.parse(read("assets/impulse-anvil-course/basics-v1.json"));
+const courseById = Object.fromEntries(courseData.lessons.map(x => [x.id, x]));
+if (!quick.includes("Start playback") || !quick.includes("You are already using the response"))
+  fail("Quickstart must establish a playing track and optional Bake.");
+if (!(guided.indexOf("data-course-launch") < guided.indexOf("ia-course-lobby-intro")) || !guided.includes("Before you start:"))
+  fail("Guided Learning must present playback setup + Basics Course launch before the IR introduction.");
+if (!overview.includes("ANVIL IS THE EFFECT") || !overview.includes("Save preset / optional Bake"))
+  fail("Docs Overview lost the live-effect / optional-Bake mental model.");
+if (!productPage.includes("ANVIL IS THE EFFECT") || !productPage.includes("New to Anvil? Start the Basics Course") || productPage.includes('id="ia-acoustic"') || productPage.includes("Can I record the body of a guitar or violin and use it as an IR?") || productPage.includes("Can I compare two instrument-body captures?"))
+  fail("Product page live-effect/course CTA/acoustic-body scope guard failed.");
+if (!whatPage.includes("You do not need another IR loader") || !faqPage.includes("ANVIL IS THE EFFECT") || !bakePage.includes("Bake is optional export"))
+  fail("Docs live-effect/Bake semantics are incomplete.");
+if (!courseById.A01.bodyHtml.includes("Start playback") || !courseById.B03.bodyHtml.includes("Preset = the whole Anvil setup") || !courseById.B03.bodyHtml.includes("Bake is different"))
+  fail("Basics Course must teach playback and preset-vs-Bake without changing lesson IDs.");
+for (const rel of ["llms.txt", "llms-full.txt"]) {
+  const machine = read(rel);
+  if (!machine.includes("no separate IR loader") || !machine.includes("preset"))
+    fail(rel + " is missing live-effect/preset/Bake machine-readable truth.");
+}
+for (const url of [
+  "/docs/impulse-anvil/",
+  "/docs/impulse-anvil/getting-started/quickstart/",
+  "/docs/impulse-anvil/getting-started/guided-learning/",
+  "/docs/impulse-anvil/concepts/what-anvil-does/",
+  "/docs/impulse-anvil/faq/",
+  "/docs/impulse-anvil/bake/export/"
+]) {
+  const hits = searchEntry(url);
+  if (hits.length !== 1) fail("FIX9 docs-search entry missing/duplicated: " + url);
+}
+if (!String(searchEntry("/docs/impulse-anvil/")[0].text || "").includes("ANVIL IS THE EFFECT"))
+  fail("Docs-search Overview is missing the FIX9 live-effect rule.");
+
+// FIX9R4: machine-readable acoustic-body prominence guard
+for (const rel of ["llms.txt", "llms-full.txt"]) {
+  const machineScope = read(rel);
+  if (machineScope.includes("Acoustic bodies & comparison:"))
+    fail(rel + " must keep Acoustic Bodies in deep docs, not the top-level machine-readable product highlights.");
+}
+
 const courseValidator = path.join(__dirname, "validate-course-basics.cjs");
 const courseCheck = cp.spawnSync(process.execPath, [courseValidator], {
   cwd: repo,

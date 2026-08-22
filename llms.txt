@@ -6,14 +6,13 @@ FreQtik is the independent work of a producer and developer. The complete public
 
 ## Complete public project list
 
-- [Impulse Anvil](https://freqtik.com/impulse-anvil.html): Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation. Start with audio already in a track, design a custom convolution response to reshape tone, resonance, texture, depth and space, then Bake that response as a reusable WAV IR. Underneath, A/B material can be combined through 21 Morph relationships with Draw/Path/Glue/Omni authoring.
+- [Impulse Anvil](https://freqtik.com/impulse-anvil.html): Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation with its own stereo convolution engine. Put it on a playing track and Anvil processes that track through the response while you design it; no separate IR loader is required. Save/load presets to keep the complete Anvil setup. Bake only when you want the response itself as a reusable WAV IR. Underneath, A/B source sounds can be combined through 21 Morph relationships with Draw/Path/Glue/Omni authoring.
 
   - Documentation: https://freqtik.com/docs/impulse-anvil/
 - Basics Course: https://freqtik.com/learn/impulse-anvil-basics/
   - Morph relationships: https://freqtik.com/docs/impulse-anvil/sections/morph/
   - Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
   - Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
-  - Acoustic bodies & comparison: https://freqtik.com/docs/impulse-anvil/workflows/acoustic-bodies/
   - Downloads and setup: https://freqtik.com/downloads.html
   - Current release: 1.0.122
   - Releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
