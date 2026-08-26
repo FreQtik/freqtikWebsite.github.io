@@ -1,75 +1,53 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
   <channel>
     <title>FreQtik Product Feed</title>
     <link>https://freqtik.com/</link>
     <description>Official Google Merchant Center product feed for FreQtik.</description>
+    <!-- Market-specific delivery coverage is configured in Merchant Center. Impulse Anvil is downloadable software: no physical item is shipped and delivery cost is 0 where Google requires a shipping value. -->
     <item>
       <g:id>IMPULSE-ANVIL-WIN-FULL</g:id>
-      <g:title>Impulse Anvil - Impulse-Response Design Workstation &amp; Convolution VST3 for Windows</g:title>
-      <g:short_title>Design New Impulse Responses from Two Sources</g:short_title>
-      <g:description>Impulse Anvil is a Windows 10/11 64-bit VST3 impulse-response design workstation. Load two IRs, recordings or found sounds, shape A and B, choose from 21 Morph relationships, author movement and source-time with Draw, Path, Glue Path and Omni Path, audition through convolution, then Bake reusable WAV impulse responses. The full license includes the complete Morph library, two Color rows, Texture Depth, editing, visual EQ, Focus View, the IR Browser, global Undo/Redo, WAV baking, 126 included IRs and two license seats.</g:description>
+      <g:title>Impulse Anvil – Convolution &amp; Impulse Response Design VST3 for Windows</g:title>
+      <g:short_title>Impulse Anvil – Convolution &amp; IR Design VST3</g:short_title>
+      <g:description>Impulse Anvil is a Windows 10/11 64-bit VST3 effect for designing the response your track passes through while you hear it in real time. Build from two IRs, recordings or found sounds; shape 21 Morph relationships; use Draw, Path, Glue and Omni; refine Color, Texture, Edit, EQ and Output; save the complete Anvil setup as a preset; and optionally Bake the designed response as a reusable WAV. Anvil includes its own stereo convolution engine, so no separate IR loader is required. The full license is a one-time €49 purchase with two activation seats and 126 included IRs.</g:description>
       <g:link>https://freqtik.com/impulse-anvil.html</g:link>
-      <g:image_link>https://freqtik.com/assets/impulse-anvil-plugin-ui.png</g:image_link>
+      <g:image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_01_Master_Overview.webp</g:image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_02_Morph_Focus.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_03_Morph_Draw.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_04_Morph_Path.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_05_Morph_Glue_Path.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_06_Morph_Mode_Browser.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_07_IR_Browser.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_08_IR_A_Focus.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_09_Edit_Focus.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_10_EQ_Focus.webp</g:additional_image_link>
+      <g:additional_image_link>https://freqtik.com/assets/impulse-anvil/v122/IA_11_Omni_Path.png</g:additional_image_link>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>49.00 EUR</g:price>
       <g:brand>FreQtik</g:brand>
       <g:mpn>IMPULSE-ANVIL-001</g:mpn>
-      <g:google_product_category>4952</g:google_product_category>
-      <g:product_type>Audio Software &gt; Audio Plugins &gt; Convolution &amp; Impulse Response Tools</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>313</g:google_product_category>
+      <g:product_type>Software &gt; Audio Software &gt; Audio Plugins &gt; Convolution &amp; Impulse Response Design</g:product_type>
       <g:adult>no</g:adult>
-      <g:product_highlight>Build new impulse responses from two IRs, recordings or found sounds.</g:product_highlight>
-      <g:product_highlight>21 Morph relationships across Core Morph, Residual / Decompose and Acoustic Interaction.</g:product_highlight>
-      <g:product_highlight>Author A/B movement and source-time with Draw, Path, Glue Path and Omni Path.</g:product_highlight>
-      <g:product_highlight>Bake designed results as reusable standard WAV impulse responses.</g:product_highlight>
-      <g:product_highlight>Focus View, IR Browser, Morph Browser and global Undo / Redo support deeper exploration.</g:product_highlight>
-      <g:product_highlight>Windows 10/11 64-bit VST3 with 126 included IRs and two activation seats.</g:product_highlight>
-      <g:product_detail>
-        <g:section_name>Compatibility</g:section_name>
-        <g:attribute_name>Operating system</g:attribute_name>
-        <g:attribute_value>Windows 10/11</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Compatibility</g:section_name>
-        <g:attribute_name>Plugin format</g:attribute_name>
-        <g:attribute_value>64-bit VST3</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Delivery</g:section_name>
-        <g:attribute_name>Delivery method</g:attribute_name>
-        <g:attribute_value>Digital ZIP download</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>License</g:section_name>
-        <g:attribute_name>License type</g:attribute_name>
-        <g:attribute_value>One-time software license</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>License</g:section_name>
-        <g:attribute_name>Activation seats</g:attribute_name>
-        <g:attribute_value>2</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Full version</g:section_name>
-        <g:attribute_name>Structural morph modes</g:attribute_name>
-        <g:attribute_value>21</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Full version</g:section_name>
-        <g:attribute_name>A-to-B Lerp</g:attribute_name>
-        <g:attribute_value>Included</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Full version</g:section_name>
-        <g:attribute_name>WAV baking</g:attribute_name>
-        <g:attribute_value>Included</g:attribute_value>
-      </g:product_detail>
-      <g:product_detail>
-        <g:section_name>Demo and full version</g:section_name>
-        <g:attribute_name>Included impulse responses</g:attribute_name>
-        <g:attribute_value>126</g:attribute_value>
-      </g:product_detail>
+      <g:min_handling_time>0</g:min_handling_time>
+      <g:max_handling_time>0</g:max_handling_time>
+      <g:product_highlight>Processes your track through the response you are designing with its own stereo convolution engine.</g:product_highlight>
+      <g:product_highlight>21 Morph relationships plus Draw, Path, Glue and Omni for authored response design.</g:product_highlight>
+      <g:product_highlight>Save the complete Anvil setup as a preset; Bake is optional reusable WAV export.</g:product_highlight>
+      <g:product_highlight>Windows 10/11 64-bit VST3, one-time €49 license, two activation seats.</g:product_highlight>
+      <g:product_highlight>Includes 126 handmade IRs in both demo and full-version downloads.</g:product_highlight>
+      <g:product_detail><g:section_name>Compatibility</g:section_name><g:attribute_name>Operating system</g:attribute_name><g:attribute_value>Windows 10/11</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Compatibility</g:section_name><g:attribute_name>Plugin format</g:attribute_name><g:attribute_value>64-bit VST3</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Delivery</g:section_name><g:attribute_name>Delivery method</g:attribute_name><g:attribute_value>Digital ZIP download; no physical shipping</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>License</g:section_name><g:attribute_name>License type</g:attribute_name><g:attribute_value>One-time software license</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>License</g:section_name><g:attribute_name>Activation seats</g:attribute_name><g:attribute_value>2</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Current release</g:section_name><g:attribute_name>Version</g:attribute_name><g:attribute_value>1.0.122</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Full version</g:section_name><g:attribute_name>Morph relationships</g:attribute_name><g:attribute_value>21</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Processing</g:section_name><g:attribute_name>Internal convolution</g:attribute_name><g:attribute_value>Included</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Export</g:section_name><g:attribute_name>WAV Bake</g:attribute_name><g:attribute_value>Optional reusable WAV export</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Demo and full version</g:section_name><g:attribute_name>Included impulse responses</g:attribute_name><g:attribute_value>126</g:attribute_value></g:product_detail>
     </item>
   </channel>
 </rss>
