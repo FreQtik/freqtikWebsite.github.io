@@ -43,7 +43,7 @@
       <g:product_detail><g:section_name>Delivery</g:section_name><g:attribute_name>Delivery method</g:attribute_name><g:attribute_value>Digital ZIP download; no physical shipping</g:attribute_value></g:product_detail>
       <g:product_detail><g:section_name>License</g:section_name><g:attribute_name>License type</g:attribute_name><g:attribute_value>One-time software license</g:attribute_value></g:product_detail>
       <g:product_detail><g:section_name>License</g:section_name><g:attribute_name>Activation seats</g:attribute_name><g:attribute_value>2</g:attribute_value></g:product_detail>
-      <g:product_detail><g:section_name>Current release</g:section_name><g:attribute_name>Version</g:attribute_name><g:attribute_value>1.0.122</g:attribute_value></g:product_detail>
+      <g:product_detail><g:section_name>Current release</g:section_name><g:attribute_name>Version</g:attribute_name><g:attribute_value>1.0.123</g:attribute_value></g:product_detail>
       <g:product_detail><g:section_name>Full version</g:section_name><g:attribute_name>Morph relationships</g:attribute_name><g:attribute_value>21</g:attribute_value></g:product_detail>
       <g:product_detail><g:section_name>Processing</g:section_name><g:attribute_name>Internal convolution</g:attribute_name><g:attribute_value>Included</g:attribute_value></g:product_detail>
       <g:product_detail><g:section_name>Export</g:section_name><g:attribute_name>WAV Bake</g:attribute_name><g:attribute_value>Optional reusable WAV export</g:attribute_value></g:product_detail>
