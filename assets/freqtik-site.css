@@ -2362,3 +2362,15 @@
 .ia-more-transformations{margin:30px 0 14px;font-size:1.05rem;letter-spacing:.02em}
 @media(max-width:960px){.ia-repro-proof-grid{grid-template-columns:1fr}.ia-repro-step{padding:16px}}
 /* IA_REPRODUCIBLE_AUDIO_PROOF_FIX16_END */
+
+/* IA_VISUAL_COHERENCE_FIX18_START */
+.ia-mac-beta-home{display:inline-flex;align-items:flex-start;width:auto;max-width:min(100%,780px)}
+.ia-repro-proof-grid{align-items:stretch}
+.ia-repro-step{display:flex;flex-direction:column;height:100%}
+.ia-repro-step>p{margin-bottom:0}
+.ia-repro-media{margin-top:auto;min-height:128px;display:flex;flex-direction:column;justify-content:flex-start;gap:12px}
+.ia-repro-media .ia-wave-player{margin-top:0}
+.ia-repro-download{margin-top:0}
+.ia-repro-note,.ia-repro-proof-head{max-width:780px}
+@media(max-width:960px){.ia-repro-media{min-height:0}}
+/* IA_VISUAL_COHERENCE_FIX18_END */
