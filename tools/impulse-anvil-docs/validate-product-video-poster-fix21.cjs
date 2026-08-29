@@ -18,4 +18,4 @@ if(!css.includes("IA_PRODUCT_VIDEO_POSTER_FIX21"))fail("FIX21 poster CSS marker 
 for(const needle of ["aspect-ratio:16/9",".ia-product-video-poster img","@media(max-width:760px)","@media(max-width:380px)","prefers-reduced-motion:reduce"])if(!css.includes(needle))fail("Responsive/accessibility poster rule missing: "+needle);
 if(!css.includes("IA_RESPONSIVE_COMMERCIAL_POLISH_FIX19_START"))fail("FIX19 responsive state lost.");
 const poster="assets/impulse-anvil-product-showcase.webp";if(!fs.existsSync(path.join(repo,poster)))fail("Poster asset missing.");if(sha(poster)!=="11341ee1d2faf573bdfe9db854012c3330cf658a3598238d160d10ba5b2b3ec8")fail("Poster asset checksum mismatch.");
-console.log("PASS - FIX20/21 product video: the real Impulse Anvil thumbnail is served locally, YouTube is contacted only after play, the video remains before the audio proof, and responsive/accessibility behavior is preserved.");
+console.log("PASS - FIX21 poster video: the real Impulse Anvil thumbnail is served locally, YouTube is contacted only after play, the video remains before the audio proof, and responsive/accessibility behavior is preserved.");
