@@ -984,7 +984,6 @@ function buildAnvil(){ return `
             <audio preload="metadata" src="assets/audio/ia-proof-mystic-march-2-ir.wav">Your browser does not support audio playback.</audio>
           </div>
         </div>
-        <a class="ia-btn ia-btn-small ia-repro-download" href="assets/audio/ia-proof-mystic-march-2-ir.wav" download="ImpulseAnvil_MysticMarch2.wav">Download this IR · WAV</a>
       </div>
     </article>
     <article class="ia-repro-step ia-repro-step-result">
@@ -1004,7 +1003,11 @@ function buildAnvil(){ return `
       </div>
     </article>
   </div>
-  <p class="ia-repro-note"><strong>Try the chain yourself:</strong> download Mystic March 2, load it into a compatible convolution workflow or Impulse Anvil, and hear how the same response behaves on your own source.</p>
+  <div class="ia-repro-download-row">
+    <div class="ia-repro-download-copy"><strong>Try the exact response.</strong><span>Use Mystic March 2 on your own audio.</span></div>
+    <a class="ia-btn ia-btn-small ia-repro-download" href="assets/audio/ia-proof-mystic-march-2-ir.wav" download="ImpulseAnvil_MysticMarch2.wav">Download this IR · WAV</a>
+  </div>
+  <p class="ia-repro-note">Load the WAV into a compatible convolution workflow or Impulse Anvil and hear how the same response behaves on your own source.</p>
 </div>
 <h3 class="ia-more-transformations">More transformations</h3>
 <!-- IA_REPRODUCIBLE_AUDIO_PROOF_END --><div class="ia-audio-grid">

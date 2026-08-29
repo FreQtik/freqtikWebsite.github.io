@@ -2374,3 +2374,56 @@
 .ia-repro-note,.ia-repro-proof-head{max-width:780px}
 @media(max-width:960px){.ia-repro-media{min-height:0}}
 /* IA_VISUAL_COHERENCE_FIX18_END */
+
+/* IA_RESPONSIVE_COMMERCIAL_POLISH_FIX19_START */
+/* Compact platform discovery: card-like on desktop, naturally full-width only on small screens. */
+.ia-mac-beta-home{box-sizing:border-box;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:12px;row-gap:6px;width:fit-content;max-width:min(100%,760px);justify-self:start}
+.ia-mac-beta-home>*{min-width:0}
+.ia-mac-beta-home>a{white-space:nowrap}
+
+/* macOS testing download cards: never force horizontal overflow. */
+.ia-mac-beta-card,.ia-mac-install-grid article{min-width:0;overflow-wrap:anywhere}
+.ia-mac-download-actions{display:flex;flex-wrap:wrap;gap:10px}
+.ia-mac-download-actions .ia-btn{box-sizing:border-box;min-width:0;flex:1 1 150px;justify-content:center;text-align:center}
+.ia-mac-install-grid code{word-break:break-word;overflow-wrap:anywhere}
+
+/* Reproducible proof: all three players share the same visual baseline. */
+.ia-repro-proof,.ia-repro-step,.ia-repro-media,.ia-repro-proof .ia-wave-player,.ia-repro-proof .ia-wave-main{box-sizing:border-box;min-width:0}
+.ia-repro-proof-grid{align-items:stretch}
+.ia-repro-step{display:flex;flex-direction:column;height:100%}
+.ia-repro-step>p{margin-bottom:0}
+.ia-repro-media{margin-top:auto;padding-top:14px}
+.ia-repro-media .ia-wave-player{margin-top:0;width:100%;max-width:100%}
+.ia-repro-proof .ia-wave-canvas{display:block;max-width:100%}
+.ia-repro-download-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;padding:14px 16px;border:1px solid rgba(120,230,255,.14);border-radius:13px;background:rgba(4,10,15,.42)}
+.ia-repro-download-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ia-repro-download-copy span{color:var(--ia-muted,#aab7c4);font-size:.88rem;line-height:1.45}
+.ia-repro-download{margin:0;width:auto;flex:0 0 auto;white-space:nowrap}
+
+/* Keep 3-up only when there is genuinely enough room around the product content. */
+@media(max-width:1100px){
+  .ia-repro-proof-grid{grid-template-columns:1fr}
+  .ia-repro-media{margin-top:0;padding-top:12px}
+}
+@media(max-width:760px){
+  .ia-mac-beta-home{grid-template-columns:1fr;width:100%;max-width:100%;align-items:start;justify-self:stretch}
+  .ia-mac-beta-home>a{white-space:normal}
+  .ia-mac-beta-chip{justify-self:start}
+  .ia-repro-download-row{align-items:stretch;flex-direction:column}
+  .ia-repro-download{width:100%;white-space:normal;justify-content:center;text-align:center}
+}
+@media(max-width:560px){
+  .ia-mac-beta-card{padding:17px}
+  .ia-mac-install-grid article{padding:16px}
+  .ia-mac-download-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .ia-mac-download-actions .ia-btn{width:100%;max-width:100%}
+  .ia-repro-proof{padding:16px;border-radius:16px}
+  .ia-repro-step{padding:15px}
+  .ia-repro-download-row{padding:13px}
+}
+@media(max-width:380px){
+  .ia-repro-proof{padding:13px}
+  .ia-repro-step{padding:13px}
+  .ia-mac-beta-home{padding:11px 12px}
+}
+/* IA_RESPONSIVE_COMMERCIAL_POLISH_FIX19_END */
