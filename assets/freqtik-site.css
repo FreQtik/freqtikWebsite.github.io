@@ -2318,3 +2318,29 @@
 .ia26 .ia-shot-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .ia26 .ia-finish-shots{margin-top:24px}
 @media(max-width:900px){.ia26 .ia-shot-grid-two,.ia26 .ia-shot-grid-three{grid-template-columns:1fr}}
+
+/* IA_MAC_BETA_AND_COMPLETE_SIDE_NAV_FIX15_START */
+.ia-mac-beta-home{margin-top:18px;display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding:12px 14px;border:1px solid rgba(111,224,255,.22);border-radius:14px;background:rgba(9,20,28,.55);font-size:.9rem}
+.ia-mac-beta-home a,.ia-platform-beta-note a,.ia-inline-link{color:var(--ia-cyan,#78e6ff);font-weight:700;text-decoration:none}
+.ia-mac-beta-home a:hover,.ia-platform-beta-note a:hover,.ia-inline-link:hover{text-decoration:underline}
+.ia-mac-beta-chip{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:rgba(120,230,255,.12);border:1px solid rgba(120,230,255,.28);color:var(--ia-cyan,#78e6ff);font-weight:800;letter-spacing:.02em}
+.ia-platform-beta-note{margin-top:12px;max-width:780px;font-size:.86rem;line-height:1.55;color:var(--ia-muted,#aab7c4)}
+.ia-macos-beta-section{scroll-margin-top:92px}
+.ia-mac-beta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:22px}
+.ia-mac-beta-card{padding:22px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(10,16,22,.72)}
+.ia-mac-beta-card h3{margin:10px 0 10px}
+.ia-mac-beta-disclosure{border-color:rgba(255,196,96,.28);background:linear-gradient(180deg,rgba(255,196,96,.055),rgba(10,16,22,.72))}
+.ia-mac-beta-small,.ia-mac-beta-note{font-size:.86rem;line-height:1.55;color:var(--ia-muted,#aab7c4)}
+.ia-mac-install{margin-top:30px;padding-top:28px;border-top:1px solid rgba(255,255,255,.09);scroll-margin-top:94px}
+.ia-mac-install-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ia-mac-install-grid article{padding:18px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.025)}
+.ia-mac-install-grid article>b{display:inline-block;margin-bottom:8px;color:var(--ia-cyan,#78e6ff);font-size:.78rem;letter-spacing:.12em}
+.ia-mac-install-grid code{overflow-wrap:anywhere}
+.ia-side-nav.ia-side-nav-complete{max-height:calc(100vh - 104px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.ia-side-nav-complete>a{flex:0 0 auto}
+.ia-side-nav-complete .ia-side-step{font-size:.62rem;font-weight:850;letter-spacing:-.02em;line-height:1}
+.ia-side-nav-complete::-webkit-scrollbar{width:5px}
+.ia-side-nav-complete::-webkit-scrollbar-thumb{background:rgba(120,230,255,.25);border-radius:999px}
+.ia-docs-mac-beta{border-left:3px solid rgba(120,230,255,.55)}
+@media (max-width:900px){.ia-mac-beta-grid,.ia-mac-install-grid{grid-template-columns:1fr}.ia-mac-beta-home{align-items:flex-start}}
+/* IA_MAC_BETA_AND_COMPLETE_SIDE_NAV_FIX15_END */

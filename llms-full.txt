@@ -28,6 +28,11 @@ Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
 Downloads and installation: https://freqtik.com/downloads.html
 Official releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
 
+<!-- IA_MAC_BETA_LLM_FULL_START -->
+### Platform status
+Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.123 is also available as a macOS AU/VST3 testing build. The macOS testing build is functionally the same product tier: it starts in demo mode and the same purchased Impulse Anvil license unlocks the complete functionality. Its distribution status is different: it is not Apple Developer ID signed and has not been notarized by Apple, so Gatekeeper may require explicit manual approval. The public download and setup instructions are at https://freqtik.com/downloads.html#macos-beta .
+<!-- IA_MAC_BETA_LLM_FULL_END -->
+
 ## Master Desktop Tap
 
 Master Desktop Tap is a free Windows VST3 routing utility. Inserted on a DAW master bus, it mirrors audio to a selected Windows output device so communication and capture software such as Discord, OBS or screen sharing can receive the mix without changing the DAW's ASIO driver.

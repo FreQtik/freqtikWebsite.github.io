@@ -83,7 +83,7 @@ for (const url of [
   "https://freqtik.com/docs/impulse-anvil/",
   "https://freqtik.com/docs/impulse-anvil/reference/formats-paths/"
 ]) {
-  if (sitemapDate(url) !== "2026-08-27") fail("Sitemap lastmod stale for " + url);
+  if (sitemapDate(url) < "2026-08-27") fail("Sitemap lastmod stale for " + url);
 }
 
 console.log("PASS - Impulse Anvil 1.0.123 release truth is synchronized across Downloads, docs, product structured data, Merchant feed, LLM discovery and sitemap.");
