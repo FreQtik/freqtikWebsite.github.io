@@ -38,5 +38,5 @@ Legal pages containing required personal information are intentionally excluded 
 <!-- IA_MAC_BETA_LLM_START -->
 - Platform status: Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.123 is also available as a macOS AU/VST3 testing build.
 - macOS testing build functionality: the Mac testing build uses the same demo/full-license system as Windows. It starts in demo mode; the same purchased Impulse Anvil license unlocks the complete plug-in functionality.
-- macOS testing build distribution: not Apple Developer ID signed and not notarized by Apple. macOS Gatekeeper may require manual approval. Download/setup: https://freqtik.com/downloads.html#macos-beta
+- macOS testing build distribution: not Apple Developer ID signed and not notarized by Apple. macOS Gatekeeper may require manual approval. Download/setup: https://freqtik.com/downloads.html?platform=mac
 <!-- IA_MAC_BETA_LLM_END -->

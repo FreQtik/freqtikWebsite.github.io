@@ -10,12 +10,12 @@ const docs=read("docs/impulse-anvil/index.html"), formats=read("docs/impulse-anv
 const search=JSON.parse(read("docs/impulse-anvil/search-index.json"));
 const llms=read("llms.txt"), llmsFull=read("llms-full.txt"), sitemap=read("sitemap.xml");
 
-if(!home.includes("IA_MAC_BETA_DISCOVERY_START")||!home.includes("/downloads.html#macos-beta")) fail("Homepage macOS testing build discovery missing.");
+if(!home.includes("IA_MAC_BETA_DISCOVERY_START")||!home.includes("/downloads.html?platform=mac")) fail("Homepage macOS testing build discovery missing.");
 if(!downloads.includes('id="macos-beta"')||!downloads.includes(RELEASE_URL)) fail("Downloads macOS testing build section/release link missing.");
 if(!downloads.includes("same demo/full-license model as Windows")) fail("Downloads same-license explanation missing.");
 if(!downloads.includes("Not Developer ID signed or notarized by Apple.")) fail("Downloads trust disclosure missing.");
 if(!downloads.includes("Privacy &amp; Security")||!downloads.includes("Open Anyway")) fail("Downloads Gatekeeper guidance missing.");
-if(!product.includes("IA_MAC_BETA_PRODUCT_START")||!product.includes("/downloads.html#macos-beta")) fail("Product macOS discovery note missing.");
+if(!product.includes("IA_MAC_BETA_PRODUCT_START")||!product.includes("/downloads.html?platform=mac")) fail("Product macOS discovery note missing.");
 if(!product.includes("Is the macOS testing build feature-limited?")) fail("Product macOS FAQ missing.");
 if(!product.includes('"softwareVersion": "1.0.123"')) fail("Product structured release version lost.");
 if(!product.includes("Windows 10/11 VST3 (primary supported commercial release); macOS AU/VST3 (testing build)")) fail("Product structured platform status missing.");

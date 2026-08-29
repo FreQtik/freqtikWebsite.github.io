@@ -896,7 +896,7 @@ function buildAnvil(){ return `
 </div>
 
 <p class="ia-hero-fineprint">Build from two sources &middot; Draw / Path / Glue / Omni &middot; Bake reusable WAV IRs &middot; 126 included IRs &middot; Two licence seats</p><!-- IA_MAC_BETA_PRODUCT_START -->
-<p class="ia-platform-beta-note"><strong>Platforms:</strong> Windows 10/11 VST3 is the primary supported commercial release. <a href="/downloads.html#macos-beta">macOS AU/VST3 testing build</a> is also available with the same demo/full-license functionality; the macOS testing build is not Developer ID signed or notarized by Apple.</p>
+<p class="ia-platform-beta-note"><strong>Platforms:</strong> Windows 10/11 VST3 is the primary supported commercial release. <a href="/downloads.html?platform=mac">macOS AU/VST3 testing build</a> is also available with the same demo/full-license functionality; the macOS testing build is not Developer ID signed or notarized by Apple.</p>
 <!-- IA_MAC_BETA_PRODUCT_END -->
 
 </div>
