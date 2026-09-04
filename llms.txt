@@ -14,8 +14,8 @@ FreQtik is the independent work of a producer and developer. The complete public
   - Draw, Path, Glue & Omni: https://freqtik.com/docs/impulse-anvil/sections/curves-path/
   - Omni Path workflow: https://freqtik.com/docs/impulse-anvil/workflows/omni-path/
   - Downloads and setup: https://freqtik.com/downloads.html
-  - Current release: 1.0.123
-- 1.0.123 stability fix: Fixed a DAW freeze that could occur when removing an Impulse Anvil instance after the plug-in editor had been opened.
+  - Current release: 1.0.124
+- 1.0.123 stability fix: This maintenance update focuses on playback stability, more predictable level handling, and smoother editing workflows.
   - Releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
 - [Master Desktop Tap](https://freqtik.com/master-desktop-tap.html): free Windows VST3 utility that mirrors a DAW master signal to connected Windows output devices for Discord, OBS and screen-sharing workflows.
 - [Contrast Rules for Producers](https://freqtik.com/contrast-rules-for-producers.html): free practical guide about context, contrast, attention, timing, arrangement, sound design and mixing decisions.
@@ -36,7 +36,9 @@ FreQtik is the independent work of a producer and developer. The complete public
 Legal pages containing required personal information are intentionally excluded from this machine-readable project index.
 
 <!-- IA_MAC_BETA_LLM_START -->
-- Platform status: Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.123 is also available as a macOS AU/VST3 testing build.
+- Platform status: Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.124 is also available as a macOS AU/VST3 testing build.
 - macOS testing build functionality: the Mac testing build uses the same demo/full-license system as Windows. It starts in demo mode; the same purchased Impulse Anvil license unlocks the complete plug-in functionality.
 - macOS testing build distribution: not Apple Developer ID signed and not notarized by Apple. macOS Gatekeeper may require manual approval. Download/setup: https://freqtik.com/downloads.html?platform=mac
 <!-- IA_MAC_BETA_LLM_END -->
+
+- v1.0.124 release focus: This maintenance update focuses on playback stability, more predictable level handling, and smoother editing workflows.

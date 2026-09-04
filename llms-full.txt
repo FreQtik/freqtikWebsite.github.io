@@ -8,8 +8,8 @@ FreQtik created Impulse Anvil, Master Desktop Tap, Contrast Rules for Producers,
 
 ## Impulse Anvil
 
-Impulse Anvil 1.0.123 is a Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation with its own stereo convolution engine. Its producer-facing idea is to put Anvil on audio already playing in a track and design the response that sound needs instead of first searching for a replacement. Anvil itself processes the track through the response while it is being designed; no separate IR loader is required. A custom convolution response can reshape multiple perceptual qualities together, including tone, resonance, texture, apparent depth, space, decay and stereo character; this does not mean Anvil replaces dedicated processors. The mechanism is impulse-response construction: A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
-Current release 1.0.123 is a stability fix: Fixed a DAW freeze that could occur when removing an Impulse Anvil instance after the plug-in editor had been opened.
+Impulse Anvil 1.0.124 is a Windows 10/11 64-bit VST3 sound-design and impulse-response construction workstation with its own stereo convolution engine. Its producer-facing idea is to put Anvil on audio already playing in a track and design the response that sound needs instead of first searching for a replacement. Anvil itself processes the track through the response while it is being designed; no separate IR loader is required. A custom convolution response can reshape multiple perceptual qualities together, including tone, resonance, texture, apparent depth, space, decay and stereo character; this does not mean Anvil replaces dedicated processors. The mechanism is impulse-response construction: A and B can hold impulse responses or compatible recorded material, be prepared independently, then be combined through a library of 21 Morph relationships.
+Current release 1.0.123 is a stability fix: This maintenance update focuses on playback stability, more predictable level handling, and smoother editing workflows.
 
 The full Morph library is organized as Core Morph, Residual / Decompose and Acoustic Interaction. It includes direct time/spectral/stereo relationships; Raw, Aligned and Matched Difference/Residual approaches; Common and Unique A/B; Difference Focus; Spectro-Temporal Residual; and Nest, Transfer, Ghost, Eclipse and Spectral Time Shear.
 
@@ -30,7 +30,7 @@ Official releases: https://github.com/FreQtik/freqtikWebsite.github.io/releases
 
 <!-- IA_MAC_BETA_LLM_FULL_START -->
 ### Platform status
-Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.123 is also available as a macOS AU/VST3 testing build. The macOS testing build is functionally the same product tier: it starts in demo mode and the same purchased Impulse Anvil license unlocks the complete functionality. Its distribution status is different: it is not Apple Developer ID signed and has not been notarized by Apple, so Gatekeeper may require explicit manual approval. The public download and setup instructions are at https://freqtik.com/downloads.html?platform=mac .
+Windows 10/11 64-bit VST3 is the primary supported commercial release. Impulse Anvil v1.0.124 is also available as a macOS AU/VST3 testing build. The macOS testing build is functionally the same product tier: it starts in demo mode and the same purchased Impulse Anvil license unlocks the complete functionality. Its distribution status is different: it is not Apple Developer ID signed and has not been notarized by Apple, so Gatekeeper may require explicit manual approval. The public download and setup instructions are at https://freqtik.com/downloads.html?platform=mac .
 <!-- IA_MAC_BETA_LLM_FULL_END -->
 
 ## Master Desktop Tap
