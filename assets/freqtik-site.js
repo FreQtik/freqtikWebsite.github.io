@@ -883,7 +883,7 @@ function buildAnvil(){ return `
 
 <p class="ia-lead">Two sources in. One new response out.</p>
 
-<p class="ia-hero-sub">Load two IRs, recordings or found sounds. Decide how they relate, draw how they move, reshape source-time, then Bake the result into a WAV you can use again.</p>
+<p class="ia-hero-sub">Load two IRs, recordings or real-world recordings. Decide how they relate, draw how they move, reshape source-time, then Bake the result into a WAV you can use again.</p>
 
 <div class="ia-actions">
 
@@ -925,7 +925,7 @@ function buildAnvil(){ return `
 
 <div aria-label="Impulse Anvil key facts" class="ia-proofbar">
 
-<div class="ia-proof-item"><strong>Two sources. One new IR.</strong><span>Start with rooms, cabinets, recordings or found sounds.</span></div>
+<div class="ia-proof-item"><strong>Two sources. One new IR.</strong><span>Start with rooms, cabinets, recordings or real-world recordings.</span></div>
 
 <div class="ia-proof-item"><strong>Relationships, not only fades</strong><span>Blend, split, compare, carve and transform A against B.</span></div>
 
@@ -1031,7 +1031,7 @@ function buildAnvil(){ return `
 <h3 class="ia-more-transformations">More transformations</h3>
 <!-- IA_REPRODUCIBLE_AUDIO_PROOF_END --><div class="ia-audio-grid">
 <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Melody</span><h3>Piano</h3><p>One performance. A completely different direction.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-01.mp3"><button aria-label="Play piano dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-01.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
-<article class="ia-demo-card ia-audio-card"><span class="ia-tag">Voice</span><h3>Vocal</h3><p>Turn a dry phrase into an intimate layer, unusual space or identity effect.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button aria-label="Play voice dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
+<article class="ia-demo-card ia-audio-card"><span class="ia-tag">Voice</span><h3>Vocal</h3><p>Turn a dry phrase into an intimate layer, unusual space or unusual vocal texture.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-02.mp3"><button aria-label="Play voice dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-02.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
 <article class="ia-demo-card ia-audio-card"><span class="ia-tag">Guitar</span><h3>Guitar</h3><p>Reshape tone, resonance and space, or transform existing cabinet responses.</p><div class="ia-player-pair"><div class="ia-wave-player" data-audio-src="assets/audio/ia-example-03.mp3"><button aria-label="Play guitar dry to wet example" class="ia-wave-play" type="button">&#9654;</button><div class="ia-wave-main"><div class="ia-wave-top"><span class="ia-wave-label">Dry &rarr; Transformed</span><span class="ia-wave-time">0:00</span></div><canvas aria-hidden="true" class="ia-wave-canvas" height="58" width="217"></canvas><audio preload="metadata" src="assets/audio/ia-example-03.mp3">Your browser does not support audio playback.</audio></div></div></div></article>
 </div>
 </div>
@@ -1047,7 +1047,7 @@ function buildAnvil(){ return `
 
 <div class="ia-position-grid">
 
-<article class="ia-position-card"><span class="ia-number">01</span><h3>Load material</h3><p>Choose two impulse responses, compatible WAV recordings, textures or found sounds. Prepare A and B independently.</p></article>
+<article class="ia-position-card"><span class="ia-number">01</span><h3>Load material</h3><p>Choose two impulse responses, compatible WAV recordings, textures or real-world recordings. Prepare A and B independently.</p></article>
 
 <article class="ia-position-card"><span class="ia-number">02</span><h3>Build the relationship</h3><p>Choose how the sources meet. Morph them, reveal what they share or what differs, then Draw, Path, Glue or Omni the movement you want.</p></article>
 
@@ -1074,7 +1074,7 @@ function buildAnvil(){ return `
 
 <div class="ia-material-arrow ia-material-arrow-back" aria-hidden="true">&larr;</div>
 
-<div class="ia-material-node"><span>B</span><strong>Source material</strong><small>IR · room · found sound · another Bake</small></div>
+<div class="ia-material-node"><span>B</span><strong>Source material</strong><small>IR · room · real-world recording · another Bake</small></div>
 
 </div>
 
@@ -1086,12 +1086,12 @@ function buildAnvil(){ return `
 
 <section class="ia-section" id="ia-usecases">
 <div class="ia-shell">
-<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Record the world. Put it inside your sound.</span><h2>Real material creates<br/>unrepeatable complexity.</h2><p>Water, stone, metal, paper, rooms, machinery, footsteps, environmental noise and small accidental sounds can all become creative source material.</p></div></div>
+<div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Record the world. Put it inside your sound.</span><h2>Real material creates<br/>irregular detail.</h2><p>Water, stone, metal, paper, rooms, machinery, footsteps, environmental noise and small accidental sounds can all become creative source material.</p></div></div>
 <div class="ia-outcome-grid">
-<article class="ia-outcome ia-outcome-lead"><span class="ia-tag">Found-sound convolution</span><h3>A recording does not need to resemble a traditional reverb.</h3><p>Short sounds can create tight tonal coloration and resonance. Longer recordings can introduce evolving spaces, irregular tails and rhythmic behavior that changes how a loop or performance is perceived.</p><p>Because the material begins in the real world, the result can carry irregularity and complexity that would be difficult to design deliberately with ordinary synthesis or modulation.</p><p><strong>Record something that interests you. Load it. Hear what it does.</strong></p></article>
+<article class="ia-outcome ia-outcome-lead"><span class="ia-tag">Real-world recordings</span><h3>A recording does not need to resemble a traditional reverb.</h3><p>Short sounds can create tight tonal coloration and resonance. Longer recordings can introduce evolving spaces, irregular tails and rhythmic behavior that changes how a loop or performance is perceived.</p><p>Because the material begins in the real world, the result can carry irregularity and complexity that would be difficult to design deliberately with ordinary synthesis or modulation.</p><p><strong>Record something that interests you. Load it. Hear what it does.</strong></p></article>
 <article class="ia-outcome ia-outcome-vocal"><span class="ia-kicker">Melody and instruments</span><h3>Escape a familiar identity</h3><p>Push piano, synth, guitar or other melodic material toward a new tone, resonance, space or rhythmic impression.</p></article>
 <article class="ia-outcome ia-outcome-drums"><span class="ia-kicker">Drums and rhythm</span><h3>Short organic spaces</h3><p>Create tight resonant, metallic or organic responses without automatically washing out the groove.</p></article>
-<article class="ia-outcome ia-outcome-instruments"><span class="ia-kicker">Voice and selected words</span><h3>Distinctive layers and throws</h3><p>Turn a dry phrase into a filtered double, intimate layer, strange resonance or selected-word identity effect.</p></article>
+<article class="ia-outcome ia-outcome-instruments"><span class="ia-kicker">Voice and selected words</span><h3>Distinctive layers and throws</h3><p>Turn a dry phrase into a filtered double, intimate layer, strange resonance or selected-word unusual vocal texture.</p></article>
 <article class="ia-outcome ia-outcome-library"><span class="ia-kicker">Reusable discoveries</span><h3>Build a personal IR library</h3><p>Bake useful accidents before they disappear, name the WAV and use it again in compatible convolution software or another Impulse Anvil transformation.</p></article>
 </div>
 </div>
@@ -1260,7 +1260,7 @@ function buildAnvil(){ return `
 <div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Visual system</span><h2>Liquid Slate by default.<br/>Personal when you want it.</h2><p>The DESIGN workspace keeps appearance separate from sound. Browse, import, edit and save compatible designs without changing the IR you are building.</p></div></div>
 <figure class="ia-feature-shot ia-feature-shot-wide"><img src="/assets/impulse-anvil/v122/IA_12_Design_Themes.webp" width="1129" height="698" loading="lazy" decoding="async" alt="Impulse Anvil DESIGN workspace with theme browser and panel color editor"/><figcaption>Liquid Slate remains the default design; the same workspace can manage imported and custom themes.</figcaption></figure>
 <div class="ia-grid ia-grid-three">
-<article class="ia-card"><h3>One design system</h3><p>A, B, Morph, EQ, Edit and Out can inherit the global design or use compatible section-level color ownership.</p></article>
+<article class="ia-card"><h3>One design system</h3><p>A, B, Morph, EQ, Edit and Out can inherit the global design or use compatible control over individual panel appearance.</p></article>
 <article class="ia-card"><h3>Browse without leaving Anvil</h3><p>The persistent DESIGN navigator opens the focused workspace for choosing and managing designs.</p></article>
 <article class="ia-card"><h3>Shareable JSON</h3><p>Compatible theme JSON can be imported, edited and saved without touching the audio engine.</p></article>
 </div>
@@ -1333,7 +1333,7 @@ function buildAnvil(){ return `
 
 <div class="ia-faq">
 
-<details open=""><summary>What is Impulse Anvil?</summary><p>Impulse Anvil is an impulse-response design workstation. Load two IRs, recordings or found sounds, decide how they relate, shape the result and Bake a reusable WAV impulse response.</p></details>
+<details open=""><summary>What is Impulse Anvil?</summary><p>Impulse Anvil is an impulse-response design workstation. Load two IRs, recordings or real-world recordings, decide how they relate, shape the result and Bake a reusable WAV impulse response.</p></details>
 
 <details><summary>Is it a convolution reverb?</summary><p>It can audition the response through convolution, but the product is centered on making and shaping the impulse response itself rather than only choosing a finished reverb preset.</p></details>
 
@@ -1349,7 +1349,7 @@ function buildAnvil(){ return `
 
 <details><summary>Can I use only what B has that A does not?</summary><p><strong>Unique B</strong> is designed around that exact relationship: progressively remove the component estimated to be shared with A and keep what remains characteristic of B. Matched Residual, Spectral Carve and Transfer provide related alternatives depending on what you are trying to isolate.</p></details>
 
-<details><summary>Can I load normal recordings and found sounds?</summary><p>Yes. Compatible recordings can become convolution material. Short fragments often behave like complex resonant or tonal fingerprints; longer material can introduce more obvious timing and decay behavior.</p></details>
+<details><summary>Can I load normal recordings and real-world material?</summary><p>Yes. Compatible recordings can become convolution material. Short fragments often behave like complex resonant or tonal fingerprints; longer material can introduce more obvious timing and decay behavior.</p></details>
 
 <details><summary>What gets baked?</summary><p>The prepared IR path is baked: A/B preparation, the current Morph/Lerp construction, Edit, IR-input preparation, EQ, Width, Normalize and Limiter as documented. Playback-only controls such as Dry/Wet and final track Output are not a substitute for preparing the IR itself.</p></details>
 
