@@ -895,7 +895,7 @@ function buildAnvil(){ return `
 
 </div>
 
-<p class="ia-hero-fineprint">Build from two sources &middot; Draw / Path / Glue / Omni &middot; Bake reusable WAV IRs &middot; 126 included IRs &middot; Two licence seats</p><!-- IA_MAC_BETA_PRODUCT_START -->
+<p class="ia-hero-fineprint">Start with one response &middot; Draw / Path / Glue / Omni &middot; Bake reusable WAV IRs &middot; 126 included IRs &middot; Two licence seats</p><!-- IA_MAC_BETA_PRODUCT_START -->
 <p class="ia-platform-beta-note"><strong>Platforms:</strong> Windows 10/11 VST3 is the primary supported commercial release. <a href="/downloads.html?platform=mac">macOS AU/VST3 testing build</a> is also available with the same demo/full-license functionality; the macOS testing build is not Developer ID signed or notarized by Apple.</p>
 <!-- IA_MAC_BETA_PRODUCT_END -->
 
@@ -1047,7 +1047,7 @@ function buildAnvil(){ return `
 
 <div class="ia-position-grid">
 
-<article class="ia-position-card"><span class="ia-number">01</span><h3>Load material</h3><p>Choose two impulse responses, compatible WAV recordings, textures or real-world recordings. Prepare A and B independently.</p></article>
+<article class="ia-position-card"><span class="ia-number">01</span><h3>Load material</h3><p>Choose an impulse response and reshape it while you listen. Add B when you want a second source, shape that independently, then explore how the two relate. Prepare A and B independently.</p></article>
 
 <article class="ia-position-card"><span class="ia-number">02</span><h3>Build the relationship</h3><p>Choose how the sources meet. Morph them, reveal what they share or what differs, then Draw, Path, Glue or Omni the movement you want.</p></article>
 
