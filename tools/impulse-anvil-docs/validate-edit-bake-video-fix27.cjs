@@ -1,0 +1,24 @@
+"use strict";
+const fs=require("fs"),path=require("path");
+const repo=path.resolve(__dirname,"..","..");
+function fail(m){throw new Error(m);}
+const product=fs.readFileSync(path.join(repo,"impulse-anvil.html"),"utf8");
+const home=fs.readFileSync(path.join(repo,"index.html"),"utf8");
+const css=fs.readFileSync(path.join(repo,"assets","freqtik-site.css"),"utf8");
+const js=fs.readFileSync(path.join(repo,"assets","freqtik-site.js"),"utf8");
+const asset=path.join(repo,"assets","impulse-anvil-edit-bake-workflow.webp");
+if(!fs.existsSync(asset)) fail("Local workflow thumbnail missing.");
+if(!product.includes("IA_EDIT_BAKE_VIDEO_FIX27_START")) fail("Product workflow video marker missing.");
+if(!product.includes('id="edit-bake-video"')) fail("Stable product video anchor missing.");
+if(!product.includes('data-video-id="21t9DYNFQGw"')) fail("Workflow YouTube ID missing.");
+if(!product.includes("impulse-anvil-edit-bake-workflow.webp")) fail("Product block does not use local thumbnail.");
+const a=product.indexOf("IA_EDIT_BAKE_VIDEO_FIX27_START");
+const b=product.indexOf("IA_EDIT_BAKE_VIDEO_FIX27_END");
+const block=(a>=0&&b>a)?product.slice(a,b):"";
+if(/<iframe\b/i.test(block)) fail("Initial product HTML contains an iframe; lazy-load contract broken.");
+if(!home.includes("IA_EDIT_BAKE_VIDEO_TEASER_FIX27_START")) fail("Homepage workflow teaser missing.");
+if(!home.includes("/impulse-anvil.html#edit-bake-video")) fail("Homepage teaser anchor target missing.");
+if(!css.includes("IA_EDIT_BAKE_VIDEO_FIX27_CSS_START")) fail("FIX27 CSS missing.");
+if(!js.includes("IA_EDIT_BAKE_VIDEO_FIX27_JS_START")) fail("FIX27 lazy-video JS missing.");
+if(!js.includes("www.youtube-nocookie.com/embed/")) fail("Privacy-enhanced YouTube embed endpoint missing.");
+console.log("PASS - FIX27 video proof, local thumbnail, homepage teaser and click-to-load privacy behavior are present.");

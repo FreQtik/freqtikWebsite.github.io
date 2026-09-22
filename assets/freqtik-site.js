@@ -1995,3 +1995,40 @@ if (!window.__freqtikLemonCheckoutBound) {
     }
   });
 }
+
+/* IA_EDIT_BAKE_VIDEO_FIX27_JS_START */
+(function () {
+  function initImpulseAnvilLazyWorkflowVideos() {
+    document.querySelectorAll('[data-ia-youtube-lazy]').forEach(function (frame) {
+      if (frame.dataset.iaYoutubeBound === '1') return;
+
+      var button = frame.querySelector('.ia-workflow-video-play');
+      var videoId = frame.getAttribute('data-video-id');
+
+      if (!button || !videoId) return;
+
+      frame.dataset.iaYoutubeBound = '1';
+
+      button.addEventListener('click', function () {
+        if (frame.querySelector('iframe')) return;
+
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1&rel=0';
+        iframe.title = 'Edit an IR. Bake a new one. — Impulse Anvil workflow tutorial';
+        iframe.loading = 'eager';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allowFullscreen = true;
+
+        frame.replaceChildren(iframe);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImpulseAnvilLazyWorkflowVideos, { once: true });
+  } else {
+    initImpulseAnvilLazyWorkflowVideos();
+  }
+}());
+/* IA_EDIT_BAKE_VIDEO_FIX27_JS_END */
