@@ -2783,3 +2783,15 @@
   }
 }
 /* IA_EDIT_BAKE_VIDEO_FIX27_CSS_END */
+
+/* FREQTIK_FIX24_HOME_MAC_STRIP_CENTER_START */
+/* Homepage only: center the compact macOS testing-build notice without
+   changing its width, the Impulse Anvil grid, or the mobile document flow. */
+.ia26.ia-about-page .ia-home-mac-strip {
+  margin-inline: auto;
+  justify-self: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 100%;
+}
+/* FREQTIK_FIX24_HOME_MAC_STRIP_CENTER_END */
