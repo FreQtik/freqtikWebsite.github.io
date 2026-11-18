@@ -16,3 +16,5 @@
 - [Draw Your Own A-to-B Movement](https://freqtik.com/docs/impulse-anvil/workflows/draw-transition/): custom transition recipe
 - [Bend Time with Path](https://freqtik.com/docs/impulse-anvil/workflows/path-time-routing/): reverse/replayed internal source-time recipe
 - [FAQ](https://freqtik.com/docs/impulse-anvil/faq/): direct question/answer reference
+
+Current Windows v1.0.125 is freeware; no license key, demo, checkout, activation, account or Internet connection. Windows VST3 and Standalone include 127 IRs. Older macOS v1.0.124 testing binaries are archival and use the former licensing model.

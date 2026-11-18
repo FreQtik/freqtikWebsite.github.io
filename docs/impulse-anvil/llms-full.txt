@@ -30,3 +30,6 @@ Impulse Anvil is a creative convolution and impulse-response design tool. It can
 - Successful Bake/theme export offers Show File.
 
 - Theme Schema 2 can be exported, edited externally, and imported again. This enables AI-assisted theme generation from a reference image while preserving the required Impulse Anvil JSON structure.
+
+## Freeware release
+Impulse Anvil v1.0.125 for Windows is freeware. Both VST3 and Standalone include 127 factory IRs and require no activation, checkout or account. The earlier macOS v1.0.124 test builds are not part of this Windows freeware release.

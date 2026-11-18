@@ -2923,3 +2923,20 @@
   .ia26 .ia-level-video__play { transition:none; }
 }
 /* IA_LEVEL_CONTROLS_VIDEO_FIX28_END */
+
+
+/* Impulse Anvil v1.0.125 freeware launch: product-specific, isolated */
+.ia-free .ia-free-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(22px,4vw,68px);align-items:center}
+.ia-free .ia-free-visual img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.35);border:1px solid rgba(160,220,240,.17)}
+.ia-free .ia-free-meta{color:#a8c1cf;font-size:.9rem;margin-top:20px;line-height:1.7}
+.ia-free .ia-free-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ia-free .ia-free-cards article{border:1px solid rgba(140,218,238,.19);border-radius:16px;padding:clamp(18px,2.2vw,30px);background:rgba(18,40,53,.35)}
+.ia-free .ia-free-cards h3{margin:0 0 10px;color:#edfbff;font-weight:700}
+.ia-free .ia-free-cards p{margin:0;color:#b9d1da;line-height:1.7}
+.ia-free .ia-free-steps-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:20px 0 28px}
+.ia-free .ia-free-steps-grid p{line-height:1.75;border-top:1px solid rgba(140,218,238,.28);padding-top:14px;color:#bed1da}
+.ia-free .ia-free-steps-grid strong{color:#f0fafc}
+.ia-free .ia-free-last{padding-bottom:70px}
+.ia-free a:focus-visible{outline:3px solid #2edcff;outline-offset:4px}
+@media(max-width:860px){.ia-free .ia-free-hero{grid-template-columns:1fr}.ia-free .ia-free-cards{grid-template-columns:1fr 1fr}.ia-free .ia-free-steps-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.ia-free .ia-free-cards{grid-template-columns:1fr}}
