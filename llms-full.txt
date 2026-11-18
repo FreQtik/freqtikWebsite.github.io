@@ -19,7 +19,7 @@ The curve system includes Linear, Exp, Log, S-Curve, Draw, Path, Glue Path and O
 
 The interface supports Overview plus Focus View for A, Morph, B, EQ, Edit and Out; an in-plugin IR Browser with inspection/Compare behavior; a dedicated Morph Mode browser; global Undo/Redo for deliberate editing gestures; and a persistent DESIGN workflow. Liquid Slate is the default design.
 
-The current response is already the effect you hear through Anvil. Save/load presets in OPTIONS when you want to preserve the complete Anvil setup. Bake is optional export: it turns the prepared response itself into a reusable WAV impulse response for reloading into Anvil or using in another compatible convolution tool. Draw, Path, Glue and Omni use the same prepared construction for Anvil playback and Bake.
+Draw can shape the A/B relationship across the impulse response timeline. The curve becomes part of the generated response and can be baked into one WAV IR; it is not a DAW automation lane that must continue moving during playback. The current response is already the effect you hear through Anvil. Save/load presets in OPTIONS when you want to preserve the complete Anvil setup. Bake is optional export: it turns the prepared response itself into a reusable WAV impulse response for reloading into Anvil or using in another compatible convolution tool. Draw, Path, Glue and Omni use the same prepared construction for Anvil playback and Bake.
 
 Official product page: https://freqtik.com/impulse-anvil.html
 Documentation: https://freqtik.com/docs/impulse-anvil/

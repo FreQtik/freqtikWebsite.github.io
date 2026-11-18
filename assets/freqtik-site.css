@@ -2940,3 +2940,28 @@
 .ia-free a:focus-visible{outline:3px solid #2edcff;outline-offset:4px}
 @media(max-width:860px){.ia-free .ia-free-hero{grid-template-columns:1fr}.ia-free .ia-free-cards{grid-template-columns:1fr 1fr}.ia-free .ia-free-steps-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.ia-free .ia-free-cards{grid-template-columns:1fr}}
+
+/* Impulse Anvil v1.0.125: human-first creative copy + compact sound examples. */
+.ia-free.ia-creative .ia-creative-intro{color:#c1d9e3;line-height:1.75;max-width:660px;margin:0 0 22px}
+.ia-free.ia-creative .ia-free-cards.ia-creative-cards{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:22px}
+.ia-free.ia-creative .ia-creative-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.03fr);gap:clamp(20px,3vw,42px);align-items:center;border:1px solid rgba(140,218,238,.23);border-radius:20px;padding:clamp(20px,3vw,38px);background:linear-gradient(135deg,rgba(25,57,68,.46),rgba(11,28,38,.5))}
+.ia-free.ia-creative .ia-creative-feature h3{font-size:clamp(1.5rem,2.8vw,2.35rem);line-height:1.18;color:#f0fbff;margin:12px 0 18px}
+.ia-free.ia-creative .ia-creative-feature p{color:#bed5dd;line-height:1.75}
+.ia-free.ia-creative .ia-creative-note{font-size:.9rem;color:#9ebcc9;line-height:1.65}
+.ia-free.ia-creative .ia-creative-feature-visual{margin:0;min-width:0}
+.ia-free.ia-creative .ia-creative-feature-visual img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid rgba(140,218,238,.24);box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.ia-free.ia-creative .ia-creative-feature-visual figcaption{font-size:.82rem;color:#9ebcc9;margin-top:10px;line-height:1.55}
+.ia-free.ia-creative .ia-text-link{color:#5cdeff;font-weight:700;text-underline-offset:4px}
+.ia-free.ia-creative .ia-creative-listen{border-top:1px solid rgba(140,218,238,.12);background:rgba(0,0,0,.1)}
+.ia-free.ia-creative .ia-audio-card{min-width:0;display:flex;flex-direction:column}
+.ia-free.ia-creative .ia-audio-card p{color:#b9d1da;line-height:1.6;flex:1;margin:0}
+.ia-free.ia-creative .ia-audio-card .ia-player-pair{margin-top:20px}
+.ia-free.ia-creative .ia-creative-audio-note{margin:14px 0 0}
+.ia-free.ia-creative .ia-creative-finish{padding-bottom:78px}
+.ia-free.ia-creative .ia-creative-finish-inner{max-width:860px;margin:auto;text-align:center}
+.ia-free.ia-creative .ia-creative-finish-inner p{color:#bed5dd;line-height:1.8}
+.ia-free.ia-creative .ia-creative-finish-inner .ia-actions{justify-content:center}
+.ia-free.ia-creative .ia-creative-finish-inner .ia-creative-note a{color:#5cdeff}
+.ia-free.ia-creative .ia-wave-play:focus-visible,.ia-free.ia-creative .ia-text-link:focus-visible{outline:3px solid #2edcff;outline-offset:3px}
+@media(max-width:860px){.ia-free.ia-creative .ia-creative-feature{grid-template-columns:1fr}}
+@media(max-width:600px){.ia-free.ia-creative .ia-free-cards.ia-creative-cards{grid-template-columns:1fr}.ia-free.ia-creative .ia-creative-feature{padding:18px}.ia-free.ia-creative .ia-creative-finish-inner .ia-actions{flex-direction:column;align-items:stretch}}

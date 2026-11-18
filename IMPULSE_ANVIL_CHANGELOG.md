@@ -1,5 +1,12 @@
 # Impulse Anvil — Windows release history
 
+## Website copy refresh — 18 November 2026 (no binary changes)
+
+- Refocused the product page on sound design, Foley, post-production and electronic music use cases.
+- Explained the evolving A/B Draw curve: movement is constructed inside one baked WAV IR, rather than being an automation lane at playback.
+- Restored three historical audio examples (piano, vocal and guitar) using the existing website audio player and original MP3 files. These are general convolution examples, not a verified Draw-curve comparison.
+- Simplified product-page onboarding and freeware marketing; existing downloads and v1.0.125 binary are unchanged.
+
 ## v1.0.125 — Freeware (17 November 2026)
 
 - Windows VST3 and Standalone are free; no license key, activation, account, purchase or online validation.
