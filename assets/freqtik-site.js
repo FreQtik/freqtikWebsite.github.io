@@ -1172,6 +1172,14 @@ function iaScrollTo(id){
     mainEl.innerHTML = `<section><h2>Error</h2><p>Something went wrong loading this section.</p></section>`;
   }
 }
+    // Existing section IDs are page anchors, not legacy feed names.
+    function findContentAnchor(fragment) {
+      let id;
+      try { id = decodeURIComponent(fragment); } catch { return null; }
+      const anchor = document.getElementById(id);
+      return anchor && mainEl && mainEl.contains(anchor) ? anchor : null;
+    }
+
     // Listen to back/forward and direct #links
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash || '';
@@ -1179,6 +1187,12 @@ window.addEventListener('hashchange', () => {
 
   if (!feed) {
     loadFeed('impulse', { fromHash: true });
+    return;
+  }
+
+  const pageAnchor = findContentAnchor(feed);
+  if (pageAnchor) {
+    pageAnchor.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     return;
   }
 
@@ -1258,7 +1272,8 @@ window.addEventListener('hashchange', () => {
   const feedFromHash = hash && hash.startsWith('#') ? hash.substring(1) : '';
 
   const defaultFeed = document.body.dataset.defaultFeed || 'anvil';
-  if (feedFromHash) {
+  const pageAnchor = feedFromHash ? findContentAnchor(feedFromHash) : null;
+  if (feedFromHash && !pageAnchor) {
     loadFeed(feedFromHash, { fromHash: true });
   } else if (mainEl && mainEl.children.length) {
     currentFeed = defaultFeed;
@@ -1271,7 +1286,9 @@ window.addEventListener('hashchange', () => {
     initImpulseThemeGallery();
   } else {
     loadFeed(defaultFeed, { fromHash: true });
-  } updateMenuToggleTheme(window.scrollY > 0);
+  }
+  if (pageAnchor) pageAnchor.scrollIntoView({ behavior: 'auto' });
+  updateMenuToggleTheme(window.scrollY > 0);
 
   if (window.innerWidth < 600) introEl.classList.add('hidden');
 });
