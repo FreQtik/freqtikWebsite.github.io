@@ -99,6 +99,19 @@
   ]
 }
 </script>
+<style id="freqtik-discord-invite-style">
+/* Compact FreQtik community link, scoped to these two pages only. */
+.fq-community-invite{box-sizing:border-box;width:calc(100% - 36px);max-width:1060px;margin:20px auto 40px;padding:24px 0 4px;border-top:1px solid rgba(133,154,167,.4);display:flex;align-items:center;justify-content:space-between;gap:24px;color:inherit}
+.fq-community-invite__copy{min-width:0;max-width:690px}
+.fq-community-invite__label{display:block;margin:0 0 7px;font-size:11px;font-weight:700;line-height:1.4;letter-spacing:.095em;text-transform:uppercase;opacity:.66}
+.fq-community-invite h3{margin:0 0 8px;font-size:clamp(1.14rem,2.2vw,1.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.25;color:inherit}
+.fq-community-invite p{margin:0;max-width:62ch;font-size:14px;line-height:1.65;color:inherit;opacity:.83}
+.fq-community-invite__link{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;min-height:42px;padding:10px 17px;border-radius:8px;text-decoration:none!important;background:#128bea;color:#fff!important;font-size:13px;font-weight:700;white-space:nowrap;transition:background-color .15s ease}
+.fq-community-invite__link:hover,.fq-community-invite__link:focus-visible{background:#0872c4;color:#fff!important}
+.fq-community-invite__link:focus-visible{outline:3px solid #7cc8ff;outline-offset:3px}
+@media(max-width:620px){.fq-community-invite{flex-direction:column;align-items:flex-start;gap:16px;width:calc(100% - 32px);padding-top:20px;margin-bottom:30px}.fq-community-invite__link{width:100%;box-sizing:border-box}}
+@media(prefers-reduced-motion:reduce){.fq-community-invite__link{transition:none}}
+</style>
 </head>
 <body data-default-feed="home">
 <button aria-hidden="true" aria-label="Open menu" id="menuToggle" tabindex="-1" title="Open menu" type="button">☰</button>
@@ -138,7 +151,16 @@
 <section class="ia-section" data-ia-positioning="v125-freeware">
 <div class="ia-shell"><div class="ia-section-head"><div class="ia-copy"><span class="ia-kicker">Featured free audio software</span><h2>Impulse Anvil.</h2><p>Turn recordings and impulse responses into new resonances, textures and spaces. Draw how two responses transform over time, then export the result as one WAV IR. Free for Windows with 127 included IRs.</p></div></div>
 <div class="ia-anatomy"><div class="ia-bare-product-shot"><div class="ia-product-window"><img alt="Impulse Anvil interface" decoding="async" loading="lazy" src="/assets/impulse-anvil/v122/IA_01_Master_Overview.webp" width="1129" height="696"></div></div><div class="ia-callout-list"><div class="ia-callout"><h3>Shape</h3><p>Turn recordings and existing IRs into unusual resonances, textures and spaces.</p></div><div class="ia-callout"><h3>Morph</h3><p>Draw how A becomes B across the IR, creating movement inside a single response.</p></div><div class="ia-callout"><h3>Keep</h3><p>Hear your edits on a track, then Bake a reusable WAV for your sound library.</p></div>
-<div class="ia-actions"><a class="ia-btn ia-btn-primary ia-btn-small" href="/impulse-anvil.html">See Impulse Anvil</a><a class="ia-btn ia-btn-small" href="https://github.com/FreQtik/freqtikWebsite.github.io/releases/download/v1.0.125/ImpulseAnvil_Freeware_v1.0.125_Windows_VST3.zip" target="_blank" rel="noopener noreferrer">Free VST3</a><a class="ia-btn ia-btn-small" href="https://github.com/FreQtik/freqtikWebsite.github.io/releases/download/v1.0.125/ImpulseAnvil_Freeware_v1.0.125_Windows_Standalone.zip" target="_blank" rel="noopener noreferrer">Free Standalone</a></div></div></div></div></section>
+<div class="ia-actions"><a class="ia-btn ia-btn-primary ia-btn-small" href="/impulse-anvil.html">See Impulse Anvil</a><a class="ia-btn ia-btn-small" href="https://github.com/FreQtik/freqtikWebsite.github.io/releases/download/v1.0.125/ImpulseAnvil_Freeware_v1.0.125_Windows_VST3.zip" target="_blank" rel="noopener noreferrer">Free VST3</a><a class="ia-btn ia-btn-small" href="https://github.com/FreQtik/freqtikWebsite.github.io/releases/download/v1.0.125/ImpulseAnvil_Freeware_v1.0.125_Windows_Standalone.zip" target="_blank" rel="noopener noreferrer">Free Standalone</a></div></div></div></div>
+<aside class="fq-community-invite" id="freqtik-discord-invite" aria-labelledby="freqtik-community-title">
+  <div class="fq-community-invite__copy">
+    <span class="fq-community-invite__label">Share your sounds</span>
+    <h3 id="freqtik-community-title">Made something with Impulse Anvil?</h3>
+    <p>Share what you made, ask a question, or tell me what could be better.</p>
+  </div>
+  <a class="fq-community-invite__link" href="https://discord.gg/qUetz23QPq" target="_blank" rel="noopener noreferrer">Join the Discord <span aria-hidden="true">&nbsp;&#8599;</span></a>
+</aside>
+</section>
 
 <section class="ia-section">
 <div class="ia-shell">
