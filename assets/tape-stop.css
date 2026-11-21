@@ -1,0 +1,46 @@
+/* FreQtik Tape Stop v1.6.1 — strictly scoped to new product and home/download additions. */
+.ia26.ts-page {--ts-ink:#071019;--ts-teal:#102c35;--ts-mineral:#e5e9e6;--ts-dark:#182c33; color:#eaf5f7;}
+.ia26.ts-page h1{font-size:clamp(2.9rem,5.2vw,5.6rem);line-height:1.04;letter-spacing:-.055em;margin:17px 0 20px;max-width:800px}
+.ia26.ts-page .ts-hero{background:radial-gradient(ellipse at 70% 8%,rgba(65,164,186,.12),transparent 58%),var(--ts-ink)}
+.ia26.ts-page .ts-hero-grid,.ia26 .ts-home-grid{display:grid;grid-template-columns:minmax(0,.80fr) minmax(0,1.2fr);gap:clamp(25px,4.2vw,70px);align-items:center}
+.ia26.ts-page .ts-intro{min-width:0}.ia26.ts-page .ts-intro .ia-lead{max-width:580px;font-size:clamp(1.1rem,1.75vw,1.43rem);color:#d1e9ee;line-height:1.56}
+.ia26.ts-page .ts-body{max-width:550px;color:#a7c4cd;font-size:1.03rem;line-height:1.8;margin-top:20px}
+.ia26.ts-page .ts-actions{margin-top:28px}.ia26.ts-page .ts-meta{font-size:.88rem;color:#9fbcc4;line-height:1.7;margin-top:22px}
+.ia26.ts-page .ts-shot{margin:0;min-width:0}.ia26.ts-page .ts-shot img,.ia26 .ts-home-shot img{width:100%;height:auto;display:block;border:1px solid rgba(135,191,203,.25);border-radius:12px;box-shadow:0 16px 54px rgba(0,0,0,.30)}
+.ia26.ts-page .ts-shot figcaption{font-size:.78rem;color:#a7c4cd;margin:12px 0 0;line-height:1.5}
+.ia26.ts-page .ts-possibilities{background:var(--ts-mineral);color:var(--ts-dark);}
+.ia26.ts-page .ts-possibilities h2{color:var(--ts-dark);max-width:840px;line-height:1.06;margin:12px 0 40px}
+.ia26.ts-page .ts-possibilities .ia-kicker{color:#235d6e}
+.ia26.ts-page .ts-uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px)}
+.ia26.ts-page .ts-uses article{min-width:0;border-top:1px solid rgba(17,58,70,.25);padding-top:21px}
+.ia26.ts-page .ts-count{font-size:.72rem;color:#266d7e;font-weight:800;letter-spacing:.14em}
+.ia26.ts-page .ts-uses h3{font-size:clamp(1.3rem,1.9vw,1.7rem);letter-spacing:-.028em;color:#15303a;line-height:1.18;margin:16px 0}
+.ia26.ts-page .ts-uses p{line-height:1.75;color:#3d535a}
+.ia26.ts-page .ts-sidechain{background:var(--ts-teal)}
+.ia26.ts-page .ts-split{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:clamp(28px,4.5vw,75px);align-items:center}
+.ia26.ts-page .ts-split-copy p{font-size:1.03rem;color:#c2d9df;line-height:1.8;margin-top:16px}
+.ia26.ts-page .ts-split-copy .ts-small{font-size:.89rem;color:#a9c4cb}
+.ia26.ts-page .ts-finish{background:var(--ts-ink);text-align:center}
+.ia26.ts-page .ts-finish-inner{max-width:800px}
+.ia26.ts-page .ts-finish h2{line-height:1.07}
+.ia26.ts-page .ts-finish p:not(.ts-meta){max-width:650px;margin:18px auto 22px;color:#bed6dc;line-height:1.8}
+.ia26.ts-page .ts-finish .ia-actions{justify-content:center;flex-wrap:wrap}
+.ia26.ts-page .ts-finish code,.ia26 .ts-download-panel code{font-size:.88em;white-space:normal;overflow-wrap:anywhere}
+/* Homepage: one editorial feature, distinct from the Anvil spotlight. */
+.ia26 .ts-home-feature{background:#e5e9e6;color:#1c333b}
+.ia26 .ts-home-feature h2{color:#152e38;margin:14px 0}
+.ia26 .ts-home-feature .ia-kicker{color:#236679}
+.ia26 .ts-home-copy p{color:#405961;font-size:1rem;line-height:1.76;margin:10px 0}
+.ia26 .ts-home-copy .ts-home-lead{font-size:clamp(1.3rem,2vw,1.65rem);font-weight:650;color:#1d3b46;line-height:1.35}
+.ia26 .ts-home-feature .ia-actions{margin-top:24px;flex-wrap:wrap}
+.ia26 .ts-home-feature .ia-btn{color:#16333c;border-color:#8cb1bb;background:#fff;box-shadow:none}
+.ia26 .ts-home-feature .ia-btn-primary{background:#14657c;color:#fff;border-color:#14657c}
+.ia26 .ts-home-feature .ts-home-shot{display:block;min-width:0;text-decoration:none}
+.ia26 .ts-home-feature .ts-home-shot:focus-visible{outline:3px solid #166b86;outline-offset:6px}
+.ia26 .ts-download-panel{border-top:1px solid rgba(165,212,225,.2);background:linear-gradient(135deg,#102b35,#06131c)}
+.ia26 .ts-download-panel p{max-width:790px;color:#c2d7de;line-height:1.75;margin:14px 0 22px}
+.ia26 .ts-download-panel .ts-install{font-size:.9rem;color:#9dbcc7;margin-top:22px}
+.ia26.ts-page a:focus-visible,.ia26 .ts-download-panel a:focus-visible,.ia26 .ts-home-feature .ia-btn:focus-visible{outline:3px solid #229bd1;outline-offset:4px}
+@media(max-width:900px){.ia26.ts-page .ts-hero-grid,.ia26.ts-page .ts-split,.ia26 .ts-home-grid{grid-template-columns:1fr}.ia26.ts-page .ts-hero .ts-shot-main{max-width:950px}.ia26.ts-page .ts-uses{grid-template-columns:1fr 1fr}.ia26.ts-page .ts-split-copy{max-width:780px}}
+@media(max-width:620px){.ia26.ts-page .ts-uses{grid-template-columns:1fr;gap:22px}.ia26.ts-page .ts-shot img,.ia26 .ts-home-shot img{border-radius:8px}.ia26.ts-page .ts-finish .ia-actions,.ia26 .ts-home-feature .ia-actions{flex-direction:column;align-items:stretch}.ia26.ts-page .ts-meta{font-size:.79rem}}
+@media(prefers-reduced-motion:reduce){.ia26.ts-page *, .ia26 .ts-home-feature * {animation:none!important;scroll-behavior:auto!important}}

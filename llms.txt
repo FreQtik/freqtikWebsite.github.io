@@ -45,3 +45,4 @@ Legal pages containing required personal information are intentionally excluded 
 <!-- IA_MAC_BETA_LLM_END -->
 
 - v1.0.124 release focus: This maintenance update focuses on playback stability, more predictable level handling, and smoother editing workflows.
+- [FreQtik Tape Stop](https://freqtik.com/tape-stop.html) - free Windows VST3 for tape stops, repeating patterns, Sidechain and motor drift.

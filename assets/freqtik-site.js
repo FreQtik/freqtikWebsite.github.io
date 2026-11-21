@@ -1339,3 +1339,23 @@ window.addEventListener('hashchange', () => {
   }
 }());
 /* IA_EDIT_BAKE_VIDEO_FIX27_JS_END */
+
+/* FREQTIK_TAPESTOP_NAV_V161: add one audio-tool link without changing existing pages. */
+(function () {
+  function addTapeStopToAudioMenu() {
+    var menus = document.querySelectorAll('#audioToolsMenu');
+    for (var i = 0; i < menus.length; i++) {
+      var menu = menus[i];
+      if (menu.querySelector('a[href="/tape-stop.html"]')) continue;
+      var link = document.createElement('a');
+      link.href = '/tape-stop.html';
+      link.setAttribute('role', 'menuitem');
+      link.textContent = 'Tape Stop';
+      var before = menu.querySelector('a[href="/master-desktop-tap.html"]');
+      if (before) menu.insertBefore(link, before);
+      else menu.appendChild(link);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addTapeStopToAudioMenu, {once:true});
+  else addTapeStopToAudioMenu();
+})();

@@ -84,3 +84,7 @@ YouTube: https://www.youtube.com/@FreQtik
 Instagram: https://www.instagram.com/freqtik/
 
 Legal pages containing required personal information are intentionally not reproduced in this public project reference.
+
+## FreQtik Tape Stop v1.6.1
+Product: https://freqtik.com/tape-stop.html
+Free Windows VST3 tape-motion effect. Manual Stop/Start, repeating DOWN/UP patterns, Sidechain Follow/Trigger, and Run Motor can work together. Download: https://github.com/FreQtik/free-tools/releases/download/v1.6.1/FreQtik_Tape_Stop_v1.6.1_Windows_VST3.zip
